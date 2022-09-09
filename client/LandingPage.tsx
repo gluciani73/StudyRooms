@@ -5,3 +5,6 @@ const landingPage = (a:number, b:number) =>{
 const aaaa = () =>{
     return "Hola"
 }
+ const bbbb = () => {
+
+ }
