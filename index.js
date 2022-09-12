@@ -7,3 +7,11 @@ function laCajaDePandora(numero) {
         console.log("numero impar")
     }
 }
+
+function guillermo() {
+    return {
+        nombre: 'Guillermo',
+        edad: 49,
+        nacionalidad: 'Argentino'
+    }
+}
