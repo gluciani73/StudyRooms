@@ -36,6 +36,12 @@ module.exports = (sequelize) => {
         avatar: {
             type: DataTypes.STRING,
         },
+        admin: {
+            type: DataTypes.BOOLEAN
+        },
+        premium: {
+            type: DataTypes.BOOLEAN
+        }
     },
         {
             // timestamps: false
