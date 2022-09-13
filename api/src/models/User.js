@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
         userName: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         authType: {
             type: DataTypes.STRING,
@@ -29,6 +30,7 @@ module.exports = (sequelize) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         hashedPassword: {
             type: DataTypes.STRING,
@@ -40,6 +42,9 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN
         },
         premium: {
+            type: DataTypes.BOOLEAN
+        },
+        active: {
             type: DataTypes.BOOLEAN
         }
     },

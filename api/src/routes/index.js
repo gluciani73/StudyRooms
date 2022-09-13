@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const help = require('../controllers/help.js')
+const authRouter = require('./auth.routes.js')
 
-router.use("/", help)
+router.use(authRouter)
+router.use("/", (req,res)=> res.send("todo ok"))
 
 module.exports = router;
