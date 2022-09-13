@@ -2,10 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const Question = require('./models/Question');
-const {
-    DB_USER, DB_PASSWORD, DB_HOST,
-} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/StudyRooms`, {
     logging: false, // set to console.log to see the raw SQL queries
@@ -31,26 +28,26 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Users, Questions, Answers, Reviews, Categories, Comments } = sequelize.models;
+const { User, Question, Answer, Review, Category, Comment } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 // Country.belongsToMany(Activity, { through: 'country_activity' });
 // Activity.belongsToMany(Country, { through: 'country_activity' });
 
-Users.hasMany(Questions);
-Users.hasMany(Answers);
-Users.hasMany(Reviews);
-Users.hasMany(Comment);
-Questions.belongsTo(Users);
-Questions.hasMany(Answers);
-Questions.belongsToMany(Categories, { through: 'question_category' });
-Categories.belongsToMany(Questions, { through: 'question_category' });
-Questions.hasMany(Comments);
-Answers.belongsTo(Questions);
-Answers.belongsTo(Users);
-Reviews.belongsTo(Users);
-Comments.belongsTo(Questions);
+User.hasMany(Question);
+User.hasMany(Answer);
+User.hasMany(Review);
+User.hasMany(Comment);
+Question.belongsTo(User);
+Question.hasMany(Answer);
+Question.hasMany(Comment);
+Question.belongsToMany(Category, { through: 'question_category' });
+Category.belongsToMany(Question, { through: 'question_category' });
+Answer.belongsTo(Question);
+Answer.belongsTo(User);
+Review.belongsTo(User);
+Comment.belongsTo(Question);
 
 
 module.exports = {
