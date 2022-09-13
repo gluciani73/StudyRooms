@@ -3,7 +3,6 @@ import NavBar from "./NavBar";
 const Home = () => {
   return (<div>
     <NavBar/>
-
     <h1>Home</h1>
 
     <h3>Ipsum Lorem</h3>

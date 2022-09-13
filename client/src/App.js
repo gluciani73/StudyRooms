@@ -9,6 +9,7 @@ import  SearchBar  from './componentes/SearchBar';
 import  Temas  from './componentes/Temas';
 import  Usuarios  from './componentes/Usuarios';
 import  UserForm  from './componentes/UserForm';
+import Donations from './componentes/Donations';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
     <Route path='/UserForm' element={<UserForm/>}/>
     <Route path='/Preguntas' element={<Preguntas/>}/>
     <Route path='/' element={<LandingPage/>}/>
+    <Route path='/Donacion' element={<Donations/>}/>
 
    </Routes>
    </Router>
