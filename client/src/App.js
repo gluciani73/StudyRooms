@@ -1,10 +1,33 @@
 import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import  Home  from './componentes/Home';
+import  LandingPage  from './componentes/Landing page';
+import  NavBar  from './componentes/NavBar';
+import  Preguntas  from './componentes/Preguntas';
+import  SearchBar  from './componentes/SearchBar';
+import  Temas  from './componentes/Temas';
+import  Usuarios  from './componentes/Usuarios';
+import  UserForm  from './componentes/UserForm';
 
 function App() {
   return (
-    <div className="App">
-    <h1>Hello world</h1>
-    </div>
+   <Router>
+   
+   <Routes>
+
+
+    <Route path='/Home' element={<Home/>}/>
+    <Route path='/NavBar' element={<NavBar/>}/>
+    <Route path='/SearchBar' element={<SearchBar/>}/>
+    <Route path='/Usuarios' element={<Usuarios/>}/>
+    <Route path='/Temas' element={<Temas/>}/>
+    <Route path='/UserForm' element={<UserForm/>}/>
+    <Route path='/Preguntas' element={<Preguntas/>}/>
+    <Route path='/' element={<LandingPage/>}/>
+
+   </Routes>
+   </Router>
   );
 }
 
