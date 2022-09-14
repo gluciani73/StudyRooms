@@ -1,8 +1,16 @@
 const { Router } = require('express');
 const router = Router();
+
 const usersRoutes = require('./users.js')
+const questions = require('./question')
+const answer = require('./answer.js');
 
 router.use(usersRoutes)
-router.get("/", (req,res)=> res.send("todo ok"))
+
+router.use(answer)
+
+router.use("/questions", questions)
+
+router.get("/", (req,res)=> res.send("estamos en '/'"))
 
 module.exports = router;
