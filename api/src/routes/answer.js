@@ -6,7 +6,7 @@ const { Answer, Question } = require('../db');
 // ---------------------- POST /answer ---------------------------
 router.post('/answer', async (req, res) => {
     try {
-        // console.log('-------POST /answer -------------- ')
+        // console{ questionId, title, answer }.log('-------POST /answer -------------- ')
         const { questionId, title, answer } = req.body;
 
         // console.log('Posteo Answer');
@@ -33,3 +33,5 @@ router.post('/answer', async (req, res) => {
         console.log(error)
     }
 });
+
+module.exports = router;
