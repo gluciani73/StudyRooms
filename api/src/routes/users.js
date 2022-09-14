@@ -6,8 +6,8 @@ const Stripe = require("stripe")
 const stripe = new Stripe("sk_test_51LhhasEmp5dtE89LTANXUW3bFI74zGdEr5LhcWZGe6HcgGy91kP984qGYfFyaZJ9OHaIc82wGotxWrdMHPN1tf6j00i1FVnNqT")
 const express = require("express")
 
-router.post('/auth/signup', signUp)
-router.post('/auth/signin', signIn)
+router.post('/users/signup', signUp)
+router.post('/users/signin', signIn)
 // pasarela de pago
 router.use(express.json())
 
