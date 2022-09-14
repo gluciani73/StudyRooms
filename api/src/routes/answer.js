@@ -17,7 +17,6 @@ const mockData = async () => {
     }
 
     const adminUser = await User.create(newUser);
-    console.log(adminUser)
 }
 
 mockData();
