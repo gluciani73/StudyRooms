@@ -11,8 +11,8 @@ const mockData = async () => {
         email: "email.admin@studyrooms.com",
         hashedPassword: "xxxxxxx",
         avatar: "",
-        isAdmin: true,
-        isPremium: true,
+        admin: true,
+        premium: true,
         active: true
     }
 
