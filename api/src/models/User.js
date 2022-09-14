@@ -38,10 +38,10 @@ module.exports = (sequelize) => {
         avatar: {
             type: DataTypes.STRING,
         },
-        admin: {
+        isAdmin: {
             type: DataTypes.BOOLEAN
         },
-        premium: {
+        isPremium: {
             type: DataTypes.BOOLEAN
         },
         active: {
