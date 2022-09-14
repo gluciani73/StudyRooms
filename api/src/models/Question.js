@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        authType: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -25,6 +29,9 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        isFeatured: {
+            type: DataTypes.BOOLEAN,
+        }
     },
         {
             // timestamps: false
