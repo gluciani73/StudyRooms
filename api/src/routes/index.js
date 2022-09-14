@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const authRouter = require('./auth.routes.js')
+const usersRoutes = require('./users.js')
 
-router.use(authRouter)
-router.use("/", (req,res)=> res.send("todo ok"))
+router.use(usersRoutes)
+router.get("/", (req,res)=> res.send("todo ok"))
 
 module.exports = router;

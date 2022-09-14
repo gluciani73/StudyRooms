@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { User } = require('../db.js')
 
-const {AUTH_SECRET} = process.env
+const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
 
 const signUp = async (req, res) => {
     const {userName, password, firstName, lastName, email, avatar } = req.body
