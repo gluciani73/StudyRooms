@@ -11,6 +11,6 @@ router.use(answer)
 
 router.use("/questions", questions)
 
-router.get("/", (req,res)=> res.send("estamos en '/'"))
+router.get("/", (req,res)=> res.send("Respuesta del path / "))
 
 module.exports = router;
