@@ -8,7 +8,7 @@ import home from '../../recursos/home.png'
 
 const NavBar = () => {
   return ( 
-   <div>
+   <div >
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
          
