@@ -2,14 +2,16 @@ const { Router } = require('express');
 const router = Router();
 
 const usersRoutes = require('./users.js')
-const questions = require('./question')
-const answer = require('./answer.js');
+const questionsRoutes = require('./question.js')
+const answersRoutes = require('./answer.js');
+const paymentRoutes = require('./payments.js')
 
-router.use(usersRoutes)
+router.use("/users", usersRoutes)
+router.use("/questions", questionsRoutes)
+router.use("/answers", answersRoutes)
+router.use("/payments", paymentRoutes)
 
-router.use(answer)
 
-router.use("/questions", questions)
 
 router.get("/", (req,res)=> res.send("Respuesta del path / "))
 
