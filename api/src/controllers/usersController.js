@@ -75,4 +75,8 @@ const signIn = async (req, res) => {
     }
 }
 
-module.exports = { signUp, signIn }
+const getAllUsers = async (req,res) => {
+    return res.status(200).send("los usuarios")
+}
+
+module.exports = { signUp, signIn, getAllUsers }
