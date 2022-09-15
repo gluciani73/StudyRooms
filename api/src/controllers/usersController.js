@@ -75,4 +75,10 @@ const signIn = async (req, res) => {
     }
 }
 
-module.exports = {signUp, signIn}
+const getAllUsers = async (req,res)=>{
+    const results = await User.findAll()
+    // por el momento manda todo, hay q editar qué se manda al front!
+    res.send(results)
+}
+
+module.exports = {signUp, signIn, getAllUsers}

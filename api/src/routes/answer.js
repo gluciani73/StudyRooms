@@ -23,7 +23,7 @@ mockData();
 
 
 // ---------------------- POST /answer ---------------------------
-router.post('/answer', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         console.log(req.body) // .log('-------POST /answer -------------- ')
         const { userId, questionId, title, answer } = req.body;

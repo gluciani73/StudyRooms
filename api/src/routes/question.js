@@ -3,7 +3,7 @@ const { Question, Category } = require('../db');
 
 const router = Router();
 
-router.get('/Question', async (req, res) => {
+router.get('/', async (req, res) => {
     const allQuestions = await Question.findAll({ include: Category })
     //filtro para el front que trae todas las Questions
     const filterQ = allQuestions.map(e => e.userId.toLowerCase())
@@ -14,7 +14,7 @@ router.get('/Question', async (req, res) => {
 });
 
 
-router.post('/Question', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
 
     const {
         userId,
