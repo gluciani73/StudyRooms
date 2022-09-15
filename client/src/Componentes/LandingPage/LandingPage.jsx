@@ -1,10 +1,11 @@
-import NavBar from "../NavBar/NavBar";
+import NavBar from "../NavBar"
+import Landing from '../recursos/landing.jpg'
 
 const LandingPage = () => {
   return (
   <div>
     <NavBar/>
-    <img className="LP-imagen" src="https://wallpapers.com/wallpapers/isolated-room-hdensap63gh9xey7.html?embed=true" alt="img" />
+    <img  src={Landing} alt="img" />
     
   </div>  
   
