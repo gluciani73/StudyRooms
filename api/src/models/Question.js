@@ -13,10 +13,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        authType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        // authType: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -25,7 +25,19 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        categoryId: {
+        // categoryId: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        // },
+        ratingAverage: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        ratingCount: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        voteCount: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -36,7 +48,7 @@ module.exports = (sequelize) => {
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };

@@ -1,4 +1,4 @@
-const { Question, Category } = require('../db.js');
+const { Question, Category, User } = require('../db.js');
 
 const getQuestions = async (req, res) => {
     const allQuestions = await Question.findAll({ include: Category })
@@ -16,29 +16,24 @@ const createQuestion = async (req, res, next) => {
         userId,
         title,
         description,
-        Category
+        categories
     } = req.body;
 
     try {
-        let Question = await Question.create({ userId, title, description, Category })
-        await Question.setQuestions(Question)
-
-        let QuestionWithCategory = await Question.findOne({
-            where: { userId: userId },
-            attributes: {
-                exclude: ['updatedAt', 'createdAt'],
-            },
-            include: {
-                model: Category,
-                through: {
-                    attributes: []
-                }
-            }
+        let newQuestion = await Question.create({
+            userId, title, description, ratingAverage: 0, ratingCount: 0, voteCount: 0, isFeatured: false
         })
-        return res.json(QuestionWithCategory)
+        // console.log(newQuestion);
+
+        categories.forEach(async (c) => {
+            const category = await Category.findOne({ where: { category: c } }); // 
+            if (category) { await newQuestion.addCategory(category) };           // 
+        });
+
+        return res.json(newQuestion)
     } catch (error) {
         next(error)
     }
 }
 
-module.exports = {getQuestions, createQuestion}
+module.exports = { getQuestions, createQuestion }
