@@ -1,15 +1,16 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import  Home  from './componentes/Home/Home';
-import  LandingPage  from './componentes/LandingPage/LandingPage';
-import  NavBar  from './componentes/NavBar/NavBar';
-import  Preguntas  from './componentes/Preguntas/ObtenerPreguntas';
-import  SearchBar  from './componentes/SearchBar/SearchBar';
-import  Temas  from './componentes/Temas/Temas';
-import  Usuarios  from './componentes/Usuarios/Usuarios';
-import  UserForm  from './componentes/Usuarios/UserForm';
-import Donations from './componentes/Donations/Donations';
+import Home from './Componentes/Home/Home'
+import NavBar from './Componentes/NavBar/NavBar'
+import SearchBar from './Componentes/SearchBar/SearchBar'
+import Usuarios from './Componentes/Usuarios/Usuarios'
+import Temas from './Componentes/Temas/Temas'
+import UserForm from './Componentes/Usuarios/UserForm';
+import Preguntas from './Componentes/Preguntas/ObtenerPreguntas';
+import LandingPage from './Componentes/LandingPage/LandingPage';
+import Donations from './Componentes/Donations/Donations';
+
 
 function App() {
   return (
