@@ -1,10 +1,8 @@
 import React  from "react";
-import Searchbar from "../SearchBar/SearchBar";
 
 const Filters = () =>{
     return(
         <div>
-            <Searchbar/>
             <h1>Filtros</h1>
             <p>Categoria</p>
             <select class="form-select">

@@ -1,5 +1,5 @@
-import NavBar from "../NavBar"
-import Landing from '../recursos/landing.jpg'
+import NavBar from "../NavBar/NavBar"
+import Landing from '../../recursos/landing.jpg'
 
 const LandingPage = () => {
   return (
