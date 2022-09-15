@@ -1,14 +1,16 @@
-const Preguntas = () => {
-    return (
-    
-    <div>
-        <h3>Preguntas</h3>
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
-        <h4>Pregunta 1</h4>
-        <h5>Ipsum Lorem</h5>
-    </div>  
+const Preguntas = () => {
+
     
-    );
+    
+    return (
+    <div>
+        <h1>display de Preguntas</h1>
+
+    </div>
+    )
 }
  
 export default Preguntas;
