@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-
+import NavBar from "./NavBar";
+import './Styles.css'
 
 const LandingPage = () => {
   return (
   <div>
-    <h1>Landing Page</h1>
-    <h3>Ipsum Lorem</h3>
-    <Link to='/Home'>Home</Link>
+    <NavBar/>
+    <img className="LP-imagen" src="https://wallpapers.com/wallpapers/isolated-room-hdensap63gh9xey7.html?embed=true" alt="img" />
+    
   </div>  
   
   );
