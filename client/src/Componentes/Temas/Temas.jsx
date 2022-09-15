@@ -1,5 +1,5 @@
-import NavBar from "./NavBar";
-import Preguntas from "./Preguntas";
+import NavBar from "../NavBar/NavBar";
+import Preguntas from "../Preguntas/ObtenerPreguntas";
 
 const Temas = () => {
   return ( 

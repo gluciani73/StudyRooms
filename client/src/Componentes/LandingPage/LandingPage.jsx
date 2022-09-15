@@ -1,5 +1,4 @@
-import NavBar from "./NavBar";
-import './Styles.css'
+import NavBar from "../NavBar/NavBar";
 
 const LandingPage = () => {
   return (

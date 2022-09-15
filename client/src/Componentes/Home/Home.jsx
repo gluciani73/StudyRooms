@@ -1,7 +1,7 @@
 
 
 import Filters from "./Filters";
-import NavBar from "./NavBar";
+import NavBar from "../NavBar/NavBar";
 
 
 const Home = () => {

@@ -1,10 +1,10 @@
 
 import 'bootstrap'
-import logo from '../recursos/logo.png'
-import config from '../recursos/config.png'
-import notification from '../recursos/notification.png'
-import user from '../recursos/user.png'
-import home from '../recursos/home.png'
+import logo from '../../recursos/logo.png'
+import config from '../../recursos/config.png'
+import notification from '../../recursos/notification.png'
+import user from '../../recursos/user.png'
+import home from '../../recursos/home.png'
 
 const NavBar = () => {
   return ( 
