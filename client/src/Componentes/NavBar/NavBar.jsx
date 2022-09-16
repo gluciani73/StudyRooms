@@ -5,6 +5,7 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import user from '../../recursos/user.png'
 import home from '../../recursos/home.png'
+import CrearPreguntas from '../Preguntas/CrearPreguntas'
 
 const NavBar = () => {
   return ( 
@@ -23,7 +24,7 @@ const NavBar = () => {
             <form class="d-flex">
                <button type="button" class="btn btn-primary d-flex rounded-pill">
                   <img class="pe-3" src={home} alt="home" height='30px' />
-                  <a class="nav-link active" aria-current="page" href="#"><span class="align-middle">Home</span></a>
+                  <a class="nav-link active" aria-current="page" href="/Home"><span class="align-middle">Home</span></a>
                </button>
             </form>
             
@@ -48,7 +49,7 @@ const NavBar = () => {
                   <form class="d-flex"> 
             
                      <button type="button" class="btn btn-primary d-flex rounded-pill text-muted">
-                        <a class="nav-link active" aria-current="page" href="/Preguntas"><span class="align-middle">+ Ask Question</span></a>
+                        <a class="nav-link active" aria-current="page" href="/CrearPreguntas"><span class="align-middle">+ Ask Question</span></a>
                      </button>
                   </form>
             

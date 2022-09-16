@@ -1,16 +1,16 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './componentes/Home/Home'
-import NavBar from './componentes/NavBar/NavBar'
-import SearchBar from './componentes/SearchBar/SearchBar'
-import Usuarios from './componentes/Usuarios/Usuarios'
-import Temas from './componentes/Temas/Temas'
-import UserForm from './componentes/Usuarios/UserForm';
-import Preguntas from './componentes/Preguntas/ObtenerPreguntas';
-import LandingPage from './componentes/LandingPage/LandingPage';
-import Donations from './componentes/Donations/Donations';
-
+import Home from './Componentes/Home/Home'
+import NavBar from './Componentes/NavBar/NavBar'
+import SearchBar from './Componentes/SearchBar/SearchBar'
+import Usuarios from './Componentes/Usuarios/Usuarios'
+import Temas from './Componentes/Temas/Temas'
+import UserForm from './Componentes/Usuarios/UserForm';
+import Preguntas from './Componentes/Preguntas/ObtenerPreguntas';
+import LandingPage from './Componentes/LandingPage/LandingPage';
+import Donations from './Componentes/Donations/Donations';
+import CrearPreguntas from './Componentes/Preguntas/CrearPreguntas'
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
     <Route path='/Preguntas' element={<Preguntas/>}/>
     <Route path='/' element={<LandingPage/>}/>
     <Route path='/Donacion' element={<Donations/>}/>
-
+    <Route path='/CrearPreguntas' element={<CrearPreguntas/>}/>
    </Routes>
    </Router>
   );
