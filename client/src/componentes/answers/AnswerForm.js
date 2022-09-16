@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import './AnswerForm.css';
 
 export default function AnswerForm ({answerInitial, buttonText, buttonAction}) {
 
@@ -30,10 +31,11 @@ export default function AnswerForm ({answerInitial, buttonText, buttonAction}) {
 
     return (
         <div>
-            <form onSubmit={e => handleSubmit(e)}>
-                <div>
-                    <label className="createTitle">Answer: </label>
+            <form className='answerFormContainer' onSubmit={e => handleSubmit(e)}>
+                <div className='inputLabelField'>
+                    <label className="answerTitle">Answer: </label>
                     <textarea placeholder='Answer description'
+                              className='answerTextarea'
                               onChange={(e) => handleChange(e)}
                               onBlur={() => validateAnswer()}
                               value={answerItem.answer}
