@@ -3,7 +3,7 @@
         {
             "userId": 1,
             "title": "title",
-            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "description": "Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum",
             "categories": [
                 "Quimica",
                 "Biologia",
@@ -13,7 +13,7 @@
         {
             "userId": 2,
             "title": "title",
-            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "description": "Lorem ipsum dolor sit amet. ",
             "categories": [
                 "Quimica",
                 "Biologia",
