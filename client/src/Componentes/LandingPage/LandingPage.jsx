@@ -1,12 +1,12 @@
-import NavBar from "../NavBar/NavBar"
+import NavBarNoLogIn from "../NavBar/NavBar-nologin"
 import Landing from '../../recursos/landing.jpg'
-import UserForm from "../Usuarios/UserForm";
+import Login from "../Usuarios/Login";
 
 const LandingPage = () => {
   return (
   <div>
  
-    <NavBar/>
+    <NavBarNoLogIn/>
  
     <div class="d-flex">
       
@@ -15,7 +15,7 @@ const LandingPage = () => {
       </div>
   
       <div>
-        <UserForm/>
+        <Login/>
       </div>
 
     </div>
