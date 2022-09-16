@@ -80,7 +80,7 @@ const getAllUsers = async (req,res) => {
     try {
         const results = await User.findAll()
         if(results){
-            return res.status(200).json(results)
+            return res.status(200).json({data: results, error: null})
         }
         else{
             return res.status(404).json({data: [], error:"no se encontraron usuarios"})
@@ -91,4 +91,22 @@ const getAllUsers = async (req,res) => {
     
 }
 
-module.exports = { signUp, signIn, getAllUsers }
+const getUserById = async (req,res) => {
+
+    try {
+        const id = parseInt(req.params.userId)
+        if(!id) return res.status(400).json({data:null, error: "wrong params / no user with that id"})
+
+        const results = await User.findByPk(id)
+        if(results){
+            return res.status(200).json({data: results, error: null})
+        }
+        else{
+            return res.status(404).json({data: [], error:"no se encontró el usuario con ese Id"})
+        }
+    } catch (error) {
+        return res.status(404).json({error:"falla el usersController.js", data: null})
+    } 
+}
+
+module.exports = { signUp, signIn, getAllUsers, getUserById }
