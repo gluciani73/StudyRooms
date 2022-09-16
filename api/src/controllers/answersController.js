@@ -2,31 +2,32 @@ const { Answer, Question, User } = require('../db');
 
 const createAnswer = async (req, res) => {
     try {
-        console.log(req.body) // .log('-------POST /answer -------------- ')
-        const { userId, questionId, title, answer } = req.body;
+        // console.log(req.body) // .log('-------POST /answer -------------- ')
+        const { userId, questionId, answer, rating } = req.body;
 
         // console.log('Posteo Answer');
-        if (!answer) {
-            return res.status(401).send("no hay datos")
+        if (!answer || !userId || !questionId || !rating) {
+            return res.status(401).json({
+                error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
+                data: null
+            })
         }
-        let newAnswer = {         // creo nuevo objetos con datos de la answer pasada x body
+        let newAnswer = {    // creo nuevo objetos con datos de la answer pasada x body
             userId,
             questionId,
-            title,
-            answer
+            answer,
+            rating
         }
 
         const qAnswer = await Answer.create(newAnswer);
-
-        const question = await Question.findOne({ where: { id: questionId } }); // busco pregunta
-        if (question) { await answer.addQuestion(qAnswer) };            // y le agrego la answer pasada
-        let msg = `Se creo la respuesta ${answer.id}.`
+        // let msg = `Se creo la respuesta ${qAnswer.id}.`
         return res
             .status(201)
-            .send(msg)
+            .json({ error: null, data: qAnswer })
     } catch (error) {
-        console.log(error)
+        // console.log(error)
+        return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
     }
 }
 
-module.exports = {createAnswer}
+module.exports = { createAnswer }

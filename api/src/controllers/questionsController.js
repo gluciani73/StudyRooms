@@ -1,14 +1,14 @@
-const { Question, Category } = require('../db.js');
+const { Question, Category, User } = require('../db.js');
 
 const getQuestions = async (req, res) => {
-    const allQuestions = await Question.findAll({ include: Category })
+    const allQuestions = await Question.findAll()
     //filtro para el front que trae todas las Questions
-    const filterQ = allQuestions.map(e => e.userId.toLowerCase())
+    /* const filterQ = allQuestions.map(e => e.userId.toLowerCase())
     const total = filterQ.filter((item, index) => {
         return filterQ.indexOf(item) === index;
-    })
+    }) */
 
-    return res.json(total)
+    return res.json(allQuestions)
 }
 
 const createQuestion = async (req, res, next) => {
@@ -16,29 +16,29 @@ const createQuestion = async (req, res, next) => {
         userId,
         title,
         description,
-        Category
+        categories
     } = req.body;
 
-    try {
-        let Question = await Question.create({ userId, title, description, Category })
-        await Question.setQuestions(Question)
+    if(!userId || !title || !description || !categories){
+        return res.status(401).json({error:"faltan datos", data: null})
+    }
 
-        let QuestionWithCategory = await Question.findOne({
-            where: { userId: userId },
-            attributes: {
-                exclude: ['updatedAt', 'createdAt'],
-            },
-            include: {
-                model: Category,
-                through: {
-                    attributes: []
-                }
-            }
+    try {
+
+        let newQuestion = await Question.create({
+            userId, title, description, ratingAverage: 0, ratingCount: 0, voteCount: 0, isFeatured: false
         })
-        return res.json(QuestionWithCategory)
+
+        categories.forEach(async (c) => {
+            const category = await Category.findOne({ where: { category: c } }); // 
+            if (category) { await newQuestion.addCategory(category) };           // 
+        });
+
+        return res.json(newQuestion)
     } catch (error) {
-        next(error)
+        console.log(error.message);
+        //next(error)
     }
 }
 
-module.exports = {getQuestions, createQuestion}
+module.exports = { getQuestions, createQuestion }

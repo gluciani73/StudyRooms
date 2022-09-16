@@ -13,18 +13,14 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        authType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         questionId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        // title: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
         answer: {
             type: DataTypes.STRING,
             allowNull: false,

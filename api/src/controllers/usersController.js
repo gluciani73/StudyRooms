@@ -76,7 +76,19 @@ const signIn = async (req, res) => {
 }
 
 const getAllUsers = async (req,res) => {
-    return res.status(200).send("los usuarios")
+
+    try {
+        const results = await User.findAll()
+        if(results){
+            return res.status(200).json(results)
+        }
+        else{
+            return res.status(404).json({data: [], error:"no se encontraron usuarios"})
+        }
+    } catch (error) {
+        return res.status(404).json({error:"falla el usersController.js", data: null})
+    }
+    
 }
 
 module.exports = { signUp, signIn, getAllUsers }

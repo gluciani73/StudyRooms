@@ -1,0 +1,90 @@
+{
+    "questions": [
+        {
+            "userId": 1,
+            "title": "title",
+            "description": "description",
+            "categories": ["Quimica","Biologia","Economia"]
+        },
+        {
+            "userId": 2,
+            "title": "title",
+            "description": "description",
+            "categories": ["Quimica","Biologia","Economia"]
+        },
+        {
+            "userId": 2,
+            "title": "title",
+            "description": "description",
+            "categories": ["Matematicas","Historia","Geografia"]
+        },
+        {
+            "userId": 3,
+            "title": "title",
+            "description": "description",
+            "categories": ["Matematicas","Historia","Geografia"]
+        },
+        {
+            "userId": 3,
+            "title": "title",
+            "description": "description",
+            "categories": ["Programacion","Filosofia","Lenguas"]
+        }
+    ],
+
+    "answers": [
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },{
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 3,
+            "questionId": 1,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 3,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 2,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 2,
+            "questionId": 4,
+            "answer": "answer",
+            "rating": 5
+        }
+    ]
+}
