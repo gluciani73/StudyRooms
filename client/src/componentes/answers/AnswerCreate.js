@@ -1,7 +1,7 @@
 import React from "react";
 import AnswerForm from "./AnswerForm";
 import {useDispatch} from "react-redux";
-import {createAnswerItem} from "../../Actions"
+import {createAnswerItem} from "../../Controllers/Actions/answerActions"
 import './AnswerCreate.css';
 
 export default function AnswerCreate({userId, questionId})  {

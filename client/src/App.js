@@ -11,6 +11,7 @@ import Preguntas from './Componentes/Preguntas/ObtenerPreguntas';
 import LandingPage from './Componentes/LandingPage/LandingPage';
 import Donations from './Componentes/Donations/Donations';
 import CrearPreguntas from './Componentes/Preguntas/CrearPreguntas'
+import AnswerList from "./Componentes/answers/AnswerList";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
     <Route path='/' element={<LandingPage/>}/>
     <Route path='/Donacion' element={<Donations/>}/>
     <Route path='/CrearPreguntas' element={<CrearPreguntas/>}/>
+    <Route path='/answers/:questionId' element={<AnswerList/>}/>
+
    </Routes>
    </Router>
   );

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAnswerList} from "../../Actions";
+import {getAnswerList} from "../../Controllers/Actions/answerActions";
 import {useParams} from "react-router-dom";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';

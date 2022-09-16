@@ -1,13 +1,13 @@
 import {
     GET_ANSWER_LIST,
     CREATE_ANSWER_ITEM,
-} from "../Actions";
+} from "../Actions/answerActions";
 
 const initialState={
     answerList: [],
 }
 
-const rooReducer = (state = initialState, {type, payload}) => {
+const answerReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case GET_ANSWER_LIST:
             return {
@@ -24,4 +24,4 @@ const rooReducer = (state = initialState, {type, payload}) => {
     }
 }
 
-export default rooReducer;
+export default answerReducer;
