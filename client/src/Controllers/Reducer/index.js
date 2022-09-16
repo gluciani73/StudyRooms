@@ -4,5 +4,5 @@ import answerReducer from "./answerReducer";
 
 export default combineReducers({
     userReducer,
-    answerList: answerReducer,
+    answerStore: answerReducer,
 })

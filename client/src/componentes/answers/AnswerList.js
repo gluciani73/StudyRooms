@@ -9,7 +9,7 @@ export default function AnswerList () {
 
     const { questionId } = useParams();
     const dispatch = useDispatch();
-    const answerList = useSelector(state => state.answerList);
+    const answerList = useSelector(state => state.answerStore.answerList);
     
     useEffect(() => {
         if (answerList.length === 0) {
