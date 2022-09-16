@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAnswerList} from "../../Actions";
 import {useParams} from "react-router-dom";
 import AnswerCreate from "./AnswerCreate";
+import './AnswerList.css';
 
 export default function AnswerList () {
 
@@ -18,10 +19,9 @@ export default function AnswerList () {
 
     function renderAnswerItem(answerItem) {
         return (
-            <div key={answerItem.id}>
+            <div className='singleAnswer' key={answerItem.id}>
                 <h3>Answer {answerItem.id}</h3>
                 <p>{answerItem.answer}</p>
-                <hr/>
             </div>
         );
     }
@@ -29,13 +29,13 @@ export default function AnswerList () {
     function renderAnswerList() {
         if (answerList.length === 0) {
             return (
-                <div>
+                <div className='questionListContainer'>
                     <h3>The store is empty...</h3>
                 </div>
             );
         }
         return (
-            <div>
+            <div className='questionListContainer'>
                 <h2>Question {questionId}</h2>
                 {answerList.map(item => renderAnswerItem(item))}
             </div>

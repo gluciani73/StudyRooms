@@ -2,6 +2,7 @@ import React from "react";
 import AnswerForm from "./AnswerForm";
 import {useDispatch} from "react-redux";
 import {createAnswerItem} from "../../Actions"
+import './AnswerCreate.css';
 
 export default function AnswerCreate({userId, questionId})  {
 
@@ -13,8 +14,8 @@ export default function AnswerCreate({userId, questionId})  {
     }
 
     return (
-        <div>
-            <h1>Create Answer</h1>
+        <div className='createAnswerContainer'>
+            <h1 className='createAnswerTitle'>Create Answer</h1>
             <AnswerForm buttonText={'Create'}
                         buttonAction={handleCreateButton}
             />
