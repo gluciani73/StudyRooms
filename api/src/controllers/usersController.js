@@ -109,4 +109,38 @@ const getUserById = async (req,res) => {
     } 
 }
 
-module.exports = { signUp, signIn, getAllUsers, getUserById }
+const changePassword = async (req,res) => {
+    
+    try {
+        const { userId, password, newPassword } = req.body
+        if (!userId || !password || !newPassword) {
+            return res.status(404).json({ data: null, error: "faltan datos" })
+        }
+
+        if(password === newPassword){
+            return res.status(404).json({ data: null, error: "no puede ser la misma contraseña" })
+        }
+
+        const userFound = await User.findByPk(parseInt(userId))
+        if (userFound) {
+            if (bcrypt.compareSync(password, userFound.hashedPassword)) {
+                const newHashedPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(10))
+                User.update({hashedPassword: newHashedPassword}, {where:{id: parseInt(userId)}})
+            
+                const check = await User.findByPk(parseInt(userId))
+
+
+                return res.status(200).json({ data: "cambio de password", error: null })
+            } else {
+                return res.status(401).json({ data: null, error: "datos incorrectos" })
+            }
+        }
+        else {
+            return res.status(404).json({ data: null, error: "no user found" })
+        }
+    } catch (error) {
+        return res.status(500).json({ msg: "error in userController" })
+    }
+}
+
+module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword }
