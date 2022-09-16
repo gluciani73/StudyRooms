@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAnswerList} from "../../Actions";
 import {useParams} from "react-router-dom";
+import AnswerCreate from "./AnswerCreate";
 
 export default function AnswerList () {
 
@@ -13,13 +14,14 @@ export default function AnswerList () {
         if (answerList.length === 0) {
             dispatch(getAnswerList(questionId));
         }
-    }, [dispatch, questionId]);
+    }, [dispatch, questionId, answerList.length]);
 
     function renderAnswerItem(answerItem) {
         return (
             <div key={answerItem.id}>
                 <h3>Answer {answerItem.id}</h3>
                 <p>{answerItem.answer}</p>
+                <hr/>
             </div>
         );
     }
@@ -43,6 +45,9 @@ export default function AnswerList () {
     return (
         <div>
             {renderAnswerList()}
+            <AnswerCreate userId={'2223456' /*todo - update with auth*/}
+                          questionId={questionId}
+            />
         </div>
     );
 }
