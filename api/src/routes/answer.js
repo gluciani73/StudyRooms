@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const router = Router();
-const {createAnswer} = require('../controllers/answersController.js')
+const { createAnswer, getAnswer, updateAnswer } = require('../controllers/answersController.js')
 
 
 // /asnwers/...
 router.post('/', createAnswer);
+router.get('/:id', getAnswer);
+router.put('/', updateAnswer);
 
 module.exports = router;
