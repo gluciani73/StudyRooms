@@ -1,5 +1,6 @@
 import {
     GET_ANSWER_LIST,
+    CREATE_ANSWER_ITEM,
 } from "../Actions";
 
 const initialState={
@@ -12,6 +13,11 @@ const rooReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 answerList: payload
+            }
+        case CREATE_ANSWER_ITEM:
+            return {
+                ...state,
+                answerList: [...state.answerList, payload]
             }
         default:
             return state;
