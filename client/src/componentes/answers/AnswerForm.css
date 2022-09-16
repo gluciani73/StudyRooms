@@ -1,0 +1,23 @@
+.answerFormContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.answerTextarea {
+    border-radius: .5em;
+}
+
+.buttonAction {
+    background-color: dodgerblue;
+    color: white;
+    border: 1px solid dodgerblue;
+    border-radius: .3em;
+    font-size: 1em;
+    margin-top: 1em;
+}
+
+.inputLabelField {
+    display: flex;
+    flex-direction: column;
+}
