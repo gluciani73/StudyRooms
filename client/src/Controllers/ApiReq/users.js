@@ -2,7 +2,7 @@ import axios from 'axios';
 import { URL_BACK } from '../../constants';
 
 export async function createUser(user){
-    const data = await axios.post(`${URL_BACK}/users/signup`,user);
+    const data = await axios.post(`${URL_BACK}/users/signup`,user).data;
     return data;
 }
 export async function getUsers(){
