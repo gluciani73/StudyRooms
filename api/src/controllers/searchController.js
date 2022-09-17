@@ -1,4 +1,4 @@
-const { Question, Answer } = require('../db.js');
+const { Question, Answer, Category } = require('../db.js');
 const { Op } = require('sequelize')
 
 const searchQuestion = async (req, res) => {
@@ -8,7 +8,7 @@ const searchQuestion = async (req, res) => {
             // console.log('Respuesta query con title: ', title);
             //ver https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
             // ver https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#examples-with-opand-and-opor
-            let result = await Question.findAll({
+            let resultQuestion = await Question.findAll({
                 where: {
                     [Op.or]: [
                         {
@@ -23,17 +23,18 @@ const searchQuestion = async (req, res) => {
                         }
                     ]
                 },
-                include: {
-                    model: Answer
-                }
+                include: [
+                    { model: Category },
+                    { model: Answer }
+                ]
             }
             );
-            if (!result.length) {
+            if (!resultQuestion.length) {
                 return res
                     .status(404)
                     .json({ error: "No se encuentran preguntas para la busqueda", data: [] })
             }
-            return res.status(200).json({ error: null, data: result })
+            return res.status(200).json({ error: null, data: resultQuestion })
         }
         return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
     } catch (error) {
