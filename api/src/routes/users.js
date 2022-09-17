@@ -8,6 +8,6 @@ router.post('/signup', signUp)
 router.post('/signin', signIn)
 router.post('/changePassword', changePassword)
 router.get('/', getAllUsers)
-rotuer.get('/:userId, getUserById)
+router.get('/:userId', getUserById)
 
 module.exports = router
