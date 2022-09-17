@@ -1,0 +1,10 @@
+.questionListContainer {
+    margin: 1em;
+}
+
+.singleAnswer {
+    margin: 1em 0;
+    box-shadow: .5em .5em 2em #4c4d4e;
+    padding: .5em;
+    border-radius: .5em;
+}

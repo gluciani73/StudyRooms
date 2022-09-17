@@ -1,8 +1,17 @@
 const server = require('./src/app.js');
+const { conn } = require('./src/db.js');
+const { createTestData } = require('./seeder.js')
 
-server.listen(3001, () => {
-    console.log('server up (localhost:3001)');
-});
+conn.sync({ force: true })
+  .then(() => {
+    server.listen(3001, async () => {
+      await createTestData()
+      console.log('--------------------------------');
+      console.log('creada el mockup de datos');
+      console.log('server up (localhost:3001)'); // eslint-disable-line no-console
+    });
+  })
+
 
 /*     ..---..
      .'  _    `.

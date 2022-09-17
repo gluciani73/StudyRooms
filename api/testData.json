@@ -1,0 +1,110 @@
+{
+    "questions": [
+        {
+            "userId": 1,
+            "title": "title",
+            "description": "Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum",
+            "categories": [
+                "Quimica",
+                "Biologia",
+                "Economia"
+            ]
+        },
+        {
+            "userId": 2,
+            "title": "title",
+            "description": "Lorem ipsum dolor sit amet. ",
+            "categories": [
+                "Quimica",
+                "Biologia",
+                "Economia"
+            ]
+        },
+        {
+            "userId": 2,
+            "title": "title",
+            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "categories": [
+                "Matematicas",
+                "Historia",
+                "Geografia"
+            ]
+        },
+        {
+            "userId": 3,
+            "title": "title",
+            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "categories": [
+                "Matematicas",
+                "Historia",
+                "Geografia"
+            ]
+        },
+        {
+            "userId": 3,
+            "title": "title",
+            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "categories": [
+                "Programacion",
+                "Filosofia",
+                "Lenguas"
+            ]
+        }
+    ],
+    "answers": [
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 3,
+            "questionId": 1,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 3,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 2,
+            "questionId": 2,
+            "answer": "answer",
+            "rating": 5
+        },
+        {
+            "userId": 2,
+            "questionId": 4,
+            "answer": "answer",
+            "rating": 5
+        }
+    ]
+}
