@@ -30,7 +30,7 @@ const CheckoutForm = ()=>{
             const {id} = paymentMethod
             console.log(cantidad)
             try {
-                const {data} = await axios.post("http://localhost:3001/payment/checkout", {
+                const {data} = await axios.post("http://localhost:3001/payments/checkout", {
                 id,
                 amount: cantidad * 100
             })
