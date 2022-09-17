@@ -10,55 +10,63 @@ const NavBar = () => {
   return ( 
    <div >
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
          
          
-         <div class="container-fluid">
-            <img src={logo} height="100px" alt="logo" class="d-inline-block align-text-top px-5" />
-            <a class="navbar-brand pe-5" href="#">StudyRooms</a>
+         <div className="container-fluid">
+            <img src={logo} height="100px" alt="logo" />
+            <p className="navbar-brand pe-5" href="#">StudyRooms</p>
 
-            <a class="nav-link px-5" href="#"></a>
-            <a class="nav-link px-5" href="#"></a>
+            <p className="nav-link px-5" href="#"></p>
+            <p className="nav-link px-5" href="#"></p>
 
-            <form class="d-flex">
-               <button type="button" class="btn btn-primary d-flex rounded-pill">
-                  <img class="pe-3" src={home} alt="home" height='30px' />
-                  <a class="nav-link active" aria-current="page" href="/Home"><span class="align-middle">Home</span></a>
+            <form className="d-flex">
+               <button type="button" className="btn btn-primary d-flex rounded-pill">
+                  <img className="pe-3" src={home} alt="home" height='30px' />
+                  <p className="nav-link active" aria-current="page" href="/Home"><span className="align-middle">Home</span></p>
                </button>
             </form>
             
             
 
 
-            <form class="d-flex px-5">
-               <input class="form-control me-2 px-5" type="search" placeholder="Search" aria-label="Search"/>
-               <button class="btn btn-primary" type="submit">Search</button>
+            <form className="d-flex px-5">
+               <input className="form-control me-2 px-5" type="search" placeholder="Search" aria-label="Search"/>
+               <button className="btn btn-primary" type="submit">Search</button>
             </form>
             
            
 
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
-               <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+               <span className="navbar-toggler-icon"></span>
             </button>
 
 
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-               <div class="navbar-nav">
-                  <form class="d-flex"> 
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div className="navbar-nav">
+                  <form className="d-flex"> 
             
-                     <button type="button" class="btn btn-primary d-flex rounded-pill text-muted">
-                        <a class="nav-link active" aria-current="page" href="/CrearPreguntas"><span class="align-middle">+ Ask Question</span></a>
+                     <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
+                        <p className="nav-link active" aria-current="page" href="/CrearPreguntas"><span className="align-middle">+ Ask Question</span></p>
                      </button>
                   </form>
             
-                  <a class="nav-link px-5" href="#"></a>
-            <a class="nav-link px-5" href="#"></a>
+                  <form className="d-flex"> 
+            
+            <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
+               <p className="nav-link active" aria-current="page" href="/Donaciones"><span className="align-middle">+ Donations</span></p>
+            </button>
+         </form>
+
+
+                  <p className="nav-link px-5" href="#"></p>
+            <p className="nav-link px-5" href="#"></p>
             
 
-                  <a class="nav-link ps-5" href="#"><img src={config} alt="config" height='30px'/></a>
-                  <a class="nav-link " href="#"><img src={notification} alt="notifications"height='30px'/> </a>
-                  <a class="nav-link pe-5" href="#"><img src={user} alt="user"height='30px'/> </a>
+                  <p className="nav-link ps-5" href="#"><img src={config} alt="config" height='30px'/></p>
+                  <p className="nav-link " href="#"><img src={notification} alt="notifications"height='30px'/> </p>
+                  <p className="nav-link pe-5" href="#"><img src={user} alt="user"height='30px'/> </p>
             </div>
          </div>
       </div>

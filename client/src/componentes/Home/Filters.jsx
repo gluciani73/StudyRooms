@@ -5,7 +5,7 @@ const Filters = () =>{
         <div>
             <h1>Filtros</h1>
             <p>Categoria</p>
-            <select class="form-select">
+            <select className="form-select">
                 <option value="todas">Todas</option>
                 <option value="Ingles">Ingles</option>
                 <option value="Matematicas">Matematicas</option>
@@ -18,7 +18,7 @@ const Filters = () =>{
                 <option value="Lenguas">Lenguas</option>
             </select>
             <p>Categoria secundaria</p>
-            <select class="form-select">
+            <select className="form-select">
                 <option value="todas">Todas</option>
                 <option value="Ingles">Ingles</option>
                 <option value="Matematicas">Matematicas</option>
@@ -31,7 +31,7 @@ const Filters = () =>{
                 <option value="Lenguas">Lenguas</option>
             </select>
             <p>Rating</p>
-            <select class="form-select">
+            <select className="form-select">
                 <option value="SinOrden">Sin orden</option>
                 <option value="Mayoramenor">Mayor a menor</option>
                 <option value="Menor a mayor">Menor a mayor</option>
