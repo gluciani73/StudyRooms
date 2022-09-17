@@ -1,14 +1,13 @@
-const { Question, Answer } = require('../db.js');
+const { Question, Answer, Category } = require('../db.js');
 const { Op } = require('sequelize')
 
 const searchQuestion = async (req, res) => {
     const { string } = req.query;
     try {
         if (string) {
-            // console.log('Respuesta query con title: ', title);
             //ver https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
             // ver https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#examples-with-opand-and-opor
-            let result = await Question.findAll({
+            let resultQuestion = await Question.findAll({
                 where: {
                     [Op.or]: [
                         {
@@ -23,17 +22,19 @@ const searchQuestion = async (req, res) => {
                         }
                     ]
                 },
-                include: {
-                    model: Answer
-                }
+                include: [
+                    { model: Category },
+                    { model: Answer }
+                ]
             }
             );
-            if (!result.length) {
+
+            if (!resultQuestion.length) {
                 return res
                     .status(404)
                     .json({ error: "No se encuentran preguntas para la busqueda", data: [] })
             }
-            return res.status(200).json({ error: null, data: result })
+            return res.status(200).json({ error: null, data: resultQuestion })
         }
         return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
     } catch (error) {
@@ -42,46 +43,85 @@ const searchQuestion = async (req, res) => {
     }
 }
 
+const searchAnswer = async (req, res) => {
+    const { string } = req.query;
+    try {
+        if (string) {
+            let resultAnswer = await Answer.findAll({
+                where: {
+                    answer: {
+                        [Op.iLike]: `%${string}%`,
+                    },
+                },
+                include: {
+                    model: Question
+                }
+            }
+            );
 
-// WORK IN PROGRESS ... --- SOON SEARCH ON ANSWERS --------
+            if (!resultAnswer.length) {
+                return res
+                    .status(200)
+                    .send({ error: "No se encuentran respuestas para la busqueda", data: [] })
+            }
+            return res.status(200).json({ error: null, data: resultAnswer })
+        }
+        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+    } catch (error) {
+        return res.status(500).json({ error: "falla el searchQuestion ", data: null })
+    }
+}
 
-// const searchAnswer = async (req, res) => {
-//     const { string } = req.query;
+// WORK IN PROGRESS ... --- SOON SEARCH ON Question and Answers togheter.... --------
 
-//     try {
-//         if (string) {
-//             let result = await Answer.findAll({
-//                 where: {
-//                     [Op.or]: [
-//                         {
-//                             title: {
-//                                 [Op.iLike]: `%${string}%`,
-//                             }
-//                         },
-//                         {
-//                             description: {
-//                                 [Op.iLike]: `%${string}%`,
-//                             }
-//                         }
-//                     ]
-//                 },
-//                 include: {
-//                     model: Answer
-//                 }
-//             }
-//             );
-//             if (!result.length) {
-//                 return res
-//                     .status(200)
-//                     .send("No se encuentran preguntas para la busqueda")
-//             }
-//             return res.status(200).json({ error: null, data: result })
-//         }
-//         return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
-//     } catch (error) {
-//         // console.log('El error es: ', error)
-//         return res.status(500).json({ error: "falla el searchQuestion ", data: null })
-//     }
-// }
+const searchQA = async (req, res) => {
+    const { string } = req.query;
+    try {
+        if (string) {
+            let resultQuestion = await Question.findAll({
+                where: {
+                    [Op.or]: [
+                        {
+                            title: {
+                                [Op.iLike]: `%${string}%`,
+                            }
+                        },
+                        {
+                            description: {
+                                [Op.iLike]: `%${string}%`,
+                            }
+                        }
+                    ]
+                },
+                include: [
+                    { model: Category },
+                    { model: Answer }
+                ]
+            }
+            );
+            let resultAnswer = await Answer.findAll({
+                where: {
+                    answer: {
+                        [Op.iLike]: `%${string}%`,
+                    },
+                },
+                include: {
+                    model: Question
+                }
+            }
+            );
+            if (!resultQuestion.length && !resultAnswer.length) {
+                return res
+                    .status(404)
+                    .json({ error: "No se encuentran resultdos para la busqueda", data: [] })
+            }
+            let result = { questions: resultQuestion, answers: resultAnswer }
+            return res.status(200).json({ error: null, data: result })
+        }
+        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+    } catch (error) {
+        return res.status(500).json({ error: "error en searchQA ", data: null })
+    }
+}
 
-module.exports = { searchQuestion }
+module.exports = { searchQuestion, searchAnswer, searchQA }
