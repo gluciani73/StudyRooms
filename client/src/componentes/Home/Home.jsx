@@ -30,7 +30,7 @@ const Home = () => {
         <Filters/>
     </div>
     <div className="col">
-      <div class="container">
+      <div className="container">
         {allQuestions.map((e,index)=>{
           return(
               <div>

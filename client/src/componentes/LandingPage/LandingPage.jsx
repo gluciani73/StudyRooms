@@ -8,10 +8,10 @@ const LandingPage = () => {
  
     <NavBarNoLogIn/>
  
-    <div class="d-flex">
+    <div className="d-flex">
       
       <div>
-        <img  src={Landing} height="80%" width="100%" alt="img" />        
+        <img  src={Landing} height="30%" width="30%" alt="img" />        
       </div>
   
       <div>

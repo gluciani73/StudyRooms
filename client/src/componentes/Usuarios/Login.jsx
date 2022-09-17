@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 
 const login = () => {
-    return (<div class="container">
+    return (<div className="container">
       
-      <div class="row"></div>
+      <div className="row"></div>
 
-      <div class="row">
-        <div class="col"> </div>
+      <div className="row">
+        <div className="col"> </div>
 
-        <div class="col"> 
+        <div className="col"> 
         <Link to="./Home">
             <button>
             login placeholder
@@ -17,7 +17,7 @@ const login = () => {
          </Link>
         </div>
         </div>
-         <div class="col"> </div>
+         <div className="col"> </div>
          <div class ="row"></div>
         
     </div>  );
