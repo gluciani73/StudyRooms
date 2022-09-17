@@ -46,43 +46,34 @@ const searchQuestion = async (req, res) => {
 
 // WORK IN PROGRESS ... --- SOON SEARCH ON ANSWERS --------
 
-// const searchAnswer = async (req, res) => {
-//     const { string } = req.query;
+const searchAnswer = async (req, res) => {
+    const { string } = req.query;
 
-//     try {
-//         if (string) {
-//             let result = await Answer.findAll({
-//                 where: {
-//                     [Op.or]: [
-//                         {
-//                             title: {
-//                                 [Op.iLike]: `%${string}%`,
-//                             }
-//                         },
-//                         {
-//                             description: {
-//                                 [Op.iLike]: `%${string}%`,
-//                             }
-//                         }
-//                     ]
-//                 },
-//                 include: {
-//                     model: Answer
-//                 }
-//             }
-//             );
-//             if (!result.length) {
-//                 return res
-//                     .status(200)
-//                     .send("No se encuentran preguntas para la busqueda")
-//             }
-//             return res.status(200).json({ error: null, data: result })
-//         }
-//         return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
-//     } catch (error) {
-//         // console.log('El error es: ', error)
-//         return res.status(500).json({ error: "falla el searchQuestion ", data: null })
-//     }
-// }
+    try {
+        if (string) {
+            let resultAnswer = await Answer.findAll({
+                where: {
+                    answer: {
+                        [Op.iLike]: `%${string}%`,
+                    },
+                },
+                include: {
+                    model: Question
+                }
+            }
+            );
+            if (!resultAnswer.length) {
+                return res
+                    .status(200)
+                    .send("No se encuentran respuestas para la busqueda")
+            }
+            return res.status(200).json({ error: null, data: resultAnswer })
+        }
+        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+    } catch (error) {
+        // console.log('El error es: ', error)
+        return res.status(500).json({ error: "falla el searchQuestion ", data: null })
+    }
+}
 
-module.exports = { searchQuestion }
+module.exports = { searchQuestion, searchAnswer }
