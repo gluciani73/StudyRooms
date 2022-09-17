@@ -80,7 +80,7 @@ const getAllUsers = async (req,res) => {
     try {
         const results = await User.findAll()
         if(results){
-            return res.status(200).json({data: results, error: null})
+            return res.status(200).json(results)
         }
         else{
             return res.status(404).json({data: [], error:"no se encontraron usuarios"})

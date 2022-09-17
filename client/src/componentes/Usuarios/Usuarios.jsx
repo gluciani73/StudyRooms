@@ -1,4 +1,4 @@
-import NavBar from "./NavBar";
+import NavBar from "../NavBar/NavBar";
 import UserForm from "./UserForm";
 
 const Usuarios = () => {

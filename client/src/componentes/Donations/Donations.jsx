@@ -2,7 +2,7 @@ import React from "react"
 import {loadStripe} from "@stripe/stripe-js"
 import {Elements, CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import axios from "axios"
-import NavBar from "./NavBar"
+import NavBar from "../NavBar/NavBar"
 import {useNavigate} from "react-router-dom"
 
 const stripePromise = loadStripe("pk_test_51LhhasEmp5dtE89LxdcOsJb9GWkTB6Zjcq9fl5Igf3CcmhwJs01BuokKEfJnF9LTbhSRjSyBoweMaUvMtBW3ZlWO00R9ldzf45")
@@ -30,7 +30,7 @@ const CheckoutForm = ()=>{
             const {id} = paymentMethod
             console.log(cantidad)
             try {
-                const {data} = await axios.post("http://localhost:3001/payment/checkout", {
+                const {data} = await axios.post("http://localhost:3001/payments/checkout", {
                 id,
                 amount: cantidad * 100
             })
