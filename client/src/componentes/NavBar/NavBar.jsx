@@ -5,6 +5,7 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import user from '../../recursos/user.png'
 import home from '../../recursos/home.png'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   return ( 
@@ -21,10 +22,12 @@ const NavBar = () => {
             <p className="nav-link px-5" href="#"></p>
 
             <form className="d-flex">
+               <Link to="/Home">
                <button type="button" className="btn btn-primary d-flex rounded-pill">
                   <img className="pe-3" src={home} alt="home" height='30px' />
                   <p className="nav-link active" aria-current="page" href="/Home"><span className="align-middle">Home</span></p>
                </button>
+               </Link>
             </form>
             
             
@@ -53,10 +56,11 @@ const NavBar = () => {
                   </form>
             
                   <form className="d-flex"> 
-            
+            <Link to="/Donacion">
             <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
                <p className="nav-link active" aria-current="page" href="/Donaciones"><span className="align-middle">+ Donations</span></p>
             </button>
+            </Link>
          </form>
 
 
