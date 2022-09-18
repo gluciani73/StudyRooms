@@ -18,3 +18,8 @@
     background-color: #b36969;
     border: 1px solid #b36969;
 }
+
+.singleAnswerTitle {
+    display: flex;
+    justify-content: space-between;
+}

@@ -37,7 +37,10 @@ export default function AnswerList () {
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
-                <h3>Answer {answerItem.id}</h3>
+                <div className='singleAnswerTitle'>
+                    <h3>Answer {answerItem.id}</h3>
+                    <p>John Smith{answerItem.id}</p>
+                </div>
                 <p>{answerItem.answer}</p>
                 {!(showEditForm && answerEditId === answerItem.id) && (
                     <>
