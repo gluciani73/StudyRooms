@@ -36,7 +36,7 @@ export default function AnswerList () {
                 <h3>Answer {answerItem.id}</h3>
                 <p>{answerItem.answer}</p>
                 {!(showEditForm && answerEditId === answerItem.id) && (
-                    <button className="buttonEdit"
+                    <button className="buttonAction"
                             onClick={e => handleShowEditForm(answerItem.id)}
                             disabled={showEditForm}
                     >

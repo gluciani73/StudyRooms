@@ -19,7 +19,7 @@ export default function AnswerEdit({userId, questionId, answerItem, handleCancel
     return (
         <div>
             <h3>Edit Answer</h3>
-            <AnswerForm buttonText={'Edit'}
+            <AnswerForm buttonText={'Save'}
                         buttonAction={handleEditButton}
                         buttonCancel={handleCancelButton}
                         answerInitial={answerItem}
