@@ -1,15 +1,16 @@
 import React from "react";
 import AnswerForm from "./AnswerForm";
 import {useDispatch} from "react-redux";
-//import {saveAnswerItem} from "../../Actions";
+import {updateAnswerItem} from "../../Controllers/Actions/answerActions";
 
-export default function AnswerEdit({userId, questionId, answerItem, handleCancel}) {
+export default function AnswerEdit({userId, questionId, answerItem, handleAction, handleCancel}) {
 
     const dispatch = useDispatch();
 
     function handleEditButton(answerItem) {
         const answerUpdated = {...answerItem, userId, questionId}
-        //dispatch(saveAnswerItem(answerUpdated));
+        dispatch(updateAnswerItem(answerUpdated));
+        handleAction();
     }
 
     function handleCancelButton() {

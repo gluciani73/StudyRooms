@@ -25,7 +25,7 @@ export default function AnswerList () {
         setShowEditForm(!showEditForm);
     }
 
-    function handleEditCancel() {
+    function handleHideEditForm() {
         setAnswerEditId(null);
         setShowEditForm(!showEditForm);
     }
@@ -37,7 +37,7 @@ export default function AnswerList () {
                 <p>{answerItem.answer}</p>
                 {!(showEditForm && answerEditId === answerItem.id) && (
                     <button className="buttonAction"
-                            onClick={e => handleShowEditForm(answerItem.id)}
+                            onClick={() => handleShowEditForm(answerItem.id)}
                             disabled={showEditForm}
                     >
                         Edit
@@ -47,7 +47,8 @@ export default function AnswerList () {
                     <AnswerEdit userId={'2223456' /*todo - update with auth*/}
                                 questionId={questionId}
                                 answerItem={answerItem}
-                                handleCancel={handleEditCancel}
+                                handleAction={handleHideEditForm}
+                                handleCancel={handleHideEditForm}
                     />
                 )}
             </div>
