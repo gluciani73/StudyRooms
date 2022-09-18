@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAnswerList} from "../../Controllers/Actions/answerActions";
+import {getAnswerList, deleteAnswerItem} from "../../Controllers/Actions/answerActions";
 import {useParams} from "react-router-dom";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
@@ -30,18 +30,30 @@ export default function AnswerList () {
         setShowEditForm(!showEditForm);
     }
 
+    function handleDeleteAnswerItem(answerItem) {
+        dispatch(deleteAnswerItem(answerItem));
+    }
+
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
                 <h3>Answer {answerItem.id}</h3>
                 <p>{answerItem.answer}</p>
                 {!(showEditForm && answerEditId === answerItem.id) && (
-                    <button className="buttonAction"
-                            onClick={() => handleShowEditForm(answerItem.id)}
-                            disabled={showEditForm}
-                    >
-                        Edit
-                    </button>
+                    <>
+                        <button className="buttonAction"
+                                onClick={() => handleShowEditForm(answerItem.id)}
+                                disabled={showEditForm}
+                        >
+                            Edit
+                        </button>
+                        <button className="buttonCancel"
+                        onClick={() => handleDeleteAnswerItem(answerItem)}
+                        disabled={showEditForm}
+                        >
+                        Delete
+                        </button>
+                    </>
                 )}
                 {showEditForm && answerEditId === answerItem.id && (
                     <AnswerEdit userId={'2223456' /*todo - update with auth*/}
