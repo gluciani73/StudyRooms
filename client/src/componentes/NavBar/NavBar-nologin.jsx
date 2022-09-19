@@ -5,11 +5,11 @@ import logo from '../../recursos/logo.png'
 
 const NavBarNoLogIn = () => {
   return ( 
-        <div >
+        <div className="">
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <img src={logo} height="100px" alt="logo" className="d-inline-block align-text-top px-5" />                        
+                        <img src={logo} height="100px" alt="logo" />                        
                     </div>
                     <div className="col">
                         <p className="fs-2">StudyRooms</p>
