@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './componentes/Home/Home'
 import NavBar from './componentes/NavBar/NavBar'
-import SearchBar from './componentes/SearchBar/SearchBar'
+
 import Usuarios from './componentes/Usuarios/Usuarios'
 import UserForm from './componentes/Usuarios/UserForm';
 import LandingPage from './componentes/LandingPage/LandingPage';
@@ -24,7 +24,7 @@ function App() {
     <Route path='/Donacion' element={<Donations/>}/>
     <Route path='/AskQuestion' element={<AskQuestion/>}/>
     <Route path='/answers/:questionId' element={<AnswerList/>}/>
-    <Route path='Donations' element={<Donations/>}/>
+    <Route path='/Donations' element={<Donations/>}/>
     <Route path="*" element={<Error404 />} />
    </Routes>
    </Router>
