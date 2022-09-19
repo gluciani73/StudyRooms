@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         authType: {
             type: DataTypes.STRING,

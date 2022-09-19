@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo.png'
 import config from '../../recursos/config.png'
@@ -22,10 +22,12 @@ const NavBar = () => {
             <p className="nav-link px-5" href="#"></p>
 
             <form className="d-flex">
+               <Link to="/Home">
                <button type="button" className="btn btn-primary d-flex rounded-pill">
                   <img className="pe-3" src={home} alt="home" height='30px' />
-                  <p className="nav-link active" aria-current="page" href="/Home"><span className="align-middle">Home</span></p>
+                  <p className="nav-link active" aria-current="page"><span className="align-middle">Home</span></p>
                </button>
+               </Link>
             </form>
             
             
@@ -46,18 +48,21 @@ const NavBar = () => {
 
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                <div className="navbar-nav">
+                  <Link to="/AskQuestion">
                   <form className="d-flex"> 
             
                      <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
-                        <p className="nav-link active" aria-current="page" href="/CrearPreguntas"><span className="align-middle">+ Ask Question</span></p>
+                        <p className="nav-link active" aria-current="page"><span className="align-middle">+ Ask Question</span></p>
                      </button>
                   </form>
-            
+                  </Link>
                   <form className="d-flex"> 
             
+            <Link to="/donations">
             <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
                <p className="nav-link active" aria-current="page" href="/Donaciones"><span className="align-middle">+ Donations</span></p>
             </button>
+            </Link>
          </form>
 
 

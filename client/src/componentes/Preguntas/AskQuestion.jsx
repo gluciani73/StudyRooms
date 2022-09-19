@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
 import {addQuestions, getQuestions} from "../../Controllers/Actions/questionsActions"
 import {useDispatch, useSelector} from "react-redux";
 
@@ -26,37 +25,15 @@ const AskQuestion = () => {
     
 
     const dispatch= useDispatch()
-    const history= useNavigate()
-    const questions = useSelector((state)=>state.questions)
     const [input,setInput]=useState({
         title:"",
         description:"",
         categories:[],
     });
     const [errors,setErrors] = useState({})
-    function handleChange(e){
-        setInput({
-            ...input,
-            [e.target.name]:e.target.value
-        })
-        setErrors({
-            ...input (validate({
-                ...input,
-                [e.target.name]:e.target.value
-            }))
-        })
-    }
-    function handleCheck(e){
-     if(e.target.checked){
-        setInput({
-            ...input,
-            [e.target.title]:e.target.value
-        })
-        setErrors(validate({
-            ...input,
-            [e.target.title]:e.target.value
-        }))
-     }}
+    
+
+   
      function handleSubmit(e){
         e.preventDefault();
         dispatch(addQuestions(input))
@@ -66,7 +43,6 @@ const AskQuestion = () => {
             description:"",
             categories:[]
         })
-        history.push('/home')
      }
 
      useEffect(()=>{
@@ -85,7 +61,7 @@ const AskQuestion = () => {
                         <input type="text" 
                         className="form-control" 
                         value={input.name} 
-                        onChange={(e)=>handleChange(e)}/>
+                        />
                         {errors.title && (<p className="error">{errors.name}
                         </p>)}
                         <div className="form-text">this title helps users understand the general idea of your question</div>
@@ -95,7 +71,7 @@ const AskQuestion = () => {
                         <input type="text" 
                         className="form-control" 
                         value={input.name} 
-                        onChange={(e)=>handleChange(e)}/>
+                       />
                         {errors.description && (<p className="error">{errors.description}</p>)}
                         <div  className="form-text">Check yout grammar and be as specific as you can!</div>
                     </div>

@@ -1,5 +1,5 @@
 import NavBarNoLogIn from "../NavBar/NavBar-nologin"
-import Landing from '../../recursos/landing.jpg'
+import Landing from '../../recursos/landing.gif'
 import Login from "../Usuarios/Login";
 
 const LandingPage = () => {
@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div className="d-flex">
       
       <div>
-        <img  src={Landing} height="30%" width="30%" alt="img" />        
+        <img  src={Landing} alt="img" />        
       </div>
   
       <div>
