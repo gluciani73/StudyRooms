@@ -4,6 +4,7 @@ import {Elements, CardElement, useStripe, useElements} from "@stripe/react-strip
 import axios from "axios"
 import NavBar from "../NavBar/NavBar"
 import {useNavigate} from "react-router-dom"
+import "./Donations.css"
 
 const stripePromise = loadStripe("pk_test_51LhhasEmp5dtE89LxdcOsJb9GWkTB6Zjcq9fl5Igf3CcmhwJs01BuokKEfJnF9LTbhSRjSyBoweMaUvMtBW3ZlWO00R9ldzf45")
 
@@ -47,23 +48,31 @@ const CheckoutForm = ()=>{
     }
     
     return(
+        <div className="container">
         <form onSubmit={handleSubmit}>
             <CardElement/>
-            <button>
+            <div className="inputs">
+            <input className="form-control" type="number" value={cantidad} onChange={e => handleChange(e)} placeholder="Cantidad a donar! (dolares)"></input>
+            <button className="btn btn-primary rounded-pill">
                 Donar!
             </button>
-            <input type="number" value={cantidad} onChange={e => handleChange(e)} placeholder="Cantidad a donar! (dolares)"></input>
+            </div>
         </form>
+        </div>
     )
 }
 const Donations = () =>{
     return (
         <div>
         <NavBar/>
+        <div className="Donaciones">
+            <div className="BackgroundText">
+            <h1>Gracias por tu donacion, <small class="text-muted">Tu donacion sera utilizada para mejorar la calidad y servicios de la pagina web</small></h1>
         <Elements stripe={stripePromise}>
-            <h1>Donaciones</h1>
             <CheckoutForm/>
         </Elements>
+            </div>
+        </div>
         </div>
     )
 }

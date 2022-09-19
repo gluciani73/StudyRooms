@@ -14,7 +14,7 @@ const LandingPage = () => {
         <img  src={Landing} alt="img" />        
       </div>
   
-      <div>
+      <div className=" w-50 d-flex justify-content-center align-items-center">
         <Login/>
       </div>
 

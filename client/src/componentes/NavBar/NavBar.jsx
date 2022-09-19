@@ -6,6 +6,7 @@ import notification from '../../recursos/notification.png'
 import user from '../../recursos/user.png'
 import home from '../../recursos/home.png'
 import AskQuestion from '../Preguntas/AskQuestion'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   return ( 
@@ -57,8 +58,7 @@ const NavBar = () => {
                   </form>
                   </Link>
                   <form className="d-flex"> 
-            
-            <Link to="/donations">
+            <Link to="/Donacion">
             <button type="button" className="btn btn-primary d-flex rounded-pill text-muted">
                <p className="nav-link active" aria-current="page" href="/Donaciones"><span className="align-middle">+ Donations</span></p>
             </button>

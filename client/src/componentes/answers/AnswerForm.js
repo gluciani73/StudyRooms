@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './AnswerForm.css';
 
-export default function AnswerForm ({answerInitial, buttonText, buttonAction}) {
+export default function AnswerForm ({answerInitial, buttonText, buttonAction, buttonCancel}) {
 
     const [answerItem, setAnswerItem] = useState(answerInitial ? answerInitial : {});
     const [errorAnswer, setErrorAnswer] = useState('');
@@ -46,9 +46,16 @@ export default function AnswerForm ({answerInitial, buttonText, buttonAction}) {
                 </div>
 
                 <div>
-                    <button className="buttonAction">
+                    <button className="buttonAction" type='submit'>
                         {buttonText ? buttonText : 'Action'}
                     </button>
+                    {buttonCancel && (
+                        <button className="buttonCancel"
+                                onClick={() => buttonCancel()}
+                        >
+                            Cancel
+                        </button>
+                    )}
                 </div>
             </form>
         </div>
