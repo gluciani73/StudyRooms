@@ -53,7 +53,7 @@ async function createTestData() {
     const { userId, title, description, categories } = testData.questions[i]
 
     await axios.post('http://localhost:3001/questions', {
-      userId, title: title + " " + i, description, categories
+      userId, title: "Question " + title + " " + i, description, categories
     })
   }
 
@@ -63,7 +63,7 @@ async function createTestData() {
     const { questionId, userId, answer, rating } = testData.answers[i]
 
     await axios.post('http://localhost:3001/answers', {
-      questionId, userId, answer: answer + " " + i, rating
+      questionId, userId, answer: "Answer :" + answer + " " + i, rating
     })
   }
 }

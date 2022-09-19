@@ -8,7 +8,7 @@ import Usuarios from './componentes/Usuarios/Usuarios'
 import UserForm from './componentes/Usuarios/UserForm';
 import LandingPage from './componentes/LandingPage/LandingPage';
 import Donations from './componentes/Donations/Donations';
-import CrearPreguntas from './componentes/Preguntas/CrearPreguntas'
+import AskQuestion from './componentes/Preguntas/AskQuestion'
 import AnswerList from "./componentes/answers/AnswerList";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
     <Route path='/UserForm' element={<UserForm/>}/>
     <Route path='/' element={<LandingPage/>}/>
     <Route path='/Donacion' element={<Donations/>}/>
-    <Route path='/CrearPreguntas' element={<CrearPreguntas/>}/>
+    <Route path='/AskQuestion' element={<AskQuestion/>}/>
     <Route path='/answers/:questionId' element={<AnswerList/>}/>
    </Routes>
    </Router>

@@ -8,3 +8,18 @@
     padding: .5em;
     border-radius: .5em;
 }
+
+.buttonAction:disabled {
+    background-color: #82c1ff;
+    border: 1px solid #82c1ff;
+}
+
+.buttonCancel:disabled {
+    background-color: #b36969;
+    border: 1px solid #b36969;
+}
+
+.singleAnswerTitle {
+    display: flex;
+    justify-content: space-between;
+}

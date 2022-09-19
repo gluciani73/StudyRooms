@@ -9,21 +9,21 @@ export default function Question({title, description, ratingAverage, voteCount})
     return(
 
     <div>
-        <div class="row">
+        <div className="row">
         <p>title:</p>   
-        <p class="row">{title}try</p>
+        <p className="row">{title}try</p>
     
-        <div class="col">
+        <div className="col">
             <p>rating:</p>
             <p>{ratingAverage}</p>
             <img src={stars} alt="" height="20px" width="20px"/>
         </div>
-        <div class="col">
+        <div className="col">
              <p>votes:</p>
              <p>{voteCount}</p>
              <img src={comments} alt="" height="20px" width="20px" />
         </div>
-        <div class="row">
+        <div className="row">
             <p>description:</p>
             <p>{description} ipsum</p>
         </div>

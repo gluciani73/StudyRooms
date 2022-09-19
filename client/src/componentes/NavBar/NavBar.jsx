@@ -5,6 +5,7 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import user from '../../recursos/user.png'
 import home from '../../recursos/home.png'
+import AskQuestion from '../Preguntas/AskQuestion'
 import { Link } from 'react-router-dom'
 
 const NavBar = () => {

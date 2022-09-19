@@ -1,83 +1,115 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import { Link } from "react-router-dom";
+import {createUserAction} from '../../Controllers/Actions/userAction'
 
-const UserForm = () => {
+export default function CreateUser(){
+    const dispatch =useDispatch();
+    const allUsers = useSelector((state)=> state.userReducer.users)
 
-    const [error, setError]= useState({})
-    const [done, setDone]= useState(false)
+    function validate(data){
+        var errors = {};
+        if(!(/^[a-zA-Z]+$/.test(data.userName)) || data.userName.length < 3 ) errors.userName = "Ingrese un nombre valido"
+        return errors;
+    }
 
-   const [newUser, setNewUser] = useState({
-    username:"",
-    name:"",
-    lastname:"",
+    // useEffect(()=>{
+    //     dispatch(getUserAction())
+    // },[dispatch])
+
+    const [formError, setFormError] = useState({})
+
+    const [newUser, setNewUser] = useState({
+    userName:"",
+    firstName:"",
+    lastName:"",
     email:"",
     password:"",
-    confirmpassword:"",
-    foto:""
+    avatar:""
     
    });
 
    function handleChange(e){
-    const {value, name}=e.target
-    setNewUser({
-        ...newUser,
-        [name]:value
-    })
+        setNewUser({
+            ...newUser,
+            [e.target.name]: e.target.value
+        });
+        setFormError(validate({
+            ...newUser,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+      
+            e.preventDefault();
+            dispatch(createUserAction(newUser))
+            setNewUser({
+                userName:"",
+                firstName:"",
+                lastName:"",
+                email:"",
+                password:"",
+                avatar:""
+            })
+            alert("Usuario creado correctamente")
+        }
+console.log(newUser)
+        return (
+            <div>
+                <h1>UserForm</h1>
+                
+                <form onSubmit={(e)=> handleSubmit(e)}>
+                    <div>
+                        <label htmlFor="userName">Nombre de usuario</label>
+                        <input type="text" value={newUser.userName} id='userName' name='userName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
+                    {formError.userName && <span><strong>{formError.userName}</strong></span>}
+                   </div>
+
+                    <div>
+                        <label htmlFor="firstName">ñnombre</label>
+                        <input type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
+                    </div>
+        
+        
+                   
+                    <div>
+                        <label htmlFor="lastName">Segundo nombre</label>
+                        <input type="text" value={newUser.lastName} placeholder='Last Name' id='lastName' name='lastName'onChange={(e)=>handleChange(e)} required/>
+                    </div>
+        
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" value={newUser.email} placeholder='email@example.com'name='email' id='email' autoComplete='off' onChange={(e)=>handleChange(e)} required/>
+                    </div>
+        
+        
+                    <div>
+                        <label htmlFor="password">Contraseña</label>
+                        <input type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
+                    </div>
+        
+        
+        
+                    
+                    <div>
+                        <label htmlFor="foto">foto</label>
+                        <input type="text"  value={newUser.avatar} name='avatar' id='foto' placeholder='foto' onChange={(e)=>handleChange(e)} required/>
+                    </div>
+        
+        
+                    <input type="submit" value='Register' />
+        
+               </form>
+            </div>  );
+
+}
 
     
-}
 
 
-    return (
-    <div>
-        <h1>UserForm</h1>
-        
-        <form>
-            <div>
-                <label htmlFor="username">Nombre de usuario</label>
-                <input type="text" id='username' name='username' placeholder='User Name' autoComplete='off'  onChange={handleChange} required/>
-            </div>
 
 
-            <div>
-                <label htmlFor="name">Nombre</label>
-                <input type="text" name='name'  placeholder='Name'  id='name' autoComplete='off' onChange={handleChange} required/>
-            </div>
 
-            <div>
-                <label htmlFor="lastname">Segundo nombre</label>
-                <input type="text" placeholder='Last Name' id='lastname' name='lastname' onChange={handleChange} required/>
-            </div>
-
-            <div>
-                <label htmlFor="email">Email</label>
-                <input type="email" placeholder='email@example.com'name='email' id='email' autoComplete='off' onChange={handleChange} required/>
-            </div>
-
-
-            <div>
-                <label htmlFor="password">Contraseña</label>
-                <input type="password" name='password' id='password' placeholder='Password'  onChange={handleChange} required/>
-            </div>
-
-
-            <div>
-                <label htmlFor="confirmpassword">Confirmar Contraseña</label>
-                <input type="password" name='confirmpassword' id='confirmpassword' placeholder='Confirm Password' onChange={handleChange} required/>
-            </div>
-
-            
-            <div>
-                <label htmlFor="foto">Confirmar Contraseña</label>
-                <input type="text" name='foto' id='foto' placeholder='foto' onChange={handleChange} required/>
-            </div>
-
-
-            <input type="submit" value='Register' />
-
-       </form>
-    </div>  );
-}
  
-export default UserForm;
