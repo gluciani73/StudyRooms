@@ -10,6 +10,7 @@ import LandingPage from './componentes/LandingPage/LandingPage';
 import Donations from './componentes/Donations/Donations';
 import AskQuestion from './componentes/Preguntas/AskQuestion'
 import AnswerList from "./componentes/answers/AnswerList";
+import TOS from './componentes/Home/TOS';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
     <Route path='/Donacion' element={<Donations/>}/>
     <Route path='/AskQuestion' element={<AskQuestion/>}/>
     <Route path='/answers/:questionId' element={<AnswerList/>}/>
+    <Route path='/TOS' element={<TOS/>}/>
    </Routes>
    </Router>
   );
