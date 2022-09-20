@@ -5,13 +5,16 @@ const { User } = require('../db.js')
 const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
 
 const signUp = async (req, res) => {
-    const { userName, password, firstName, lastName, email, avatar } = req.body
-    if (!userName || !password || !firstName || !lastName || !email || !avatar) {
-        return res.status(401).json({ data: null, error: "faltan datos" })
-    }
 
     try {
+        const { userName, password, firstName, lastName, email} = req.body
+        if (!userName || !password || !firstName || !lastName || !email) {
+            return res.status(401).json({ data: null, error: "faltan datos" })
+        }
+        
+        const avatar = req.body.avatar || 'https://res.cloudinary.com/dcmn0kkly/image/upload/v1663359592/guest-user_clv1cg.jpg'
         const userFound = await User.findOne({ where: { userName: userName } })
+
         if (userFound) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
 
         const userFoundByMail = await User.findOne({ where: { email: email } })

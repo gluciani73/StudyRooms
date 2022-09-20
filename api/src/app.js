@@ -23,4 +23,12 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 
+// esto evita q se caiga todo si hay un error en nuestros controllers
+server.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || err;
+  console.error(message);
+  res.status(status).json({msg: message});
+});
+
 module.exports = server;

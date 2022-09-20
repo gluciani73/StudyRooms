@@ -10,24 +10,21 @@ async function createTestData() {
     firstName: "test1",
     lastName: "user1",
     email: "test1@test.com",
-    password: "123",
-    avatar: "test string 1",
+    password: "123"
   })
   await axios.post('http://localhost:3001/users/signup', {
     userName: "testUser2",
     firstName: "test2",
     lastName: "user2",
     email: "test2@test.com",
-    password: "1234",
-    avatar: "test string 2",
+    password: "1234"
   })
   await axios.post('http://localhost:3001/users/signup', {
     userName: "testUser3",
     firstName: "test3",
     lastName: "user3",
     email: "test3@test.com",
-    password: "12345",
-    avatar: "test string 3",
+    password: "12345"
   })
 
   // MOCKUP CATEGORIES
