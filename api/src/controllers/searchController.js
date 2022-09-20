@@ -72,8 +72,6 @@ const searchAnswer = async (req, res) => {
     }
 }
 
-// WORK IN PROGRESS ... --- SOON SEARCH ON Question and Answers togheter.... --------
-
 const searchQA = async (req, res) => {
     const { string } = req.query;
     try {
@@ -124,4 +122,32 @@ const searchQA = async (req, res) => {
     }
 }
 
-module.exports = { searchQuestion, searchAnswer, searchQA }
+// WORK FINISHED ... ---  SEARCH Categories.... --------
+
+const searchCategory = async (req, res) => {
+    const { category } = req.query;
+    try {
+        if (category) {
+            let resultCategory = await Question.findAll({
+                include: [
+                    { model: Category },
+                    { model: Answer }
+                ]
+            }
+            );
+            if (!resultCategory.length) {
+                return res
+                    .status(404)
+                    .json({ error: "No se encuentran resultdos para la busqueda", data: [] })
+            }
+            let result = resultCategory.filter((q) =>
+                q.categories.map((qcat) => qcat.category).includes(category));
+            return res.status(200).json({ error: null, data: result })
+        }
+        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+    } catch (error) {
+        return res.status(500).json({ error: "error en searchCategory ", data: null })
+    }
+}
+
+module.exports = { searchQuestion, searchAnswer, searchQA, searchCategory }
