@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('votesxanswer', {
+    sequelize.define('votesxquestion', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -11,10 +11,6 @@ module.exports = (sequelize) => {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        authType: {
-            type: DataTypes.STRING,
             allowNull: false,
         },
         questionId: {
@@ -25,7 +21,7 @@ module.exports = (sequelize) => {
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };
