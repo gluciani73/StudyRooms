@@ -5,21 +5,13 @@ import logo from '../../recursos/logo.png'
 
 const NavBarNoLogIn = () => {
   return ( 
-        <div className="">
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <img src={logo} height="100px" alt="logo" />                        
-                    </div>
-                    <div className="col">
-                        <p className="fs-2">StudyRooms</p>
-                    </div>
-                    <div className="col">
-                        <p>_</p>
-                    </div>
-                </div>
-            </div>
-    </div>
+    <div >
+    <nav className="navbar navbar-expand-lg navbar-light bg-white">
+    <img src={logo} height="100px" alt="logo" />
+          <p className="navbar-brand pe-5 fs-1">StudyRooms</p>
+    </nav>
+ </div>    
+
   )
 }
 export default NavBarNoLogIn;

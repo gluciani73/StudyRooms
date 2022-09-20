@@ -11,11 +11,7 @@ module.exports = (sequelize) => {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        authType: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         questionId: {
             type: DataTypes.INTEGER,
@@ -29,7 +25,7 @@ module.exports = (sequelize) => {
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };

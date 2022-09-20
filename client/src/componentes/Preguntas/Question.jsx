@@ -1,5 +1,5 @@
-import comments from '../../recursos/comments.png'
-import views from '../../recursos/eye.png'
+//import comments from '../../recursos/comments.png'
+//import views from '../../recursos/eye.png'
 import upVote from '../../recursos/thumbs.png'
 import stars from '../../recursos/star.png'
 
@@ -21,11 +21,11 @@ export default function Question({title, description, ratingAverage, voteCount})
         <div className="col">
              <p>votes:</p>
              <p>{voteCount}</p>
-             <img src={comments} alt="" height="20px" width="20px" />
+             <img src={upVote} alt="" height="20px" width="20px" />
         </div>
         <div className="row">
             <p>description:</p>
-            <p>{description} ipsum</p>
+            <p>{description}</p>
         </div>
     </div>
     </div>

@@ -24,7 +24,9 @@ const Home = () => {
   
   
   return (<div>
-    <NavBar/>
+   
+<div className="container">
+<NavBar/>
     <div className="row">
         <div className="col-4 col-lg-2">
         <Filters/>
@@ -41,7 +43,7 @@ const Home = () => {
       </div>
     </div>
     </div>
-
+    </div>
   </div>  );
 }
  

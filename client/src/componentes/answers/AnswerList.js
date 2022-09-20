@@ -9,6 +9,7 @@ import AnswerEdit from "./AnswerEdit";
 export default function AnswerList () {
 
     const { questionId } = useParams();
+    const userId = '2223456'; //todo - update with auth
     const dispatch = useDispatch();
     const answerList = useSelector(state => state.answerStore.answerList);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -59,7 +60,7 @@ export default function AnswerList () {
                     </>
                 )}
                 {showEditForm && answerEditId === answerItem.id && (
-                    <AnswerEdit userId={'2223456' /*todo - update with auth*/}
+                    <AnswerEdit userId={userId}
                                 questionId={questionId}
                                 answerItem={answerItem}
                                 handleAction={handleHideEditForm}
@@ -89,7 +90,7 @@ export default function AnswerList () {
     return (
         <div>
             {renderAnswerList()}
-            <AnswerCreate userId={'2223456' /*todo - update with auth*/}
+            <AnswerCreate userId={userId}
                           questionId={questionId}
             />
         </div>

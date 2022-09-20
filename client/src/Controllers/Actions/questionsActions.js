@@ -12,9 +12,9 @@ export function getQuestions() {
         payload: info.data
     })
 }}
-export function addQuestions(){
+export function addQuestions(data){
     return async function (dispatch){
-        var info = await axios.post("http://localhost:3001/questions",{});
+        var info = await axios.post("http://localhost:3001/questions",data);
         return dispatch({
         type: ADD_QUESTION,
         payload: info.data

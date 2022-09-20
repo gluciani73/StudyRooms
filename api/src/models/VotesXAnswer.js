@@ -13,21 +13,15 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        authType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         answerId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-
-
     },
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };
