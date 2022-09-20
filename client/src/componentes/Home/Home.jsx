@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
-
+import { Link } from "react-router-dom";
 import Filters from "./Filters";
 import NavBar from "../NavBar/NavBar";
 // import "../../CssAdicional/Home.css"
@@ -36,7 +36,9 @@ const Home = () => {
         {allQuestions.map((e,index)=>{
           return(
               <div>
+                <Link to={`/QuestionDetail/${e.id}</div>}`}>
                 <Question key={e.index} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
+                </Link>
               </div>
           )
         })}

@@ -12,6 +12,7 @@ import AskQuestion from './componentes/Preguntas/AskQuestion'
 import AnswerList from "./componentes/answers/AnswerList";
 import CommentList from "./componentes/comments/CommentList";
 import Error404 from './componentes/Error404/Error404';
+import QuestionDetail from './componentes/Preguntas/QuestionDetail';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
     <Route path='/comments/:questionId' element={<CommentList/>}/>
     <Route path='/Donations' element={<Donations/>}/>
     <Route path="*" element={<Error404 />} />
+    <Route path='QuestionDetail' element={<QuestionDetail/>}/>
    </Routes>
    </Router>
   );
