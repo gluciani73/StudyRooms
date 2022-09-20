@@ -1,14 +1,19 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getCommentList} from "../../Controllers/Actions/commentActions";
+import {getCommentList, deleteCommentItem} from "../../Controllers/Actions/commentActions";
 import {useParams} from "react-router-dom";
 import './CommentList.css';
+import CommentEdit from "../comments/CommentEdit";
+import CommentCreate from "../comments/CommentCreate";
 
 export default function CommentList () {
 
     const { questionId } = useParams();
+    const userId = '2223456'; /*todo - update with auth*/
     const dispatch = useDispatch();
     const commentList = useSelector(state => state.commentStore.commentList);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [commentEditId, setCommentEditId] = useState(null);
 
     useEffect(() => {
         if (commentList.length === 0) {
@@ -16,7 +21,21 @@ export default function CommentList () {
         }
     }, [dispatch, questionId, commentList.length]);
 
-    function renderAnswerItem(commentItem) {
+    function handleShowEditForm(commentId) {
+        setCommentEditId(commentId);
+        setShowEditForm(!showEditForm);
+    }
+
+    function handleHideEditForm() {
+        setCommentEditId(null);
+        setShowEditForm(!showEditForm);
+    }
+
+    function handleDeleteCommentItem(commentItem) {
+        dispatch(deleteCommentItem(commentItem));
+    }
+
+    function renderCommentItem(commentItem) {
         return (
             <div className='singleAnswer' key={commentItem.id}>
                 <div className='singleAnswerTitle'>
@@ -25,6 +44,31 @@ export default function CommentList () {
                     <p>{commentItem.updatedAt}</p>
                 </div>
                 <p>{commentItem.comment}</p>
+                {!(showEditForm && commentEditId === commentItem.id) && (
+                    <>
+                        <button className="buttonAction"
+                                onClick={() => handleShowEditForm(commentItem.id)}
+                                disabled={showEditForm}
+                        >
+                            Edit
+                        </button>
+                        <button className="buttonCancel"
+                                onClick={() => handleDeleteCommentItem(commentItem)}
+                                disabled={showEditForm}
+                        >
+                            Delete
+                        </button>
+                    </>
+                )}
+                {showEditForm && commentEditId === commentItem.id && (
+                    <CommentEdit userId={userId}
+                                 questionId={questionId}
+                                 commentItem={commentItem}
+                                 handleAction={handleHideEditForm}
+                                 handleCancel={handleHideEditForm}
+                    />
+                )}
+
             </div>
         );
     }
@@ -37,10 +81,11 @@ export default function CommentList () {
                 </div>
             );
         }
+        console.log("commentList", commentList)
         return (
             <div className='questionListContainer'>
-                <h2>Comment {questionId}</h2>
-                {commentList.map(item => renderAnswerItem(item))}
+                <h2>Question {questionId}</h2>
+                {commentList.map(item => renderCommentItem(item))}
             </div>
         );
     }
@@ -48,6 +93,9 @@ export default function CommentList () {
     return (
         <div>
             {renderCommentList()}
+            <CommentCreate userId={userId}
+                           questionId={questionId}
+            />
         </div>
     );
 }
