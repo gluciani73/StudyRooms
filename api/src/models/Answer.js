@@ -17,17 +17,19 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        // title: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        // },
         answer: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        rating: {
+        ratingAverage: {
             type: DataTypes.INTEGER,
         },
+        ratingCount: {
+            type: DataTypes.INTEGER,
+        },
+        voteCount: {
+            type: DataTypes.INTEGER,
+        }
     },
         {
             // timestamps: false

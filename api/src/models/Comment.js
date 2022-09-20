@@ -13,10 +13,6 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        authType: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         questionId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -29,7 +25,7 @@ module.exports = (sequelize) => {
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };
