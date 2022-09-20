@@ -1,4 +1,4 @@
-const { Answer, Question } = require('../db');
+const { Answer, Question, User } = require('../db');
 const { Op } = require("sequelize");
 
 const createAnswer = async (req, res) => {
@@ -40,9 +40,15 @@ const getAnswer = async (req, res) => {
                     where: {
                         questionId
                     },
-                    include: {
-                        model: Question
-                    }
+                    include: [
+                        {
+                            model: Question
+                        },
+                        {
+                            model: User,
+                            attributes:['id', 'avatar', 'userName', 'email']
+                        }
+                    ]
                 }
             );
             console.log('result trae: ', result)
