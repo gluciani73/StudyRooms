@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {useDispatch} from "react-redux"
-import swal from 'sweetalert'
+import sweetalert from 'sweetalert'
 
 import {createUserAction} from '../../Controllers/Actions/userAction'
 
@@ -54,7 +54,7 @@ export default function CreateUser(){
     }
 
     function showAlert(){
-        swal({
+        sweetalert({
             title:"Terminos y Condiciones",
             text: `Es requisito necesario para la adquisición de los servicios que se ofrecen en este sitio, que lea
             y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de

@@ -28,26 +28,42 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Question, Answer, Review, Category, Comment } = sequelize.models;
+const { User, Question, Answer, Review, Category, Comment, Votesxquestion, Votesxanswer, Ratingxquestion, Ratingxanswer } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 // Country.belongsToMany(Activity, { through: 'country_activity' });
 // Activity.belongsToMany(Country, { through: 'country_activity' });
 
-User.hasMany(Question);
-User.hasMany(Answer);
-User.hasMany(Review);
-User.hasMany(Comment);
 Question.belongsTo(User);
 Question.hasMany(Answer);
-Question.hasMany(Comment);
+User.hasMany(Question);
+
+Answer.belongsTo(User);
+Answer.belongsTo(Question);
+User.hasMany(Answer);
+
 Question.belongsToMany(Category, { through: 'question_category' });
 Category.belongsToMany(Question, { through: 'question_category' });
-Answer.belongsTo(Question);
-Answer.belongsTo(User);
+
 Review.belongsTo(User);
+User.hasMany(Review);
+
 Comment.belongsTo(Question);
+User.hasMany(Comment);
+Question.hasMany(Comment);
+
+Votesxquestion.belongsTo(Question);
+Question.hasMany(Votesxquestion);
+
+Votesxanswer.belongsTo(Answer);
+Answer.hasMany(Votesxanswer);
+
+Ratingxquestion.belongsTo(Question);
+Question.hasMany(Ratingxquestion);
+
+Ratingxanswer.belongsTo(Answer);
+Answer.hasMany(Ratingxanswer);
 
 
 module.exports = {

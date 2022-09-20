@@ -3,7 +3,7 @@ import userReducer from "./userReducer";
 import answerReducer from "./answerReducer";
 import questionReducer from './QuestionReducer'
 import loginReducer from './loginReducer'
-import commentReducer from './commentReduer';
+import commentReducer from './commentReducer';
 
 export default combineReducers({
     userReducer,

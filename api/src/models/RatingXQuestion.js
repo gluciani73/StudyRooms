@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('question', {
+    sequelize.define('ratingxquestion', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -13,33 +13,14 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        // categoryId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        // },
-        ratingAverage: {
+        questionId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        ratingCount: {
+        rating: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        voteCount: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        isFeatured: {
-            type: DataTypes.BOOLEAN,
-        }
     },
         {
             // timestamps: false
