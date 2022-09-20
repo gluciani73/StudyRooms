@@ -3,10 +3,12 @@ import userReducer from "./userReducer";
 import answerReducer from "./answerReducer";
 import questionReducer from './QuestionReducer'
 import loginReducer from './loginReducer'
+import commentReducer from './commentReduer';
 
 export default combineReducers({
     userReducer,
     answerStore: answerReducer,
     questionReducer,
-    loginReducer
+    loginReducer,
+    commentStore: commentReducer,
 })
