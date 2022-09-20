@@ -10,6 +10,7 @@ import LandingPage from './componentes/LandingPage/LandingPage';
 import Donations from './componentes/Donations/Donations';
 import AskQuestion from './componentes/Preguntas/AskQuestion'
 import AnswerList from "./componentes/answers/AnswerList";
+import CommentList from "./componentes/comments/CommentList";
 import Error404 from './componentes/Error404/Error404';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <Route path='/Donacion' element={<Donations/>}/>
     <Route path='/AskQuestion' element={<AskQuestion/>}/>
     <Route path='/answers/:questionId' element={<AnswerList/>}/>
+    <Route path='/comments/:questionId' element={<CommentList/>}/>
     <Route path='/Donations' element={<Donations/>}/>
     <Route path="*" element={<Error404 />} />
    </Routes>
