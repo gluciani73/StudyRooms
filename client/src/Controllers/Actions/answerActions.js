@@ -5,7 +5,7 @@ export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
 export const UPDATE_ANSWER_ITEM = "UPDATE_ANSWER_ITEM";
 export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 
-const baseUrl =  'https://w9489.mocklab.io'; //'http://localhost:3001';
+const baseUrl = 'http://localhost:3001'; //'https://w9489.mocklab.io';
 
 export const getAnswerList = (questionId) => {
     return function (dispatch){
@@ -14,7 +14,7 @@ export const getAnswerList = (questionId) => {
             .then(response => {
                 dispatch({
                     type: GET_ANSWER_LIST,
-                    payload: response.data
+                    payload: response.data.data
                 });
             });
     }
@@ -34,10 +34,21 @@ export const createAnswerItem = (answerItem) => {
 }
 
 export const updateAnswerItem = (answerItem) => {
-    return {
+    return function (dispatch) {
+        axios.put(`${baseUrl}/answers/${answerItem.id}`, answerItem)
+            .catch(error => console.log("Action creator updateAnswerItem: ", error))
+            .then(response => {
+                dispatch({
+                    type: UPDATE_ANSWER_ITEM,
+                    payload: response.data
+                });
+            });
+    }
+
+    /*return {
         type: UPDATE_ANSWER_ITEM,
         payload: answerItem
-    }
+    }*/
 }
 
 export const deleteAnswerItem = (answerItem) => {

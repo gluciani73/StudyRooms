@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         ratingAverage: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
         },
         ratingCount: {
             type: DataTypes.INTEGER,
