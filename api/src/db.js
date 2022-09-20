@@ -28,7 +28,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Question, Answer, Review, Category, Comment, VotesXQuestion, VotesXAnswer, RatingXQuestion, RatingXAnswer } = sequelize.models;
+const { User, Question, Answer, Review, Category, Comment, Votesxquestion, Votesxanswer, Ratingxquestion, Ratingxanswer } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -53,17 +53,17 @@ Comment.belongsTo(Question);
 User.hasMany(Comment);
 Question.hasMany(Comment);
 
-VotesXQuestion.belongsTo(Question);
-Question.hasMany(VotesXQuestion);
+Votesxquestion.belongsTo(Question);
+Question.hasMany(Votesxquestion);
 
-VotesXAnswer.belongsTo(Answer);
-Answer.hasMany(VotesXAnswer);
+Votesxanswer.belongsTo(Answer);
+Answer.hasMany(Votesxanswer);
 
-RatingXQuestion.belongsTo(Question);
-Question.hasMany(RatingXQuestion);
+Ratingxquestion.belongsTo(Question);
+Question.hasMany(Ratingxquestion);
 
-RatingXAnswer.belongsTo(Answer);
-Answer.hasMany(RatingXAnswer);
+Ratingxanswer.belongsTo(Answer);
+Answer.hasMany(Ratingxanswer);
 
 
 module.exports = {
