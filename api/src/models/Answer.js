@@ -23,12 +23,15 @@ module.exports = (sequelize) => {
         },
         ratingAverage: {
             type: DataTypes.DECIMAL,
+            defaultValue: 0.0
         },
         ratingCount: {
             type: DataTypes.INTEGER,
+            defaultValue: 0
         },
         voteCount: {
             type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     },
         {

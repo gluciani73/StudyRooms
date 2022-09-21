@@ -44,11 +44,6 @@ export const updateAnswerItem = (answerItem) => {
                 });
             });
     }
-
-    /*return {
-        type: UPDATE_ANSWER_ITEM,
-        payload: answerItem
-    }*/
 }
 
 export const deleteAnswerItem = (answerItem) => {

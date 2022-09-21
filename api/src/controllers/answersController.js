@@ -4,12 +4,12 @@ const { Op } = require("sequelize");
 const createAnswer = async (req, res) => {
     try {
         // console.log(req.body) // .log('-------POST /answer -------------- ')
-        const { userId, questionId, answer, rating } = req.body;
+        const { userId, questionId, answer } = req.body; //these are the mandatory fields.
 
         // console.log('Posteo Answer');
-        if (!answer || !userId || !questionId || !rating) {
+        if (!answer || !userId || !questionId) {
             return res.status(401).json({
-                error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
+                error: "There is a missing field, please verify userId, questionId, and answer field are present.",
                 data: null
             })
         }
@@ -17,7 +17,6 @@ const createAnswer = async (req, res) => {
             userId,
             questionId,
             answer,
-            rating
         }
 
         const qAnswer = await Answer.create(newAnswer);
