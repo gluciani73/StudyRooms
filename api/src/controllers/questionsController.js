@@ -1,29 +1,18 @@
-const { Question, Category, User } = require('../db.js');
-
-const getQuestions = async (req, res) => {
-    const allQuestions = await Question.findAll()
-    //filtro para el front que trae todas las Questions
-    /* const filterQ = allQuestions.map(e => e.userId.toLowerCase())
-    const total = filterQ.filter((item, index) => {
-        return filterQ.indexOf(item) === index;
-    }) */
-
-    return res.json(allQuestions)
-}
+const { Question, Category, User, Answer } = require('../db.js');
+const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
-    const {
-        userId,
-        title,
-        description,
-        categories
-    } = req.body;
-
-    if(!userId || !title || !description || !categories){
-        return res.status(401).json({error:"faltan datos", data: null})
-    }
-
     try {
+        const {
+            userId,
+            title,
+            description,
+            categories
+        } = req.body;
+
+        if (!userId || !title || !description || !categories) {
+            return res.status(401).json({ error: "faltan datos", data: null })
+        }
 
         let newQuestion = await Question.create({
             userId, title, description, ratingAverage: 0, ratingCount: 0, voteCount: 0, isFeatured: false
@@ -34,11 +23,63 @@ const createQuestion = async (req, res, next) => {
             if (category) { await newQuestion.addCategory(category) };           // 
         });
 
-        return res.json(newQuestion)
+        return res.status(201).json({ error: null, data: newQuestion })
+
     } catch (error) {
-        console.log(error.message);
-        //next(error)
+        return res.status(500).json({ error: 'Error en el controlador de create question', data: null })
     }
 }
 
-module.exports = { getQuestions, createQuestion }
+const getQuestion = async (req, res) => {
+    try {
+        const { questionId } = req.params;
+        if (questionId) {
+            let result = await Question.findAll(
+                {
+                    where: {
+                        id: questionId
+                    },
+                    include: [
+                        {
+                            model: Answer
+                        },
+                        {
+                            model: User,
+                            attributes: ['id', 'avatar', 'userName', 'email']
+                        }
+                    ]
+                }
+            );
+            if (!result[0]) {
+                return res.status(500).send({ error: "No se encuentran preguntas para estos datos", data: null })
+            }
+            return res.status(200).json({ error: null, data: result })
+        }
+
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas', data: null })
+    }
+}
+
+const getQuestions = async (req, res) => {
+    try {
+        let result = await Question.findAll({
+            include: [
+                { model: Answer },
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }]
+        });
+        return res.status(200).json({ error: null, data: result })
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas', data: null })
+    }
+}
+
+
+const updateQuestion = async (req, res) => {
+
+}
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion }
