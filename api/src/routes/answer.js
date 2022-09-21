@@ -6,6 +6,6 @@ const { createAnswer, getAnswer, updateAnswer } = require('../controllers/answer
 // /asnwers/...
 router.post('/', createAnswer);
 router.get('/:id', getAnswer);
-router.put('/', updateAnswer);
+router.put('/:id', updateAnswer);
 
 module.exports = router;

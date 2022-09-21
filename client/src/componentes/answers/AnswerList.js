@@ -40,7 +40,7 @@ export default function AnswerList () {
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
                     <h3>Answer {answerItem.id}</h3>
-                    <p>John Smith{answerItem.id}</p>
+                    <p>{answerItem.user.userName}</p>
                 </div>
                 <p>{answerItem.answer}</p>
                 {!(showEditForm && answerEditId === answerItem.id) && (
@@ -60,7 +60,7 @@ export default function AnswerList () {
                     </>
                 )}
                 {showEditForm && answerEditId === answerItem.id && (
-                    <AnswerEdit userId={userId}
+                    <AnswerEdit userId={answerItem.userId}
                                 questionId={questionId}
                                 answerItem={answerItem}
                                 handleAction={handleHideEditForm}

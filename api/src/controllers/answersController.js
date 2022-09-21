@@ -74,9 +74,20 @@ const updateAnswer = async (req, res, next) => {
             }
         })
 
-        updateAnswer[0] !== 0 ?
-            res.json('Se edito la respuesta') :
-            res.status(500).json({ error: 'No se puedo editar la respuesta', data: null })
+        if(updateAnswer[0] !== 0) {
+            const response = await Answer.findByPk(id, {
+                include: [
+                    {
+                        model: User,
+                        attributes:['id', 'avatar', 'userName', 'email']
+                    }
+                ]
+            });
+            res.json(response);
+        }
+        else {
+            res.status(500).json({error: 'No se puedo editar la respuesta', data: null})
+        }
 
     } catch (error) {
         // next(error)
