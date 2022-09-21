@@ -32,7 +32,7 @@ const createAnswer = async (req, res) => {
 
 const getAnswer = async (req, res) => {
     try {
-        const questionId = req.params.id;
+        const questionId = req.params.questionId;
         if (questionId) {
             let result = await Answer.findAll(
                 {
@@ -64,7 +64,7 @@ const getAnswer = async (req, res) => {
 const updateAnswer = async (req, res, next) => {
     try {
         const dataAnswer = req.body;
-        const { id } = req.params;
+        const answerId = req.params.answerId;
 
         // const userOk = await Answer.findByPk(id, {
         //     include: [{
@@ -77,13 +77,13 @@ const updateAnswer = async (req, res, next) => {
         // // }
         const updateAnswer = await Answer.update(dataAnswer, {
             where: {
-                id
+                id: answerId
             }
         })
         // console.log(updateAnswer)
         if (updateAnswer[0] !== 0) {
             console.log(updateAnswer[0])
-            const response = await Answer.findByPk(id, {
+            const response = await Answer.findByPk(answerId, {
                 include: [
                     {
                         model: User,
@@ -105,11 +105,9 @@ const updateAnswer = async (req, res, next) => {
 
 const deleteAnswer = async (req, res) => {
     try {
-        const answerId = req.params.id;
+        const answerId = req.params.answerId;
         if (answerId) {
-            console.log('AnswerId: ', answerId)
             let result = await Answer.destroy({ where: { id: answerId } });
-            console.log('result: ', result)
             if (result[0]) {
                 return res.status(500).send({ error: "No se encuentra la respuesta", data: null })
             }

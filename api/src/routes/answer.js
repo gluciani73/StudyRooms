@@ -5,8 +5,8 @@ const { createAnswer, getAnswer, updateAnswer, deleteAnswer } = require('../cont
 
 // /asnwers/...
 router.post('/', createAnswer);
-router.get('/:id', getAnswer);
-router.put('/:id', updateAnswer);
-router.delete('/:id', deleteAnswer);
+router.get('/:questionId', getAnswer);
+router.put('/:answerId', updateAnswer);
+router.delete('/:answerId', deleteAnswer);
 
 module.exports = router;
