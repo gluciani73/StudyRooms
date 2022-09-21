@@ -5,6 +5,7 @@ const sendMail = require('./mailer.js')
 
 const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
 const ACTIVATION_SECRET = process.env.ACTIVATION_SECRET || "ActivationSecret!"
+const RECOVERY_SECRET = process.env.RECOVERY_SECRET || "RecoverySecret!"
 
 const signUp = async (req, res) => {
 
@@ -181,6 +182,64 @@ const changePassword = async (req,res) => {
     }
 }
 
+const recoveryPOST = async (req,res) => {
+    try {
+        const {email} = req.body
+        if(!email) return res.status(400).json({data:null,error:"falta enviar el email"})
+
+        const userExists = await User.findOne({where:{email}})
+        if(!userExists) return res.status(404).json({data:null, error:"user with that email does not exists in DB"})    
+
+        const tokenForLink = jwt.sign({email, id:userExists.id}, RECOVERY_SECRET,{expiresIn:"1d"})
+        const activationLink = 'http://localhost:3001/users/recovery/' + tokenForLink
+
+        const mailOptions = {
+            from: "study.rooms.mail@gmail.com",
+            to: email,
+            subject: "Account recovery",
+            text: `Si pediste recuperar tu cuenta hacé click aca para resetear la password: ${activationLink}`
+        }
+
+        await sendMail(mailOptions)
+        
+
+        return res.status(200).json({data: `an email has been sent to ${email} to reset your password`, error: null})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({data:null, error:"error en el userController"})
+    }
+}
+
+const recoveryGET = async (req,res) => {
+
+    try {
+        const {token} = req.params
+
+        const data = jwt.verify(token, RECOVERY_SECRET)
+        const {email} = data
+
+        let newPassword = ""
+            for(let i = 0; i < 10; i++){
+                newPassword += Math.floor(Math.random()*10)
+            }
+
+            const hashedNewPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(10))
+            await User.update({hashedPassword: hashedNewPassword}, {where:{email}})
+
+            const mailOptions = {
+                from: "study.rooms.mail@gmail.com",
+                to: email,
+                subject: "Account password reset",
+                text: `tu password temporal es: ${newPassword}, puedes cambiarlo desde el profile`
+            }
+            await sendMail(mailOptions)
+            
+        return res.status(200).json({error:null, data: "account password reseted"})
+    } catch (error) {
+        return res.status(500).json({data:null, error:"error in userController"})
+    }
+}
+
 const updateUser = async (req, res) => {
     try{
         const { firstName, lastName, avatar } = req.body
@@ -199,4 +258,4 @@ const updateUser = async (req, res) => {
     }
 }
 
-module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount ,updateUser}
+module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount ,updateUser, recoveryPOST, recoveryGET}
