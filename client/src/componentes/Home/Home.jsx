@@ -20,7 +20,7 @@ const Home = () => {
 
 
 
-  const allQuestions = useSelector ((state)=>state.questionReducer.questions )
+  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
   
   
   return (<div>
@@ -33,7 +33,7 @@ const Home = () => {
     </div>
     <div className="col">
       <div className="container">
-        {allQuestions.map((e,index)=>{
+        {allQuestions?.map((e,index)=>{
           return(
               <div>
                 <Link to={`/QuestionDetail/${e.id}`}>

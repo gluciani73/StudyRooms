@@ -9,7 +9,7 @@ const QuestionDetail = () => {
   let {id} = useParams();
   const dispatch = useDispatch();
   useEffect(()=>{dispatch(getDetail(id))},[dispatch])
-  const myQuestion = useSelector((state)=>state.questionReducer.detail)
+  const myQuestion = useSelector((state)=>state.questionReducer.allQuestions.data)
   
   console.log(myQuestion)
   
@@ -23,6 +23,8 @@ const QuestionDetail = () => {
           <h2>{myQuestion.createdAt}</h2>
           <Link to='/home'>Go back</Link>
       </div>
+
+      
     ):(
       <div><h2>Loading</h2></div>
     )

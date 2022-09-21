@@ -1,4 +1,4 @@
-import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../Actions/questionsActions'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../../constants'
 
 const initialState ={
     allQuestions:[],
