@@ -79,7 +79,23 @@ const getQuestions = async (req, res) => {
 
 
 const updateQuestion = async (req, res) => {
-
+    const questionId = req.params.questionId;
 }
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion }
+
+const deleteQuestion = async (req, res) => {
+    try {
+        const questionId = req.params.questionId;
+        if (questionId) {
+            let result = await Question.destroy({ where: { id: questionId } });
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra la pregunta", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro la pregunta id: ' + questionId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de question al eliminar la pregunta', data: null })
+    }
+}
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion }

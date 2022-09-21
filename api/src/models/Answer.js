@@ -23,18 +23,21 @@ module.exports = (sequelize) => {
         },
         ratingAverage: {
             type: DataTypes.DECIMAL,
+            defaultValue: 0
         },
         ratingCount: {
             type: DataTypes.INTEGER,
+            defaultValue: 0
         },
         voteCount: {
             type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     },
         {
             // timestamps: false
             timestamps: true,
-            createdAt: false,
-            updatedAt: 'actualizado'
+            createdAt: true,
+            updatedAt: true
         });
 };
