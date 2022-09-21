@@ -240,4 +240,22 @@ const recoveryGET = async (req,res) => {
     }
 }
 
-module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount, recoveryPOST, recoveryGET }
+const updateUser = async (req, res) => {
+    try{
+        const { firstName, lastName, avatar } = req.body
+        const { userId } = req.params
+
+        if ( !firstName && !lastName) {
+            return res.status(400).json({data:null, error: "faltan datos"})
+        }
+        
+        await User.update({ firstName, lastName, avatar }, {where: {id:userId}})
+        
+        return res.status(200).json({data:"se modificó el usuario", error: null}) 
+      
+    } catch (error) {
+        return res.status(500).json({data:null, error: "error en el userController"})
+    }
+}
+
+module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount ,updateUser, recoveryPOST, recoveryGET}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from '../../Controllers/Actions/loginActions'
+import { signIn, registerOnOff} from '../../Controllers/Actions/loginActions'
+
 import { Navigate } from "react-router-dom";
 import googleLogo from '../../recursos/googleLogo.png'
 import facelogo from '../../recursos/faceLogo.png'
@@ -18,12 +19,17 @@ export const LandingPage = () => {
     userName: "",
     password: ""
   })
-  const token = localStorage.getItem("token") || null
+  const token = useSelector((state) => state.loginReducer.token)
+
   const errorLog = useSelector((state) => state.loginReducer.error)
 
   function handleSubmit(e) {
     e.preventDefault()
     dispatch(signIn(inputSend))
+  }
+  function handleRegister(e){
+    e.preventDefault()
+    dispatch(registerOnOff())
   }
   return (
     token ? <Navigate to="/home" replace={true} /> :
@@ -42,6 +48,8 @@ export const LandingPage = () => {
                 password: e.target.value
               })}className="d-block m-1 rounded border-0 form-control" />
             <button type="submit" className="btn btn-primary m-2">Ingresar</button>
+            <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Registrarse</button>
+
             <div>
               <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={googleLogo} className="logoGoogle"/> Google/Proximamente</button>
               <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={facelogo} className="logoGoogle"/> Facebook/Proximamente</button>
