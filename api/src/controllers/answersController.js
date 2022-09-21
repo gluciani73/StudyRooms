@@ -60,38 +60,65 @@ const getAnswer = async (req, res) => {
     }
 }
 
-
+// en revision el UPDATE
 const updateAnswer = async (req, res, next) => {
     try {
         const dataAnswer = req.body;
         const { id } = req.params;
 
+        // const userOk = await Answer.findByPk(id, {
+        //     include: [{
+        //         model: User, attributes: ['id', 'avatar', 'userName', 'email']
+        //     }]
+        // });
+        // console.log('userOk.userId: ', userOk.userId)
+        // // if (dataAnswer.userId === userId) {
+
+        // // }
         const updateAnswer = await Answer.update(dataAnswer, {
             where: {
                 id
             }
         })
-
-        if(updateAnswer[0] !== 0) {
+        // console.log(updateAnswer)
+        if (updateAnswer[0] !== 0) {
+            console.log(updateAnswer[0])
             const response = await Answer.findByPk(id, {
                 include: [
                     {
                         model: User,
-                        attributes:['id', 'avatar', 'userName', 'email']
+                        attributes: ['id', 'avatar', 'userName', 'email']
                     }
                 ]
             });
-            res.json(response);
+            return res.status(200).json({ error: null, data: response })
         }
         else {
-            res.status(500).json({error: 'No se puedo editar la respuesta', data: null})
+            res.status(500).json({ error: 'No se puedo editar la respuesta', data: null })
         }
 
     } catch (error) {
-        // next(error)
+
         return res.status(500).json({ error: 'Error en el controlador de answer al actualizar la respuesta', data: null })
     }
 };
 
+const deleteAnswer = async (req, res) => {
+    try {
+        const answerId = req.params.id;
+        if (answerId) {
+            console.log('AnswerId: ', answerId)
+            let result = await Answer.destroy({ where: { id: answerId } });
+            console.log('result: ', result)
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra la respuesta", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de answer al eliminar la respuesta', data: null })
+    }
+}
 
-module.exports = { createAnswer, updateAnswer, getAnswer }
+
+module.exports = { createAnswer, updateAnswer, getAnswer, deleteAnswer }
