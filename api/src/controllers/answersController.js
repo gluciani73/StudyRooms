@@ -5,10 +5,10 @@ const createAnswer = async (req, res) => {
     try {
         const { userId,
             questionId,
-            answer,
-            rating } = req.body;
+            answer
+        } = req.body;
 
-        if (!answer || !userId || !questionId || !rating) {
+        if (!answer || !userId || !questionId) {
             return res.status(401).json({
                 error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
                 data: null
@@ -17,14 +17,19 @@ const createAnswer = async (req, res) => {
         let newAnswer = {
             userId,
             questionId,
-            answer,
-            rating
+            answer
         }
 
         const qAnswer = await Answer.create(newAnswer);
-
-        return res.status(201).json({ error: null, data: qAnswer })
-
+        const response = await Answer.findByPk(qAnswer.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }
+            ]
+        })
+        return res.status(201).json({ error: null, data: response })
     } catch (error) {
         return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
     }
@@ -66,6 +71,8 @@ const updateAnswer = async (req, res, next) => {
         const dataAnswer = req.body;
         const answerId = req.params.answerId;
 
+
+        // ACA FALTA CONTROLAR QUE EL USUARIO QUE HACE UPDATE ES EL QUE ESTA LOGGEADO
         // const userOk = await Answer.findByPk(id, {
         //     include: [{
         //         model: User, attributes: ['id', 'avatar', 'userName', 'email']
