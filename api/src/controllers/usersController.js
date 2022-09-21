@@ -181,4 +181,36 @@ const changePassword = async (req,res) => {
     }
 }
 
-module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount }
+const recoveryPOST = async (req,res) => {
+    try {
+        const {email} = req.body
+        if(!email) return res.status(400).json({data:null,error:"falta enviar el email"})
+
+        const userExists = await User.findOne({where:{email}})
+        if(!userExists) return res.status(404).json({data:null, error:"user with that email does not exists in DB"})    
+
+
+        let newPassword = ""
+        for(let i = 0; i < 10; i++){
+            newPassword += Math.floor(Math.random()*10)
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(10))
+        await User.update({hashedPassword: hashedNewPassword}, {where:{email}})
+
+        const mailOptions = {
+            from: "study.rooms.mail@gmail.com",
+            to: email,
+            subject: "Account recovery",
+            text: `tu password temporal es: ${newPassword}, puedes cambiarlo desde el profile`
+        }
+        await sendMail(mailOptions)
+
+        return res.status(200).json({data: `temporal password has been mailed to ${email}`, error: null})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({data:null, error:"error en el userController"})
+    }
+}
+
+module.exports = { signUp, signIn, getAllUsers, getUserById,changePassword, activateAccount, recoveryPOST }
