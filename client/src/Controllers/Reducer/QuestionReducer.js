@@ -1,4 +1,4 @@
-import {GET_QUESTIONLIST, ADD_QUESTION} from '../Actions/questionsActions'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../Actions/questionsActions'
 
 const initialState ={
     allQuestions:[],
@@ -19,9 +19,17 @@ const questionReducer = (state = initialState, action) => {
             questions:[...state.questions, action.payload]
         }
 
+        case GET_DETAILS:
+            return {
+                ...state,
+                detail:action.payload
+            }
+
             default:
                 return state;
         }
     }
+
+    
 
     export default questionReducer

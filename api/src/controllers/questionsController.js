@@ -41,4 +41,18 @@ const createQuestion = async (req, res, next) => {
     }
 }
 
-module.exports = { getQuestions, createQuestion }
+
+const questionId = async (req, res) => {
+    const id = req.params.id;
+    const questionsFull = await Question.findAll()
+    let QID = await questionsFull.filter (e => e.id==(id))
+        
+    return QID.length ?
+    res.status(200).json(QID) :    
+    res.status(404).send('La pregunta no existe');
+       
+    }
+
+
+
+module.exports = { getQuestions, createQuestion, questionId }

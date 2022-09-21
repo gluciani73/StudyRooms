@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const GET_QUESTIONLIST= "GET_QUESTIONSLIST";
 export const ADD_QUESTION= "ADD_QUESTION";
+export const GET_DETAILS= "GET_DETAILS"
 
 export function getQuestions() {
     return async function (dispatch) {

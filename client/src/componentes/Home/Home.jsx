@@ -36,7 +36,7 @@ const Home = () => {
         {allQuestions.map((e,index)=>{
           return(
               <div>
-                <Link to={`/QuestionDetail/${e.id}</div>}`}>
+                <Link to={`/QuestionDetail/${e.id}`}>
                 <Question key={e.index} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
                 </Link>
               </div>

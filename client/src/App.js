@@ -31,7 +31,7 @@ function App() {
     <Route path='/comments/:questionId' element={<CommentList/>}/>
     <Route path='/Donations' element={<Donations/>}/>
     <Route path="*" element={<Error404 />} />
-    <Route path='QuestionDetail' element={<QuestionDetail/>}/>
+    <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
    </Routes>
    </Router>
   );

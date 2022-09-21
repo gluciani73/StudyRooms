@@ -2,37 +2,32 @@ import { useDispatch } from "react-redux";
 import {Link, useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { getDetail } from "../../Controllers/Actions/questionsActions";
+
 
 const QuestionDetail = () => {
   let {id} = useParams();
   const dispatch = useDispatch();
-  useEffect (()=>dispatch(getDetail(id),[dispatch]))
-  const myQuestion = useSelector ((state)=>state.detail)
-  return ( 
-    myQuestion && myQuestion.id ? (
-      <div key ={myQuestion.id}>
-        <div>
-          <h1>{myQuestion.title}</h1>
+  useEffect(()=>{dispatch(getDetail(id))},[dispatch])
+  const myQuestion = useSelector((state)=>state.questionReducer.detail)
+  
+  console.log(myQuestion)
+  
+  return(
+    myQuestion && myQuestion.id?
+    (
+      <div key={myQuestion.id}>
+          <h2>{myQuestion.title}</h2>
           <h3>{myQuestion.userId}</h3>
-          <h3>{myQuestion.votes}</h3>
           <h2>{myQuestion.description}</h2>
-          <Link to="/Home">Go back</Link>
-        </div>
-
-        <div>
-          {myQuestion.answers.map(e=>{
-            return(
-              <div>
-                <AnswerList key={e.id} title/>
-              </div>
-            )
-          })}
-        </div>
-
+          <h2>{myQuestion.createdAt}</h2>
+          <Link to='/home'>Go back</Link>
       </div>
-    ) : <div><p>Loading</p></div>
+    ):(
+      <div><h2>Loading</h2></div>
+    )
     
-      );
+  ) 
 }
  
 export default QuestionDetail;
