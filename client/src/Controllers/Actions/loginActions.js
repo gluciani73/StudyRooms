@@ -6,6 +6,7 @@ export function signIn( user ){
         const res = (await axios.post(`http://localhost:3001/users/signin`, user)).data
         console.log(res.token);
         localStorage.setItem("token", res.token)
+        localStorage.setItem("loggedUser", JSON.stringify(res.data));
         console.log(localStorage);
         return dispatch({
             type: "SIGN_IN",
