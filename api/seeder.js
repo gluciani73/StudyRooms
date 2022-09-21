@@ -65,7 +65,19 @@ async function createTestData() {
     await axios.post('http://localhost:3001/answers', {
       questionId, userId, answer: "Answer :" + answer + " " + i, rating
     })
+
   }
+
+  //MOCKUP COMMENTS
+  for (let i = 0; i < testData.comments.length; i++) {
+
+    const { questionId, userId, comment } = testData.comments[i]
+
+    await axios.post('http://localhost:3001/comments', {
+      questionId, userId, comment
+    })
+  }
+
 }
 
 module.exports = { createTestData }
