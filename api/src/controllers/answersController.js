@@ -22,8 +22,16 @@ const createAnswer = async (req, res) => {
         }
 
         const qAnswer = await Answer.create(newAnswer);
+        const response = await Answer.findByPk(qAnswer.id, {
+            include: [
+                {
+                    model: User,
+                    attributes:['id', 'avatar', 'userName', 'email']
+                }
+            ]
+        });
 
-        return res.status(201).json({ error: null, data: qAnswer })
+        return res.status(201).json({ error: null, data: response })
 
     } catch (error) {
         return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
