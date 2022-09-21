@@ -25,9 +25,10 @@ export const createAnswerItem = (answerItem) => {
         axios.post(`${baseUrl}/answers`, answerItem)
             .catch(error => console.log("Action creator createAnswerItem: ", error))
             .then(response => {
+                console.log("create response", response)
                 dispatch({
                     type: CREATE_ANSWER_ITEM,
-                    payload: response.data
+                    payload: response.data.data
                 });
             });
     }
