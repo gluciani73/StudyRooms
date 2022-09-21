@@ -20,10 +20,10 @@ const NavBar = () => {
            <div className='col-md-auto'>
             
                <div className='row align-items-center'>
-                   <div class="btn-group" role="group" aria-label="Basic example">
-                       <Link to="/Home"><button type="button" class="btn btn-primary"> <img src={home} alt="" height="20px" /> Home</button></Link>
-                       <Link to="/AskQuestion"><button type="button" class="btn btn-primary">Ask Question</button></Link>
-                       <Link to="/Donations"><button type="button" class="btn btn-primary">Donate</button></Link>
+                   <div className="btn-group" role="group" aria-label="Basic example">
+                       <Link to="/Home"><button type="button" className="btn btn-primary"> <img src={home} alt="" height="20px" /> Home</button></Link>
+                       <Link to="/AskQuestion"><button type="button" className="btn btn-primary">Ask Question</button></Link>
+                       <Link to="/Donations"><button type="button" className="btn btn-primary">Donate</button></Link>
                    </div>
                </div>
            </div>
