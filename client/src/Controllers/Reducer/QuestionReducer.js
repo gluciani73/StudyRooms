@@ -1,8 +1,10 @@
+import QuestionDetail from '../../componentes/Preguntas/QuestionDetail'
 import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../../constants'
 
 const initialState ={
     allQuestions:[],
-    questions:[]
+    questions:[],
+    detail:[]
 }
 
 const questionReducer = (state = initialState, action) => {
