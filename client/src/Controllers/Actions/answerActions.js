@@ -27,7 +27,7 @@ export const createAnswerItem = (answerItem) => {
             .then(response => {
                 dispatch({
                     type: CREATE_ANSWER_ITEM,
-                    payload: response.data
+                    payload: response.data.data
                 });
             });
     }
