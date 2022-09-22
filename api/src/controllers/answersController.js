@@ -10,7 +10,7 @@ const createAnswer = async (req, res) => {
 
         if (!answer || !userId || !questionId) {
             return res.status(401).json({
-                error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
+                error: "Falta algun dato, asegurese de enviar userId, questionId, answer",
                 data: null
             })
         }
@@ -66,31 +66,24 @@ const getAnswer = async (req, res) => {
     }
 }
 
-// en revision el UPDATE
 const updateAnswer = async (req, res, next) => {
     try {
-        const dataAnswer = req.body;
         const answerId = req.params.answerId;
+        const { userId, answer } = req.body;
 
-
-        // ACA FALTA CONTROLAR QUE EL USUARIO QUE HACE UPDATE ES EL QUE ESTA LOGGEADO
-        // const userOk = await Answer.findByPk(id, {
-        //     include: [{
-        //         model: User, attributes: ['id', 'avatar', 'userName', 'email']
-        //     }]
-        // });
-        // console.log('userOk.userId: ', userOk.userId)
-        // // if (dataAnswer.userId === userId) {
-
-        // // }
-        const updateAnswer = await Answer.update(dataAnswer, {
+        if (!answer || !answerId || !userId) {
+            return res.status(401).json({
+                error: "Falta algun dato, asegurese de enviar userId, answer ",
+                data: null
+            })
+        }
+        const updateAnswer = await Answer.update({ answer }, {
             where: {
                 id: answerId
             }
         })
-        // console.log(updateAnswer)
+
         if (updateAnswer[0] !== 0) {
-            console.log(updateAnswer[0])
             const response = await Answer.findByPk(answerId, {
                 include: [
                     {

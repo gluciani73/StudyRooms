@@ -9,7 +9,8 @@ import CommentCreate from "../comments/CommentCreate";
 export default function CommentList () {
 
     const { questionId } = useParams();
-    const userId = '2223456'; /*todo - update with auth*/
+    const userInfo = useSelector(state => state.loginReducer.userInfo);
+    const userId = userInfo.id;
     const dispatch = useDispatch();
     const commentList = useSelector(state => state.commentStore.commentList);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -35,16 +36,19 @@ export default function CommentList () {
         dispatch(deleteCommentItem(commentItem));
     }
 
+    function showCreateForm() {
+        return(userInfo && userInfo.id);
+    }
+
     function renderCommentItem(commentItem) {
         return (
             <div className='singleAnswer' key={commentItem.id}>
                 <div className='singleAnswerTitle'>
-                    <h3>Comment {commentItem.id}</h3>
-                    <p>{commentItem.userName}</p>
-                    <p>{commentItem.updatedAt}</p>
+                    <h3>Comment from {commentItem.user.userName}</h3>
+                    <p><b>Last update:</b> {commentItem.updatedAt}</p>
                 </div>
                 <p>{commentItem.comment}</p>
-                {!(showEditForm && commentEditId === commentItem.id) && (
+                {userId === commentItem.userId && !(showEditForm && commentEditId === commentItem.id) && (
                     <>
                         <button className="buttonAction"
                                 onClick={() => handleShowEditForm(commentItem.id)}
@@ -81,7 +85,6 @@ export default function CommentList () {
                 </div>
             );
         }
-        console.log("commentList", commentList)
         return (
             <div className='questionListContainer'>
                 <h2>Question {questionId}</h2>
@@ -93,9 +96,11 @@ export default function CommentList () {
     return (
         <div>
             {renderCommentList()}
-            <CommentCreate userId={userId}
-                           questionId={questionId}
-            />
+            {showCreateForm() &&
+                <CommentCreate userId={userId}
+                               questionId={questionId}
+                />
+            }
         </div>
     );
 }

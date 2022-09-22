@@ -44,6 +44,9 @@ const getQuestion = async (req, res) => {
                             model: Answer
                         },
                         {
+                            model: Category
+                        },
+                        {
                             model: User,
                             attributes: ['id', 'avatar', 'userName', 'email']
                         }
@@ -66,6 +69,7 @@ const getQuestions = async (req, res) => {
         let result = await Question.findAll({
             include: [
                 { model: Answer },
+                { model: Category },
                 {
                     model: User,
                     attributes: ['id', 'avatar', 'userName', 'email']
@@ -79,7 +83,51 @@ const getQuestions = async (req, res) => {
 
 
 const updateQuestion = async (req, res) => {
-    const questionId = req.params.questionId;
+    try {
+        const questionId = req.params.questionId;
+        const { userId,
+            title,
+            description,
+            categories
+        } = req.body;
+
+        if (!title || !questionId || !userId || !description || !categories) {
+            return res.status(401).json({
+                error: "Falta algun dato",
+                data: null
+            })
+        }
+        const updateQuestion = await Question.update({ title, description }, {
+            where: {
+                id: questionId
+            }
+        });
+
+        // categories.forEach(async (c) => {
+        //     const category = await Category.findOne({ where: { category: c } }); // 
+        //     if (category) { await updateQuestion.addCategory(category) };           // 
+        // });
+
+        if (updateQuestion[0] !== 0) {
+            const response = await Question.findByPk(questionId, {
+                include: [
+                    { model: Category },
+                    {
+                        model: User,
+                        attributes: ['id', 'avatar', 'userName', 'email']
+                    }
+                ]
+            });
+
+            return res.status(200).json({ error: null, data: response })
+        }
+        else {
+            res.status(500).json({ error: 'No se puedo editar la pregunta', data: null })
+        }
+    } catch (error) {
+
+        return res.status(500).json({ error: 'Error en el controlador de quetion al actualizar la pregunta', data: null })
+    }
 }
 
 
