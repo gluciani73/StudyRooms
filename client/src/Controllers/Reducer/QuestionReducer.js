@@ -24,7 +24,7 @@ const questionReducer = (state = initialState, action) => {
         case GET_DETAILS:
             return {
                 ...state,
-                detail:[...state,action.payload]
+                detail:action.payload
             }
 
             default:
