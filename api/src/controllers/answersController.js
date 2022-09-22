@@ -130,7 +130,7 @@ const deleteAnswer = async (req, res) => {
 
 const votesXAnswer = async (req, res) => {
 
-    const {userId, answerId, votes} = req.body;
+    const {userId, answerId, votes} = req.params.answerId;
     if (!userId && !answerId && !votes) {
         return res.status(401).json({ data: null, error: "faltan datos" })
     }
@@ -147,7 +147,7 @@ const votesXAnswer = async (req, res) => {
             
         })
 
-        return res.status(200).json({msg: "voto creado exitosamente", lastVote})
+        return res.status(200).json({msg: "voto creado exitosamente", newVote})
 
     }
     catch (error){

@@ -7,6 +7,6 @@ const { createAnswer, getAnswer, updateAnswer, votesXAnswer } = require('../cont
 router.post('/', createAnswer);
 router.get('/:id', getAnswer);
 router.put('/:id', updateAnswer);
-router.post('/', votesXAnswer)
+router.post('/votes', votesXAnswer)
 
 module.exports = router;
