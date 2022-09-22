@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport')
+const OAuth2Strategy = require('passport-google-oauth2')
 
 const cors = require("cors")
 const server = express();
@@ -11,6 +12,25 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
 server.use(cors())
+
+const CLIENT_ID = '374729590488-tfhid7q5qv8snscaounusdtvmtet8utp.apps.googleusercontent.com'
+const CLIENT_SECRET = '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'
+
+passport.use(new OAuth2Strategy({
+  authorizationURL: 'https://accounts.google.com/o/oauth2/v2/auth',
+  tokenURL: 'https://oauth2.googleapis.com/token',
+  clientID: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  callbackURL: "http://localhost:3001/users/google/login/callback"
+},
+function(accessToken, refreshToken, profile, cb) {
+  /* User.findOrCreate({ exampleId: profile.id }, function (err, user) {
+    return cb(err, user);
+  }); */
+  console.log(profile);
+  return cb(err,profile)
+}
+));
 
 
 server.use((req, res, next) => {
