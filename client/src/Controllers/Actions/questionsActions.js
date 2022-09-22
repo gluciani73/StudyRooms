@@ -9,7 +9,7 @@ export function getQuestions() {
         const info = await axios.get("http://localhost:3001/questions",{ });
         return dispatch({
         type: GET_QUESTIONLIST,
-        payload: info.data.data
+        payload: info.data
     })
 }}
 export function addQuestions(data){
