@@ -5,26 +5,31 @@ const createAnswer = async (req, res) => {
     try {
         const { userId,
             questionId,
-            answer,
-            rating } = req.body;
+            answer
+        } = req.body;
 
-        if (!answer || !userId || !questionId || !rating) {
+        if (!answer || !userId || !questionId) {
             return res.status(401).json({
-                error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
+                error: "Falta algun dato, asegurese de enviar userId, questionId, answer",
                 data: null
             })
         }
         let newAnswer = {
             userId,
             questionId,
-            answer,
-            rating
+            answer
         }
 
         const qAnswer = await Answer.create(newAnswer);
-
-        return res.status(201).json({ error: null, data: qAnswer })
-
+        const response = await Answer.findByPk(qAnswer.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }
+            ]
+        })
+        return res.status(201).json({ error: null, data: response })
     } catch (error) {
         return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
     }
@@ -32,7 +37,7 @@ const createAnswer = async (req, res) => {
 
 const getAnswer = async (req, res) => {
     try {
-        const questionId = req.params.id;
+        const questionId = req.params.questionId;
         if (questionId) {
             let result = await Answer.findAll(
                 {
@@ -60,38 +65,58 @@ const getAnswer = async (req, res) => {
     }
 }
 
-
 const updateAnswer = async (req, res, next) => {
     try {
-        const dataAnswer = req.body;
-        const { id } = req.params;
+        const answerId = req.params.answerId;
+        const { userId, answer } = req.body;
 
-        const updateAnswer = await Answer.update(dataAnswer, {
+        if (!answer || !answerId || !userId) {
+            return res.status(401).json({
+                error: "Falta algun dato, asegurese de enviar userId, answer ",
+                data: null
+            })
+        }
+        const updateAnswer = await Answer.update({ answer }, {
             where: {
-                id
+                id: answerId
             }
         })
 
-        if(updateAnswer[0] !== 0) {
-            const response = await Answer.findByPk(id, {
+        if (updateAnswer[0] !== 0) {
+            const response = await Answer.findByPk(answerId, {
                 include: [
                     {
                         model: User,
-                        attributes:['id', 'avatar', 'userName', 'email']
+                        attributes: ['id', 'avatar', 'userName', 'email']
                     }
                 ]
             });
-            res.json(response);
+            return res.status(200).json({ error: null, data: response })
         }
         else {
-            res.status(500).json({error: 'No se puedo editar la respuesta', data: null})
+            res.status(500).json({ error: 'No se puedo editar la respuesta', data: null })
         }
 
     } catch (error) {
-        // next(error)
+
         return res.status(500).json({ error: 'Error en el controlador de answer al actualizar la respuesta', data: null })
     }
 };
 
+const deleteAnswer = async (req, res) => {
+    try {
+        const answerId = req.params.answerId;
+        if (answerId) {
+            let result = await Answer.destroy({ where: { id: answerId } });
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra la respuesta", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de answer al eliminar la respuesta', data: null })
+    }
+}
 
-module.exports = { createAnswer, updateAnswer, getAnswer }
+
+module.exports = { createAnswer, updateAnswer, getAnswer, deleteAnswer }

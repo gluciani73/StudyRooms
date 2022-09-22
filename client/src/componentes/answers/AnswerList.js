@@ -9,7 +9,8 @@ import AnswerEdit from "./AnswerEdit";
 export default function AnswerList () {
 
     const { questionId } = useParams();
-    const userId = '2223456'; //todo - update with auth
+    const userInfo = useSelector(state => state.loginReducer.userInfo);
+    const userId = userInfo.id;
     const dispatch = useDispatch();
     const answerList = useSelector(state => state.answerStore.answerList);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -35,15 +36,29 @@ export default function AnswerList () {
         dispatch(deleteAnswerItem(answerItem));
     }
 
+    function showCreateForm() {
+        if(!userInfo || !userInfo.id) {
+            return false;
+        }
+        const answerItem = answerList.find(item =>
+            item.userId === userId
+        )
+        return !answerItem;
+    }
+
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
-                    <h3>Answer {answerItem.id}</h3>
-                    <p>{answerItem.user.userName}</p>
+                    <h3>Answer from {answerItem.user.userName}</h3>
+                    <p>
+                        <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
+                        <span>({answerItem.voteCount} votes) </span>
+                        <span><b>Last update:</b> {answerItem.updatedAt}</span>
+                    </p>
                 </div>
                 <p>{answerItem.answer}</p>
-                {!(showEditForm && answerEditId === answerItem.id) && (
+                {userId === answerItem.userId && !(showEditForm && answerEditId === answerItem.id) && (
                     <>
                         <button className="buttonAction"
                                 onClick={() => handleShowEditForm(answerItem.id)}
@@ -90,9 +105,11 @@ export default function AnswerList () {
     return (
         <div>
             {renderAnswerList()}
-            <AnswerCreate userId={userId}
-                          questionId={questionId}
-            />
+            {showCreateForm() &&
+                <AnswerCreate userId={userId}
+                              questionId={questionId}
+                />
+            }
         </div>
     );
 }

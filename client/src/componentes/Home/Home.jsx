@@ -13,6 +13,7 @@ import { getQuestions } from "../../Controllers/Actions/questionsActions";
 const Home = () => {
 
   const dispatch = useDispatch();
+
   useEffect(()=>{  
     dispatch(getQuestions())},[dispatch]);
 
@@ -21,7 +22,7 @@ const Home = () => {
 
   const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
 
-  
+
   
   return (<div>
    
