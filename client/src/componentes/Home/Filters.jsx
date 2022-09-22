@@ -9,15 +9,15 @@ const Filters = () =>{
     // useEffect(()=>{  
     //   dispatch(getQuestions())},[dispatch]);
 
-    //   function handleFilterCategory(e){
+      function handleFilterCategory(e){
     //     dispatch(filterQuestionCategory(e.target.value)) //falta asignar action
-    // }
-    // function handleSortRating(e){
+     }
+     function handleSortRating(e){
     //     e.preventDefault();
     //     dispatch(orderByRating(e.target.value))
     //     setCurrentPage(1)
     //     setOrdenbyRating(`Ordenado ${e.target.value}`)
-    // }
+     }
 
     return(
         <div>
