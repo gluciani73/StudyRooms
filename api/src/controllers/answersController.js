@@ -3,38 +3,42 @@ const { Op } = require("sequelize");
 
 const createAnswer = async (req, res) => {
     try {
-        // console.log(req.body) // .log('-------POST /answer -------------- ')
-        const { userId, questionId, answer, rating } = req.body;
+        const { userId,
+            questionId,
+            answer
+        } = req.body;
 
-        // console.log('Posteo Answer');
-        if (!answer || !userId || !questionId || !rating) {
+        if (!answer || !userId || !questionId) {
             return res.status(401).json({
                 error: "Falta algun dato, asegurese de enviar userId, questionId, answer, rating",
                 data: null
             })
         }
-        let newAnswer = {    // creo nuevo objetos con datos de la answer pasada x body
+        let newAnswer = {
             userId,
             questionId,
-            answer,
-            rating
+            answer
         }
 
         const qAnswer = await Answer.create(newAnswer);
-        // let msg = `Se creo la respuesta ${qAnswer.id}.`
-        return res.status(201).json({ error: null, data: qAnswer })
-
+        const response = await Answer.findByPk(qAnswer.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }
+            ]
+        })
+        return res.status(201).json({ error: null, data: response })
     } catch (error) {
-        // console.log(error)
         return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
     }
 }
 
 const getAnswer = async (req, res) => {
-    const questionId = req.params.id;
     try {
+        const questionId = req.params.questionId;
         if (questionId) {
-            // console.log('Respuesta params con questionId: ', questionId);
             let result = await Answer.findAll(
                 {
                     where: {
@@ -46,13 +50,12 @@ const getAnswer = async (req, res) => {
                         },
                         {
                             model: User,
-                            attributes:['id', 'avatar', 'userName', 'email']
+                            attributes: ['id', 'avatar', 'userName', 'email']
                         }
                         // include: model votesXAnswer
                     ]
                 }
             );
-            console.log('result trae: ', result)
             if (!result[0]) {
                 return res.status(500).send({ error: "No se encuentran respuestas para esta pregunta", data: null })
             }
@@ -63,39 +66,65 @@ const getAnswer = async (req, res) => {
     }
 }
 
-
+// en revision el UPDATE
 const updateAnswer = async (req, res, next) => {
     try {
         const dataAnswer = req.body;
-        const { id } = req.params;
+        const answerId = req.params.answerId;
 
+
+        // ACA FALTA CONTROLAR QUE EL USUARIO QUE HACE UPDATE ES EL QUE ESTA LOGGEADO
+        // const userOk = await Answer.findByPk(id, {
+        //     include: [{
+        //         model: User, attributes: ['id', 'avatar', 'userName', 'email']
+        //     }]
+        // });
+        // console.log('userOk.userId: ', userOk.userId)
+        // // if (dataAnswer.userId === userId) {
+
+        // // }
         const updateAnswer = await Answer.update(dataAnswer, {
             where: {
-                id
+                id: answerId
             }
         })
-
-        if(updateAnswer[0] !== 0) {
-            const response = await Answer.findByPk(id, {
+        // console.log(updateAnswer)
+        if (updateAnswer[0] !== 0) {
+            console.log(updateAnswer[0])
+            const response = await Answer.findByPk(answerId, {
                 include: [
                     {
                         model: User,
-                        attributes:['id', 'avatar', 'userName', 'email']
+                        attributes: ['id', 'avatar', 'userName', 'email']
                     }
                 ]
             });
-            res.json(response);
+            return res.status(200).json({ error: null, data: response })
         }
         else {
-            res.status(500).json({error: 'No se puedo editar la respuesta', data: null})
+            res.status(500).json({ error: 'No se puedo editar la respuesta', data: null })
         }
 
     } catch (error) {
-        // next(error)
+
         return res.status(500).json({ error: 'Error en el controlador de answer al actualizar la respuesta', data: null })
     }
 };
 
+const deleteAnswer = async (req, res) => {
+    try {
+        const answerId = req.params.answerId;
+        if (answerId) {
+            let result = await Answer.destroy({ where: { id: answerId } });
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra la respuesta", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de answer al eliminar la respuesta', data: null })
+    }
+}
 
 //votesXAnswer
 

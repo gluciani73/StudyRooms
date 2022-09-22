@@ -27,7 +27,7 @@ export const createAnswerItem = (answerItem) => {
             .then(response => {
                 dispatch({
                     type: CREATE_ANSWER_ITEM,
-                    payload: response.data
+                    payload: response.data.data
                 });
             });
     }
@@ -40,21 +40,22 @@ export const updateAnswerItem = (answerItem) => {
             .then(response => {
                 dispatch({
                     type: UPDATE_ANSWER_ITEM,
-                    payload: response.data
+                    payload: response.data.data
                 });
             });
     }
-
-    /*return {
-        type: UPDATE_ANSWER_ITEM,
-        payload: answerItem
-    }*/
 }
 
 export const deleteAnswerItem = (answerItem) => {
-    return {
-        type: DELETE_ANSWER_ITEM,
-        payload: answerItem
+    return function (dispatch) {
+        axios.delete(`${baseUrl}/answers/${answerItem.id}`)
+            .catch(error => console.log("Action creator deleteAnswerItem: ", error))
+            .then(() => {
+                dispatch({
+                    type: DELETE_ANSWER_ITEM,
+                    payload: {id: answerItem.id, questionId: answerItem.questionId}
+                });
+            });
     }
 }
 

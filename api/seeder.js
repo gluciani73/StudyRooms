@@ -10,21 +10,24 @@ async function createTestData() {
     firstName: "test1",
     lastName: "user1",
     email: "test1@test.com",
-    password: "123"
+    password: "123",
+    active: true
   })
   await axios.post('http://localhost:3001/users/signup', {
     userName: "testUser2",
     firstName: "test2",
     lastName: "user2",
     email: "test2@test.com",
-    password: "1234"
+    password: "1234",
+    active: true
   })
   await axios.post('http://localhost:3001/users/signup', {
     userName: "testUser3",
     firstName: "test3",
     lastName: "user3",
     email: "test3@test.com",
-    password: "12345"
+    password: "12345",
+    active: false
   })
 
   // MOCKUP CATEGORIES
@@ -62,7 +65,19 @@ async function createTestData() {
     await axios.post('http://localhost:3001/answers', {
       questionId, userId, answer: "Answer :" + answer + " " + i, rating
     })
+
   }
+
+  //MOCKUP COMMENTS
+  for (let i = 0; i < testData.comments.length; i++) {
+
+    const { questionId, userId, comment } = testData.comments[i]
+
+    await axios.post('http://localhost:3001/comments', {
+      questionId, userId, comment
+    })
+  }
+
 }
 
 module.exports = { createTestData }

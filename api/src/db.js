@@ -49,6 +49,7 @@ Category.belongsToMany(Question, { through: 'question_category' });
 Review.belongsTo(User);
 User.hasMany(Review);
 
+Comment.belongsTo(User);
 Comment.belongsTo(Question);
 User.hasMany(Comment);
 Question.hasMany(Comment);

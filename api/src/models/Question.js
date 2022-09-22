@@ -21,21 +21,17 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        // categoryId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        // },
         ratingAverage: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
+            type: DataTypes.DECIMAL,
+            defaultValue: 0
         },
         ratingCount: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            defaultValue: 0
         },
         voteCount: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            defaultValue: 0
         },
         isFeatured: {
             type: DataTypes.BOOLEAN,

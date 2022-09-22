@@ -1,12 +1,11 @@
+
 import axios from "axios"
 
 export function signIn( user ){ 
     return async function (dispatch){
         try {
         const res = (await axios.post(`http://localhost:3001/users/signin`, user)).data
-        console.log(res.token);
         localStorage.setItem("token", res.token)
-        console.log(localStorage);
         return dispatch({
             type: "SIGN_IN",
             payload: res
@@ -14,10 +13,15 @@ export function signIn( user ){
         )
         } catch (error) {
             return dispatch({
-                type: "SIGN_IN",
+                type: "ERROR_SIGN_IN",
                 payload: error.response.data.error
                }
             )
         }
+    }
+}
+export function registerOnOff(){
+    return{
+        type: "CHANGE_LANDING"
     }
 }

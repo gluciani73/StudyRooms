@@ -15,7 +15,7 @@ export default function AnswerCreate({userId, questionId})  {
 
     return (
         <div className='createAnswerContainer'>
-            <h1 className='createAnswerTitle'>Create Answer</h1>
+            <h1 className='createAnswerTitle'>Create your answer</h1>
             <AnswerForm buttonText={'Create'}
                         buttonAction={handleCreateButton}
             />
