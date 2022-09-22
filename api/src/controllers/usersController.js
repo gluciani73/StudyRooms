@@ -240,6 +240,7 @@ const recoveryGET = async (req,res) => {
     }
 }
 
+
 const updateUser = async (req, res) => {
     try{
         const { firstName, lastName, avatar } = req.body

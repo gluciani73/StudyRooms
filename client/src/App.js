@@ -13,6 +13,7 @@ import AnswerList from "./componentes/answers/AnswerList";
 import TOS from './componentes/Home/TOS';
 import CommentList from "./componentes/comments/CommentList";
 import Error404 from './componentes/Error404/Error404';
+import QuestionDetail from './componentes/Preguntas/QuestionDetail';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
     <Route path='/comments/:questionId' element={<CommentList/>}/>
     <Route path='/Donations' element={<Donations/>}/>
     <Route path="*" element={<Error404 />} />
+    <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
    </Routes>
    </Router>
   );

@@ -1,7 +1,9 @@
 const {Router} = require('express')
 const router = Router()
 
+
 const {signIn, signUp, getAllUsers, getUserById, changePassword, activateAccount, recoveryPOST, recoveryGET, updateUser} = require('../controllers/usersController')
+
 
 // /users/...
 router.post('/signup', signUp)
