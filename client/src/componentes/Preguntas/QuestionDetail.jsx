@@ -3,17 +3,15 @@ import {Link, useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
-import { useState } from "react";
+
 
 
 const QuestionDetail = () => {
   let {id} = useParams();
   const dispatch = useDispatch();
   useEffect(()=>{dispatch(getDetail(id))},[dispatch])
-  const myQuestion = useSelector((state)=>state.questionReducer.uestions.data)
+  const myQuestion = useSelector((state)=>state.questionReducer.detail)
   
-  
-  console.log(myQuestion)
   
   return(
     myQuestion && myQuestion.id?
