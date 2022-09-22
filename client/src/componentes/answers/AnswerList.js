@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAnswerList, deleteAnswerItem} from "../../Controllers/Actions/answerActions";
-import {getUserId} from "../Usuarios/userUtilities";
 import {useParams} from "react-router-dom";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
@@ -10,7 +9,8 @@ import AnswerEdit from "./AnswerEdit";
 export default function AnswerList () {
 
     const { questionId } = useParams();
-    const userId = getUserId();
+    const userInfo = useSelector(state => state.loginReducer.userInfo);
+    const userId = userInfo.id;
     const dispatch = useDispatch();
     const answerList = useSelector(state => state.answerStore.answerList);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -36,6 +36,13 @@ export default function AnswerList () {
         dispatch(deleteAnswerItem(answerItem));
     }
 
+    function showCreateForm() {
+        const answerItem = answerList.find(item =>
+            item.userId === userId
+        )
+        return !answerItem;
+    }
+
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
@@ -44,7 +51,7 @@ export default function AnswerList () {
                     <p>{answerItem.user.userName}</p>
                 </div>
                 <p>{answerItem.answer}</p>
-                {userId && !(showEditForm && answerEditId === answerItem.id) && (
+                {userId === answerItem.userId && !(showEditForm && answerEditId === answerItem.id) && (
                     <>
                         <button className="buttonAction"
                                 onClick={() => handleShowEditForm(answerItem.id)}
@@ -91,7 +98,7 @@ export default function AnswerList () {
     return (
         <div>
             {renderAnswerList()}
-            {userId &&
+            {showCreateForm() &&
                 <AnswerCreate userId={userId}
                               questionId={questionId}
                 />
