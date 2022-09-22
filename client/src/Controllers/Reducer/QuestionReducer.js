@@ -3,6 +3,7 @@ import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../../constants'
 const initialState ={
     allQuestions:[],
     questions:[],
+    detail:[]
 }
 
 const questionReducer = (state = initialState, action) => {
@@ -22,7 +23,7 @@ const questionReducer = (state = initialState, action) => {
         case GET_DETAILS:
             return {
                 ...state,
-                detail:[action.payload]
+                detail:[...state,action.payload]
             }
 
             default:

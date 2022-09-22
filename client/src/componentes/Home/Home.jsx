@@ -28,7 +28,7 @@ const Home = () => {
     </div>
     <div className="col">
       <div className="container">
-        {allQuestions?.map((e,index)=>{
+        {allQuestions?.map((e,id)=>{
           return(
               <div>
                 <Link to={`/QuestionDetail/${e.id}`}>
