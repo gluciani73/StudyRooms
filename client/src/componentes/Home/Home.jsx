@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
-
+import { Link } from "react-router-dom";
 import Filters from "./Filters";
 import NavBar from "../NavBar/NavBar";
 // import "../../CssAdicional/Home.css"
@@ -13,10 +13,16 @@ import { getQuestions } from "../../Controllers/Actions/questionsActions";
 const Home = () => {
 
   const dispatch = useDispatch();
-  const allQuestions = useSelector ((state)=>state.questionReducer.questions )
+
   useEffect(()=>{  
     dispatch(getQuestions())},[dispatch]);
-  
+
+
+
+
+  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
+
+
   
   return (<div>
    
@@ -28,10 +34,12 @@ const Home = () => {
     </div>
     <div className="col">
       <div className="container">
-        {allQuestions.map((e,index)=>{
+        {allQuestions?.map((e,id)=>{
           return(
               <div>
-                <Question key={e.index} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
+                <Link to={`/QuestionDetail/${e.id}`}>
+                <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
+                </Link>
               </div>
           )
         })}
