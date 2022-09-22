@@ -5,6 +5,7 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import user from '../../recursos/user.png'
 import home from '../../recursos/home.png'
+import DropDown from './DropDown'
 
 
 
@@ -35,11 +36,11 @@ const NavBar = () => {
                   </form>
                </div>
            </div>
-           <div className='col-md-auto align-items-center auto-mx'>
+           <div className='col-md-auto align-items-center auto-mx ' >
                <div className="row align-items-center">
                   <p className="col-md-auto" href="#"><img src={config} alt="config" height='30px'/></p>
                   <p className="col-md-auto" href="#"><img src={notification} alt="notifications"height='30px'/> </p>
-                  <p className="col-md-auto" href="#"><img src={user} alt="user"height='30px'/> </p>
+                  <DropDown />
                </div>
            </div>
    </nav>
