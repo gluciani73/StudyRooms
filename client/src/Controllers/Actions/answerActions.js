@@ -1,5 +1,5 @@
 import axios from "axios";
-import {URL_BACK} from "../../constants";
+import { URL_BACK } from "../../constants";
 
 export const GET_ANSWER_LIST = "GET_ANSWER_LIST";
 export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
@@ -9,8 +9,8 @@ export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 const baseUrl = URL_BACK; //'https://w9489.mocklab.io';
 
 export const getAnswerList = (questionId) => {
-    return function (dispatch){
-        axios.get(`${baseUrl}/answers/${questionId}`)
+    return function (dispatch) {
+        axios.get(`/answers/${questionId}`)
             .catch(error => console.log("Action creator getAnswerList:", error))
             .then(response => {
                 dispatch({
@@ -23,7 +23,7 @@ export const getAnswerList = (questionId) => {
 
 export const createAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.post(`${baseUrl}/answers`, answerItem)
+        axios.post(`/answers`, answerItem)
             .catch(error => console.log("Action creator createAnswerItem: ", error))
             .then(response => {
                 dispatch({
@@ -36,7 +36,7 @@ export const createAnswerItem = (answerItem) => {
 
 export const updateAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.put(`${baseUrl}/answers/${answerItem.id}`, answerItem)
+        axios.put(`/answers/${answerItem.id}`, answerItem)
             .catch(error => console.log("Action creator updateAnswerItem: ", error))
             .then(response => {
                 dispatch({
@@ -49,12 +49,12 @@ export const updateAnswerItem = (answerItem) => {
 
 export const deleteAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.delete(`${baseUrl}/answers/${answerItem.id}`)
+        axios.delete(`/answers/${answerItem.id}`)
             .catch(error => console.log("Action creator deleteAnswerItem: ", error))
             .then(() => {
                 dispatch({
                     type: DELETE_ANSWER_ITEM,
-                    payload: {id: answerItem.id, questionId: answerItem.questionId}
+                    payload: { id: answerItem.id, questionId: answerItem.questionId }
                 });
             });
     }

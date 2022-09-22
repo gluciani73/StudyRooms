@@ -4,11 +4,11 @@ const { createTestData } = require('./seeder.js')
 
 conn.sync({ force: true })
   .then(() => {
-    server.listen(3001, async () => {
+    server.listen(process.env.PORT, async () => {
       await createTestData()
       console.log('--------------------------------');
       console.log('creada el mockup de datos');
-      console.log('server up (localhost:3001)'); // eslint-disable-line no-console
+      console.log(`'server up (localhost:${process.env.PORT})'`); // eslint-disable-line no-console
     });
   })
 
