@@ -28,7 +28,7 @@ export function getDetail (id){
             var json = await axios.get(`${URL_BACK}questions/${id}`);           
             return dispach({
                 type: GET_DETAILS,
-                payload: json.data[0]
+                payload: json.data
             })
         } catch (error) {
             console.log(error)

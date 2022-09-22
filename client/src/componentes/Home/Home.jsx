@@ -13,9 +13,14 @@ import { getQuestions } from "../../Controllers/Actions/questionsActions";
 const Home = () => {
 
   const dispatch = useDispatch();
-  const allQuestions = useSelector ((state)=>state.questionReducer.questions.data )
   useEffect(()=>{  
     dispatch(getQuestions())},[dispatch]);
+
+
+
+
+  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
+
   
   
   return (<div>
