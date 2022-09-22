@@ -3,7 +3,8 @@ import {Link, useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
-import { useState } from "react";
+import AnswerList from '../answers/AnswerList'
+import CommentList from '../comments/CommentList'
 
 
 const QuestionDetail = () => {
@@ -22,6 +23,9 @@ const QuestionDetail = () => {
           <h1>{e.title}</h1>
           <p>{e.description}</p>
           <Link to='/Home'>home</Link>
+          <AnswerList/>
+          <CommentList/>
+        
         </div>
         
   )
