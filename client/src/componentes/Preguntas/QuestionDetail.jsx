@@ -21,8 +21,10 @@ const QuestionDetail = () => {
           <h1>{e.userId}</h1>
           <h1>{e.title}</h1>
           <p>{e.description}</p>
+          <Link to='/Home'>home</Link>
         </div>
-      )
+        
+  )
     })
     
   ) 
