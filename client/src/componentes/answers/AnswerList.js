@@ -37,6 +37,9 @@ export default function AnswerList () {
     }
 
     function showCreateForm() {
+        if(!userInfo || !userInfo.id) {
+            return false;
+        }
         const answerItem = answerList.find(item =>
             item.userId === userId
         )
@@ -47,8 +50,12 @@ export default function AnswerList () {
         return (
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
-                    <h3>Answer {answerItem.id}</h3>
-                    <p>{answerItem.user.userName}</p>
+                    <h3>Answer from {answerItem.user.userName}</h3>
+                    <p>
+                        <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
+                        <span>({answerItem.voteCount} votes) </span>
+                        <span><b>Last update:</b> {answerItem.updatedAt}</span>
+                    </p>
                 </div>
                 <p>{answerItem.answer}</p>
                 {userId === answerItem.userId && !(showEditForm && answerEditId === answerItem.id) && (
