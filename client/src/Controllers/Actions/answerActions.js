@@ -1,11 +1,12 @@
 import axios from "axios";
+import {URL_BACK} from "../../constants";
 
 export const GET_ANSWER_LIST = "GET_ANSWER_LIST";
 export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
 export const UPDATE_ANSWER_ITEM = "UPDATE_ANSWER_ITEM";
 export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 
-const baseUrl = 'http://localhost:3001'; //'https://w9489.mocklab.io';
+const baseUrl = URL_BACK; //'https://w9489.mocklab.io';
 
 export const getAnswerList = (questionId) => {
     return function (dispatch){
