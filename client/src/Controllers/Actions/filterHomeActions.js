@@ -1,13 +1,18 @@
-export const FILTER_CATEGORY = "FILTER_BY_CATEGORY"
-export const FILTER_RATING = "FILTER_BY_RATING"
+import { FILTER_RATING, FILTER_CATEGORY } from "../../constants"
 
-export function handleFilterCategory(payload){
+export function FilterCategory(payload){
     return{
         type: FILTER_CATEGORY,
         payload
     }
 }
-export function handleSortRating(payload){
+export function FilterCategory2(payload){
+    return{
+        type: FILTER_CATEGORY,
+        payload
+    }
+}
+export function SortRating(payload){
     return{
         type: FILTER_RATING,
         payload

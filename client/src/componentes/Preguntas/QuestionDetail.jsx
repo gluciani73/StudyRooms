@@ -3,8 +3,9 @@ import {Link, useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
-import { useState } from "react";
-
+import AnswerList from '../answers/AnswerList'
+import CommentList from '../comments/CommentList'
+import NavBar from '../NavBar/NavBar'
 
 const QuestionDetail = () => {
   let {id} = useParams();
@@ -18,10 +19,14 @@ const QuestionDetail = () => {
     myQuestion?.map((e)=>{
       return(
         <div>
+          <NavBar/>
           <h1>{e.userId}</h1>
           <h1>{e.title}</h1>
           <p>{e.description}</p>
           <Link to='/Home'>home</Link>
+          <AnswerList questionId={id}/>
+          <CommentList questionId={id}/>
+        
         </div>
         
   )

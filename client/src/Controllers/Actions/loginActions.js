@@ -1,27 +1,27 @@
 
 import axios from "axios"
 
-export function signIn( user ){ 
-    return async function (dispatch){
+export function signIn(user) {
+    return async function (dispatch) {
         try {
-        const res = (await axios.post(`http://localhost:3001/users/signin`, user)).data
-        localStorage.setItem("token", res.token)
-        return dispatch({
-            type: "SIGN_IN",
-            payload: res
-           }
-        )
+            const res = (await axios.post(`/users/signin`, user)).data
+            localStorage.setItem("token", res.token)
+            return dispatch({
+                type: "SIGN_IN",
+                payload: res
+            }
+            )
         } catch (error) {
             return dispatch({
                 type: "ERROR_SIGN_IN",
                 payload: error.response.data.error
-               }
+            }
             )
         }
     }
 }
-export function registerOnOff(){
-    return{
+export function registerOnOff() {
+    return {
         type: "CHANGE_LANDING"
     }
 }

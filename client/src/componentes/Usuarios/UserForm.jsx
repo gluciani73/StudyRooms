@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {createUserAction} from '../../Controllers/Actions/userAction'
 import "../../CssAdicional/Home.css"
 import { registerOnOff} from '../../Controllers/Actions/loginActions'
 import sweetalert from 'sweetalert'
-
 
 export default function CreateUser(){
     const dispatch =useDispatch();
@@ -29,6 +28,7 @@ export default function CreateUser(){
 
     const [formError, setFormError] = useState({})
 
+
     const [newUser, setNewUser] = useState({
     userName:"",
     firstName:"",
@@ -39,6 +39,7 @@ export default function CreateUser(){
 
    });
 
+    const [checked, setChecked] = useState({});
     function handleChangeCheckbox(e){
         setChecked(!checked)
     }
@@ -138,7 +139,7 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="ConfirmPassword">Repetir Contraseña</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.avatar} name='avatar' id='foto' placeholder='foto' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
                         {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
                     </div>
 
