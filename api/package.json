@@ -35,8 +35,5 @@
     "pg": "^8.5.1",
     "sequelize": "^6.21.6",
     "stripe": "^10.8.0"
-  },
-  "devDependencies": {
-    // "morgan": "^1.10.0"
   }
 }
