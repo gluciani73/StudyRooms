@@ -150,7 +150,35 @@ const votesXAnswer = async (req, res) => {
 }
 
 
+// const VotesXAnswer = async (req, res) => {
+//     try {
+//         const {userId, answerId, votes} = req.params.answerId;
+//         if (!userId && !answerId && !votes) {
+//             let result = await VotesXAnswer.findAll(
+//                 {
+//                     where: {
+//                         answerId
+//                     },
+//                     include: [
+//                         {
+//                             model: Answer,
+//                             attributes: ['id', 'userId', 'questionId', 'answer', 'ratingAverage', 'ratingCount', 'voteCount' ] 
+//                         }
+//                     ]
+//                 }
+//             );
 
+//             if (!result[0]) {
+//                 return res.status(401).json({ data: null, error: "faltan datos" })
+//             }
+//             return res.status(200).json({msg: "voto creado exitosamente", newVote})
+//         }
+            
+                   
+//     } catch (error) {
+//         return res.status(500).json({ error: 'Error en el controlador de answer al hacer votos', data: null })
+//     }
+// }
 
 
 
