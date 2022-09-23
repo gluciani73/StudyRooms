@@ -4,7 +4,7 @@ import axios from 'axios'
 export const createUserAction = (user) => {
     return async function (dispatch) {
         try {
-            const data = (await axios.post(`${URL_BACK}/signup`, user)).data;
+            const data = (await axios.post(`/signup`, user)).data;
             console.log(data)
             return dispatch({
                 type: CREATE_USER,
