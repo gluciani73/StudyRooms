@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import './index.css';
 import App from './App';
 import store from "./Controllers/Store";
+import axios from 'axios';
 import dotenv from "dotenv";
 dotenv.config();
 
