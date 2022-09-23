@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {createUserAction} from '../../Controllers/Actions/userAction'
 import "../../CssAdicional/Home.css"
 import { registerOnOff} from '../../Controllers/Actions/loginActions'
 import sweetalert from 'sweetalert'
-
 
 export default function CreateUser(){
     const dispatch =useDispatch();
@@ -39,6 +38,7 @@ export default function CreateUser(){
 
    });
 
+    const [checked, setChecked] = useState({});
     function handleChangeCheckbox(e){
         setChecked(!checked)
     }
