@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport')
 const OAuth2Strategy = require('passport-google-oauth2')
+const session = require('express-session');
 
 const cors = require("cors")
 const server = express();
@@ -11,30 +12,39 @@ const server = express();
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
-server.use(cors({origin: '*', credentials: true}))
+server.use(cors({origin: '*'}))
 
-const CLIENT_ID = '374729590488-tfhid7q5qv8snscaounusdtvmtet8utp.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-
+server.use(session({
+  secret: 'sessionSecret!',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true }
+}));
+server.use(passport.initialize())
+server.use(passport.session())
 passport.serializeUser( (user,cb)=> cb(null,user))
 passport.deserializeUser( (user,cb)=> cb(null,user))
 
+const CLIENT_ID = '924880684322-sm1pdikriuvgdqf3b57vsi8omr88kp3b.apps.googleusercontent.com'
+const CLIENT_SECRET = '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'
+
 passport.use(new OAuth2Strategy({
-  authorizationURL: 'https://accounts.google.com/o/oauth2/v2/auth',
-  tokenURL: 'https://oauth2.googleapis.com/token',
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  callbackURL: "http://localhost:3001/users/google/login/callback"
+  callbackURL: "http://localhost:3001/users/google/login/callback",
+  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
-function(accessToken, refreshToken, profile, cb) {
-  /* User.findOrCreate({ exampleId: profile.id }, function (err, user) {
-    return cb(err, user);
-  }); */
-  console.log(JSON.stringify(profile));
-  return cb(null,profile)
+function(accessToken, refreshToken, profile, done) {
+  const user = {
+    id: profile.id,
+    firstName: profile.given_name,
+    lastName: profile.family_name,
+    avatar: profile.photos[0].value,
+    email: profile.email
+  }
+  return done(null,user)
 }
 ));
-passport.initialize()
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
