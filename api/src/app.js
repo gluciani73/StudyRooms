@@ -11,10 +11,13 @@ const server = express();
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
-server.use(cors())
+server.use(cors({origin: '*', credentials: true}))
 
 const CLIENT_ID = '374729590488-tfhid7q5qv8snscaounusdtvmtet8utp.apps.googleusercontent.com'
 const CLIENT_SECRET = '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'
+
+passport.serializeUser( (user,cb)=> cb(null,user))
+passport.deserializeUser( (user,cb)=> cb(null,user))
 
 passport.use(new OAuth2Strategy({
   authorizationURL: 'https://accounts.google.com/o/oauth2/v2/auth',
@@ -27,14 +30,14 @@ function(accessToken, refreshToken, profile, cb) {
   /* User.findOrCreate({ exampleId: profile.id }, function (err, user) {
     return cb(err, user);
   }); */
-  console.log(profile);
-  return cb(err,profile)
+  console.log(JSON.stringify(profile));
+  return cb(null,profile)
 }
 ));
-
+passport.initialize()
 
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
