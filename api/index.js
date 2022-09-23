@@ -1,7 +1,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { createTestData } = require('./seeder.js')
-import dotenv from "dotenv";
+const dotenv = require('dotenv')
 dotenv.config();
 
 conn.sync({ force: true })
