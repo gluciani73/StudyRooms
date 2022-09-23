@@ -1,15 +1,13 @@
 
 import React, { useState } from 'react'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {createUserAction} from '../../Controllers/Actions/userAction'
 import "../../CssAdicional/Home.css"
 import { registerOnOff} from '../../Controllers/Actions/loginActions'
 import sweetalert from 'sweetalert'
 
-
 export default function CreateUser(){
     const dispatch =useDispatch();
-    const allUsers = useSelector((state)=> state.userReducer.users)
 
     function validate(data){
         var errors = {};
@@ -20,7 +18,7 @@ export default function CreateUser(){
         if(data.password.length < 6 || data.password.length > 16) errors.password = "Ingrese una contraseña que contenga entre 6 y 16 caracteres"
         if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
 
-
+        return errors
     }
 
     // useEffect(()=>{
@@ -28,6 +26,7 @@ export default function CreateUser(){
     // },[dispatch])
 
     const [formError, setFormError] = useState({})
+
 
     const [newUser, setNewUser] = useState({
     userName:"",
@@ -39,6 +38,7 @@ export default function CreateUser(){
 
    });
 
+    const [checked, setChecked] = useState({});
     function handleChangeCheckbox(e){
         setChecked(!checked)
     }
@@ -101,7 +101,9 @@ console.log(newUser)
                 
                 <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
                 <h1>Registrate</h1>
+
                     <div className=''>
+                    <label htmlFor="NickName">NickName</label>
                         <input className='d-block  m-1 border-0 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
                     {formError.userName && <span><strong>{formError.userName}</strong></span>}
                    </div>
@@ -138,7 +140,7 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="ConfirmPassword">Repetir Contraseña</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.avatar} name='avatar' id='foto' placeholder='foto' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
                         {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
                     </div>
 

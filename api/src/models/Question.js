@@ -36,6 +36,7 @@ module.exports = (sequelize) => {
         isFeatured: {
             type: DataTypes.BOOLEAN,
         }
+
     },
         {
             // timestamps: false

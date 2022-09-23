@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getCommentList, deleteCommentItem} from "../../Controllers/Actions/commentActions";
-import {useParams} from "react-router-dom";
 import './CommentList.css';
 import CommentEdit from "../comments/CommentEdit";
 import CommentCreate from "../comments/CommentCreate";
 
-export default function CommentList () {
+export default function CommentList ({questionId}) {
 
-    const { questionId } = useParams();
+    
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userId = userInfo.id;
     const dispatch = useDispatch();
