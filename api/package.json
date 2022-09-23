@@ -27,7 +27,6 @@
     "googleapis": "^107.0.0",
     "heroku": "^7.63.4",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
     "nodemailer": "^6.7.8",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
