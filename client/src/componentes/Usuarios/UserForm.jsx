@@ -8,7 +8,6 @@ import sweetalert from 'sweetalert'
 
 export default function CreateUser(){
     const dispatch =useDispatch();
-    const allUsers = useSelector((state)=> state.userReducer.users)
 
     function validate(data){
         var errors = {};
@@ -19,7 +18,7 @@ export default function CreateUser(){
         if(data.password.length < 6 || data.password.length > 16) errors.password = "Ingrese una contraseña que contenga entre 6 y 16 caracteres"
         if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
 
-
+        return errors
     }
 
     // useEffect(()=>{
@@ -102,7 +101,9 @@ console.log(newUser)
                 
                 <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
                 <h1>Registrate</h1>
+
                     <div className=''>
+                    <label htmlFor="NickName">NickName</label>
                         <input className='d-block  m-1 border-0 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
                     {formError.userName && <span><strong>{formError.userName}</strong></span>}
                    </div>
