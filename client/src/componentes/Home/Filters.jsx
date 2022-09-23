@@ -6,6 +6,7 @@ const Filters = () =>{
     const dispatch = useDispatch();
 
   
+
       function handleFilterCategory(e){
         dispatch(FilterCategory(e.target.value)) //falta asignar action
     }
@@ -16,6 +17,7 @@ const Filters = () =>{
         e.preventDefault();
         dispatch(SortRating(e.target.value))
     }
+
 
     return(
         <div>
