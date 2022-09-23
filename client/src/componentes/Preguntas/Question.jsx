@@ -4,14 +4,17 @@ import upVote from '../../recursos/thumbs.png'
 import stars from '../../recursos/star.png'
 
 
-export default function Question({title, description, ratingAverage, voteCount}) {
+
+export default function Question({title, description, ratingAverage, voteCount, userId, isFeatured}) {
+
+ 
     
     return(
 
     <div>
         <div className="row">
         <p>title:</p>   
-        <p className="row">{title}try</p>
+        <p className="row">{title}</p>
     
         <div className="col">
             <p>rating:</p>
@@ -23,10 +26,20 @@ export default function Question({title, description, ratingAverage, voteCount})
              <p>{voteCount}</p>
              <img src={upVote} alt="" height="20px" width="20px" />
         </div>
+        
+
+
+
         <div className="row">
             <p>description:</p>
             <p>{description}</p>
         </div>
+
+        <div className="row">
+            <p>User:</p>
+            <p>{userId}</p>
+        </div>
+
     </div>
     </div>
 

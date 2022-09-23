@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {createUserAction} from '../../Controllers/Actions/userAction'
 import "../../CssAdicional/Home.css"
 import { registerOnOff} from '../../Controllers/Actions/loginActions'
@@ -7,7 +8,7 @@ import sweetalert from 'sweetalert'
 
 export default function CreateUser(){
     const dispatch =useDispatch();
-
+    const allUsers = useSelector((state)=> state.userReducer.users)
 
     function validate(data){
         var errors = {};
@@ -17,19 +18,16 @@ export default function CreateUser(){
         if(!(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(data.email)))errors.email = "Ingrese un correo valido"
         if(data.password.length < 6 || data.password.length > 16) errors.password = "Ingrese una contraseña que contenga entre 6 y 16 caracteres"
         if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
-        if(!(/^[a-zA-Z]+$/.test(data.userName)) || data.userName.length < 3 ) errors.userName = "Ingrese un nombre valido"
-        return errors;
+
+
     }
-
-
 
     // useEffect(()=>{
     //     dispatch(getUserAction())
     // },[dispatch])
 
     const [formError, setFormError] = useState({})
- 
-    const [checked, setChecked]= useState(false)
+
 
     const [newUser, setNewUser] = useState({
     userName:"",
@@ -37,11 +35,11 @@ export default function CreateUser(){
     lastName:"",
     email:"",
     password:"",
-    ConfirmPassword:"",
     avatar:""
 
    });
 
+    const [checked, setChecked] = useState({});
     function handleChangeCheckbox(e){
         setChecked(!checked)
     }
@@ -56,6 +54,7 @@ export default function CreateUser(){
             [e.target.name]: e.target.value
         }))
     }
+
 
     function showAlert(){
         sweetalert({
@@ -77,11 +76,13 @@ export default function CreateUser(){
       }
     function handleSubmit(e){
         e.preventDefault();
+
         if(!checked) {
             alert("Por favor indica que aceptas los Términos y Condiciones");
             return false
         }
        
+
             e.preventDefault();
             dispatch(createUserAction(newUser))
             setNewUser({
@@ -93,15 +94,12 @@ export default function CreateUser(){
                 avatar:""
             })
             alert("Usuario creado correctamente")
-    }
 
-
-        
-        console.log(newUser)
-    return (
-        <div>
-                <h1>UserForm</h1>
-          
+        }
+console.log(newUser)
+        return (
+            <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
+                
                 <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
                 <h1>Registrate</h1>
                     <div className=''>
@@ -110,6 +108,7 @@ export default function CreateUser(){
                    </div>
 
                     <div>
+
                         <label htmlFor="firstName">nombre</label>
                         <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
                         {formError.firstName && <span><strong>{formError.firstName}</strong></span>}
@@ -121,9 +120,11 @@ export default function CreateUser(){
                         <label htmlFor="lastName">Segundo nombre</label>                
                         <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.lastName} placeholder='Last Name' id='lastName' name='lastName'onChange={(e)=>handleChange(e)} required/>
                         {formError.lastName && <span><strong>{formError.lastName}</strong></span>}
+
                     </div>
 
                     <div>
+
                         <label htmlFor="email">Email</label>                        
                         <input className='d-block  m-1 border-0 form-control' type="email" value={newUser.email} placeholder='email@example.com'name='email' id='email' autoComplete='off' onChange={(e)=>handleChange(e)} required/>
                         {formError.email && <span><strong>{formError.email}</strong></span>}
@@ -159,8 +160,11 @@ export default function CreateUser(){
                    <button type='submit' value='Register'>Registrarse</button>
                    <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Login</button>
 
+
                </form>
         </div> 
             );
 
+
 }
+

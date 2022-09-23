@@ -14,6 +14,7 @@ import TOS from './componentes/Home/TOS';
 import CommentList from "./componentes/comments/CommentList";
 import Profile from  './componentes/Usuarios/Profile'
 import Error404 from './componentes/Error404/Error404';
+import QuestionDetail from './componentes/Preguntas/QuestionDetail';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
     <Route path='/Donations' element={<Donations/>}/>
     <Route path='/Profile' element={<Profile/>}/>
     <Route path="*" element={<Error404 />} />
+    <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
    </Routes>
    </Router>
   );
