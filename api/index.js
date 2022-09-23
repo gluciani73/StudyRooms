@@ -1,15 +1,13 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { createTestData } = require('./seeder.js')
-// const dotenv = require('dotenv')
-// dotenv.config();
+const { createTestData } = require('./seeder.js');
 
 conn.sync({ force: true })
   .then(() => {
 
     server.listen(process.env.PORT, async () => {
 
-      await createTestData()
+      await createTestData();
 
       console.log('--------------------------------');
       // console.log('creada el mockup de datos');
