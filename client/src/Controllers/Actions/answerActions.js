@@ -10,7 +10,7 @@ const baseUrl = URL_BACK; //'https://w9489.mocklab.io';
 
 export const getAnswerList = (questionId) => {
     return function (dispatch){
-        axios.get(`${baseUrl}/answers/${questionId}`)
+        axios.get(`${baseUrl}answers/${questionId}`)
             .catch(error => console.log("Action creator getAnswerList:", error))
             .then(response => {
                 dispatch({
@@ -23,7 +23,7 @@ export const getAnswerList = (questionId) => {
 
 export const createAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.post(`${baseUrl}/answers`, answerItem)
+        axios.post(`${baseUrl}answers`, answerItem)
             .catch(error => console.log("Action creator createAnswerItem: ", error))
             .then(response => {
                 dispatch({
@@ -36,7 +36,7 @@ export const createAnswerItem = (answerItem) => {
 
 export const updateAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.put(`${baseUrl}/answers/${answerItem.id}`, answerItem)
+        axios.put(`${baseUrl}answers/${answerItem.id}`, answerItem)
             .catch(error => console.log("Action creator updateAnswerItem: ", error))
             .then(response => {
                 dispatch({
@@ -49,7 +49,7 @@ export const updateAnswerItem = (answerItem) => {
 
 export const deleteAnswerItem = (answerItem) => {
     return function (dispatch) {
-        axios.delete(`${baseUrl}/answers/${answerItem.id}`)
+        axios.delete(`${baseUrl}answers/${answerItem.id}`)
             .catch(error => console.log("Action creator deleteAnswerItem: ", error))
             .then(() => {
                 dispatch({
