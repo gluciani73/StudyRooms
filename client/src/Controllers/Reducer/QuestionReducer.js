@@ -1,5 +1,4 @@
-import QuestionDetail from '../../componentes/Preguntas/QuestionDetail'
-import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS} from '../../constants'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING} from '../../constants'
 
 const initialState ={
     allQuestions:[],
@@ -25,6 +24,37 @@ const questionReducer = (state = initialState, action) => {
             return {
                 ...state,
                 detail:action.payload
+            }
+        case FILTER_CATEGORY:
+            const questionss = state.questions
+                const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories === action.payload)
+                return{
+                    ...state,
+                    questions: filter
+            }
+        case FILTER_RATING:
+            let sorted = action.payload === 'asc' ?
+                state.questions.sort(function (a, b){
+                    if(a.rating > b.rating){
+                        return 1
+                    }
+                    if (b.rating > a.rating){
+                        return -1
+                    }
+                    return 0
+                }) :
+                state.questions.sort(function (a, b){
+                    if (a.rating > b.rating){
+                        return -1
+                    }
+                    if (b.rating > a.rating){
+                        return 1
+                    }
+                    return 0
+                })
+                return{
+                    ...state,
+                    questions: sorted
             }
 
             default:
