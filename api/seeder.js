@@ -5,7 +5,7 @@ const { Category } = require('./src/db.js')
 
 async function createTestData() {
   // MOCKUP USERS
-  await axios.post('http://localhost:3001/users/signup', {
+  await axios.post('https://studyrooms-deploy.herokuapp.com/users/signup', {
     userName: "testUser1",
     firstName: "test1",
     lastName: "user1",
@@ -13,7 +13,7 @@ async function createTestData() {
     password: "123",
     active: true
   })
-  await axios.post('http://localhost:3001/users/signup', {
+  await axios.post('https://studyrooms-deploy.herokuapp.com/users/signup', {
     userName: "testUser2",
     firstName: "test2",
     lastName: "user2",
@@ -21,7 +21,7 @@ async function createTestData() {
     password: "1234",
     active: true
   })
-  await axios.post('http://localhost:3001/users/signup', {
+  await axios.post('https://studyrooms-deploy.herokuapp.com/users/signup', {
     userName: "testUser3",
     firstName: "test3",
     lastName: "user3",
@@ -52,7 +52,7 @@ async function createTestData() {
 
     const { userId, title, description, categories } = testData.questions[i]
 
-    await axios.post('http://localhost:3001/questions', {
+    await axios.post('https://studyrooms-deploy.herokuapp.com/questions', {
       userId, title: "Question " + title + " " + i, description, categories
     })
   }
@@ -62,7 +62,7 @@ async function createTestData() {
 
     const { questionId, userId, answer, rating } = testData.answers[i]
 
-    await axios.post('http://localhost:3001/answers', {
+    await axios.post('https://studyrooms-deploy.herokuapp.com/answers', {
       questionId, userId, answer: "Answer :" + answer + " " + i, rating
     })
 
@@ -73,7 +73,7 @@ async function createTestData() {
 
     const { questionId, userId, comment } = testData.comments[i]
 
-    await axios.post('http://localhost:3001/comments', {
+    await axios.post('https://studyrooms-deploy.herokuapp.com/comments', {
       questionId, userId, comment
     })
   }
