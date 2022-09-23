@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAnswerList, deleteAnswerItem} from "../../Controllers/Actions/answerActions";
-import {useParams} from "react-router-dom";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
 
-export default function AnswerList () {
+export default function AnswerList ({questionId}) {
 
-    const { questionId } = useParams();
+    
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userId = userInfo.id;
     const dispatch = useDispatch();
