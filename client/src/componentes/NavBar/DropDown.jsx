@@ -2,17 +2,23 @@ import React from "react";
 import { useState } from "react";
 import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap'
 import user from '../../recursos/user.png'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap'
 
 
 
 export default function DropDown(){
     const [dropdown, setDropdown] =useState(false)
-
+    const histori = useNavigate()
     function OpenCloseDropdown(){
         setDropdown(!dropdown)
+       
     }
+
+    const LogOut=()=>{
+        localStorage.clear('token');
+        histori("/")
+      }
     
     return (
         <>
@@ -23,7 +29,7 @@ export default function DropDown(){
 
                         <DropdownMenu>
                             <DropdownItem><Link to={'/Profile'}>Profile</Link></DropdownItem>
-                            <DropdownItem>LogOut</DropdownItem>
+                            <DropdownItem onClick={LogOut}>LogOut</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
         </>
