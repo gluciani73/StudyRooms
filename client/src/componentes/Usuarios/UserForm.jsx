@@ -28,6 +28,7 @@ export default function CreateUser(){
 
     const [formError, setFormError] = useState({})
 
+
     const [newUser, setNewUser] = useState({
     userName:"",
     firstName:"",
@@ -138,7 +139,7 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="ConfirmPassword">Repetir Contraseña</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.avatar} name='avatar' id='foto' placeholder='foto' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block  m-1 border-0 form-control' type="text"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
                         {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
                     </div>
 
