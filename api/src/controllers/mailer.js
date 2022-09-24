@@ -1,16 +1,14 @@
 const nodemailer = require('nodemailer')
 const {google} = require('googleapis')
 const OAuth2 = google.auth.OAuth2
-// pal envio de mails
-const CLIENT_ID = "374729590488-tfhid7q5qv8snscaounusdtvmtet8utp.apps.googleusercontent.com"
-const CLIENT_SECRET = "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"
-const REFRESH_TOKEN = "1//04FYV051G4rGZCgYIARAAGAQSNwF-L9Ir-B89LvCTR8dm7mQhcHbTdAz6Gq1ZlyBG_toaOuP52gtNN_MUzNyR4yuR6k6MzsJKUf0"
+
+const {CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN} = require('../CONSTANTS.js')
 
 const sendMail = async (options) => {
     try {
         const OAuth2Client = new OAuth2(CLIENT_ID,CLIENT_SECRET,'https://developers.google.com/oauthplayground')
         OAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
-        //const token = await OAuth2Client.getAccessToken()
+
         const accessToken = await new Promise((resolve, reject) => {
             OAuth2Client.getAccessToken((err, token) => {
               if (err) {

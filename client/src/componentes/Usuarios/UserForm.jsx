@@ -39,6 +39,7 @@ export default function CreateUser(){
    });
 
     const [checked, setChecked] = useState({});
+    
     function handleChangeCheckbox(e){
         setChecked(!checked)
     }
