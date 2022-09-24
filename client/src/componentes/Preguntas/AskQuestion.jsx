@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
-import {addQuestions, getQuestions} from "../../Controllers/Actions/questionsActions"
-import {useDispatch} from "react-redux";
+import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actions/questionsActions"
+import {useDispatch, useSelector} from "react-redux";
 import Navbar from '../NavBar/NavBar'
 
 function validate(input){
@@ -29,9 +29,22 @@ const AskQuestion = () => {
         categories:[],
     });
     const [errors,setErrors] = useState({})
-    
 
-   
+    const allCategories = useSelector((state)=> state.questionReducer.categories.data)
+    useEffect(()=>{
+        dispatch(getCategories())
+    },[dispatch])
+
+    const sortCategories = allCategories.sort(function(a,b){
+        if(a.category < b.category){
+            return -1
+        }
+        if(b.category < a.category){
+            return 1
+        }
+        return 0
+    })
+
      function handleSubmit(e){
         e.preventDefault();
         dispatch(addQuestions(input))
@@ -58,18 +71,24 @@ const AskQuestion = () => {
         
     }
 
-    function handleCheck(e){
-        if (e.target.checked){
-            setInput({
-                ...input,
-                [e.target.name]:e.target.value
-            })
-            setErrors(validate({
-                ...input,
-                [e.target.name]: e.target.value
-            }
-            ));
-        }
+    // function handleCheck(e){
+    //     if (e.target.checked){
+    //         setInput({
+    //             ...input,
+    //             [e.target.name]:e.target.value
+    //         })
+    //         setErrors(validate({
+    //             ...input,
+    //             [e.target.name]: e.target.value
+    //         }
+    //         ));
+    //     }
+    // }
+    function handleSelect(e){
+        setInput({
+            ...input,
+            categories:[...new Set([...input.categories, e.target.value])],
+        })
     }
 
      useEffect(()=>{
@@ -106,53 +125,14 @@ const AskQuestion = () => {
                         {errors.description && (<p className="error">{errors.description}</p>)}
                         <div  className="form-text">Check yout grammar and be as specific as you can!</div>
                     </div>
-                    <div className="mb-3 form-check container">
-                        <div className="row">                  
-                      
-                            <div className="col">
-                                <input type="checkbox" className="form-check-input" name="categories" value="Math" onChange={(e)=>handleCheck(e)}  />
-                                <label className="radio">Math</label>
-                                
-                            </div>
-                            <div className="col">
-                                <input type="checkbox" className="form-check-input" name="categories" value="History" onChange={(e)=>handleCheck(e)}  />
-                                <label className="form-check-label" >History</label>
-                            </div>
-                            <div className="col">
-                                <input type="checkbox" className="form-check-input" name="categories" value="Geography" onChange={(e)=>handleCheck(e)}  />
-                                <label className="form-check-label" >Geography</label>
-                            </div>
-                            <div className="col">
-                                <input type="checkbox" className="form-check-input" name="categories" value="Chemisty"  onChange={(e)=>handleCheck(e)}  />
-                                <label className="form-check-label" >Chemistry</label>
-                            </div>
-                            <div className="col">
-                               <input type="checkbox" className="form-check-input" name="categories" value="Biology" onChange={(e)=>handleCheck(e)}  />
-                                <label className="form-check-label" >Biology</label>
-                            </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <input type="checkbox" className="form-check-input" name="categories" value="Economics" onChange={(e)=>handleCheck(e)}  />
-                                    <label className="form-check-label" >Economics</label>
-                                </div>
-                                <div className="col">
-                                    <input type="checkbox" className="form-check-input" name="categories" value="Programming" onChange={(e)=>handleCheck(e)}  />
-                                    <label className="form-check-label" >Programming</label>
-                                </div>
-                                <div className="col">
-                                    <input type="checkbox" className="form-check-input" name="categories" value="Philosophy" onChange={(e)=>handleCheck(e)}  />
-                                    <label className="form-check-label" >Philosophy</label>
-                                </div>
-                                <div className="col">
-                                    <input type="checkbox" className="form-check-input" name="categories" value="Lenguages" onChange={(e)=>handleCheck(e)}  />
-                                    <label className="form-check-label" >Lenguages</label>
-                                </div>
-                                <div className="col">
-                                    <input type="checkbox" className="form-check-input" name="categories" value="English" onChange={(e)=>handleCheck(e)}  />
-                                    <label className="form-check-label" >English</label>
-                                </div>
-                        </div>
+                    <div>
+                        <select onChange={(e)=>handleSelect(e)}>
+                            {sortCategories.map((e)=>{
+                                return(
+                                    <option key={e.category} value={e.category}>{e.category}</option>
+                                )
+                            })}
+                        </select>
                     </div>
 
                     <div className="d-grip gap-2">

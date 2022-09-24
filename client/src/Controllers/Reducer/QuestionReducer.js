@@ -1,9 +1,10 @@
-import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING} from '../../constants'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES} from '../../constants'
 
 const initialState ={
     allQuestions:[],
     questions:[],
-    detail:[]
+    detail:[],
+    categories:[]
 }
 
 const questionReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const questionReducer = (state = initialState, action) => {
             ...state,
             questions:[...state.questions, action.payload]
         }
+        case GET_CATEGORIES:
+            return{
+                ...state,
+                categories: action.payload
+            }
 
         case GET_DETAILS:
             return {
@@ -26,8 +32,10 @@ const questionReducer = (state = initialState, action) => {
                 detail:action.payload
             }
         case FILTER_CATEGORY:
-            const questionss = state.questions
-                const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories === action.payload)
+            const questionss = state.questions.data
+            console.log(questionss)
+                const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories.map((e)=>e.category).includes(action.payload))
+                console.log(filter)
                 return{
                     ...state,
                     questions: filter

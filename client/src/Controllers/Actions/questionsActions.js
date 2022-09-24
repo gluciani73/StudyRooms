@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, URL_BACK } from "../../constants";
+import { GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, URL_BACK, GET_CATEGORIES} from "../../constants";
 // addQuestions getQuestions
 
 
@@ -10,6 +10,15 @@ export function getQuestions() {
         return dispatch({
             type: GET_QUESTIONLIST,
             payload: info.data
+        })
+    }
+}
+export function getCategories(){
+    return async function (dispatch){
+        const categories = await axios.get(`${URL_BACK}categories`, {})
+        return dispatch({
+            type:GET_CATEGORIES,
+            payload: categories.data
         })
     }
 }
