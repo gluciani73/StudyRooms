@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Dropdown from 'react-bootstrap/Dropdown';
-
 import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap'
 
@@ -17,14 +16,28 @@ export default function DropDown(){
         localStorage.clear('token');
         histori("/")
       }
+      const mystyle = {
+        borderRadius: "1000px",
+ 
+        padding: "5px",
+        width: "40px"
+      };
+      const mystyledropdown = {
+        alignItem: "center",    
+        borderRadius: "20000px",
+        backgroundColor: "DodgerBlue",
+        height:"9vh",
+        width:"10vh"
+       
+      };
     
     return (
         <>
            
                     
                         <Dropdown variant="success" id="dropdown-basic"  >
-                        <Dropdown.Toggle size="sm" >
-                            <img src={user.avatar} alt=""  style={{width:"50px", border:"none"}} />
+                        <Dropdown.Toggle style={mystyledropdown} >
+                        <figure><img src={user.avatar} alt="" style={mystyle} /></figure>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item ><Link to={'/Profile'}>Profile</Link></Dropdown.Item>
