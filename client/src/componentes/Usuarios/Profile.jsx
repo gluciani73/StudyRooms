@@ -13,6 +13,7 @@ export default function ProfileUser(){
             <div>
                 <h2>My Profile</h2>
                 <div>
+       
                     <h3>Name: {userInfo?.firstName}</h3>
                     <h3>Last Name: {userInfo?.lastName}</h3>
                     <h3>Email: {userInfo?.email}</h3>
