@@ -2,10 +2,12 @@ const OAuth2Strategy = require('passport-google-oauth2')
 const { User } = require('../db.js')
 const { CLIENT_ID, CLIENT_SECRET } = require('../CONSTANTS.js')
 
+const mockURL = process.env.DB_LOCALHOST3001 || "https://studyrooms-deploy.herokuapp.com"
+
 const googleAuthMiddleware = new OAuth2Strategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/users/google/login/callback",
+    callbackURL: mockURL+"/users/google/login/callback",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   async function(accessToken, refreshToken, profile, done) {

@@ -3,9 +3,8 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../db.js')
 const sendMail = require('./mailer.js')
 
-const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
-const ACTIVATION_SECRET = process.env.ACTIVATION_SECRET || "ActivationSecret!"
-const RECOVERY_SECRET = process.env.RECOVERY_SECRET || "RecoverySecret!"
+const {AUTH_SECRET, ACTIVATION_SECRET, RECOVERY_SECRET} = require('../CONSTANTS.js')
+const mockURL = process.env.DB_LOCALHOST3001 || "https://studyrooms-deploy.herokuapp.com"
 
 const signUp = async (req, res) => {
 
@@ -49,7 +48,7 @@ const signUp = async (req, res) => {
 
         if(active === false && userName !== "testUser3"){
             const tokenForLink = jwt.sign({email,userName}, ACTIVATION_SECRET,{expiresIn:"1d"})
-            const activationLink = 'http://localhost:3001/users/activateAccount/' + tokenForLink
+            const activationLink = mockURL+'/users/activateAccount/' + tokenForLink
 
             const mailOptions = {
                 from: "study.rooms.mail@gmail.com",
@@ -191,13 +190,13 @@ const recoveryPOST = async (req,res) => {
         if(!userExists) return res.status(404).json({data:null, error:"user with that email does not exists in DB"})    
 
         const tokenForLink = jwt.sign({email, id:userExists.id}, RECOVERY_SECRET,{expiresIn:"1d"})
-        const activationLink = 'http://localhost:3001/users/recovery/' + tokenForLink
+        const recoveryLink = mockURL+'/users/recovery/' + tokenForLink
 
         const mailOptions = {
             from: "study.rooms.mail@gmail.com",
             to: email,
             subject: "Account recovery",
-            text: `Si pediste recuperar tu cuenta hacé click aca para resetear la password: ${activationLink}`
+            text: `Si pediste recuperar tu cuenta hacé click aca para resetear la password: ${recoveryLink}`
         }
 
         await sendMail(mailOptions)
