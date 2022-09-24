@@ -11,8 +11,8 @@
   "author": "Grupo 6",
   "license": "ISC",
   "engines": {
-    "node": ">=12.18.3",
-    "npm": ">=6.14.6"
+    "node": "16.x",
+    "npm": "8.x"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^1.10.0",
@@ -25,17 +25,15 @@
     "dotenv": "8.2.0",
     "express": "^4.18.1",
     "googleapis": "^107.0.0",
+    "heroku": "^7.63.4",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.8",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "pg": "^8.5.1",
     "sequelize": "^6.21.6",
     "stripe": "^10.8.0"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0"
   }
 }
