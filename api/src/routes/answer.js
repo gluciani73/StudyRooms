@@ -7,6 +7,7 @@ const { createAnswer, getAnswer, updateAnswer, likeAnswer, deleteVotesXAnswer } 
 router.post('/', createAnswer);
 router.get('/:id', getAnswer);
 router.put('/:id', updateAnswer);
+router.delete('/:answerId', deleteAnswer)
 router.post('/answerId', likeAnswer)
 router.delete('/:answerId', deleteVotesXAnswer)
 

@@ -160,4 +160,4 @@ const deleteVotesXAnswer = async (req, res) => {
 
 
 
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteVotesXAnswer }
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer }
