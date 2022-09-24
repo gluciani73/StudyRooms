@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer } = require('../db.js');
+const { Question, Category, User, Answer, Review } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -147,6 +147,21 @@ const deleteQuestion = async (req, res) => {
 }
 
 
+//reviewQuestion
 
+const viewQuestion = async (req, res) => {
+    const {userId, questionId} = req.body;
+    try {
+        
+        const view = {userId, questionId, rating : true}
+        const newView = await Review.create(view)
+        
+        return res.status(200).json({msg: 'visto exitosamente', error: null, newView})
+    }
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion }
+    catch(error){
+        return res.status(500).json({error:`Error en  reviewQuestion: ${error}`, data: null})
+    }
+}
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion }

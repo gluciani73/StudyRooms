@@ -1,4 +1,4 @@
-const { Answer, Question, User } = require('../db');
+const { Answer, Question, User, Votesxanswer } = require('../db');
 const { Op } = require("sequelize");
 
 const createAnswer = async (req, res) => {
@@ -51,7 +51,9 @@ const getAnswer = async (req, res) => {
                         {
                             model: User,
                             attributes: ['id', 'avatar', 'userName', 'email']
-                        }
+                        }, 
+                        
+                        // include: model votesXAnswer
                     ]
                 }
             );
@@ -118,5 +120,44 @@ const deleteAnswer = async (req, res) => {
     }
 }
 
+//votesXAnswer
 
-module.exports = { createAnswer, updateAnswer, getAnswer, deleteAnswer }
+const likeAnswer = async (req, res) => {
+    const {userId, answerId} = req.body;
+    try {
+        
+        const like = {userId, answerId, rating : true}
+        const newVote = await Votesxanswer.create(like)
+        
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+
+
+//deleteVotesXAnswer
+
+const deleteVotesXAnswer = async (req, res) => {
+    try {
+        const answerId = req.params.answerId;
+        if (1) {
+            let result = await Votesxanswer.destroy({ where: { id: 1 } });
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra el voto", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro el voto id: ' + answerId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
+    }
+}
+
+
+
+
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer }
