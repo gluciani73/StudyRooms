@@ -8,7 +8,7 @@ conn.sync({ force: true })
       await createTestData()
       console.log('--------------------------------');
       console.log('creada el mockup de datos');
-      console.log(`'server up (port:${process.env.PORT})'`); // eslint-disable-line no-console
+      console.log(`'server up (port: ${process.env.PORT})'`); // eslint-disable-line no-console
     });
   })
 

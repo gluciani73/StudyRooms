@@ -52,6 +52,7 @@ export const updateAnswerItem = (answerItem) => {
 }
 
 export const deleteAnswerItem = (answerItem) => {
+    return function (dispatch) {
 
         axios.delete(`/answers/${answerItem.id}`)
             .catch(error => console.log("Action creator deleteAnswerItem: ", error))
