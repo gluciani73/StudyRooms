@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
+import EditProfile from "./EditarPerfil"
 
 
 
@@ -34,7 +35,11 @@ export default function ProfileUser(){
                 <button type="button" onClick={handleEdit}>Editar Perfil</button>
                 <button>Cambiar Contraseña</button>
 
-                {showEdit ? <h1>Aqui se muestre el formulario para realizar cambios</h1> : undefined}
+                {showEdit ?
+                 <EditProfile/>
+                 
+                 
+                 : undefined}
             </div>
         
         
