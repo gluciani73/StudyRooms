@@ -245,7 +245,7 @@ const updateUser = async (req, res) => {
     try{
         const { firstName, lastName, avatar } = req.body
         const { userId } = req.params
-
+        
         if ( !firstName && !lastName) {
             return res.status(400).json({data:null, error: "faltan datos"})
         }

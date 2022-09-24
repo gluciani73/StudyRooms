@@ -3,8 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport')
-const OAuth2Strategy = require('passport-google-oauth2')
-const session = require('express-session');
+const googleAuthMiddleware = require('./middlewares/googleAuth.js')
 
 const cors = require("cors")
 const server = express();
@@ -14,37 +13,9 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
 server.use(cors({origin: '*'}))
 
-server.use(session({
-  secret: 'sessionSecret!',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true }
-}));
 server.use(passport.initialize())
-server.use(passport.session())
-passport.serializeUser( (user,cb)=> cb(null,user))
-passport.deserializeUser( (user,cb)=> cb(null,user))
 
-const CLIENT_ID = '924880684322-sm1pdikriuvgdqf3b57vsi8omr88kp3b.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-
-passport.use(new OAuth2Strategy({
-  clientID: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  callbackURL: "http://localhost:3001/users/google/login/callback",
-  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-},
-function(accessToken, refreshToken, profile, done) {
-  const user = {
-    id: profile.id,
-    firstName: profile.given_name,
-    lastName: profile.family_name,
-    avatar: profile.photos[0].value,
-    email: profile.email
-  }
-  return done(null,user)
-}
-));
+passport.use(googleAuthMiddleware);
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -65,3 +36,4 @@ server.use((err, req, res, next) => {
 });
 
 module.exports = server;
+
