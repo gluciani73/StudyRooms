@@ -121,65 +121,67 @@ const deleteAnswer = async (req, res) => {
 
 //votesXAnswer
 
-const votesXAnswer = async (req, res) => {
-
-    const {userId, answerId, votes} = req.params.answerId;
-    if (!userId && !answerId && !votes) {
-        return res.status(401).json({ data: null, error: "faltan datos" })
-    }
-
+const likeAnswer = async (req, res) => {
+    const {userId, answerId} = req.body;
     try {
-        //  const lastVote = await Votesxanswer.findOne({
-        //      where: {answerId},
-        // //     includes: {votes}
-        //  })
-
-        const newVote = await Votesxanswer.create({
-            where: {userId, answerId},
-            includes: {votes}
-            
-        })
-
-        return res.status(200).json({msg: "voto creado exitosamente", newVote})
-
+        const like = {userId, answerId, rating : true}
+        const newVote = await Votesxanswer.create(like)
+        const reply = await Votesxanswer.findByPk(newVote.id, {
+            include: [{
+                model: Votesxanswer,
+                attributes: [userId, answerId, like]
+            }]
+        });
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, reply})
     }
-    catch (error){
-        return res.status(500).json({ error: 'Error en el controlador de answer al hacer votos', data: null })
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
     }
-
 }
 
 
-// const VotesXAnswer = async (req, res) => {
-//     try {
-//         const {userId, answerId, votes} = req.params.answerId;
-//         if (!userId && !answerId && !votes) {
-//             let result = await VotesXAnswer.findAll(
-//                 {
-//                     where: {
-//                         answerId
-//                     },
-//                     include: [
-//                         {
-//                             model: Answer,
-//                             attributes: ['id', 'userId', 'questionId', 'answer', 'ratingAverage', 'ratingCount', 'voteCount' ] 
-//                         }
-//                     ]
-//                 }
-//             );
 
-//             if (!result[0]) {
-//                 return res.status(401).json({ data: null, error: "faltan datos" })
-//             }
-//             return res.status(200).json({msg: "voto creado exitosamente", newVote})
-//         }
+
+
+
+
+
+
+
+
+
+
+
+// const votesXAnswer = async (req, res) => {
+
+//     const {userId, answerId, votes} = req.params.answerId;
+//     if (!userId && !answerId && !votes) {
+//         return res.status(401).json({ data: null, error: "faltan datos" })
+//     }
+
+//     try {
+//         //  const lastVote = await Votesxanswer.findOne({
+//         //      where: {answerId},
+//         // //     includes: {votes}
+//         //  })
+
+//         const newVote = await Votesxanswer.create({
+//             where: {userId, answerId},
+//             includes: {votes}
             
-                   
-//     } catch (error) {
+//         })
+
+//         return res.status(200).json({msg: "voto creado exitosamente", newVote})
+
+//     }
+//     catch (error){
 //         return res.status(500).json({ error: 'Error en el controlador de answer al hacer votos', data: null })
 //     }
+
 // }
 
 
 
-module.exports = { createAnswer, updateAnswer, getAnswer, votesXAnswer }
+
+
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer }
