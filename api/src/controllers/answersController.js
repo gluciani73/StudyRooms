@@ -51,7 +51,8 @@ const getAnswer = async (req, res) => {
                         {
                             model: User,
                             attributes: ['id', 'avatar', 'userName', 'email']
-                        }
+                        }, 
+                        
                         // include: model votesXAnswer
                     ]
                 }
@@ -124,64 +125,39 @@ const deleteAnswer = async (req, res) => {
 const likeAnswer = async (req, res) => {
     const {userId, answerId} = req.body;
     try {
+        
         const like = {userId, answerId, rating : true}
         const newVote = await Votesxanswer.create(like)
-        const reply = await Votesxanswer.findByPk(newVote.id, {
-            include: [{
-                model: Votesxanswer,
-                attributes: [userId, answerId, like]
-            }]
-        });
-        return res.status(200).json({msg: 'voto creado exitosamente', error: null, reply})
+        
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
     }
+
     catch(error){
         return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+
+
+//deleteVotesXAnswer
+
+const deleteVotesXAnswer = async (req, res) => {
+    try {
+        const answerId = req.params.answerId;
+        if (1) {
+            let result = await Votesxanswer.destroy({ where: { id: 1 } });
+            if (result[0]) {
+                return res.status(500).send({ error: "No se encuentra el voto", data: null })
+            }
+            return res.status(200).json({ error: null, data: 'Se borro el voto id: ' + answerId })
+        }
+    } catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
     }
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-// const votesXAnswer = async (req, res) => {
-
-//     const {userId, answerId, votes} = req.params.answerId;
-//     if (!userId && !answerId && !votes) {
-//         return res.status(401).json({ data: null, error: "faltan datos" })
-//     }
-
-//     try {
-//         //  const lastVote = await Votesxanswer.findOne({
-//         //      where: {answerId},
-//         // //     includes: {votes}
-//         //  })
-
-//         const newVote = await Votesxanswer.create({
-//             where: {userId, answerId},
-//             includes: {votes}
-            
-//         })
-
-//         return res.status(200).json({msg: "voto creado exitosamente", newVote})
-
-//     }
-//     catch (error){
-//         return res.status(500).json({ error: 'Error en el controlador de answer al hacer votos', data: null })
-//     }
-
-// }
-
-
-
-
-
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer }
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteVotesXAnswer }
