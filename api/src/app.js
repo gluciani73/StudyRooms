@@ -3,15 +3,20 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport')
+const googleAuthMiddleware = require('./middlewares/googleAuth.js')
 
 const cors = require("cors")
 const server = express();
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
-server.use(morgan('combined'));
-server.use(cors())
 
+server.use(cors({origin: '*'}))
+server.use(morgan('combined'));
+
+server.use(passport.initialize())
+
+passport.use(googleAuthMiddleware);
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -32,3 +37,4 @@ server.use((err, req, res, next) => {
 });
 
 module.exports = server;
+
