@@ -23,6 +23,7 @@ export default function ProfileUser(){
         borderRadius: "1000px",
         backgroundColor: "DodgerBlue",
         padding: "5px",
+        width:"100px"
         
       };
 
