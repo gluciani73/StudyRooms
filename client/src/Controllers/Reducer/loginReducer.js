@@ -8,6 +8,12 @@ const initialState={
 export default function Reducer(state = initialState, action) {
 
     switch (action.type) {
+        case "USER_REFRESH":
+            return{
+                ...initialState,
+                userInfo: action.payload.data,
+                token : action.payload.token
+            }
         case "SIGN_IN":
             return {
                 ...initialState,
