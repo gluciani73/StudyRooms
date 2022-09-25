@@ -29,20 +29,24 @@ const AskQuestion = () => {
         categories:[],
     });
     const [errors,setErrors] = useState({})
-    const allCategories = useSelector((state)=> state.questionReducer.categories)
+
+    const allCategories = useSelector((state)=> state.questionReducer.categories.data)
+    console.log(allCategories)
     useEffect(()=>{
         dispatch(getCategories())
     },[dispatch])
-
-    const sortCategories = allCategories.data.sort(function(a,b){
-        if(a.category < b.category){
+    
+    const data = allCategories?.map(e => e.category)
+    const sortCategories = data?.sort(function(a,b){
+        if(a < b){
             return -1
         }
-        if(b.category < a.category){
+        if(b < a){
             return 1
         }
         return 0
     })
+    console.log(sortCategories)
 
      function handleSubmit(e){
         e.preventDefault();
@@ -126,9 +130,9 @@ const AskQuestion = () => {
                     </div>
                     <div>
                         <select onChange={(e)=>handleSelect(e)}>
-                            {sortCategories.map((e)=>{
+                            {sortCategories?.map((e)=>{
                                 return(
-                                    <option key={e.category} value={e.category}>{e.category}</option>
+                                    <option key={e} value={e}>{e}</option>
                                 )
                             })}
                         </select>
