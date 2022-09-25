@@ -1,7 +1,7 @@
 const initialState={
     error:"",
     regisOnOff: true,
-    userInfo: [],
+    userInfo: {},
     token:""
 }
 

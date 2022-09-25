@@ -1,5 +1,5 @@
-
 import axios from "axios"
+import { decodeToken } from 'react-jwt'
 
 export function signIn(user) {
     return async function (dispatch) {
@@ -17,6 +17,17 @@ export function signIn(user) {
                 payload: error.response.data.error
             }
             )
+        }
+    }
+}
+
+export function signInGoogle(token){
+    const userInfo = decodeToken(token)
+    return {
+        type:"SIGN_IN",
+        payload:{
+            token,
+            data: {...userInfo}
         }
     }
 }

@@ -31,7 +31,7 @@ export default function ProfileUser(){
         <NavBar/>
             <div>
                 <h2>My Profile</h2>
-                <figure><img src={userInfo.avatar} alt="" style={mystyle} /></figure>
+                <figure><img src={userInfo?.avatar} alt="avatar" style={mystyle} /></figure>
                 <div>
                     <h3>NickName: {userInfo?.userName}</h3>
                     <h3>Name: {userInfo?.firstName}</h3>
