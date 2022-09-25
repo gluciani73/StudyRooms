@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './componentes/Home/Home'
 import NavBar from './componentes/NavBar/NavBar'
-
+import {refreshUserInfo} from '../src/Controllers/Actions/loginActions'
 import Usuarios from './componentes/Usuarios/Usuarios'
 import UserForm from './componentes/Usuarios/UserForm';
 import LandingPage from './componentes/LandingPage/LandingPage';
@@ -16,8 +16,17 @@ import Profile from  './componentes/Usuarios/Profile'
 import Error404 from './componentes/Error404/Error404';
 import QuestionDetail from './componentes/Preguntas/QuestionDetail';
 import GoogleAuth from './componentes/Usuarios/GoogleAuth'
+import jwt_decode from "jwt-decode";
+import { useDispatch } from 'react-redux';
 
 function App() {
+
+  const dispatch = useDispatch()
+  const tokenData = localStorage.getItem("token") && jwt_decode(localStorage.getItem("token"))
+  useEffect(()=>{
+    dispatch(refreshUserInfo(tokenData, localStorage.getItem("token")))
+  })
+  
   return (
    <Router>  
    <Routes>

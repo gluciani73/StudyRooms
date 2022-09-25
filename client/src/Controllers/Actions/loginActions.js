@@ -20,7 +20,15 @@ export function signIn(user) {
         }
     }
 }
-
+export function refreshUserInfo(dataUser,token){
+    return {
+        type:"USER_REFRESH",
+        payload: {
+            data: dataUser,
+            token: token
+        }
+    }
+}
 export function signInGoogle(token){
     const userInfo = decodeToken(token)
     return {
