@@ -18,5 +18,4 @@ router.get('/login/callback',
         res.redirect("http://localhost:3000/auth/"+token)
     })
 
-
 module.exports = router;
