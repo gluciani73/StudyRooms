@@ -15,7 +15,7 @@ router.get('/login/callback',
     }),
     (req,res)=> {
         const token = jwt.sign(req.user, AUTH_SECRET,{expiresIn:'1d'})
-        res.json(token)
+        res.redirect("http://localhost:3000/auth/"+token)
     })
 
 

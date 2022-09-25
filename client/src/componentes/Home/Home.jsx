@@ -23,7 +23,7 @@ const Home = () => {
   const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
 
 
-  
+
   return (<div>
    
 <div className="container">
@@ -36,7 +36,7 @@ const Home = () => {
       <div className="container">
         {allQuestions?.map((e,id)=>{
           return(
-              <div>
+              <div key={id}>
                 <Link to={`/QuestionDetail/${e.id}`}>
                 <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
                 </Link>
