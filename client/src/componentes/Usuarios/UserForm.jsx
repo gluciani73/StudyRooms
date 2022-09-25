@@ -5,6 +5,7 @@ import {createUserAction} from '../../Controllers/Actions/userAction'
 import "../../CssAdicional/Home.css"
 import { registerOnOff} from '../../Controllers/Actions/loginActions'
 import sweetalert from 'sweetalert'
+import axios from 'axios'
 
 export default function CreateUser(){
     const dispatch =useDispatch();
@@ -26,8 +27,7 @@ export default function CreateUser(){
     // },[dispatch])
 
     const [formError, setFormError] = useState({})
-
-
+  
     const [newUser, setNewUser] = useState({
     userName:"",
     firstName:"",
@@ -35,10 +35,29 @@ export default function CreateUser(){
     email:"",
     password:"",
     avatar:""
-
    });
 
     const [checked, setChecked] = useState({});
+
+    const uploadImage = async (e) =>{
+        try {
+            e.preventDefault()
+        const files = e.target.files;
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "franimages");
+    
+        const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/dqffvu8gj/image/upload",data
+                
+        )
+        setNewUser({...newUser, avatar:res.data.secure_url})
+       
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
     
     function handleChangeCheckbox(e){
         setChecked(!checked)
@@ -54,8 +73,7 @@ export default function CreateUser(){
             [e.target.name]: e.target.value
         }))
     }
-
-
+    
     function showAlert(){
         sweetalert({
             title:"Terminos y Condiciones",
@@ -106,6 +124,7 @@ console.log(newUser)
                     <div>
                     <label htmlFor="NickName">Nickname</label>
                         <input className='d-block  m-1 border-1 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='Nickname' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
+
                     {formError.userName && <span><strong>{formError.userName}</strong></span>}
                    </div>
 
@@ -141,17 +160,23 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="ConfirmPassword">Confirm Password</label>
-                        <input className='d-block  m-1 border-1 form-control' type="text"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block  m-1 border-1 form-control' type="password"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
+
                         {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
+                        
                     </div>
 
 
 
 
                     <div>
-                        <label htmlFor="foto">Picture</label>
-                        <input type="text" className='d-block  m-1 border-1 form-control' value={newUser.avatar} name='avatar' id='foto' placeholder='URL picture' onChange={(e)=>handleChange(e)} required/>
-                    </div>
+
+                        <label htmlFor="foto">foto</label>
+                        <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} />
+                    </div>   
+                   
+                  
+
 
 
                     <div >

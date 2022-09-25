@@ -30,6 +30,21 @@ export const editUserAction = (user, userId)=>{
     }
 }
 
+export const changePassword = (user, userId)=>{
+    return async function (dispatch){
+        try {
+            const sendInfo = (await axios.put(`/users/changePassword/`, {...user, userId})).data;
+            console.log(sendInfo)
+            return dispatch({
+                type:UPDATE_USERS,
+                payload:sendInfo
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 // export function getUserAction(){
 //     return async function(dispatch){
 //         const data = await getUsers();
