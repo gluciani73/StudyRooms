@@ -1,7 +1,7 @@
-import { GET_USERS } from "../../constants";
+import { GET_USERS, UPDATE_USERS } from "../../constants";
 
 const initialState ={
-    users:[]
+    users:[],
 }
 
 export default function userReducer(state= initialState,{type,payload}){

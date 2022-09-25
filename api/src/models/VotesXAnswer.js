@@ -17,6 +17,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        rating: {
+            type: DataTypes.BOOLEAN,
+            
+        }
     },
         {
             // timestamps: false
