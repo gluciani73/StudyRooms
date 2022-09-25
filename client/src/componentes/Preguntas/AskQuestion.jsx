@@ -29,13 +29,12 @@ const AskQuestion = () => {
         categories:[],
     });
     const [errors,setErrors] = useState({})
-
-    const allCategories = useSelector((state)=> state.questionReducer.categories.data)
+    const allCategories = useSelector((state)=> state.questionReducer.categories)
     useEffect(()=>{
         dispatch(getCategories())
     },[dispatch])
 
-    const sortCategories = allCategories.sort(function(a,b){
+    const sortCategories = allCategories.data.sort(function(a,b){
         if(a.category < b.category){
             return -1
         }

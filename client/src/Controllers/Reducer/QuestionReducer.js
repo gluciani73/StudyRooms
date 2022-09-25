@@ -35,7 +35,6 @@ const questionReducer = (state = initialState, action) => {
             const questionss = state.questions.data
             console.log(questionss)
                 const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories.map((e)=>e.category).includes(action.payload))
-                console.log(filter)
                 return{
                     ...state,
                     questions: filter
