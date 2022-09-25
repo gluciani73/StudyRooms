@@ -31,6 +31,10 @@ export const LandingPage = () => {
     e.preventDefault()
     dispatch(registerOnOff())
   }
+  function handleGoogleLogin(e){
+    e.preventDefault()
+    window.open('http://localhost:3001/users/google/login','_self')
+  }
   return (
     token ? <Navigate to="/home" replace={true} /> :
     <div className="col p-0 m-0 d-flex justify-content-center align-items-center">
@@ -51,8 +55,8 @@ export const LandingPage = () => {
             <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Registrarse</button>
 
             <div>
-              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={googleLogo} className="logoGoogle"/> Google/Proximamente</button>
-              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={facelogo} className="logoGoogle"/> Facebook/Proximamente</button>
+              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" onClick={handleGoogleLogin}><img src={googleLogo} className="logoGoogle" alt="googleLogo"/> Google</button>
+              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={facelogo} className="logoGoogle" alt="facebookLogo"/> Facebook/Proximamente</button>
             </div>
 
 

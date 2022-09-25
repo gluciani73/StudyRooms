@@ -15,6 +15,7 @@ import CommentList from "./componentes/comments/CommentList";
 import Profile from  './componentes/Usuarios/Profile'
 import Error404 from './componentes/Error404/Error404';
 import QuestionDetail from './componentes/Preguntas/QuestionDetail';
+import GoogleAuth from './componentes/Usuarios/GoogleAuth'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
     <Route path='/Profile' element={<Profile/>}/>
     <Route path="*" element={<Error404 />} />
     <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
+    <Route path='/auth/:token' element={<GoogleAuth/>}/>
    </Routes>
    </Router>
   );

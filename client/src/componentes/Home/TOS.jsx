@@ -53,7 +53,7 @@ El usuario se compromete a respetar los derechos de propiedad industrial e intel
 VII. LEGISLACIÓN Y JURISDICCIÓN APLICABLE
 
 La relación entre el usuario y el titular se regirá por las legislaciones aplicables en México.</p>
-<img src="https://www.edriver.com.bd/public/frontEnd/img/terms&condition.jpg"></img>
+<img src="https://www.edriver.com.bd/public/frontEnd/img/terms&condition.jpg" alt="terms&conditions"></img>
 </div>
             
         </div>
