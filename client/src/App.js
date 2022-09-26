@@ -20,7 +20,6 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
 
 function App() {
-
   const dispatch = useDispatch()
   const tokenData = localStorage.getItem("token") && jwt_decode(localStorage.getItem("token"))
   useEffect(()=>{

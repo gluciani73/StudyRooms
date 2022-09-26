@@ -16,7 +16,6 @@ export function getQuestions() {
 export function getCategories(){
     return async function (dispatch){
         const categories = await axios.get(`${URL_BACK}categories`, {})
-        console.log(categories)
         return dispatch({
             type:GET_CATEGORIES,
             payload: categories.data

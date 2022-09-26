@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { editUserAction } from '../../Controllers/Actions/userAction'
 import {useDispatch} from "react-redux"
 import { useSelector } from "react-redux";
+import axios from "axios"
 
 
 const EditarPerfil = ()=>{
@@ -13,6 +14,26 @@ const EditarPerfil = ()=>{
         if(!(/^[a-zA-Z]{3,15}$/.test(data.firstName)) || data.firstName.length < 3 ) errors.firstName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         if(!(/^[a-zA-Z]{3,15}$/.test(data.lastName)) || data.lastName.length < 3 ) errors.lastName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         return errors;
+    }
+
+    const uploadImage = async (e) =>{
+        try {
+        e.preventDefault()
+        const files = e.target.files;
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "franimages");
+    
+        const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/dqffvu8gj/image/upload",data
+                
+        )
+        setNewUser({...newUser, avatar:res.data.secure_url})
+       
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     const [formError, setFormError] = useState({})
@@ -55,7 +76,7 @@ console.log(newUser)
                     <div>
 
                         <label htmlFor="firstName">First Name</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'   onChange={(e)=>handleChange(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'   onChange={(e)=>handleChange(e)}/>
                         {formError.firstName && <span><strong>{formError.firstName}</strong></span>}
                     </div>
 
@@ -63,7 +84,7 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="lastName"> Last Name</label>                
-                        <input className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text"  placeholder='Last Name' id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text"  placeholder='Last Name' id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>
                         {formError.lastName && <span><strong>{formError.lastName}</strong></span>}
 
                     </div>
@@ -71,7 +92,7 @@ console.log(newUser)
                     
                     <div>
                         <label htmlFor="foto">Avatar</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.avatar}   name='avatar' id='foto' placeholder='foto'  onChange={(e)=>handleChange(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
                     </div>
 
                     <button type='submit' value='update'>Confirm</button>    <button type='submit' value='update'>Cancel</button>

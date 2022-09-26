@@ -33,7 +33,7 @@ export const LandingPage = () => {
   }
   function handleGoogleLogin(e){
     e.preventDefault()
-    window.open('http://localhost:3001/users/google/login','_self')
+    window.open('https://studyrooms-deploy.herokuapp.com/users/google/login','_self')
   }
   return (
     token ? <Navigate to="/home" replace={true} /> :

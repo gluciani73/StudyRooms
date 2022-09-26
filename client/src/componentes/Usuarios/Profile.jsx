@@ -23,11 +23,12 @@ export default function ProfileUser(){
         borderRadius: "1000px",
         backgroundColor: "DodgerBlue",
         padding: "5px",
+        width:"100px"
         
       };
 
     return(
-        <>
+        <div >
         <NavBar/>
             <div>
                 <h2>My Profile</h2>
@@ -39,7 +40,7 @@ export default function ProfileUser(){
                     <h3>Email: {userInfo?.email}</h3>
                 </div>
                 <button type="button" onClick={handleEdit}>Editar Perfil</button>
-                <button onClick={handleEditPassword}>Cambiar Contraseña</button>
+                {/* <button onClick={handleEditPassword}>Cambiar Contraseña</button> */}
 
                 {showEdit ?
                  <EditProfile/>
@@ -50,6 +51,6 @@ export default function ProfileUser(){
             </div>
         
         
-        </>
+        </div>
     )
 }
