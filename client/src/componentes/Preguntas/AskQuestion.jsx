@@ -46,7 +46,6 @@ const AskQuestion = () => {
         }
         return 0
     })
-         
 
      function handleSubmit(e){
         e.preventDefault();

@@ -33,28 +33,27 @@ const questionReducer = (state = initialState, action) => {
             }
         case FILTER_CATEGORY:
             const questionss = state.questions.data
-            console.log(questionss)
-                const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories.map((e)=>e.category).includes(action.payload))
+            const filter = action.payload === "All" ? questionss : questionss.filter(e => e.categories.map(e=>e.category).includes(action.payload))
                 return{
                     ...state,
-                    questions: filter
+                    allQuestions: filter
             }
         case FILTER_RATING:
             let sorted = action.payload === 'asc' ?
-                state.questions.sort(function (a, b){
-                    if(a.rating > b.rating){
+                state.questions.data.map(e=> e.ratingAverage).sort(function (a, b){
+                    if(a.ratingAverage > b.ratingAverage){
                         return 1
                     }
-                    if (b.rating > a.rating){
+                    if (b.ratingAverage > a.ratingAverage){
                         return -1
                     }
                     return 0
                 }) :
                 state.questions.sort(function (a, b){
-                    if (a.rating > b.rating){
+                    if (a.ratingAverage > b.ratingAverage){
                         return -1
                     }
-                    if (b.rating > a.rating){
+                    if (b.ratingAverage > a.ratingAverage){
                         return 1
                     }
                     return 0

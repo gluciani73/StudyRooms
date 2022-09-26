@@ -20,7 +20,7 @@ const Home = () => {
 
 
 
-  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
+  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data || state.questionReducer.allQuestions)
 
 
 
