@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ReactStars from 'react-stars'; //source: https://www.npmjs.com/package/react-stars
-import {getAnswerList, deleteAnswerItem} from "../../Controllers/Actions/answerActions";
+import {getAnswerList, deleteAnswerItem, updateAnswerVote} from "../../Controllers/Actions/answerActions";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
@@ -47,6 +47,15 @@ export default function AnswerList ({questionId}) {
         return !answerItem;
     }
 
+    function handleVoteUpClick(answerId, answerUserId) {
+        if(userId !== answerUserId) {
+            dispatch(updateAnswerVote({
+                userId,
+                answerId
+            }));
+        }
+    }
+
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
@@ -57,13 +66,13 @@ export default function AnswerList ({questionId}) {
                             <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
                             <ReactStars
                                 className="stars"
-                                value={answerItem.ratingAverage}
+                                value={Number(answerItem.ratingAverage)}
                                 edit={false}
                                 size={20}
                             />
                             <span>({answerItem.ratingCount} rates) </span>
                         </div>
-                        <span>
+                        <span className="voteLike" onClick={() => handleVoteUpClick(answerItem.id, answerItem.userId)}>
                             <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
                         </span>
                         <span> <b>Last update:</b> {answerItem.updatedAt}</span>
