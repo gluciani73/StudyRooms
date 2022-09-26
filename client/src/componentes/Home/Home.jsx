@@ -18,10 +18,7 @@ const Home = () => {
     dispatch(getQuestions())},[dispatch]);
 
 
-
-
   const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data )
-
 
 
   return (<div>

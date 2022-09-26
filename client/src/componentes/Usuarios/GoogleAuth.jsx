@@ -6,12 +6,11 @@ export const GoogleAuth = () => {
 
     const dispatch = useDispatch()
 
-    
     const {token} = useParams()
     localStorage.setItem('token', token)
     dispatch(signInGoogle(token))
     
-    return <Navigate to="/home" />
+    return <Navigate to="/" />
 }
 
 export default GoogleAuth

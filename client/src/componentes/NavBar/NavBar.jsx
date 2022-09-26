@@ -21,7 +21,7 @@ const NavBar = () => {
             
                <div className='row align-items-center'>
                    <div className="btn-group" role="group" aria-label="Basic example">
-                       <Link to="/Home"><button type="button" className="btn btn-primary"> <img src={home} alt="" height="20px" /> Home</button></Link>
+                       <Link to="/Home"><button type="button" className="btn btn-primary"> <img src={home} alt="homeImg" height="20px" /> Home</button></Link>
                        <Link to="/AskQuestion"><button type="button" className="btn btn-primary">Ask Question</button></Link>
                        <Link to="/Donations"><button type="button" className="btn btn-primary">Donate</button></Link>
                    </div>
@@ -37,8 +37,8 @@ const NavBar = () => {
            </div>
            <div className='col-md-auto align-items-center auto-mx ' >
                <div className="row align-items-center">
-                  <p className="col-md-auto" href="#"><img src={config} alt="config" height='30px'/></p>
-                  <p className="col-md-auto" href="#"><img src={notification} alt="notifications"height='30px'/> </p>
+                  {/* <p className="col-md-auto" href="#"><img src={config} alt="config" height='30px'/></p>
+                  <p className="col-md-auto" href="#"><img src={notification} alt="notifications"height='30px'/> </p> */}
                   <DropDown />
                </div>
            </div>
