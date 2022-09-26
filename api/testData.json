@@ -54,57 +54,75 @@
     "answers": [
         {
             "userId": 1,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 1,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 1,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 1,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 1,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 3,
             "questionId": 1,
-            "answer": "answer",
-            "rating": 5
-        },
-        {
-            "userId": 3,
-            "questionId": 2,
-            "answer": "answer",
-            "rating": 5
+            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin purus at neque gravida scelerisque in quis diam. Sed rutrum in quam eu faucibus. Curabitur elementum convallis dictum. Nulla facilisi. Phasellus efficitur pulvinar ex eu venenatis. Maecenas nibh sem, ultricies in fermentum non, pellentesque in neque. Aliquam non felis ligula. Nam eget libero ipsum. Proin eu imperdiet massa, sed accumsan mi. Curabitur eu erat nec erat feugiat sollicitudin. Aliquam non felis ligula. Nam eget libero ipsum. Proin eu imperdiet massa, sed accumsan mi. Curabitur eu erat nec erat feugiat sollicitudin. Nam suscipit placerat nulla sit amet suscipit. Nunc feugiat nibh tortor, quis eleifend diam consectetur in. Phasellus commodo arcu non turpis scelerisque, ac blandit metus molestie.",
+            "ratingAverage": 4.1,
+            "ratingCount": 11,
+            "voteCount": 11
         },
         {
             "userId": 2,
             "questionId": 2,
-            "answer": "answer",
-            "rating": 5
+            "answer": "Donec pretium commodo orci et congue. Etiam arcu odio, luctus ullamcorper venenatis ut, suscipit ac felis. Fusce eros eros, congue vitae sodales nec, euismod rutrum libero. Proin lobortis nunc ac arcu porttitor, nec scelerisque dui finibus.",
+            "ratingAverage": 4.3,
+            "ratingCount": 22,
+            "voteCount": 12
+        },
+        {
+            "userId": 3,
+            "questionId": 3,
+            "answer": "Praesent maximus faucibus lorem, quis aliquam mi gravida ut. Maecenas at eros varius, venenatis leo sed, laoreet dui.",
+            "ratingAverage": 4.5,
+            "ratingCount": 33,
+            "voteCount": 13
+        },
+        {
+            "userId": 1,
+            "questionId": 2,
+            "answer": "Phasellus ut sollicitudin nulla. Aliquam ut ex non purus laoreet egestas eget non arcu. Mauris vel lectus et quam laoreet finibus. Fusce condimentum justo bibendum gravida volutpat. Sed et nunc vel nulla convallis viverra a ut dolor.",
+            "ratingAverage": 3.5,
+            "ratingCount": 44,
+            "voteCount": 14
+        },
+        {
+            "userId": 2,
+            "questionId": 2,
+            "answer": "Pellentesque vitae tellus quis felis venenatis ultricies. Curabitur mattis purus vel lorem aliquet aliquam. Cras hendrerit dolor commodo risus varius auctor sit amet eu leo. Nullam eget arcu quis lectus ornare facilisis. Donec nunc felis, faucibus a ex auctor, dictum faucibus ante. Etiam et mi at est posuere luctus at at arcu.",
+            "ratingAverage": 2.5,
+            "ratingCount": 15,
+            "voteCount": 16
+        },
+        {
+            "userId": 3,
+            "questionId": 2,
+            "answer": "Cras egestas ac velit a euismod. Morbi vehicula vestibulum aliquam. Praesent a suscipit odio, vitae ultricies eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam hendrerit, augue non dignissim efficitur, nulla nisi placerat orci, vitae porta felis felis sit amet velit.",
+            "ratingAverage": 1.7,
+            "ratingCount": 25,
+            "voteCount": 15
+        },
+        {
+            "userId": 3,
+            "questionId": 3,
+            "answer": "Vestibulum gravida enim sem, ac maximus risus interdum at. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam accumsan, ex ullamcorper venenatis placerat, felis nisl lobortis lacus, sed placerat nisl elit sit amet odio. Pellentesque vitae tellus quis felis venenatis ultricies.",
+            "ratingAverage": 3.3,
+            "ratingCount": 35,
+            "voteCount": 15
+        },
+        {
+            "userId": 2,
+            "questionId": 3,
+            "answer": "Curabitur blandit pretium tincidunt. Integer varius orci vel lobortis malesuada. Cras egestas ac velit a euismod. Morbi vehicula vestibulum aliquam. Praesent a suscipit odio, vitae ultricies eros.",
+            "ratingAverage": 4.1,
+            "ratingCount": 45,
+            "voteCount": 15
         },
         {
             "userId": 2,
             "questionId": 4,
-            "answer": "answer",
-            "rating": 5
+            "answer": "Nunc sollicitudin purus at neque gravida scelerisque in quis diam. Sed rutrum in quam eu faucibus. Curabitur elementum convallis dictum. Nulla facilisi. Phasellus efficitur pulvinar ex eu venenatis. Maecenas nibh sem, ultricies in fermentum non, pellentesque in neque.",
+            "ratingAverage": 3.1,
+            "ratingCount": 55,
+            "voteCount": 15
         }
     ],
     "comments": [
