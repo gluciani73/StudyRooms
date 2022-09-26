@@ -189,7 +189,7 @@ const likeQuestion = async (req, res) => {
 const unlikeQuestion = async (req, res) => {
     try {
         const questionId = parseInt(req.params.questionId)    //req.params.questionId;
-        const userId = 5;
+        const {userId} = req.query;
         
         const vote = await Votesxquestion.findOne({where: { questionId: questionId, userId: userId}})
     
