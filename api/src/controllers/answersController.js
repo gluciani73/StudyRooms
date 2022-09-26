@@ -37,7 +37,7 @@ const createAnswer = async (req, res) => {
         })
         return res.status(201).json({ error: null, data: response })
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de answer', data: null })
+        return res.status(500).json({ error: `Error en el controlador de answer: ${error}`, data: null })
     }
 }
 
@@ -69,7 +69,7 @@ const getAnswer = async (req, res) => {
             return res.status(200).json({ error: null, data: result })
         }
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de answer al obtener las respuestas', data: null })
+        return res.status(500).json({ error: `Error en el controlador de answer al obtener las respuestas: ${error}`, data: null })
     }
 }
 
@@ -107,7 +107,7 @@ const updateAnswer = async (req, res, next) => {
 
     } catch (error) {
 
-        return res.status(500).json({ error: 'Error en el controlador de answer al actualizar la respuesta', data: null })
+        return res.status(500).json({ error: `Error en el controlador de answer al actualizar la respuesta: ${error}`, data: null })
     }
 };
 
@@ -122,7 +122,7 @@ const deleteAnswer = async (req, res) => {
             return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
         }
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de answer al eliminar la respuesta', data: null })
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar la respuesta: ${error}`, data: null })
     }
 }
 
