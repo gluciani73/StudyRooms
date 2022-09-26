@@ -4,6 +4,6 @@ const REFRESH_TOKEN = "1//04VRO9eA1LxEjCgYIARAAGAQSNwF-L9IrfteSPk-xjs0G5Z5fF_OWx
 const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
 const ACTIVATION_SECRET = process.env.ACTIVATION_SECRET || "ActivationSecret!"
 const RECOVERY_SECRET = process.env.RECOVERY_SECRET || "RecoverySecret!"
-const FRONT_URL = process.env.FRONT_URL || "http://localhost:3000"
+const FRONT_URL = process.env.FRONT_URL || "https://study-rooms-gilt.vercel.app"
 
 module.exports = {CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN, AUTH_SECRET, ACTIVATION_SECRET, RECOVERY_SECRET, FRONT_URL}
