@@ -108,7 +108,7 @@ export default function AnswerList ({questionId}) {
         }
         return (
             <div className='questionListContainer'>
-                <h2>Question {questionId}</h2>
+                <h2>Answer List</h2>
                 {answerList.map(item => renderAnswerItem(item))}
             </div>
         );
