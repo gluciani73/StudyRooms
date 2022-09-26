@@ -184,7 +184,7 @@ console.log(newUser)
                         <input   type="checkbox"  name="acceptT" id="acceptT" checked={checked} onChange={handleChangeCheckbox}/>
                     </div>
 
-                   <button type='submit' value='Register'>Registrarse</button>
+                   <button type='submit' value='Register'  className="btn btn-primary m-2">Registrarse</button>
                    <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Login</button>
 
 
