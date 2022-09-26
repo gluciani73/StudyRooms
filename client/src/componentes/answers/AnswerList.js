@@ -53,14 +53,16 @@ export default function AnswerList ({questionId}) {
                 <div className='singleAnswerTitle'>
                     <h3>Answer from {answerItem.user.userName}</h3>
                     <p>
-                        <ReactStars
-                            className="stars"
-                            value={answerItem.ratingAverage}
-                            edit={false}
-                            size={20}
-                        />
-                        <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
-                        <span>({answerItem.ratingCount} rates) </span>
+                        <div className="ratingContainer">
+                            <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
+                            <ReactStars
+                                className="stars"
+                                value={answerItem.ratingAverage}
+                                edit={false}
+                                size={20}
+                            />
+                            <span>({answerItem.ratingCount} rates) </span>
+                        </div>
                         <span>
                             <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
                         </span>
@@ -106,7 +108,7 @@ export default function AnswerList ({questionId}) {
         }
         return (
             <div className='questionListContainer'>
-                <h2>Question {questionId}</h2>
+                <h2>Answer List</h2>
                 {answerList.map(item => renderAnswerItem(item))}
             </div>
         );

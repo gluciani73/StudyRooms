@@ -85,8 +85,8 @@ export default function CommentList ({questionId}) {
             );
         }
         return (
-            <div className='questionListContainer'>
-                <h2>Question {questionId}</h2>
+            <div className='commentListContainer'>
+                <h2>Comment list</h2>
                 {commentList.map(item => renderCommentItem(item))}
             </div>
         );
