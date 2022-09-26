@@ -5,6 +5,7 @@ export const GET_ANSWER_LIST = "GET_ANSWER_LIST";
 export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
 export const UPDATE_ANSWER_ITEM = "UPDATE_ANSWER_ITEM";
 export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
+export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
 
 const baseUrl = URL_BACK; //'https://w9489.mocklab.io';
 
@@ -60,6 +61,20 @@ export const deleteAnswerItem = (answerItem) => {
                 dispatch({
                     type: DELETE_ANSWER_ITEM,
                     payload: { id: answerItem.id, questionId: answerItem.questionId }
+                });
+            });
+    }
+}
+
+export const updateAnswerVote = (voteInfo) => {
+    return function (dispatch) {
+
+        axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo)
+            .catch(error => console.log("Action creator updateAnswerVote: ", error))
+            .then(() => {
+                dispatch({
+                    type: UPDATE_ANSWER_VOTE,
+                    payload: voteInfo
                 });
             });
     }
