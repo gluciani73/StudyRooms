@@ -3,6 +3,7 @@ import {
     CREATE_ANSWER_ITEM,
     UPDATE_ANSWER_ITEM,
     DELETE_ANSWER_ITEM,
+    UPDATE_ANSWER_VOTE,
 } from "../Actions/answerActions";
 
 const initialState={
@@ -38,6 +39,18 @@ const answerReducer = (state = initialState, {type, payload}) => {
                 answerList: state.answerList.filter(item =>
                     item.id !== payload.id && item.questionId === payload.questionId
                 )
+            };
+
+        case UPDATE_ANSWER_VOTE:
+            const answerItem = state.answerList.find(item =>
+                item.id === payload.answerId);
+            const newAnswerItem = {
+                ...answerItem,
+                voteCount: answerItem.voteCount++
+            }
+            return {
+                ...state,
+                answerList: [...state.answerList, newAnswerItem]
             };
 
         default:

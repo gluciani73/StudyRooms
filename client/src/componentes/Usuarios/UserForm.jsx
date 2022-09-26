@@ -12,7 +12,7 @@ export default function CreateUser(){
 
     function validate(data){
         var errors = {};
-        if(!(/^[a-zA-Z]{3,8}$/.test(data.userName)) || data.userName.length < 3 ) errors.userName = "Ingrese un nombre de usuario que contenga entre 3 y 8 caracteres"
+        if(!(/^[a-zA-Z]{3,10}$/.test(data.userName)) || data.userName.length < 3 ) errors.userName = "Ingrese un nombre de usuario que contenga entre 3 y 10 caracteres"
         if(!(/^[a-zA-Z]{3,15}$/.test(data.firstName)) || data.firstName.length < 3 ) errors.firstName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         if(!(/^[a-zA-Z]{3,15}$/.test(data.lastName)) || data.lastName.length < 3 ) errors.lastName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         if(!(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(data.email)))errors.email = "Ingrese un correo valido"
@@ -41,7 +41,7 @@ export default function CreateUser(){
 
     const uploadImage = async (e) =>{
         try {
-            e.preventDefault()
+        e.preventDefault()
         const files = e.target.files;
         const data = new FormData();
         data.append("file", files[0]);
@@ -171,7 +171,7 @@ console.log(newUser)
 
                     <div>
 
-                        <label htmlFor="foto">foto</label>
+                        <label htmlFor="Photo">Photo</label>
                         <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} />
                     </div>   
                    
@@ -181,10 +181,10 @@ console.log(newUser)
 
                     <div >
                         <label htmlFor="acceptT" >Acepto los<button onClick={()=>showAlert()} style={{ border:'none', backgroundColor:"white", color:"blue" }}>términos y condiciones</button> del servicio</label>
-                        <input   type="checkbox"  name="acceptT" id="acceptT" checked={checked} onChange={handleChangeCheckbox}/>
+                        <input type="checkbox"  name="acceptT" id="acceptT" checked={checked} onChange={handleChangeCheckbox}/>
                     </div>
 
-                   <button type='submit' value='Register'>Registrarse</button>
+                   <button type='submit' value='Register'  className="btn btn-primary m-2">Registrarse</button>
                    <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Login</button>
 
 

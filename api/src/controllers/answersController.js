@@ -5,7 +5,10 @@ const createAnswer = async (req, res) => {
     try {
         const { userId,
             questionId,
-            answer
+            answer,
+            ratingAverage,
+            ratingCount,
+            voteCount,
         } = req.body;
 
         if (!answer || !userId || !questionId) {
@@ -17,7 +20,10 @@ const createAnswer = async (req, res) => {
         let newAnswer = {
             userId,
             questionId,
-            answer
+            answer,
+            ratingAverage,
+            ratingCount,
+            voteCount,
         }
 
         const qAnswer = await Answer.create(newAnswer);

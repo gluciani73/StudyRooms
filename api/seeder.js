@@ -64,10 +64,10 @@ async function createTestData() {
   // MOCKUP ANSWERS
   for (let i = 0; i < testData.answers.length; i++) {
 
-    const { questionId, userId, answer, rating } = testData.answers[i]
+    const { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
 
     await axios.post(mockURL + '/answers', {
-      questionId, userId, answer: "Answer :" + answer + " " + i, rating
+      questionId, userId, answer, ratingAverage, ratingCount, voteCount
     })
 
   }

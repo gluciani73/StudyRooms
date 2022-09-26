@@ -14,7 +14,7 @@ export default function CommentCreate({userId, questionId})  {
     }
 
     return (
-        <div className='createAnswerContainer'>
+        <div className='createCommentContainer'>
             <h1 className='createAnswerTitle'>Create Comment</h1>
             <CommentForm buttonText={'Create'}
                          buttonAction={handleCreateButton}

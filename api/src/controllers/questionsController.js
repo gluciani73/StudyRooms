@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -41,6 +41,9 @@ const getQuestion = async (req, res) => {
                     },
                     include: [
                         {
+                            model: Votesxquestion
+                        },
+                        {
                             model: Answer
                         },
                         {
@@ -70,6 +73,7 @@ const getQuestions = async (req, res) => {
             include: [
                 { model: Answer },
                 { model: Category },
+                {model: Votesxquestion},
                 {
                     model: User,
                     attributes: ['id', 'avatar', 'userName', 'email']
@@ -164,4 +168,40 @@ const viewQuestion = async (req, res) => {
     }
 }
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion }
+const likeQuestion = async (req, res) => {
+    const {userId, questionId} = req.body;
+    try {
+        
+        const like = {userId, questionId, rating : true}
+        const newVote = await Votesxquestion.create(like)
+        
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+
+
+const unlikeQuestion = async (req, res) => {
+    try {
+        const questionId = parseInt(req.params.questionId)    //req.params.questionId;
+        const {userId} = req.query;
+        
+        const vote = await Votesxquestion.findOne({where: { questionId: questionId, userId: userId}})
+    
+        vote.destroy();
+        return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
+    } catch (error) {
+        
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
+    }
+}
+
+
+
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion }
