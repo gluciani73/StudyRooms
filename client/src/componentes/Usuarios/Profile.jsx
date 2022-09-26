@@ -28,7 +28,7 @@ export default function ProfileUser(){
       };
 
     return(
-        <>
+        <div >
         <NavBar/>
             <div>
                 <h2>My Profile</h2>
@@ -51,6 +51,6 @@ export default function ProfileUser(){
             </div>
         
         
-        </>
+        </div>
     )
 }

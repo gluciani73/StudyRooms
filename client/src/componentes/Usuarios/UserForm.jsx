@@ -171,7 +171,7 @@ console.log(newUser)
 
                     <div>
 
-                        <label htmlFor="foto">foto</label>
+                        <label htmlFor="Photo">Photo</label>
                         <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} />
                     </div>   
                    
@@ -181,7 +181,7 @@ console.log(newUser)
 
                     <div >
                         <label htmlFor="acceptT" >Acepto los<button onClick={()=>showAlert()} style={{ border:'none', backgroundColor:"white", color:"blue" }}>términos y condiciones</button> del servicio</label>
-                        <input   type="checkbox"  name="acceptT" id="acceptT" checked={checked} onChange={handleChangeCheckbox}/>
+                        <input type="checkbox"  name="acceptT" id="acceptT" checked={checked} onChange={handleChangeCheckbox}/>
                     </div>
 
                    <button type='submit' value='Register'  className="btn btn-primary m-2">Registrarse</button>
