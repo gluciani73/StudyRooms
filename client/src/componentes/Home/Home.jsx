@@ -38,7 +38,7 @@ const Home = () => {
           return(
               <div key={id}>
                 <Link to={`/QuestionDetail/${e.id}`}>
-                <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage}> </Question>
+                <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length}> </Question>
                 </Link>
               </div>
           )

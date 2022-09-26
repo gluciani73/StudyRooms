@@ -5,7 +5,7 @@ import stars from '../../recursos/star.png'
 
 
 
-export default function Question({title, description, ratingAverage, voteCount, userId, isFeatured}) {
+export default function Question({title, description, ratingAverage, userId, likes}) {
 
  
     
@@ -23,7 +23,7 @@ export default function Question({title, description, ratingAverage, voteCount, 
         </div>
         <div className="col">
              <p>votes:</p>
-             <p>{voteCount}</p>
+             <p>{likes}</p>
              <img src={upVote} alt="" height="20px" width="20px" />
         </div>
         

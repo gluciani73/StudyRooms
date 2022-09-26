@@ -20,10 +20,10 @@ function validate(input){
 
 const AskQuestion = () => {
     
-
+    const userInfo = useSelector((state)=> state.loginReducer.userInfo);
     const dispatch= useDispatch()
     const [input,setInput]=useState({
-        userId:1,
+        userId:userInfo.id,
         title:"",
         description:"",
         categories:[],
@@ -53,7 +53,7 @@ const AskQuestion = () => {
         dispatch(addQuestions(input))
         alert("Create Question")
         setInput({
-            userId:1,
+            userId:userInfo.id,
             title:"",
             description:"",
             categories:[]
