@@ -31,11 +31,12 @@ export function refreshUserInfo(dataUser,token){
 }
 export function signInGoogle(token){
     const userInfo = decodeToken(token)
+
     return {
         type:"SIGN_IN",
         payload:{
-            token,
-            data: {...userInfo}
+            token: token,
+            data: userInfo
         }
     }
 }

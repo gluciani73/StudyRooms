@@ -40,7 +40,7 @@ export default function ProfileUser(){
                     <h3>Email: {userInfo?.email}</h3>
                 </div>
                 <button type="button" onClick={handleEdit}>Editar Perfil</button>
-                <button onClick={handleEditPassword}>Cambiar Contraseña</button>
+                {/* <button onClick={handleEditPassword}>Cambiar Contraseña</button> */}
 
                 {showEdit ?
                  <EditProfile/>

@@ -114,7 +114,6 @@ export default function CreateUser(){
             alert("Usuario creado correctamente")
 
         }
-console.log(newUser)
         return (
             <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
                 

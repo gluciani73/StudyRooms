@@ -76,7 +76,7 @@ console.log(newUser)
                     <div>
 
                         <label htmlFor="firstName">First Name</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'   onChange={(e)=>handleChange(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'   onChange={(e)=>handleChange(e)}/>
                         {formError.firstName && <span><strong>{formError.firstName}</strong></span>}
                     </div>
 
@@ -84,7 +84,7 @@ console.log(newUser)
 
                     <div>
                         <label htmlFor="lastName"> Last Name</label>                
-                        <input className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text"  placeholder='Last Name' id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text"  placeholder='Last Name' id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>
                         {formError.lastName && <span><strong>{formError.lastName}</strong></span>}
 
                     </div>
@@ -92,7 +92,7 @@ console.log(newUser)
                     
                     <div>
                         <label htmlFor="foto">Avatar</label>
-                        <input className='d-block  m-1 border-0 form-control' type="text" value={newUser.avatar}   name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
+                        <input required className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
                     </div>
 
                     <button type='submit' value='update'>Confirm</button>    <button type='submit' value='update'>Cancel</button>

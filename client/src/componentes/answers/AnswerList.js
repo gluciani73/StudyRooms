@@ -78,7 +78,7 @@ export default function AnswerList ({questionId}) {
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
                     <h3>Answer from {answerItem.user.userName}</h3>
-                    <p>
+                    
                         <div className="ratingContainer">
                             <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
                             <ReactStars
@@ -93,7 +93,7 @@ export default function AnswerList ({questionId}) {
                             <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
                         </span>
                         <span> <b>Last update:</b> {answerItem.updatedAt}</span>
-                    </p>
+                    
                 </div>
                 <p>{answerItem.answer}</p>
                 {userId === answerItem.userId && !(showEditForm && answerEditId === answerItem.id) && (
