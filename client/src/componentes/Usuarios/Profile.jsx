@@ -23,11 +23,12 @@ export default function ProfileUser(){
         borderRadius: "1000px",
         backgroundColor: "DodgerBlue",
         padding: "5px",
+        width:"100px"
         
       };
 
     return(
-        <>
+        <div >
         <NavBar/>
             <div>
                 <h2>My Profile</h2>
@@ -50,6 +51,6 @@ export default function ProfileUser(){
             </div>
         
         
-        </>
+        </div>
     )
 }
