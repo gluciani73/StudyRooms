@@ -3,6 +3,7 @@ import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actio
 import {useDispatch, useSelector} from "react-redux";
 import Navbar from '../NavBar/NavBar'
 
+
 function validate(input){
     let errors={};
     if(!input.title){
@@ -20,10 +21,10 @@ function validate(input){
 
 const AskQuestion = () => {
     
-
+    const userInfo = useSelector((state)=> state.loginReducer.userInfo);
     const dispatch= useDispatch()
     const [input,setInput]=useState({
-        userId:1,
+        userId:userInfo.id,
         title:"",
         description:"",
         categories:[],
@@ -31,7 +32,6 @@ const AskQuestion = () => {
     const [errors,setErrors] = useState({})
 
     const allCategories = useSelector((state)=> state.questionReducer.categories.data)
-    console.log(allCategories)
     useEffect(()=>{
         dispatch(getCategories())
     },[dispatch])
@@ -46,14 +46,14 @@ const AskQuestion = () => {
         }
         return 0
     })
-    console.log(sortCategories)
+         
 
      function handleSubmit(e){
         e.preventDefault();
         dispatch(addQuestions(input))
         alert("Create Question")
         setInput({
-            userId:1,
+            userId:userInfo.id,
             title:"",
             description:"",
             categories:[]
