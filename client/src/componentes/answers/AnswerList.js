@@ -6,6 +6,7 @@ import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
 import upVote from '../../recursos/thumbs.png'
+import sweetalert from 'sweetalert';
 
 export default function AnswerList ({questionId}) {
 
@@ -34,7 +35,17 @@ export default function AnswerList ({questionId}) {
     }
 
     function handleDeleteAnswerItem(answerItem) {
-        dispatch(deleteAnswerItem(answerItem));
+        sweetalert({
+            title:"Action confirmation",
+            text: "Do your really want to delete your answer?",
+            icon: "warning",
+            buttons: ["Cancel", "Delete"],
+            dangerMode: true,
+        }).then(value => {
+            if(value) {
+                dispatch(deleteAnswerItem(answerItem));
+            }
+        });
     }
 
     function showCreateForm() {
@@ -53,6 +64,12 @@ export default function AnswerList ({questionId}) {
                 userId,
                 answerId
             }));
+        }
+        else {
+            sweetalert({
+                title:"Action not allowed",
+                text: `You can not vote for your own answer.`
+            });
         }
     }
 
