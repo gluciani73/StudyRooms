@@ -15,7 +15,7 @@ router.get('/login/callback',
     }),
     (req,res)=> {
         const token = jwt.sign(req.user, AUTH_SECRET,{expiresIn:'1d'})
-        res.redirect(FRONT_URL+"/auth/"+token)
+        res.redirect("https://studyrooms-deploy.herokuapp.com/auth/"+token)
     })
 
 module.exports = router;
