@@ -31,7 +31,6 @@ const AskQuestion = () => {
     const [errors,setErrors] = useState({})
 
     const allCategories = useSelector((state)=> state.questionReducer.categories.data)
-    console.log(allCategories)
     useEffect(()=>{
         dispatch(getCategories())
     },[dispatch])
@@ -46,7 +45,6 @@ const AskQuestion = () => {
         }
         return 0
     })
-    console.log(sortCategories)
 
      function handleSubmit(e){
         e.preventDefault();
