@@ -188,15 +188,15 @@ const likeQuestion = async (req, res) => {
 
 const unlikeQuestion = async (req, res) => {
     try {
-        const questionId = req.params.questionId;
-        if (questionId) {
-            let result = await Votesxquestion.destroy({ where: { id: `${questionId}` } });
-            if (result[0]) {
-                return res.status(500).send({ error: "No se encuentra el voto", data: null })
-            }
-            return res.status(200).json({ error: null, data: 'Se borro el voto id: ' + questionId })
-        }
+        const questionId = parseInt(req.params.questionId)    //req.params.questionId;
+        const userId = 5;
+        
+        const vote = await Votesxquestion.findOne({where: { questionId: questionId, userId: userId}})
+    
+        vote.destroy();
+        return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
     } catch (error) {
+        
         return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
     }
 }

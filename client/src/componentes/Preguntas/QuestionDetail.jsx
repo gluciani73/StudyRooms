@@ -20,16 +20,15 @@ const QuestionDetail = () => {
       return(
         <div>
           <NavBar/>
-          <h1>{e.userId}</h1>
-          <h1>{e.title}</h1>
-          <p>{e.description}</p>
+          <h1>user:{e.userId}</h1>
+          <h1>title:{e.title}</h1>
+          <p>description:{e.description}</p>
           <div >
           <LikeB userId={e.userId} questionId={e.id}/> <p>{e.votesxquestions.length}</p>
           </div>
           <Link to='/Home'>home</Link>
-          <AnswerList questionId={id}/>
+          <AnswerList questionId={id}/>        
           <CommentList questionId={id}/>
-        
         </div>
         
   )
