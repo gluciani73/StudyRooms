@@ -10,7 +10,7 @@ router.get('/login', passport.authenticate('google', {session:false, scope: ['pr
 
 router.get('/login/callback',
     passport.authenticate('google', {
-        failureRedirect: '/',
+        failureRedirect: 'https://study-rooms-gilt.vercel.app',
         session:false
     }),
     (req,res)=> {
