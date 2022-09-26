@@ -62,7 +62,7 @@
         },
         {
             "userId": 2,
-            "questionId": 2,
+            "questionId": 1,
             "answer": "Donec pretium commodo orci et congue. Etiam arcu odio, luctus ullamcorper venenatis ut, suscipit ac felis. Fusce eros eros, congue vitae sodales nec, euismod rutrum libero. Proin lobortis nunc ac arcu porttitor, nec scelerisque dui finibus.",
             "ratingAverage": 4.3,
             "ratingCount": 22,
@@ -70,7 +70,7 @@
         },
         {
             "userId": 3,
-            "questionId": 3,
+            "questionId": 1,
             "answer": "Praesent maximus faucibus lorem, quis aliquam mi gravida ut. Maecenas at eros varius, venenatis leo sed, laoreet dui.",
             "ratingAverage": 4.5,
             "ratingCount": 33,
