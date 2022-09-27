@@ -50,7 +50,7 @@ console.log(newPassowrd)
     return (
         <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
             <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
-                <h1>Editar datos</h1>
+                <h1>Editar Contraseña</h1>
 
 
                     <div>
