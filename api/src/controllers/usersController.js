@@ -19,6 +19,7 @@ const signUp = async (req, res) => {
 
         /* ESTO ES PARA PODER CREAR LOS USUARIOS DE TEST*/
         const active = req.body.active || false
+        const isAdmin = req.body.isAdmin || false
         /*------------------------------------------------*/
 
         if (userFound) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
@@ -39,6 +40,7 @@ const signUp = async (req, res) => {
             isAdmin: false,
             isPremium: false,
             active,  // cambiar esto a "active: false" para deploy
+            isAdmin  // cambiar esto a "isAdmin: false" para deploy
         })
         const dataToSend = {
             id: createdUser.id, userName, firstName, lastName, email, avatar
@@ -84,7 +86,8 @@ const signIn = async (req, res) => {
                     lastName: userFound.lastName,
                     email: userFound.email,
                     avatar: userFound.avatar,
-                    active: userFound.active
+                    active: userFound.active,
+                    isAdmin: newData.isAdmin
                 }
                 const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
                 return res.status(200).json({ data: dataToSend, error: null, token })
@@ -243,15 +246,28 @@ const recoveryGET = async (req,res) => {
 const updateUser = async (req, res) => {
     try{
         const { firstName, lastName, avatar } = req.body
-        const { userId } = req.params
+        const { userId } = parseInt(req.params)
         
         if ( !firstName && !lastName) {
             return res.status(400).json({data:null, error: "faltan datos"})
         }
         
         await User.update({ firstName, lastName, avatar }, {where: {id:userId}})
+
+        const newData = await User.findByPk(userId)
+        const dataToSend = {
+            id: newData.id,
+            userName,
+            firstName: newData.firstName,
+            lastName: newData.lastName,
+            email: newData.email,
+            avatar: newData.avatar,
+            active: newData.active,
+            isAdmin: newData.isAdmin
+        }
+        const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
         
-        return res.status(200).json({data:"se modificó el usuario", error: null}) 
+        return res.status(200).json({data:"se modificó el usuario", error: null, token}) 
       
     } catch (error) {
         return res.status(500).json({data:null, error: "error en el userController"})
