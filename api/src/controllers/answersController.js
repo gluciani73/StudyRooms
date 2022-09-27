@@ -131,7 +131,14 @@ const deleteAnswer = async (req, res) => {
 const likeAnswer = async (req, res) => {
     const {userId, answerId} = req.body;
     try {
-        
+
+        if (!userId || !answerId) {
+            return res.status(401).json({
+                error: "The required fields userId and answerId are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
         const like = {userId, answerId, rating : true}
         const newVote = await Votesxanswer.create(like)
         const voteCountUpdated = await Votesxanswer.count({
