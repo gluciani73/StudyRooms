@@ -7,6 +7,7 @@ import AnswerList from '../answers/AnswerList'
 import CommentList from '../comments/CommentList'
 import NavBar from '../NavBar/NavBar'
 import LikeB from '../likebutton/Likeb'
+import LogDel from '../likebutton/LogDel'
 
 const QuestionDetail = () => {
   let {id} = useParams();
@@ -14,10 +15,10 @@ const QuestionDetail = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(()=>{dispatch(getDetail(id))},[dispatch])
   const myQuestion = useSelector((state)=>state.questionReducer.detail.data)
-  
-  
+
   return(
     myQuestion?.map((e,index)=>{
+      
       return(
         <div key={index}>
           <NavBar/>
@@ -28,7 +29,9 @@ const QuestionDetail = () => {
             <LikeB userId={e.userId} questionId={e.id}/> 
             <p>{e.votesxquestions.length}</p>
           </div>
+
           <Link to='/Home'>home</Link>
+          <LogDel/>
           <AnswerList questionId={id}/>        
           <CommentList questionId={id}/>
         </div>

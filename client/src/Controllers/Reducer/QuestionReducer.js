@@ -1,4 +1,4 @@
-import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES} from '../../constants'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES, LOGICALDELETEQ} from '../../constants'
 
 const initialState ={
     allQuestions:[],
@@ -38,6 +38,13 @@ const questionReducer = (state = initialState, action) => {
                     ...state,
                     allQuestions: filter
             }
+
+        //case LOGICALDELETEQ:
+          //  const questions = state.questions.data
+
+     
+
+
         case FILTER_RATING:
             let sorted = action.payload === 'asc' ?
                 state.questions.data.map(e=> e.ratingAverage).sort(function (a, b){

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, URL_BACK, GET_CATEGORIES} from "../../constants";
+import { GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, URL_BACK, GET_CATEGORIES, LOGICALDELETEQ} from "../../constants";
 // addQuestions getQuestions
 
 
@@ -34,10 +34,10 @@ export function addQuestions(data) {
 
 
 export function getDetail(id) {
-    return async function (dispach) {
+    return async function (dispatch) {
         try {
             var json = await axios.get(`${URL_BACK}questions/${id}`);
-            return dispach({
+            return dispatch({
                 type: GET_DETAILS,
                 payload: json.data
             })
@@ -47,3 +47,18 @@ export function getDetail(id) {
         }
     }
 }
+
+export function logDelete(id, input){
+    return async function (dispatch){
+        try {
+            var json = await axios.put(`/questions/active/${id}`,input)
+            return dispatch({
+                type: LOGICALDELETEQ,
+                payload: json.data
+                
+            })
+        }catch (error){
+                console.log(error)
+            }
+        }
+    }

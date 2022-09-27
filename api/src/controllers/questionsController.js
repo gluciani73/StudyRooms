@@ -26,7 +26,7 @@ const createQuestion = async (req, res, next) => {
         return res.status(201).json({ error: null, data: newQuestion })
 
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de create question', data: null })
+        return res.status(500).json({ error: `Error en el controlador de create question ${error}`, data: null })
     }
 }
 
@@ -130,7 +130,7 @@ const updateQuestion = async (req, res) => {
         }
     } catch (error) {
 
-        return res.status(500).json({ error: 'Error en el controlador de quetion al actualizar la pregunta', data: null })
+        return res.status(501).json({ error: `Error en el controlador de quetion al actualizar la pregunta ${error}`, data: null })
     }
 }
 
@@ -201,7 +201,29 @@ const unlikeQuestion = async (req, res) => {
     }
 }
 
+const logDelete = async (req, res) => {
+    try {
+        const questionId = req.params.questionId;
+        const active = req.body.active;
+        const updateQuestion = await Question.update({ active }, {
+            where: {
+                id: questionId
+            }
+
+        });
+        console.log(active)
+        if (updateQuestion[0] !== 0) {
+            const response = await Question.findByPk(questionId);
+            return res.status(200).json({ error: null, data: response })
+            
+        }
+        else {
+            res.status(500).json({ error: 'No se puedo editar la pregunta', data: null })
+        }
+    } catch (error) {
+        return res.status(501).json({ error: `Error en el controlador de question al actualizar la pregunta ${error}`, data: null })
+    }
+}
 
 
-
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion }
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete }

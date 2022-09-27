@@ -31,7 +31,7 @@ const NavBar = () => {
                <div className='row'>
                   <form className="d-flex px-5 ">
                      <input className="form-control me-2 px-5" type="search" placeholder="Search" aria-label="Search"/>
-                     <button className="btn btn-primary" type="submit">Search</button>
+                     <button className="btn btn-primary rounded-1" type="submit">Search</button>
                   </form>
                </div>
            </div>

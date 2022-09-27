@@ -64,7 +64,7 @@ const AskQuestion = () => {
             ...input,
             [e.target.name]: e.target.value
         })
-        console.log(input)
+     
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value

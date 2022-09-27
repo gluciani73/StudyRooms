@@ -12,30 +12,30 @@ import { getQuestions } from "../../Controllers/Actions/questionsActions";
 
 const Home = () => {
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(()=>{  
+    useEffect(()=>{  
     dispatch(getQuestions())},[dispatch]);
 
-
-  const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data || state.questionReducer.allQuestions)
-
+    const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data || state.questionReducer.allQuestions)
+    const active = allQuestions.filter(e=>e.active===true)
 
   return (<div>
    
 <div className="container">
-<NavBar/>
+  <NavBar/>
     <div className="row">
         <div className="col-4 col-lg-2">
         <Filters/>
     </div>
     <div className="col">
       <div className="container">
-        {allQuestions?.map((e,id)=>{
+        {active?.map((e,id)=>{
+
           return(
               <div key={id}>
                 <Link to={`/QuestionDetail/${e.id}`}>
-                <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length}> </Question>
+                <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length} userId={e.userId}> </Question>
                 </Link>
               </div>
           )
