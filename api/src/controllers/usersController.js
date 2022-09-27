@@ -150,7 +150,8 @@ const getUserById = async (req,res) => {
 const changePassword = async (req,res) => {
     
     try {
-        const { userId, password, newPassword } = req.body
+        const {userId} = req.params
+        const { password, newPassword } = req.body
         if (!userId || !password || !newPassword) {
             return res.status(404).json({ data: null, error: "faltan datos" })
         }
