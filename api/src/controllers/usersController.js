@@ -153,7 +153,8 @@ const getUserById = async (req,res) => {
 const changePassword = async (req,res) => {
     
     try {
-        const { userId, password, newPassword } = req.body
+        const {userId} = req.params
+        const { password, newPassword } = req.body
         if (!userId || !password || !newPassword) {
             return res.status(404).json({ data: null, error: "faltan datos" })
         }
@@ -246,18 +247,34 @@ const recoveryGET = async (req,res) => {
 const updateUser = async (req, res) => {
     try{
         const { firstName, lastName, avatar } = req.body
-        const { userId } = parseInt(req.params)
+        const { userId } = req.params
         
-        if ( !firstName && !lastName) {
+        if ( !firstName && !lastName && !avatar) {
             return res.status(400).json({data:null, error: "faltan datos"})
         }
+
+        const userExists = await User.findByPk(userId)
+        if(!userExists) return res.status(404).json({data:null, error: "no se encontró usuario con ese id"})
         
-        await User.update({ firstName, lastName, avatar }, {where: {id:userId}})
+        let newAvatar = avatar
+        if(!avatar || !avatar.length){
+            newAvatar = userExists.avatar
+        }
+        let newFirstName = firstName
+        if(!newFirstName || !newFirstName.length){
+            newFirstName = userExists.firstName
+        }
+        let newLastName = lastName
+        if(!newLastName || !newLastName.length){
+            newLastName = userExists.lastName
+        }
+
+        await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, {where: {id:userId}})
 
         const newData = await User.findByPk(userId)
         const dataToSend = {
             id: newData.id,
-            userName,
+            userName: newData.userName,
             firstName: newData.firstName,
             lastName: newData.lastName,
             email: newData.email,
@@ -269,7 +286,8 @@ const updateUser = async (req, res) => {
         
         return res.status(200).json({data:"se modificó el usuario", error: null, token}) 
       
-    } catch (error) {
+    } catch (error){
+        console.log(error);
         return res.status(500).json({data:null, error: "error en el userController"})
     }
 }

@@ -79,6 +79,12 @@ async function createTestData() {
       questionId, userId, answer, ratingAverage, ratingCount, voteCount
     })
 
+    for(let j=0; j < ratingCount; j++){
+      await axios.post(mockURL + '/answers/vote/${i}', {
+        userId, answerId: i + 1
+      })
+    }
+
   }
 
   //MOCKUP COMMENTS
