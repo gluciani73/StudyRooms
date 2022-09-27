@@ -134,7 +134,16 @@ const likeAnswer = async (req, res) => {
         
         const like = {userId, answerId, rating : true}
         const newVote = await Votesxanswer.create(like)
-        
+        const voteCountUpdated = await Votesxanswer.count({
+            where: {
+                answerId
+            }
+        });
+
+        const answerItem = await Answer.findByPk(answerId);
+        answerItem.voteCount = voteCountUpdated;
+        await answerItem.save();
+
         return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
     }
 
