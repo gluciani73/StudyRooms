@@ -5,16 +5,12 @@ import {
   FilterCategory2,
   SortRating,
 } from "../../Controllers/Actions/filterHomeActions";
-import { getCategories } from "../../Controllers/Actions/questionsActions";
 const Filters = () => {
   const dispatch = useDispatch();
 
   const allCategories = useSelector(
     (state) => state.questionReducer.categories.data
   );
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
 
   const data = allCategories?.map((e) => e.category);
   const sortCategories = data?.sort(function (a, b) {
@@ -34,7 +30,6 @@ const Filters = () => {
     dispatch(FilterCategory2(e.target.value)); //falta asignar action
   }
   function handleSortRating(e) {
-    e.preventDefault();
     dispatch(SortRating(e.target.value));
   }
 
