@@ -33,7 +33,7 @@ export const editUserAction = (user, userId)=>{
 export const changePassword = (user, userId)=>{
     return async function (dispatch){
         try {
-            const sendInfo = (await axios.put(`/users/changePassword/`, {...user, userId})).data;
+            const sendInfo = (await axios.put(`/users/changePassword/${userId}`, user)).data;
             console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
