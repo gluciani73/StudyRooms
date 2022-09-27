@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ReactStars from 'react-stars'; //source: https://www.npmjs.com/package/react-stars
-import {getAnswerList, deleteAnswerItem, updateAnswerVote} from "../../Controllers/Actions/answerActions";
+import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList} from "../../Controllers/Actions/answerActions";
+import {SORT_BY_DATE_ASC, SORT_BY_DATE_DSC, SORT_BY_VOTES_ASC, SORT_BY_VOTES_DSC, SORT_BY_RATE_ASC, SORT_BY_RATE_DSC} from "../../Controllers/Reducer/answerReducer";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
@@ -17,6 +18,7 @@ export default function AnswerList ({questionId}) {
     const answerList = useSelector(state => state.answerStore.answerList);
     const [showEditForm, setShowEditForm] = useState(false);
     const [answerEditId, setAnswerEditId] = useState(null);
+    const [sortOption, setSortOption] = useState(SORT_BY_DATE_ASC);
 
     useEffect(() => {
         if (answerList.length === 0) {
@@ -73,6 +75,11 @@ export default function AnswerList ({questionId}) {
         }
     }
 
+    function handleOrderChange(event) {
+        setSortOption(event.target.value);
+        dispatch(sortAnswerList(event.target.value));
+    }
+
     function renderAnswerItem(answerItem) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
@@ -127,14 +134,30 @@ export default function AnswerList ({questionId}) {
     function renderAnswerList() {
         if (answerList.length === 0) {
             return (
-                <div className='questionListContainer'>
+                <div className='answerListContainer'>
                     <h3>The store is empty...</h3>
                 </div>
             );
         }
         return (
-            <div className='questionListContainer'>
-                <h2>Answer List</h2>
+            <div className='answerListContainer'>
+                <div className="singleAnswerTitle">
+                    <h2>Answer List</h2>
+                    <div className='filterSelect'>
+                        <label htmlFor="sort-list"><b>Order by: </b></label>
+                        <select id="sort-list"
+                                onChange={(e) => {handleOrderChange(e)}}
+                                value={sortOption}
+                        >
+                            <option value={SORT_BY_DATE_ASC}>Date ascending</option>
+                            <option value={SORT_BY_DATE_DSC}>Date descending</option>
+                            <option value={SORT_BY_VOTES_ASC}>Votes ascending</option>
+                            <option value={SORT_BY_VOTES_DSC}>Votes descending</option>
+                            <option value={SORT_BY_RATE_ASC}>Rating ascending</option>
+                            <option value={SORT_BY_RATE_DSC}>Rating descending</option>
+                        </select>
+                    </div>
+                </div>
                 {answerList.map(item => renderAnswerItem(item))}
             </div>
         );
