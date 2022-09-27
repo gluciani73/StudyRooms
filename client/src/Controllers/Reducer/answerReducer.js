@@ -5,6 +5,7 @@ import {
     DELETE_ANSWER_ITEM,
     UPDATE_ANSWER_VOTE,
     SORT_ANSWER_LIST,
+    UPDATE_ANSWER_RATE,
 } from "../Actions/answerActions";
 
 export const SORT_BY_DATE_ASC = "SORT_BY_DATE_ASC";
@@ -16,6 +17,7 @@ export const SORT_BY_RATE_DSC = "SORT_BY_RATE_DSC";
 
 const initialState={
     answerList: [],
+    sortOption: SORT_BY_DATE_ASC,
 }
 
 const answerReducer = (state = initialState, {type, payload}) => {
@@ -59,16 +61,32 @@ const answerReducer = (state = initialState, {type, payload}) => {
             const answerListFiltered = state.answerList.filter(item =>
                 item.id !== payload.answerId
             )
-            const answerListOrdered = [...answerListFiltered, newAnswerItem].sort((a, b) =>
-                (a.updatedAt.toLowerCase() > b.updatedAt.toLowerCase()) ? 1 : -1)
             return {
                 ...state,
-                answerList: answerListOrdered
+                answerList: getOrderedList([...answerListFiltered, newAnswerItem], state.sortOption)
             };
+
+        case UPDATE_ANSWER_RATE:
+            const answerRateItem = state.answerList.find(item =>
+                item.id === payload.answerId);
+            const newAnswerRateItem = {
+                ...answerRateItem,
+                ratingCount: payload.ratingCount,
+                ratingAverage: payload.ratingAverage
+            }
+            const answerRateListFiltered = state.answerList.filter(item =>
+                item.id !== payload.answerId
+            )
+            return {
+                ...state,
+                answerList: getOrderedList([...answerRateListFiltered, newAnswerRateItem], state.sortOption)
+            };
+
 
         case SORT_ANSWER_LIST:
             return {
                 ...state,
+                sortOption: payload,
                 answerList: getOrderedList(state.answerList, payload)
             }
 

@@ -5,6 +5,7 @@ export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
 export const UPDATE_ANSWER_ITEM = "UPDATE_ANSWER_ITEM";
 export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
+export const UPDATE_ANSWER_RATE = "UPDATE_ANSWER_RATE";
 export const SORT_ANSWER_LIST = "SORT_ANSWER_LIST";
 
 export const getAnswerList = (questionId) => {
@@ -82,6 +83,20 @@ export const sortAnswerList = (sortOption) => {
     return {
         type: SORT_ANSWER_LIST,
         payload: sortOption
+    }
+}
+
+export const updateAnswerRating = (ratingInfo) => {
+    return function (dispatch) {
+
+        axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo)
+            .catch(error => console.log("Action creator updateAnswerRating: ", error))
+            .then((response) => {
+                dispatch({
+                    type: UPDATE_ANSWER_RATE,
+                    payload: response.data
+                });
+            });
     }
 }
 
