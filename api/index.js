@@ -15,7 +15,7 @@ conn.sync({ force: true })
     });
   })
 
-
+// comentario de modificacion para validar delpoy en Heroku desde la branch develop 
 /*     ..---..
      .'  _    `.
  __..'  (o)    :    LES DEJO UN PATO
