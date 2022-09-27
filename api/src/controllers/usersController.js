@@ -265,7 +265,6 @@ const updateUser = async (req, res) => {
             newLastName = userExists.lastName
         }
 
-        console.log(newFirstName, newLastName,newAvatar);
         await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, {where: {id:userId}})
         
         return res.status(200).json({data:"se modificó el usuario", error: null}) 
