@@ -2,7 +2,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { createTestData } = require('./seeder.js');
 
-conn.sync({ force: false })
+conn.sync({ force: true })
   .then(() => {
 
     server.listen(process.env.PORT, async () => {
