@@ -1,4 +1,4 @@
-const { Answer, Question, User, Votesxanswer } = require('../db');
+const { Answer, Question, User, Votesxanswer, Ratingxanswer, getRatingSum } = require('../db');
 const { Op } = require("sequelize");
 
 const createAnswer = async (req, res) => {
@@ -172,7 +172,56 @@ const deleteVotesXAnswer = async (req, res) => {
     }
 }
 
+const updateRating = async (req, res) => {
+    console.log("body:", req.body)
+    const {userId, answerId, rating} = req.body;
+    try {
+
+        if (!userId || !answerId || !rating) {
+            return res.status(401).json({
+                error: "The required fields userId, answerId and rating are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
+        let rateItem = await Ratingxanswer.findOne({
+            where: {
+                userId, answerId
+            }
+        });
+
+        if(!rateItem) {
+            const rateNew = {userId, answerId, rating}
+            await Ratingxanswer.create(rateNew)
+        }
+
+        const rateCountUpdated = await Ratingxanswer.count({
+            where: {
+                answerId
+            }
+        });
+
+        const rateSumUpdated = await getRatingSum(answerId);
+        const answerItem = await Answer.findByPk(answerId);
+
+        answerItem.ratingCount = rateCountUpdated;
+        answerItem.ratingAverage = rateSumUpdated.getDataValue('sum') / rateCountUpdated;
+        await answerItem.save();
+
+        return res.status(200).json({
+                userId,
+                answerId,
+                ratingCount: answerItem.ratingCount,
+                ratingAverage: answerItem.ratingAverage
+        });
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
 
 
 
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer }
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating }
