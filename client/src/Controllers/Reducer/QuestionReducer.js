@@ -1,4 +1,4 @@
-import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES} from '../../constants'
+import {GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES, FILTER_CATEGORY2} from '../../constants'
 
 const initialState ={
     allQuestions:[],
@@ -38,27 +38,38 @@ const questionReducer = (state = initialState, action) => {
                     ...state,
                     allQuestions: filter
             }
+            case FILTER_CATEGORY2:
+            const questionss2 = state.questions.data
+            console.log(questionss2)
+            const filter2 = action.payload === "All" ? questionss2 : questionss2.filter(e => e.categories.map(e=>e.category).includes(action.payload))
+                return{
+                    ...state,
+                    allQuestions: filter2
+            }
         case FILTER_RATING:
-            const questions = state.questions.data.map(e=>e.votesxquestions.length)
+            console.log(state.questions.data)
+            const questions = state.questions.data.map(e=>e.votesxquestions)
             console.log(questions)
-            let sorted = action.payload === 'asc' ?
-            questions.sort(function (a, b){
-                    if(a > b){
+            let sorted =
+            questions?.sort(function (a, b){
+                if( action.payload === 'asc'){
+                    if(a.length > b.length){
                         return 1
                     }
-                    if (b > a){
+                    if (b.length > a.length){
                         return -1
                     }
                     return 0
-                }) :
-                questions.sort(function (a, b){
-                    if (a > b){
+                }else{
+                    if (a.length > b.length){
                         return -1
                     }
-                    if (b > a){
+                    if (b.length > a.length){
                         return 1
                     }
                     return 0
+                }
+                    
                 })
                 console.log(questions)
                 return{

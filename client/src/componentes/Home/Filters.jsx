@@ -65,8 +65,8 @@ const Filters = () => {
       </select>
       <p>Rating</p>
       <select className="form-select" onChange={(e) => handleSortRating(e)}>
-        <option value="asc">Major to Minor</option>
-        <option value="des">Minor to Major</option>
+        <option value="asc">Minor to Major</option>
+        <option value="des">Major to Minor</option>
       </select>
     </div>
   );
