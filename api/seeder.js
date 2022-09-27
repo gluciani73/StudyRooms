@@ -33,6 +33,15 @@ async function createTestData() {
     password: "12345",
     active: false
   })
+  await axios.post(mockURL + '/users/signup', {
+    userName: "admin",
+    firstName: "admin",
+    lastName: "admin",
+    email: "admin@test.com",
+    password: "admin",
+    active: false,
+    isAdmin: true
+  })
 
   // MOCKUP CATEGORIES
   const categ = [
@@ -69,6 +78,12 @@ async function createTestData() {
     await axios.post(mockURL + '/answers', {
       questionId, userId, answer, ratingAverage, ratingCount, voteCount
     })
+
+    for(let j=0; j < ratingCount; j++){
+      await axios.post(mockURL + '/answers/vote/${i}', {
+        userId, answerId: i + 1
+      })
+    }
 
   }
 

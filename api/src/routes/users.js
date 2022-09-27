@@ -7,7 +7,7 @@ const googleAuthRoutes = require('./googleAuth.js')
 // /users/...
 router.post('/signup', signUp)
 router.post('/signin', signIn)
-router.post('/changePassword', changePassword)
+router.put('/changePassword/:userId', changePassword)
 router.post('/recovery', recoveryPOST)
 router.get('/recovery/:token', recoveryGET)
 router.get('/', getAllUsers)

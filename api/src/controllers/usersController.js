@@ -19,6 +19,7 @@ const signUp = async (req, res) => {
 
         /* ESTO ES PARA PODER CREAR LOS USUARIOS DE TEST*/
         const active = req.body.active || false
+        const isAdmin = req.body.isAdmin || false
         /*------------------------------------------------*/
 
         if (userFound) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
@@ -39,6 +40,7 @@ const signUp = async (req, res) => {
             isAdmin: false,
             isPremium: false,
             active,  // cambiar esto a "active: false" para deploy
+            isAdmin  // cambiar esto a "isAdmin: false" para deploy
         })
         const dataToSend = {
             id: createdUser.id, userName, firstName, lastName, email, avatar
@@ -84,7 +86,8 @@ const signIn = async (req, res) => {
                     lastName: userFound.lastName,
                     email: userFound.email,
                     avatar: userFound.avatar,
-                    active: userFound.active
+                    active: userFound.active,
+                    isAdmin: newData.isAdmin
                 }
                 const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
                 return res.status(200).json({ data: dataToSend, error: null, token })
@@ -150,7 +153,8 @@ const getUserById = async (req,res) => {
 const changePassword = async (req,res) => {
     
     try {
-        const { userId, password, newPassword } = req.body
+        const {userId} = req.params
+        const { password, newPassword } = req.body
         if (!userId || !password || !newPassword) {
             return res.status(404).json({ data: null, error: "faltan datos" })
         }
@@ -245,15 +249,45 @@ const updateUser = async (req, res) => {
         const { firstName, lastName, avatar } = req.body
         const { userId } = req.params
         
-        if ( !firstName && !lastName) {
+        if ( !firstName && !lastName && !avatar) {
             return res.status(400).json({data:null, error: "faltan datos"})
         }
+
+        const userExists = await User.findByPk(userId)
+        if(!userExists) return res.status(404).json({data:null, error: "no se encontró usuario con ese id"})
         
-        await User.update({ firstName, lastName, avatar }, {where: {id:userId}})
+        let newAvatar = avatar
+        if(!avatar || !avatar.length){
+            newAvatar = userExists.avatar
+        }
+        let newFirstName = firstName
+        if(!newFirstName || !newFirstName.length){
+            newFirstName = userExists.firstName
+        }
+        let newLastName = lastName
+        if(!newLastName || !newLastName.length){
+            newLastName = userExists.lastName
+        }
+
+        await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, {where: {id:userId}})
+
+        const newData = await User.findByPk(userId)
+        const dataToSend = {
+            id: newData.id,
+            userName: newData.userName,
+            firstName: newData.firstName,
+            lastName: newData.lastName,
+            email: newData.email,
+            avatar: newData.avatar,
+            active: newData.active,
+            isAdmin: newData.isAdmin
+        }
+        const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
         
-        return res.status(200).json({data:"se modificó el usuario", error: null}) 
+        return res.status(200).json({data:"se modificó el usuario", error: null, token}) 
       
-    } catch (error) {
+    } catch (error){
+        console.log(error);
         return res.status(500).json({data:null, error: "error en el userController"})
     }
 }
