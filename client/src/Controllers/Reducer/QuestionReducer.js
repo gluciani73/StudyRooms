@@ -47,35 +47,12 @@ const questionReducer = (state = initialState, action) => {
                     allQuestions: filter2
             }
         case FILTER_RATING:
-            console.log(state.questions.data)
-            const questions = state.questions.data.map(e=>e.votesxquestions)
-            console.log(questions)
-            let sorted =
-            questions?.sort(function (a, b){
-                if( action.payload === 'asc'){
-                    if(a.length > b.length){
-                        return 1
-                    }
-                    if (b.length > a.length){
-                        return -1
-                    }
-                    return 0
-                }else{
-                    if (a.length > b.length){
-                        return -1
-                    }
-                    if (b.length > a.length){
-                        return 1
-                    }
-                    return 0
-                }
-                    
-                })
-                console.log(questions)
-                return{
-                    ...state,
-                    allQuestions: sorted
-            }
+                let arra = state.allQuestions.data.sort( function (a,b) {
+                if(a.votesxquestions.length > b.votesxquestions.length){
+                    return 1
+                }else return -1
+            })
+            console.log(arra);
 
             default:
                 return state;
