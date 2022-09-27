@@ -48,16 +48,24 @@ const questionReducer = (state = initialState, action) => {
             }
         case FILTER_RATING:
                 let arra = state.allQuestions.data.sort( function (a,b) {
-                    if(action.payload === "des"){
-                        if(a.votesxquestions.length > b.votesxquestions.length){
-                            return 1
-                        }else return -1
+                    if (action.payload === "asc" ) {
+                        if(a.votesxquestions.length > b.votesxquestions.length) return 1
+                        if(b.votesxquestions.length > a.votesxquestions.length) return -1
+                        return 0
+                    }
+                    if (action.payload === "des" ) {
+                        if(a.votesxquestions.length > b.votesxquestions.length) return -1
+                        if(b.votesxquestions.length > a.votesxquestions.length) return 1
+                        return 0
                     }
             })
-            console.log(arra);
+            console.log(state.allQuestions);
             return{
-                ...state,
-                allQuestions: arra
+                ...initialState,
+                allQuestions: {
+                    error:null,
+                    data: arra
+                }
             }
 
             default:
