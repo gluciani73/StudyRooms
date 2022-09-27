@@ -46,11 +46,16 @@ const answerReducer = (state = initialState, {type, payload}) => {
                 item.id === payload.answerId);
             const newAnswerItem = {
                 ...answerItem,
-                voteCount: answerItem.voteCount++
+                voteCount: answerItem.voteCount + 1
             }
+            const answerListFiltered = state.answerList.filter(item =>
+                item.id !== payload.answerId
+            )
+            const answerListOrdered = [...answerListFiltered, newAnswerItem].sort((a, b) =>
+                (a.updatedAt.toLowerCase() > b.updatedAt.toLowerCase()) ? 1 : -1)
             return {
                 ...state,
-                answerList: [...state.answerList, newAnswerItem]
+                answerList: answerListOrdered
             };
 
         default:
