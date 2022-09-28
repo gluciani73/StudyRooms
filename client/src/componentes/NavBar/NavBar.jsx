@@ -5,8 +5,8 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import home from '../../recursos/home.png'
 import DropDown from './DropDown'
-import {useSelector} from "react-redux";
-
+import SearchBar from "./SearchBar"
+import { useSelector } from 'react-redux'
 
 
 const NavBar = () => {
@@ -36,10 +36,7 @@ const NavBar = () => {
            </div>
            <div className='col-md-auto align-items-center auto-mx'>
                <div className='row'>
-                  <form className="d-flex px-5 ">
-                     <input className="form-control me-2 px-5" type="search" placeholder="Search" aria-label="Search"/>
-                     <button className="btn btn-primary" type="submit">Search</button>
-                  </form>
+                  <SearchBar/>
                </div>
            </div>
            <div className='col-md-auto align-items-center auto-mx ' >
