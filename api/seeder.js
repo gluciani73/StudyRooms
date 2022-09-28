@@ -79,10 +79,18 @@ async function createTestData() {
       questionId, userId, answer, ratingAverage, ratingCount, voteCount
     })
 
-    for(let j=0; j < ratingCount; j++){
-      await axios.post(mockURL + `/answers/vote/${i}`, {
-        userId, answerId: i + 1
+    const answerId = i + 1;
+    for(let j=0; j < voteCount; j++) {
+      await axios.post(mockURL + `/answers/vote/${answerId}`, {
+        userId, answerId
       })
+    }
+
+    const min = 1; const max = 5;
+    for(let j=0; j < ratingCount; j++){
+      await axios.put(mockURL + `/answers/rating/${answerId}`, {
+        userId, questionId, answerId, rating: Math.floor(Math.random() * (max - min + 1) + min)
+      });
     }
 
   }
