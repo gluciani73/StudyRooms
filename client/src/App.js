@@ -18,6 +18,7 @@ import QuestionDetail from './componentes/Preguntas/QuestionDetail';
 import GoogleAuth from './componentes/Usuarios/GoogleAuth'
 import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
+import UserList from "./componentes/adminPanel/UserList";
 
 function App() {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ function App() {
     <Route path='/comments/:questionId' element={<CommentList/>}/>
     <Route path='/Donations' element={<Donations/>}/>
     <Route path='/Profile' element={<Profile/>}/>
+    <Route path='/admin-panel' element={<UserList/>}/>
     <Route path="*" element={<Error404 />} />
     <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
     <Route path='/auth/:token' element={<GoogleAuth/>}/>

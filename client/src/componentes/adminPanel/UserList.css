@@ -1,0 +1,15 @@
+.avatar {
+    width: 4em;
+}
+
+.userPropertiesColumns {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 1em;
+}
+
+.singleUserTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
