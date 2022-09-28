@@ -11,3 +11,7 @@
 .userLabelSelect {
     padding-right: .5em;
 }
+
+.inputField {
+    width: 30em;
+}
