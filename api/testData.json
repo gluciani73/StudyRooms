@@ -94,7 +94,7 @@
         },
         {
             "userId": 3,
-            "questionId": 2,
+            "questionId": 3,
             "answer": "Cras egestas ac velit a euismod. Morbi vehicula vestibulum aliquam. Praesent a suscipit odio, vitae ultricies eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam hendrerit, augue non dignissim efficitur, nulla nisi placerat orci, vitae porta felis felis sit amet velit.",
             "ratingAverage": 1.7,
             "ratingCount": 6,
@@ -122,6 +122,14 @@
             "answer": "Nunc sollicitudin purus at neque gravida scelerisque in quis diam. Sed rutrum in quam eu faucibus. Curabitur elementum convallis dictum. Nulla facilisi. Phasellus efficitur pulvinar ex eu venenatis. Maecenas nibh sem, ultricies in fermentum non, pellentesque in neque.",
             "ratingAverage": 3.1,
             "ratingCount": 9,
+            "voteCount": 15
+        },
+        {
+            "userId": 1,
+            "questionId": 4,
+            "answer": "Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum.",
+            "ratingAverage": 4.1,
+            "ratingCount": 8,
             "voteCount": 15
         }
     ],
@@ -160,6 +168,75 @@
             "questionId": 3,
             "userId": 1,
             "comment": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+    ],
+    "rating": [
+        {
+            "questionId": 1,
+            "answerId": 1,
+            "userId": 2,
+            "rating": 1
+        },
+        {
+            "questionId": 1,
+            "answerId": 1,
+            "userId": 3,
+            "rating": 5
+        },
+        {
+            "questionId": 1,
+            "answerId": 1,
+            "userId": 4,
+            "rating": 3
+        },
+        {
+            "questionId": 1,
+            "answerId": 2,
+            "userId": 1,
+            "rating": 2
+        },
+        {
+            "questionId": 1,
+            "answerId": 2,
+            "userId": 3,
+            "rating": 4
+        },
+        {
+            "questionId": 1,
+            "answerId": 3,
+            "userId": 4,
+            "rating": 5
+        },
+        {
+            "questionId": 1,
+            "answerId": 4,
+            "userId": 2,
+            "rating": 1
+        },
+        {
+            "questionId": 1,
+            "answerId": 4,
+            "userId": 3,
+            "rating": 3
+        },
+        {
+            "questionId": 1,
+            "answerId": 4,
+            "userId": 4,
+            "rating": 4
+        },
+
+        {
+            "questionId": 3,
+            "answerId": 8,
+            "userId": 4,
+            "rating": 3
+        },
+        {
+            "questionId": 3,
+            "answerId": 8,
+            "userId": 2,
+            "rating": 4
         }
     ]
 }
