@@ -118,20 +118,23 @@ export default function AnswerList ({questionId}) {
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
                     <h3>Answer from {answerItem.user.userName}</h3>
-                    <div>
-                        <div className="ratingContainer">
-                            <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
-                            <ReactStars
-                                className="stars"
-                                value={Number(answerItem.ratingAverage)}
-                                edit={false}
-                                size={20}
-                            />
-                            <span>({answerItem.ratingCount} rates) </span>
+                    <div className='singleAnswerInfo'>
+                        <div className='ratingLikeContainer'>
+                            <div className="ratingContainer">
+                                <span><b>Rating:</b> {Number(answerItem.ratingAverage).toFixed(1)} </span>
+                                <ReactStars
+                                    className="stars"
+                                    value={Number(answerItem.ratingAverage)}
+                                    edit={false}
+                                    size={20}
+                                />
+                                <span>({answerItem.ratingCount} rates) </span>
+                            </div>
+
+                            <span className="voteLike" onClick={() => handleVoteUpClick(answerItem.id, answerItem.userId)}>
+                                <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
+                            </span>
                         </div>
-                        <span className="voteLike" onClick={() => handleVoteUpClick(answerItem.id, answerItem.userId)}>
-                            <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
-                        </span>
                         <span> <b>Last update:</b> {answerItem.updatedAt}</span>
                     </div>
                 </div>
@@ -153,12 +156,16 @@ export default function AnswerList ({questionId}) {
                     </>
                 )}
                 {userId !== answerItem.userId && (
-                    <ReactStars
-                        value={ratingValue}
-                        onChange={(newRate) => handleRateChange(answerItem.userId, answerItem.id, newRate)}
-                        edit={true}
-                        size={30}
-                    />
+                    <div className="personalRating">
+                        <span><b>Your rating: </b></span>
+                        <ReactStars
+                            value={ratingValue}
+                            onChange={(newRate) => handleRateChange(answerItem.userId, answerItem.id, newRate)}
+                            edit={true}
+                            size={30}
+                        />
+                        {ratingValue.toFixed(1)} stars
+                    </div>
                 )}
                 {showEditForm && answerEditId === answerItem.id && (
                     <AnswerEdit userId={answerItem.userId}
