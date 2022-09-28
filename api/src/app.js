@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport')
 const googleAuthMiddleware = require('./middlewares/googleAuth.js')
+const {jwt_strategy} = require('./middlewares/JwtStrategy.js') 
 
 const cors = require("cors")
 const server = express();
@@ -15,6 +16,7 @@ server.use(cors({origin: '*'}))
 server.use(morgan('combined'));
 
 server.use(passport.initialize())
+passport.use(jwt_strategy)
 
 passport.use(googleAuthMiddleware);
 
