@@ -229,6 +229,43 @@ const updateRating = async (req, res) => {
     }
 }
 
+const getRatingList = async (req, res) => {
+    const {questionId, userId} = req.params;
+    try {
 
+        if (!userId || !questionId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them.",
+                data: null
+            })
+        }
 
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating }
+        let ratingList = await queryRatingList(questionId, userId)
+        return res.status(200).json(ratingList);
+    }
+
+    catch(error){
+        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+
+    }
+}
+
+function queryRatingList(questionId, userId) {
+    return Answer.findAll(
+        {
+            where: {
+                questionId
+            },
+            include: [
+                {
+                    model: Ratingxanswer,
+                    where: {
+                        userId
+                    }
+                },
+            ]
+        }
+    );
+}
+
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating, getRatingList }
