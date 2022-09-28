@@ -1,16 +1,17 @@
-import { GET_USERS, UPDATE_USERS } from "../../constants";
+import { GET_USER_LIST, UPDATE_USERS } from "../../constants";
 
 const initialState ={
-    users:[],
+    userList:[],
 }
 
 export default function userReducer(state= initialState,{type,payload}){
     switch (type) {
-        case GET_USERS:
+        case GET_USER_LIST:
             return{
                 ...state,
-                users:payload
+                userList: payload
             }
+
     default:
        return {...state};
     }
