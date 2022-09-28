@@ -36,10 +36,9 @@ module.exports = (sequelize) => {
         isFeatured: {
             type: DataTypes.BOOLEAN,
         },
-        active: {
+        isDeleted: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue:true
+            defaultValue: false
         }
 
     },

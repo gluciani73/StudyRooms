@@ -1,4 +1,4 @@
-import { CREATE_USER, GET_USERS, UPDATE_USERS } from "../../constants";
+import { CREATE_USER, GET_USER_LIST, UPDATE_USERS } from "../../constants";
 import axios from 'axios'
 
 export const createUserAction = (user) => {
@@ -54,3 +54,17 @@ export const changePassword = (user, userId)=>{
 //         })
 //     }
 // }
+
+export const getUserList = () => {
+    return function (dispatch) {
+
+        axios.get(`/users`)
+            .catch(error => console.log("Action creator getUserList:", error))
+            .then(response => {
+                dispatch({
+                    type: GET_USER_LIST,
+                    payload: response.data
+                });
+            });
+    }
+}
