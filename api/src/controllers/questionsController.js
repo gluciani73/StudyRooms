@@ -201,7 +201,25 @@ const unlikeQuestion = async (req, res) => {
     }
 }
 
+const getQuestionsByUser = async (req,res) => {
+    try {
+        
+        const {userId} = req.params
+        const questionList = await Question.findAll({where:{userId}})
+
+        if(!questionList.length) return res.status(404).json({data:[], error: "no se encontraron preguntas para ese userId"})
+
+        // el ratingCount viene en tipo string (!!! si no anda checkear esto)
+        const sortedList = questionList.sort((a, b) => parseFloat(b.ratingAverage)-parseFloat(a.ratingAverage))
+
+        return res.status(200).json({data:sortedList, error:null})
+
+    } catch (error) {
+        return res.status(500).json({data:null, errror :"error en el questionsController"})
+    }
+}
 
 
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion }
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, getQuestionsByUser }
