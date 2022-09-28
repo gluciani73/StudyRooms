@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import {useSelector} from "react-redux";
 import {getUserList} from "../../Controllers/Actions/userAction";
-import userReducer from "../../Controllers/Reducer/userReducer";
+import './UserList.css';
 
 export default function UserList () {
 
@@ -17,6 +17,29 @@ export default function UserList () {
         }
     }, [dispatch, userList]);
 
+    function renderUserItem(userItem) {
+        return (
+            <div className='singleAnswer'>
+                <div className="singleUserTitle">
+                    <h3>{userItem.userName}</h3>
+                    <img className='avatar' src={userItem.avatar} alt={userItem.userName}/>
+                </div>
+                <div className='userPropertiesColumns'>
+                    <div>
+                        <p><b>First Name: </b> {userItem.firstName}</p>
+                        <p><b>Last Name: </b> {userItem.lastName}</p>
+                        <p><b>Email: </b> {userItem.email}</p>
+                    </div>
+                    <div>
+                        <p><b>Is Admin: </b> {userItem.isAdmin ? "yes" : "no"}</p>
+                        <p><b>Is Premium: </b> {userItem.isPremium ? "yes" : "no"}</p>
+                        <p><b>Is Active: </b> {userItem.isActive ? "yes" : "no"}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     function renderUserList() {
         if (!userInfo.isAdmin) {
             return (
@@ -26,8 +49,9 @@ export default function UserList () {
             );
         }
         return (
-            <div>
+            <div className="answerListContainer">
                 <h2>Admin User List</h2>
+                {userList.map(item => renderUserItem(item))}
             </div>
         );
     }
