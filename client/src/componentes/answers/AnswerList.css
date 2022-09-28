@@ -28,14 +28,27 @@
     display: flex;
     align-items: center;
     gap: 2%;
+    width: 100%;
+}
+
+.singleAnswerInfo {
+    width: 20em;
 }
 
 .voteLike {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .personalRating {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.ratingLikeContainer {
+    display: flex;
+    gap: 4%;
 }
