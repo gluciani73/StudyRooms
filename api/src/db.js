@@ -95,8 +95,19 @@ Question.hasMany(Ratingxquestion);
 Ratingxanswer.belongsTo(Answer);
 Answer.hasMany(Ratingxanswer);
 
+const getRatingSum = (answerId) => Ratingxanswer.findOne({
+    where: {
+        answerId
+    },
+    attributes: [
+        'answerId',
+        [sequelize.fn('sum', sequelize.col('rating')), 'sum'],
+    ],
+    group: ['answerId']
+});
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
     conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
+    getRatingSum,
 };
