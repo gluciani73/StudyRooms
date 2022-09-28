@@ -5,11 +5,15 @@ import config from '../../recursos/config.png'
 import notification from '../../recursos/notification.png'
 import home from '../../recursos/home.png'
 import DropDown from './DropDown'
+import {useSelector} from "react-redux";
 
 
 
 const NavBar = () => {
-  return ( 
+
+    const userInfo = useSelector(state => state.loginReducer.userInfo);
+
+  return (
    <div >
    <nav className="navbar navbar-expand-lg navbar-light bg-white">
            <div className='d-inline-flex p-2 align-items-center auto-mx'>
@@ -24,6 +28,9 @@ const NavBar = () => {
                        <Link to="/Home"><button type="button" className="btn btn-primary"> <img src={home} alt="homeImg" height="20px" /> Home</button></Link>
                        <Link to="/AskQuestion"><button type="button" className="btn btn-primary">Ask Question</button></Link>
                        <Link to="/Donations"><button type="button" className="btn btn-primary">Donate</button></Link>
+                       {userInfo && userInfo.isAdmin && (
+                           <Link to="/admin-panel"><button type="button" className="btn btn-danger">Users</button></Link>
+                       )}
                    </div>
                </div>
            </div>
