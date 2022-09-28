@@ -180,13 +180,12 @@ const deleteVotesXAnswer = async (req, res) => {
 }
 
 const updateRating = async (req, res) => {
-    console.log("body:", req.body)
-    const {userId, answerId, rating} = req.body;
+    const {userId, questionId, answerId, rating} = req.body;
     try {
 
-        if (!userId || !answerId || !rating) {
+        if (!userId || !questionId || !answerId || !rating) {
             return res.status(401).json({
-                error: "The required fields userId, answerId and rating are not present in the request, please add them. ",
+                error: "The required fields userId, questionId, answerId and rating are not present in the request, please add them. ",
                 data: null
             })
         }
@@ -200,6 +199,10 @@ const updateRating = async (req, res) => {
         if(!rateItem) {
             const rateNew = {userId, answerId, rating}
             await Ratingxanswer.create(rateNew)
+        }
+        else {
+            rateItem.rating = rating;
+            rateItem.save();
         }
 
         const rateCountUpdated = await Ratingxanswer.count({
@@ -215,11 +218,16 @@ const updateRating = async (req, res) => {
         answerItem.ratingAverage = rateSumUpdated.getDataValue('sum') / rateCountUpdated;
         await answerItem.save();
 
+        let ratingList = await queryRatingList(questionId, userId)
+
         return res.status(200).json({
+            answerItem: {
                 userId,
                 answerId,
                 ratingCount: answerItem.ratingCount,
                 ratingAverage: answerItem.ratingAverage
+            },
+            ratingList
         });
     }
 
