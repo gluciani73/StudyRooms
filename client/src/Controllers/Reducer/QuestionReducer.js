@@ -1,4 +1,12 @@
-import { GET_QUESTIONLIST, ADD_QUESTION, GET_DETAILS, FILTER_CATEGORY, FILTER_RATING, GET_CATEGORIES, FILTER_CATEGORY2 } from '../../constants'
+import {
+  GET_QUESTIONLIST,
+  ADD_QUESTION,
+  GET_DETAILS,
+  FILTER_CATEGORY,
+  FILTER_RATING,
+  GET_CATEGORIES,
+  SEARCH_QUESTION,
+} from "../../constants";
 
 const initialState = {
     allQuestions: [],
@@ -72,6 +80,11 @@ const questionReducer = (state = initialState, action) => {
                     data: arra.slice()
                 }
             }
+            case SEARCH_QUESTION:
+      return {
+        ...state,
+        questions: action.payload,
+      };
 
         default:
             return state;
