@@ -34,6 +34,14 @@ async function createTestData() {
     active: false
   })
   await axios.post(mockURL + '/users/signup', {
+    userName: "testUser4",
+    firstName: "test4",
+    lastName: "user4",
+    email: "test4@test.com",
+    password: "123456",
+    active: true
+  })
+  await axios.post(mockURL + '/users/signup', {
     userName: "admin",
     firstName: "admin",
     lastName: "admin",
@@ -76,12 +84,13 @@ async function createTestData() {
     const { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
 
     await axios.post(mockURL + '/answers', {
-      questionId, userId, answer, ratingAverage, ratingCount, voteCount
+      questionId, userId, answer
     })
 
-    for(let j=0; j < ratingCount; j++){
-      await axios.post(mockURL + '/answers/vote/${i}', {
-        userId, answerId: i + 1
+    const answerId = i + 1;
+    for(let j=0; j < voteCount; j++) {
+      await axios.post(mockURL + `/answers/vote/${answerId}`, {
+        userId, answerId
       })
     }
 
@@ -97,6 +106,15 @@ async function createTestData() {
     })
   }
 
+  //MOCKUP RATING
+  for (let i = 0; i < testData.rating.length; i++) {
+
+    const { questionId, answerId, userId, rating } = testData.rating[i]
+
+    await axios.put(mockURL + `/answers/rating/${answerId}`, {
+      questionId, answerId, userId, rating
+    })
+  }
 }
 
 module.exports = { createTestData }

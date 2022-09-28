@@ -2,12 +2,14 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { createTestData } = require('./seeder.js');
 
-conn.sync({ force: true })
+const createMockData = false; // <--- cambiar a false para no sobreescribir la DB
+
+conn.sync({ force: createMockData })
   .then(() => {
 
     server.listen(process.env.PORT, async () => {
 
-      await createTestData();
+            createMockData && await createTestData();
 
       console.log('--------------------------------');
       // console.log('creada el mockup de datos');
