@@ -7,6 +7,7 @@ export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
 export const UPDATE_ANSWER_RATE = "UPDATE_ANSWER_RATE";
 export const SORT_ANSWER_LIST = "SORT_ANSWER_LIST";
+export const GET_RATING_LIST = "GET_RATING_LIST";
 
 export const getAnswerList = (questionId) => {
     return function (dispatch) {
@@ -100,3 +101,16 @@ export const updateAnswerRating = (ratingInfo) => {
     }
 }
 
+export const getRatingList = (userId, questionId) => {
+    return function (dispatch) {
+
+        axios.get(`/answers/${questionId}/rating/${userId}`)
+            .catch(error => console.log("Action creator getRatingList: ", error))
+            .then((response) => {
+                dispatch({
+                    type: GET_RATING_LIST,
+                    payload: response.data
+                });
+            });
+    }
+}
