@@ -22,10 +22,10 @@ export default function AnswerList ({questionId}) {
     const sortOption = useSelector(state => state.answerStore.sortOption);
 
     useEffect(() => {
-        if (questionId && answerList.length === 0) {
+        if (questionId && !answerList) {
             dispatch(getAnswerList(questionId));
         }
-    }, [dispatch, questionId, answerList.length]);
+    }, [dispatch, questionId, answerList]);
 
     useEffect(() => {
         if (userId && questionId && !ratingList) {
@@ -60,6 +60,9 @@ export default function AnswerList ({questionId}) {
     function showCreateForm() {
         if(!userInfo || !userInfo.id) {
             return false;
+        }
+        if(!answerList) {
+            return true;
         }
         const answerItem = answerList.find(item =>
             item.userId === userId
@@ -149,7 +152,7 @@ export default function AnswerList ({questionId}) {
                         </button>
                     </>
                 )}
-                {userId && (
+                {userId !== answerItem.userId && (
                     <ReactStars
                         value={ratingValue}
                         onChange={(newRate) => handleRateChange(answerItem.userId, answerItem.id, newRate)}
@@ -170,10 +173,10 @@ export default function AnswerList ({questionId}) {
     }
 
     function renderAnswerList() {
-        if (answerList.length === 0) {
+        if (!answerList || answerList.length === 0) {
             return (
                 <div className='answerListContainer'>
-                    <h3>The store is empty...</h3>
+                    <h3>Be the first one to add an answer to this question...</h3>
                 </div>
             );
         }

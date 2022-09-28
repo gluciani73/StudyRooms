@@ -17,7 +17,7 @@ export const SORT_BY_RATE_ASC = "SORT_BY_RATE_ASC";
 export const SORT_BY_RATE_DSC = "SORT_BY_RATE_DSC";
 
 const initialState={
-    answerList: [],
+    answerList: null,
     sortOption: SORT_BY_DATE_ASC,
     ratingList: null,
 }
