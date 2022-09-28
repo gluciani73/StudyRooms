@@ -1,14 +1,18 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import {useSelector} from "react-redux";
 import {getUserList} from "../../Controllers/Actions/userAction";
 import './UserList.css';
+import UserEdit from "./UserEdit";
 
 export default function UserList () {
 
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userList = useSelector(state => state.userReducer.userList);
+
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [userEditId, setUserEditId] = useState(null);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -16,6 +20,16 @@ export default function UserList () {
             dispatch(getUserList());
         }
     }, [dispatch, userList]);
+
+    function handleShowEditForm(userId) {
+        setUserEditId(userId);
+        setShowEditForm(!showEditForm);
+    }
+
+    function handleHideEditForm() {
+        setUserEditId(null);
+        setShowEditForm(!showEditForm);
+    }
 
     function renderUserItem(userItem) {
         return (
@@ -36,6 +50,22 @@ export default function UserList () {
                         <p><b>Is Active: </b> {userItem.isActive ? "yes" : "no"}</p>
                     </div>
                 </div>
+
+                <button className="buttonAction"
+                        onClick={() => handleShowEditForm(userItem.id)}
+                >
+                    Edit
+                </button>
+
+                {showEditForm && userEditId === userItem.id && (
+                    <>
+                        <hr/>
+                        <UserEdit userItem={userItem}
+                                  handleAction={handleHideEditForm}
+                                  handleCancel={handleHideEditForm}
+                        />
+                    </>
+                )}
             </div>
         );
     }
