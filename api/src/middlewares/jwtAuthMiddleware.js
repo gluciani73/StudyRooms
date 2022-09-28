@@ -3,7 +3,7 @@ const { User } = require('../db.js')
 
 const {AUTH_SECRET} = require('../CONSTANTS.js')
 
-const jwt_strategy = new Strategy({
+const jwtAuthMiddleware = new Strategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: AUTH_SECRET
 },(payload, done)=>{
@@ -12,4 +12,4 @@ const jwt_strategy = new Strategy({
     else return done(null, false)
 })
 
-module.exports = {jwt_strategy}
+module.exports = {jwtAuthMiddleware}
