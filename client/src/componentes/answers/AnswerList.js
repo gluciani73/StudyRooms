@@ -153,12 +153,16 @@ export default function AnswerList ({questionId}) {
                     </>
                 )}
                 {userId !== answerItem.userId && (
-                    <ReactStars
-                        value={ratingValue}
-                        onChange={(newRate) => handleRateChange(answerItem.userId, answerItem.id, newRate)}
-                        edit={true}
-                        size={30}
-                    />
+                    <div className="personalRating">
+                        <span><b>Your rating: </b></span>
+                        <ReactStars
+                            value={ratingValue}
+                            onChange={(newRate) => handleRateChange(answerItem.userId, answerItem.id, newRate)}
+                            edit={true}
+                            size={30}
+                        />
+                        {ratingValue.toFixed(1)} stars
+                    </div>
                 )}
                 {showEditForm && answerEditId === answerItem.id && (
                     <AnswerEdit userId={answerItem.userId}
