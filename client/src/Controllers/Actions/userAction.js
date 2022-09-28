@@ -22,7 +22,7 @@ export const editUserAction = (user, userId)=>{
             console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
-                payload:sendInfo
+                payload:sendInfo.data
             })
         } catch (error) {
             console.log(error)
