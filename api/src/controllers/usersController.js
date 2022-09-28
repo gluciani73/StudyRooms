@@ -269,7 +269,7 @@ const updateUser = async (req, res) => {
             newLastName = userExists.lastName
         }
 
-        await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, {where: {id:userId}})
+        await User.update({ ...req.body, firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, {where: {id:userId}})
 
         const newData = await User.findByPk(userId)
         const dataToSend = {
@@ -280,11 +280,12 @@ const updateUser = async (req, res) => {
             email: newData.email,
             avatar: newData.avatar,
             active: newData.active,
-            isAdmin: newData.isAdmin
+            isAdmin: newData.isAdmin,
+            isPremium: newData.isPremium
         }
         const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
         
-        return res.status(200).json({data:"se modificó el usuario", error: null, token}) 
+        return res.status(200).json({data:dataToSend, error: null, token})
       
     } catch (error){
         console.log(error);
