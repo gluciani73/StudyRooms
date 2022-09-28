@@ -87,7 +87,7 @@ const signIn = async (req, res) => {
                     email: userFound.email,
                     avatar: userFound.avatar,
                     active: userFound.active,
-                    isAdmin: newData.isAdmin
+                    isAdmin: userFound.isAdmin
                 }
                 const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
                 return res.status(200).json({ data: dataToSend, error: null, token })
