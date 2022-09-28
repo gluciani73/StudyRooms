@@ -115,9 +115,9 @@ export default function CreateUser(){
 
         }
         return (
-            <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
+            <div className='d-flex flex-column align-items-center h-auto  bg-light'>
                 
-                <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
+                <form onSubmit={(e)=> handleSubmit(e)} className="d-flex flex-column  align-items-center text-center">
                 <h1>Register</h1>
 
                     <div>
@@ -153,7 +153,7 @@ export default function CreateUser(){
 
                     <div>
                         <label htmlFor="password">Password</label>                     
-                        <input className='d-block  m-1 border-1 form-control'pattern='^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block  m-1 border-1 form-control' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
                         {formError.password && <span><strong>{formError.password}</strong></span>}
                     </div>
 
@@ -174,9 +174,6 @@ export default function CreateUser(){
                         <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} />
                     </div>   
                    
-                  
-
-
 
                     <div >
                         <label htmlFor="acceptT" >Acepto los<button onClick={()=>showAlert()} style={{ border:'none', backgroundColor:"white", color:"blue" }}>términos y condiciones</button> del servicio</label>
