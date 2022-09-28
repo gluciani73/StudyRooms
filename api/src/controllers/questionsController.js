@@ -15,7 +15,7 @@ const createQuestion = async (req, res, next) => {
         }
 
         let newQuestion = await Question.create({
-            userId, title, description, ratingAverage: 0, ratingCount: 0, voteCount: 0, isFeatured: false
+            userId, title, description, ratingAverage: 0, ratingCount: 0, voteCount: 0, isFeatured: false, isDeleted: false
         })
 
         categories.forEach(async (c) => {
@@ -37,7 +37,8 @@ const getQuestion = async (req, res) => {
             let result = await Question.findAll(
                 {
                     where: {
-                        id: questionId
+                        id: questionId,
+                        isDeleted: false
                     },
                     include: [
                         {
@@ -70,10 +71,13 @@ const getQuestion = async (req, res) => {
 const getQuestions = async (req, res) => {
     try {
         let result = await Question.findAll({
+            where: {
+                isDeleted: false
+            },
             include: [
                 { model: Answer },
                 { model: Category },
-                {model: Votesxquestion},
+                { model: Votesxquestion },
                 {
                     model: User,
                     attributes: ['id', 'avatar', 'userName', 'email']
@@ -84,7 +88,6 @@ const getQuestions = async (req, res) => {
         return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas', data: null })
     }
 }
-
 
 const updateQuestion = async (req, res) => {
     try {
@@ -139,14 +142,24 @@ const deleteQuestion = async (req, res) => {
     try {
         const questionId = req.params.questionId;
         if (questionId) {
-            let result = await Question.destroy({ where: { id: questionId } });
-            if (result[0]) {
-                return res.status(500).send({ error: "No se encuentra la pregunta", data: null })
+            // let result = await Question.destroy({ where: { id: questionId } });
+            const result = await Question.update({ isDeleted: true }, { where: { id: questionId } });
+            console.log('result: ', result)
+            if (result[0] !== 0) {
+                const response = await Question.findByPk(questionId, {
+                    include: [
+                        { model: Category },
+                        {
+                            model: User,
+                            attributes: ['id', 'avatar', 'userName', 'email']
+                        }]
+                });
+                return res.status(200).json({ error: null, data: 'Se borro la pregunta id: ' + questionId })
             }
-            return res.status(200).json({ error: null, data: 'Se borro la pregunta id: ' + questionId })
+            return res.status(200).json({ error: 'No se puedo borrar la pregunta', data: null })
         }
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de question al eliminar la pregunta', data: null })
+        return res.status(500).json({ error: `Error al eliminar la pregunta en el controlador de question: ${error}`, data: null })
     }
 }
 
@@ -154,32 +167,32 @@ const deleteQuestion = async (req, res) => {
 //reviewQuestion
 
 const viewQuestion = async (req, res) => {
-    const {userId, questionId} = req.body;
+    const { userId, questionId } = req.body;
     try {
-        
-        const view = {userId, questionId, rating : true}
+
+        const view = { userId, questionId, rating: true }
         const newView = await Review.create(view)
-        
-        return res.status(200).json({msg: 'visto exitosamente', error: null, newView})
+
+        return res.status(200).json({ msg: 'visto exitosamente', error: null, newView })
     }
 
-    catch(error){
-        return res.status(500).json({error:`Error en  reviewQuestion: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `Error en  reviewQuestion: ${error}`, data: null })
     }
 }
 
 const likeQuestion = async (req, res) => {
-    const {userId, questionId} = req.body;
+    const { userId, questionId } = req.body;
     try {
-        
-        const like = {userId, questionId, rating : true}
+
+        const like = { userId, questionId, rating: true }
         const newVote = await Votesxquestion.create(like)
-        
-        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
+
+        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, newVote })
     }
 
-    catch(error){
-        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
 
     }
 }
@@ -189,19 +202,37 @@ const likeQuestion = async (req, res) => {
 const unlikeQuestion = async (req, res) => {
     try {
         const questionId = parseInt(req.params.questionId)    //req.params.questionId;
-        const {userId} = req.query;
-        
-        const vote = await Votesxquestion.findOne({where: { questionId: questionId, userId: userId}})
-    
+        const { userId } = req.query;
+
+        const vote = await Votesxquestion.findOne({ where: { questionId: questionId, userId: userId } })
+
         vote.destroy();
         return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
     } catch (error) {
-        
-        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
+
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null })
+    }
+}
+
+const getQuestionsByUser = async (req, res) => {
+    try {
+
+        const { userId } = req.params
+        const questionList = await Question.findAll({ where: { userId } })
+
+        if (!questionList.length) return res.status(404).json({ data: [], error: "no se encontraron preguntas para ese userId" })
+
+        // el ratingCount viene en tipo string (!!! si no anda checkear esto)
+        const sortedList = questionList.sort((a, b) => parseFloat(b.ratingAverage) - parseFloat(a.ratingAverage))
+
+        return res.status(200).json({ data: sortedList, error: null })
+
+    } catch (error) {
+        return res.status(500).json({ data: null, errror: "error en el questionsController" })
     }
 }
 
 
 
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion }
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, getQuestionsByUser }

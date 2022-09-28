@@ -1,4 +1,4 @@
-const { Answer, Question, User, Votesxanswer } = require('../db');
+const { Answer, Question, User, Votesxanswer, Ratingxanswer, getRatingSum } = require('../db');
 const { Op } = require("sequelize");
 
 const createAnswer = async (req, res) => {
@@ -131,10 +131,26 @@ const deleteAnswer = async (req, res) => {
 const likeAnswer = async (req, res) => {
     const {userId, answerId} = req.body;
     try {
-        
+
+        if (!userId || !answerId) {
+            return res.status(401).json({
+                error: "The required fields userId and answerId are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
         const like = {userId, answerId, rating : true}
         const newVote = await Votesxanswer.create(like)
-        
+        const voteCountUpdated = await Votesxanswer.count({
+            where: {
+                answerId
+            }
+        });
+
+        const answerItem = await Answer.findByPk(answerId);
+        answerItem.voteCount = voteCountUpdated;
+        await answerItem.save();
+
         return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
     }
 
@@ -163,7 +179,101 @@ const deleteVotesXAnswer = async (req, res) => {
     }
 }
 
+const updateRating = async (req, res) => {
+    const {userId, questionId, answerId, rating} = req.body;
+    try {
 
+        if (!userId || !questionId || !answerId || !rating) {
+            return res.status(401).json({
+                error: "The required fields userId, questionId, answerId and rating are not present in the request, please add them. ",
+                data: null
+            })
+        }
 
+        let rateItem = await Ratingxanswer.findOne({
+            where: {
+                userId, answerId
+            }
+        });
 
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer }
+        if(!rateItem) {
+            const rateNew = {userId, answerId, rating}
+            await Ratingxanswer.create(rateNew)
+        }
+        else {
+            rateItem.rating = rating;
+            rateItem.save();
+        }
+
+        const rateCountUpdated = await Ratingxanswer.count({
+            where: {
+                answerId
+            }
+        });
+
+        const rateSumUpdated = await getRatingSum(answerId);
+        const answerItem = await Answer.findByPk(answerId);
+
+        answerItem.ratingCount = rateCountUpdated;
+        answerItem.ratingAverage = rateSumUpdated.getDataValue('sum') / rateCountUpdated;
+        await answerItem.save();
+
+        let ratingList = await queryRatingList(questionId, userId)
+
+        return res.status(200).json({
+            answerItem: {
+                userId,
+                answerId,
+                ratingCount: answerItem.ratingCount,
+                ratingAverage: answerItem.ratingAverage
+            },
+            ratingList
+        });
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+const getRatingList = async (req, res) => {
+    const {questionId, userId} = req.params;
+    try {
+
+        if (!userId || !questionId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them.",
+                data: null
+            })
+        }
+
+        let ratingList = await queryRatingList(questionId, userId)
+        return res.status(200).json(ratingList);
+    }
+
+    catch(error){
+        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+
+    }
+}
+
+function queryRatingList(questionId, userId) {
+    return Answer.findAll(
+        {
+            where: {
+                questionId
+            },
+            include: [
+                {
+                    model: Ratingxanswer,
+                    where: {
+                        userId
+                    }
+                },
+            ]
+        }
+    );
+}
+
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating, getRatingList }

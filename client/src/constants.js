@@ -1,7 +1,7 @@
 
 export const URL_BACK = '';
 export const CREATE_USER = 'CREATE_USER';
-export const GET_USERS = 'GET_USERS';
+export const GET_USER_LIST = 'GET_USER_LIST';
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const UPDATE_USERS = 'UPDATE_USERS'
 export const ADD_LIKES = 'ADD_LIKES';

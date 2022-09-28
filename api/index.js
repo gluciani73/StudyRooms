@@ -2,12 +2,14 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { createTestData } = require('./seeder.js');
 
-conn.sync({ force: true })
+const createMockData = true; // <--- cambiar a false para no sobreescribir la DB
+
+conn.sync({ force: createMockData })
   .then(() => {
 
     server.listen(process.env.PORT, async () => {
 
-      await createTestData();
+      createMockData && await createTestData();
 
       console.log('--------------------------------');
       // console.log('creada el mockup de datos');
@@ -15,7 +17,8 @@ conn.sync({ force: true })
     });
   })
 
-
+// comentario de modificacion para validar delpoy en Heroku desde la branch develop , VALIDADA.
+// AHORA CADA PUSH EN LA BRANCH DEVELOP DESPLIEGA EN HEROKU
 /*     ..---..
      .'  _    `.
  __..'  (o)    :    LES DEJO UN PATO

@@ -6,9 +6,11 @@ const { userCreateValidator, userLoginValidator } = require('../middlewares/user
 const googleAuthRoutes = require('./googleAuth.js')
 
 // /users/...
+
 router.post('/signup', userCreateValidator, signUp)
 router.post('/signin', userLoginValidator ,signIn)
-router.post('/changePassword', changePassword)
+router.put('/changePassword/:userId', changePassword)
+
 router.post('/recovery', recoveryPOST)
 router.get('/recovery/:token', recoveryGET)
 router.get('/', getAllUsers)

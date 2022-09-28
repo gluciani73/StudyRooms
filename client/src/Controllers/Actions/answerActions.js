@@ -1,13 +1,13 @@
 import axios from "axios";
-import { URL_BACK } from "../../constants";
 
 export const GET_ANSWER_LIST = "GET_ANSWER_LIST";
 export const CREATE_ANSWER_ITEM = "CREATE_ANSWER_ITEM";
 export const UPDATE_ANSWER_ITEM = "UPDATE_ANSWER_ITEM";
 export const DELETE_ANSWER_ITEM = "DELETE_ANSWER_ITEM";
 export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
-
-const baseUrl = URL_BACK; //'https://w9489.mocklab.io';
+export const UPDATE_ANSWER_RATE = "UPDATE_ANSWER_RATE";
+export const SORT_ANSWER_LIST = "SORT_ANSWER_LIST";
+export const GET_RATING_LIST = "GET_RATING_LIST";
 
 export const getAnswerList = (questionId) => {
     return function (dispatch) {
@@ -80,3 +80,37 @@ export const updateAnswerVote = (voteInfo) => {
     }
 }
 
+export const sortAnswerList = (sortOption) => {
+    return {
+        type: SORT_ANSWER_LIST,
+        payload: sortOption
+    }
+}
+
+export const updateAnswerRating = (ratingInfo) => {
+    return function (dispatch) {
+
+        axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo)
+            .catch(error => console.log("Action creator updateAnswerRating: ", error))
+            .then((response) => {
+                dispatch({
+                    type: UPDATE_ANSWER_RATE,
+                    payload: response.data
+                });
+            });
+    }
+}
+
+export const getRatingList = (userId, questionId) => {
+    return function (dispatch) {
+
+        axios.get(`/answers/${questionId}/rating/${userId}`)
+            .catch(error => console.log("Action creator getRatingList: ", error))
+            .then((response) => {
+                dispatch({
+                    type: GET_RATING_LIST,
+                    payload: response.data
+                });
+            });
+    }
+}
