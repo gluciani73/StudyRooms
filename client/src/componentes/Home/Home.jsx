@@ -20,7 +20,7 @@ const Home = () => {
     const allQuestions = useSelector ((state)=>state.questionReducer.allQuestions.data || state.questionReducer.allQuestions)
     const active = allQuestions.filter(e=>e.active===true)
 
-  return (<div>
+  return (<div className="bg-black ">
    
 <div className="container">
   <NavBar/>

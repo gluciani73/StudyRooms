@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -172,9 +172,17 @@ const likeQuestion = async (req, res) => {
     const {userId, questionId} = req.body;
     try {
         
-        const like = {userId, questionId, rating : true}
+        const like = {userId, questionId}
         const newVote = await Votesxquestion.create(like)
-        
+        const voteCountUpdated = await Votesxquestion.count({
+            where:{
+                questionId
+            }
+        })  
+        const questionItem = await Question.findByPk(questionId);
+        questionItem.voteCount = voteCountUpdated;
+        await questionItem.save();
+
         return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
     }
 
@@ -205,6 +213,7 @@ const logDelete = async (req, res) => {
     try {
         const questionId = req.params.questionId;
         const active = req.body.active;
+
         const updateQuestion = await Question.update({ active }, {
             where: {
                 id: questionId
@@ -213,7 +222,15 @@ const logDelete = async (req, res) => {
         });
         console.log(active)
         if (updateQuestion[0] !== 0) {
-            const response = await Question.findByPk(questionId);
+            const response = await Question.findByPk(questionId, {
+                include: [
+                    { model: Category },
+                    {
+                        model: User,
+                        attributes: ['id', 'avatar', 'userName', 'email']
+                    }
+                ]
+            });
             return res.status(200).json({ error: null, data: response })
             
         }
@@ -225,5 +242,36 @@ const logDelete = async (req, res) => {
     }
 }
 
+const rateQuestion = async (req,res)=>{
+    const {userId, questionId, rating} =req.body
+    try{
+        const rate = {userId, questionId,rating}
+        const newVote = await Ratingxquestion.create(rate)
+        const ratingCountUpdated = await Ratingxquestion.count({
+            where:{
+                questionId
+            }
+        })
+        const sum = await Ratingxquestion.sum('rating',{
+            where:{
+                questionId
+            }
+        })
+        const ratingAverageUpdated= await sum/ ratingCountUpdated
+        const questionItem = await Question.findByPk(questionId)
+        questionItem.ratingCount = ratingCountUpdated;
+        questionItem.ratingAverage= ratingAverageUpdated;
+        await questionItem.save();
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete }
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, rate})
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion }
