@@ -9,6 +9,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
 
     const regexName = /^[\dA-Za-z\s-]*$/;
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //source: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+    const regexUrl = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/g;
 
     function handleChange(event) {
         setUserItem({...userItem, [event.target.name]: event.target.value})
@@ -66,12 +67,26 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         }
     }
 
+    function validateUrl() {
+        if (!userItem.avatar || userItem.avatar.length === 0) {
+            setErrorList({...errorList, avatar: "The avatar's url can not be empty"});
+            return true;
+        } else if (!regexUrl.test(userItem.avatar)) {
+            setErrorList({...errorList, avatar: "The avatar's url d is not well formed."});
+            return true;
+        } else {
+            setErrorList({...errorList, avatar: undefined});
+            return false;
+        }
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
         if (validateUserName() ||
             validateFirstName() ||
             validateLastName() ||
-            validateEmail()
+            validateEmail() ||
+            validateUrl()
         ) {
             return;
         }
@@ -87,6 +102,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputLabelField'>
                             <label className="answerTitle">User name: </label>
                             <input placeholder='User name'
+                                   className='inputField'
                                    onChange={(e) => handleChange(e)}
                                    onBlur={() => validateUserName()}
                                    value={userItem.userName}
@@ -98,6 +114,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputLabelField'>
                             <label className="answerTitle">First name: </label>
                             <input placeholder='First name'
+                                   className='inputField'
                                    onChange={(e) => handleChange(e)}
                                    onBlur={() => validateFirstName()}
                                    value={userItem.firstName}
@@ -109,6 +126,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputLabelField'>
                             <label className="answerTitle">Last name: </label>
                             <input placeholder='Last name'
+                                   className='inputField'
                                    onChange={(e) => handleChange(e)}
                                    onBlur={() => validateLastName()}
                                    value={userItem.lastName}
@@ -116,12 +134,25 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                             />
                             <span className="errorMessage">{errorList.lastName}</span>
                         </div>
+
+                        <div className='inputLabelField'>
+                            <label className="answerTitle">Avatar's url: </label>
+                            <input placeholder="Avatar's url"
+                                   className='inputField'
+                                   onChange={(e) => handleChange(e)}
+                                   onBlur={() => validateUrl()}
+                                   value={userItem.avatar}
+                                   name={'avatar'}
+                            />
+                            <span className="errorMessage">{errorList.avatar}</span>
+                        </div>
                     </div>
 
                     <div>
                         <div className='inputLabelField'>
                             <label className="answerTitle">Email: </label>
                             <input placeholder='Email'
+                                   className='inputField'
                                    onChange={(e) => handleChange(e)}
                                    onBlur={() => validateEmail()}
                                    value={userItem.email}
