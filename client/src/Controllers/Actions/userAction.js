@@ -10,10 +10,15 @@ export const createUserAction = (user) => {
                 payload: data.data
             })
         } catch (error) {
-            console.log(error)
+            return dispatch({
+                type: "ERROR",
+                payload: error.response.data.error
+            }
+            )
         }
     }
 }
+
 
 export const editUserAction = (user, userId)=>{
     return async function (dispatch){

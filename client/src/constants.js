@@ -17,4 +17,5 @@ export const LOGICALDELETEU = "LOGICALDELETEU"
 export const ADD_RATING =  "ADD_RATING"
 export const CHANGE_RATING = 'CHANGE_RATING'
 export const SEARCH_QUESTION = "SEARCH_QUESTION"
+export const GET_ERROR = "GET_ERROR"
 
