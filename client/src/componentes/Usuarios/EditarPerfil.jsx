@@ -95,7 +95,7 @@ console.log(newUser)
                         <input required className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
                     </div>
 
-                    <button type='submit' value='update'>Confirm</button>    <button type='submit' value='update'>Cancel</button>
+                    <button type='submit' value='update'>Save</button>   
 
                </form>
         </div>
