@@ -12,7 +12,7 @@ import { getQuestions, getCategories } from "../../Controllers/Actions/questions
 
 const Home = () => {
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getQuestions())

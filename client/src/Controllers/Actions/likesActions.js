@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_LIKES, DELETE_LIKES, URL_BACK } from "../../constants";
+import { ADD_LIKES, DELETE_LIKES, URL_BACK, ADD_RATING } from "../../constants";
 
 export function postLikesQuestions(data) {
     return async function (dispatch) {
@@ -23,3 +23,18 @@ export const deleteLikesQuestions = (data) => {
     }
 };
     
+export function rateQuestions(data) {
+    return function (dispatch) {
+console.log(data)
+        axios.put(`${URL_BACK}/questions/rate/${data.questionId}`, data)
+            .catch(error => console.log("Action creator updateAnswerRating: ", error))
+            .then((response) => {
+                dispatch({
+                    type: ADD_RATING,
+                    payload: response.data
+                });
+            });
+    }
+}
+
+

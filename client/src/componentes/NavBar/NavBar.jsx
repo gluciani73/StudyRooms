@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo.png'
-import config from '../../recursos/config.png'
-import notification from '../../recursos/notification.png'
 import home from '../../recursos/home.png'
 import DropDown from './DropDown'
 import SearchBar from "./SearchBar"
@@ -18,8 +16,8 @@ const NavBar = () => {
    <nav className="navbar navbar-expand-lg navbar-light bg-white">
            <div className='d-inline-flex p-2 align-items-center auto-mx'>
                
-               <img src={logo} height="100px" alt="logo" />
-               <p className="navbar-brand pe-5 fs-1">StudyRooms</p>
+               <img className="me-5" src={logo} height="100px" alt="logo" />
+               
            </div>
            <div className='col-md-auto'>
             

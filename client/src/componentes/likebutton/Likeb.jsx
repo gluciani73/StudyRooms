@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {postLikesQuestions, deleteLikesQuestions} from "../../Controllers/Actions/likesActions"
 import { useDispatch, useSelector } from 'react-redux';
 import like from '../../recursos/thumbs.png'
@@ -28,7 +27,7 @@ const LikeB = () => {
         
         
         e.preventDefault();
-        console.log(test)
+        
         if(!test.length){
         dispatch(postLikesQuestions(input))
         alert("Liked")
