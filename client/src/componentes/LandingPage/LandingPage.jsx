@@ -6,11 +6,11 @@ import { useEffect } from "react";
 import { registerOnOff, refreshUserInfo } from '../../Controllers/Actions/loginActions'
 import Register from '../Usuarios/UserForm'
 import jwt_decode from 'jwt-decode'
+import styles from "./navLanding.module.css"
 
 const LandingPage = () => {
   const dispatch = useDispatch()
   const register = useSelector((state) => state.loginReducer.regisOnOff)
-
   const tokenData = localStorage.getItem("token") && jwt_decode(localStorage.getItem("token"))
 
   useEffect(()=>{
@@ -20,17 +20,14 @@ const LandingPage = () => {
   },[dispatch])
 
   return (
-  <div>
+  <div className={styles.container} >
  
     <NavBarNoLogIn/>
  
-    <div className="d-flex">
+    <div className={styles.body} >
       
-      <div className="w-50 d-flex justify-content-center align-items-center col-6">
-        <img  src={Landing} alt="img"  />        
-      </div>
   
-      <div className=" w-50 d-flex justify-content-center align-items-center">
+      <div className="  w-auto h-50 d-flex m-5 ">
         { register ? <Login/> : <Register/> }
 
         {/* <Link to="/home">

@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, getRatingSum } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -26,7 +26,7 @@ const createQuestion = async (req, res, next) => {
         return res.status(201).json({ error: null, data: newQuestion })
 
     } catch (error) {
-        return res.status(500).json({ error: 'Error en el controlador de create question', data: null })
+        return res.status(500).json({ error: `Error en el controlador de create question ${error}`, data: null })
     }
 }
 
@@ -173,7 +173,7 @@ const updateQuestion = async (req, res) => {
         }
     } catch (error) {
 
-        return res.status(500).json({ error: 'Error en el controlador de quetion al actualizar la pregunta', data: null })
+        return res.status(501).json({ error: `Error en el controlador de quetion al actualizar la pregunta ${error}`, data: null })
     }
 }
 
@@ -224,15 +224,23 @@ const viewQuestion = async (req, res) => {
 const likeQuestion = async (req, res) => {
     const { userId, questionId } = req.body;
     try {
-
-        const like = { userId, questionId, rating: true }
+        
+        const like = {userId, questionId}
         const newVote = await Votesxquestion.create(like)
+        const voteCountUpdated = await Votesxquestion.count({
+            where:{
+                questionId
+            }
+        })  
+        const questionItem = await Question.findByPk(questionId);
+        questionItem.voteCount = voteCountUpdated;
+        await questionItem.save();
 
-        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, newVote })
+        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
     }
 
     catch (error) {
-        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
+        return res.status(500).json({ error: `Error en el controlador de question al hacer like: ${error}`, data: null })
 
     }
 }
@@ -248,7 +256,7 @@ const unlikeQuestion = async (req, res) => {
         return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
     } catch (error) {
 
-        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null })
+        return res.status(500).json({ error: `Error en el controlador de question al eliminar el voto: ${error}`, data: null })
     }
 }
 
@@ -270,16 +278,142 @@ const getQuestionsByUser = async (req, res) => {
     }
 }
 
-module.exports = {
-    createQuestion,
-    updateQuestion,
-    getAllQuestions,
-    getQuestions,
-    getQuestion,
-    deleteQuestion,
-    viewQuestion,
-    likeQuestion,
-    unlikeQuestion,
-    getQuestionsByUser,
-    getDeletedQuestions
+const logDelete = async (req, res) => {
+    try {
+        const questionId = req.params.questionId;
+        const isDeleted = req.body.active;
+
+        const updateQuestion = await Question.update({ isDeleted }, {
+            where: {
+                id: questionId
+            }
+
+        });
+        console.log(isDeleted)
+        if (updateQuestion[0] !== 0) {
+            const response = await Question.findByPk(questionId, {
+                include: [
+                    { model: Category },
+                    {
+                        model: User,
+                        attributes: ['id', 'avatar', 'userName', 'email']
+                    }
+                ]
+            });
+            return res.status(200).json({ error: null, data: response })
+            
+        }
+        else {
+            res.status(500).json({ error: 'No se puedo editar la pregunta', data: null })
+        }
+    } catch (error) {
+        return res.status(501).json({ error: `Error en el controlador de question al actualizar la pregunta ${error}`, data: null })
+    }
 }
+
+const rateQuestion = async (req, res) => {
+    const {userId, questionId, rating} = req.body;
+    try {
+
+        if (!userId || !questionId || !rating) {
+            return res.status(401).json({
+                error: "The required fields userId, questionId, and rating are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
+        let rateItem = await Ratingxquestion.findOne({
+            where: {
+                userId, questionId
+            }
+        });
+
+        if(!rateItem) {
+            const rateNew = {userId, questionId, rating}
+            await Ratingxquestion.create(rateNew)
+        }
+        else {
+            rateItem.rating = rating;
+            rateItem.save();
+        }
+
+        const rateCountUpdated = await Ratingxquestion.count({
+            where: {
+                questionId
+            }
+        });
+
+        const rateSumUpdated = await getRatingSum(questionId);
+        const questionItem = await Question.findByPk(questionId);
+
+        questionItem.ratingCount = rateCountUpdated;
+        questionItem.ratingAverage = rateSumUpdated.getDataValue('sum') / rateCountUpdated;
+        await questionItem.save();
+
+        let ratingList = await queryRatingList(userId)
+
+        return res.status(200).json({
+            questionItem: {
+                userId,
+                ratingCount: questionItem.ratingCount,
+                ratingAverage: questionItem.ratingAverage
+            },
+            ratingList
+        });
+    }
+
+    catch(error){
+        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+
+    }
+}
+
+const getRatingList = async (req, res) => {
+    const {userId} = req.params;
+    try {
+
+        if (!userId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them.",
+                data: null
+            })
+        }
+
+        let ratingList = await queryRatingList( userId)
+        return res.status(200).json(ratingList);
+    }
+
+    catch(error){
+        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+
+    }
+}
+
+function queryRatingList( userId) {
+    return Question.findAll(
+        {
+ 
+            include: [
+                {
+                    model: Ratingxquestion,
+                    where: {
+                        userId
+                    }
+                },
+            ]
+        }
+    );
+}
+
+
+
+
+        
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion,getQuestionsByUser,getAllQuestions,viewQuestion, getDeletedQuestions }
+
+
+    
+    
+
+
+

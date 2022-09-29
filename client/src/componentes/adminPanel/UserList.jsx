@@ -5,6 +5,9 @@ import {useSelector} from "react-redux";
 import {getUserList} from "../../Controllers/Actions/userAction";
 import './UserList.css';
 import UserEdit from "./UserEdit";
+import UserCreate from "./UserCreate"
+import sweetalert from "sweetalert";
+import {editUserAction} from "../../Controllers/Actions/userAction";
 
 export default function UserList () {
 
@@ -31,9 +34,36 @@ export default function UserList () {
         setShowEditForm(!showEditForm);
     }
 
+    function handleDeActivateUserItem(userItem) {
+        sweetalert({
+            title:"Action confirmation",
+            text: "Do your really want to de-activate the user?",
+            icon: "warning",
+            buttons: ["Cancel", "DeActivate"],
+            dangerMode: true,
+        }).then(value => {
+            if(value) {
+                dispatch(editUserAction({...userItem, active: false}, userItem.id));
+            }
+        });
+    }
+
+    function handleActivateUserItem(userItem) {
+        sweetalert({
+            title:"Action confirmation",
+            text: "Do your really want to activate the user?",
+            icon: "warning",
+            buttons: ["Cancel", "Activate"],
+        }).then(value => {
+            if(value) {
+                dispatch(editUserAction({...userItem, active: true}, userItem.id));
+            }
+        });
+    }
+
     function renderUserItem(userItem) {
         return (
-            <div className='singleAnswer'>
+            <div className='singleAnswer' key={userItem.id}>
                 <div className="singleUserTitle">
                     <h3>{userItem.userName}</h3>
                     <img className='avatar' src={userItem.avatar} alt={userItem.userName}/>
@@ -47,15 +77,34 @@ export default function UserList () {
                     <div>
                         <p><b>Is Admin: </b> {userItem.isAdmin ? "yes" : "no"}</p>
                         <p><b>Is Premium: </b> {userItem.isPremium ? "yes" : "no"}</p>
-                        <p><b>Is Active: </b> {userItem.isActive ? "yes" : "no"}</p>
+                        <p><b>Is Active: </b> {userItem.active ? "yes" : "no"}</p>
                     </div>
                 </div>
 
                 <button className="buttonAction"
                         onClick={() => handleShowEditForm(userItem.id)}
+                        disabled={showEditForm}
                 >
                     Edit
                 </button>
+
+                {userItem.active && (
+                    <button className="buttonCancel"
+                            onClick={() => handleDeActivateUserItem(userItem)}
+                            disabled={showEditForm}
+                    >
+                        DeActivate
+                    </button>
+                )}
+
+                {!userItem.active && (
+                <button className="buttonAction"
+                        onClick={() => handleActivateUserItem(userItem)}
+                        disabled={showEditForm}
+                >
+                    Activate
+                </button>
+                )}
 
                 {showEditForm && userEditId === userItem.id && (
                     <>
@@ -90,6 +139,7 @@ export default function UserList () {
         <>
             <NavBar/>
             {renderUserList()}
+            <UserCreate />
         </>
     );
 }

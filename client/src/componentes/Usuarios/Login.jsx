@@ -37,8 +37,9 @@ export const LandingPage = () => {
   }
   return (
     token ? <Navigate to="/home" replace={true} /> :
-    <div className="col p-0 m-0 d-flex justify-content-center align-items-center">
-          <form onSubmit={(e) => handleSubmit(e)} className="text-center">
+    <div className=" d-flex flex-column justify-content-center   align-items-center  bg-light ">
+      <h2>LogIn</h2>
+          <form onSubmit={(e) => handleSubmit(e)} className="text-center ">
           {errorLog && <p className="alert alert-danger">{errorLog}</p>}
             <input type="Text" placeholder="Usuario..." required value={inputSend.userName} onChange={(e) => {
               setInputSend({
@@ -54,9 +55,8 @@ export const LandingPage = () => {
             <button type="submit" className="btn btn-primary m-2">Ingresar</button>
             <button type="button" onClick={ (e) => handleRegister(e) } className="btn btn-primary m-2">Registrarse</button>
 
-            <div>
-              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" onClick={handleGoogleLogin}><img src={googleLogo} className="logoGoogle" alt="googleLogo"/> Google</button>
-              <button className="border-0 btLoginRedes btn btn-secondary d-block m-2" disabled><img src={facelogo} className="logoGoogle" alt="facebookLogo"/> Facebook/Proximamente</button>
+            <div className="d-flex justify-content-center ">
+              <button className=" border-0 btLoginRedes btn btn-secondary d-block m-2" onClick={handleGoogleLogin}><img src={googleLogo} className="logoGoogle" alt="googleLogo"/> Google</button>
             </div>
 
 

@@ -8,26 +8,6 @@
     border-radius: .5em;
 }
 
-.buttonAction {
-    background-color: dodgerblue;
-    color: white;
-    border: 1px solid dodgerblue;
-    border-radius: .3em;
-    font-size: 1em;
-    margin-top: 1em;
-}
-
-.buttonCancel {
-    background-color: #990000;
-    color: white;
-    border: 1px solid #990000;
-    margin-left: 2%;
-    border-radius: .3em;
-    font-size: 1em;
-    margin-top: 1em;
-}
-
-
 .inputLabelField {
     display: flex;
     flex-direction: column;
