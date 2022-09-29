@@ -11,7 +11,7 @@ const EditPassword = ()=>{
 
     function validate(data){
         var errors = {};
-        if(data.password.length < 6 || data.password.length > 16) errors.password = "Ingrese una contraseña que contenga entre 6 y 16 caracteres"
+        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.password)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
         if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
         return errors;
     }
@@ -43,7 +43,7 @@ const EditPassword = ()=>{
                 newPassword:"",
                 ConfirmPassword:""
             })
-            alert("Usuario modificado correctamente")
+            alert("Contaseña modificada correctamente")
 
         }
 console.log(newPassowrd)
