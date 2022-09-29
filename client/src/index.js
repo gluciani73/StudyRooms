@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 // import './index.css';
 import App from './App';
 import store from "./Controllers/Store";
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 import axios from 'axios';
 // https://stackoverflow.com/questions/71019949/dotenv-issues-error-with-create-react-app-react-scripts

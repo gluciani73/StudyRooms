@@ -11,6 +11,7 @@
     "aws-jwt-verify": "^3.1.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
+    "bootstrap-icons": "^1.9.1",
     "dotenv": "8.2.0",
     "jwt-decode": "^3.1.2",
     "nodemon": "^2.0.20",

@@ -7,6 +7,7 @@ import { registerOnOff, refreshUserInfo } from '../../Controllers/Actions/loginA
 import Register from '../Usuarios/UserForm'
 import jwt_decode from 'jwt-decode'
 import styles from "./navLanding.module.css"
+import Footer from "../Footer/Footer";
 
 const LandingPage = () => {
   const dispatch = useDispatch()
@@ -37,7 +38,7 @@ const LandingPage = () => {
 
     </div>
 
-    
+    <Footer/>
   </div>  
   
   );
