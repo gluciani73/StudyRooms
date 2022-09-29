@@ -47,7 +47,7 @@ async function createTestData() {
     lastName: "admin",
     email: "admin@test.com",
     password: "admin",
-    active: false,
+    active: true,
     isAdmin: true
   })
 

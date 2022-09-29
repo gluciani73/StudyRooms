@@ -1,0 +1,17 @@
+.userFormContainer {
+    display: flex;
+    justify-content: space-around;
+    gap: 2%;
+}
+
+.inputSelectField {
+    display: flex;
+}
+
+.userLabelSelect {
+    padding-right: .5em;
+}
+
+.inputField {
+    width: 30em;
+}

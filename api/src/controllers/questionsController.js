@@ -68,6 +68,24 @@ const getQuestion = async (req, res) => {
     }
 }
 
+const getAllQuestions = async (req, res) => {
+    try {
+        let result = await Question.findAll({
+            include: [
+                { model: Answer },
+                { model: Category },
+                { model: Votesxquestion },
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }]
+        });
+        return res.status(200).json({ error: null, data: result })
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas', data: null })
+    }
+}
+
 const getQuestions = async (req, res) => {
     try {
         let result = await Question.findAll({
@@ -86,6 +104,28 @@ const getQuestions = async (req, res) => {
         return res.status(200).json({ error: null, data: result })
     } catch (error) {
         return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas', data: null })
+    }
+}
+
+
+const getDeletedQuestions = async (req, res) => {
+    try {
+        let result = await Question.findAll({
+            where: {
+                isDeleted: true
+            },
+            include: [
+                { model: Answer },
+                { model: Category },
+                { model: Votesxquestion },
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }]
+        });
+        return res.status(200).json({ error: null, data: result })
+    } catch (error) {
+        return res.status(500).json({ error: 'Error en el controlador de questions al obtener las preguntas eliminadas', data: null })
     }
 }
 
@@ -204,8 +244,6 @@ const likeQuestion = async (req, res) => {
 
     }
 }
-
-
 
 const unlikeQuestion = async (req, res) => {
     try {
@@ -371,4 +409,11 @@ function queryRatingList( userId) {
 
 
         
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion,getQuestionsByUser }
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion,getQuestionsByUser,getAllQuestions,viewQuestion, getDeletedQuestions }
+
+
+    
+    
+
+
+
