@@ -1,4 +1,4 @@
-import { GET_USER_LIST, UPDATE_USERS, CREATE_USER } from "../../constants";
+import { GET_USER_LIST, UPDATE_USERS, CREATE_USER, GET_ERROR } from "../../constants";
 
 const initialState ={
     userList:[],
@@ -25,6 +25,11 @@ export default function userReducer(state= initialState,{type,payload}){
             return {
                 ...state,
                 userList: getOrderedList([...state.userList, payload])
+            }
+        case GET_ERROR:
+            return{
+                ...initialState,
+                error:payload
             }
 
     default:
