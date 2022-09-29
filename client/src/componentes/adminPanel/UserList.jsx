@@ -48,6 +48,19 @@ export default function UserList () {
         });
     }
 
+    function handleActivateUserItem(userItem) {
+        sweetalert({
+            title:"Action confirmation",
+            text: "Do your really want to activate the user?",
+            icon: "warning",
+            buttons: ["Cancel", "Activate"],
+        }).then(value => {
+            if(value) {
+                dispatch(editUserAction({...userItem, active: true}, userItem.id));
+            }
+        });
+    }
+
     function renderUserItem(userItem) {
         return (
             <div className='singleAnswer' key={userItem.id}>
@@ -82,6 +95,15 @@ export default function UserList () {
                     >
                         DeActivate
                     </button>
+                )}
+
+                {!userItem.active && (
+                <button className="buttonAction"
+                        onClick={() => handleActivateUserItem(userItem)}
+                        disabled={showEditForm}
+                >
+                    Activate
+                </button>
                 )}
 
                 {showEditForm && userEditId === userItem.id && (
