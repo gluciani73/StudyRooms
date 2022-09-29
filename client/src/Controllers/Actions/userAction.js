@@ -7,7 +7,7 @@ export const createUserAction = (user) => {
             const data = (await axios.post(`/users/signup`, user)).data;
             return dispatch({
                 type: CREATE_USER,
-                payload: data
+                payload: data.data
             })
         } catch (error) {
             console.log(error)

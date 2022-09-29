@@ -2,14 +2,27 @@ import React, {useState} from "react";
 import '../answers/AnswerForm.css';
 import './UserForm.css';
 
-export default function UserForm({userInitial, buttonText, buttonAction, buttonCancel}) {
+export default function UserForm({buttonText, buttonAction, buttonCancel}) {
 
-    const [userItem, setUserItem] = useState(userInitial ? userInitial : {});
+    const userInitialStatus = {
+        userName: '',
+        firstName: '',
+        lastName: '',
+        avatar: '',
+        email: '',
+        isAdmin: false,
+        isPremium: false,
+        active: false,
+        password: '',
+        passConfirm: '',
+    };
+    const [userItem, setUserItem] = useState(userInitialStatus);
     const [errorList, setErrorList] = useState({});
 
     const regexName = /^[\dA-Za-z\s-]*$/;
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //source: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
     const regexUrl = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/g;
+    const regexPassword = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/;
 
     function handleChange(event) {
         setUserItem({...userItem, [event.target.name]: event.target.value})
@@ -18,6 +31,9 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
     function validateUserName() {
         if (!userItem.userName || userItem.userName.length === 0) {
             setErrorList({...errorList, userName: 'The user name can not be empty'});
+            return true;
+        } else if (userItem.userName.length > 10) {
+            setErrorList({...errorList, userName: 'The user name can not greater than 10'});
             return true;
         } else if (!regexName.test(userItem.userName)) {
             setErrorList({...errorList, userName: 'The user name should contain only letters and numbers.'});
@@ -72,7 +88,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
             setErrorList({...errorList, avatar: "The avatar's url can not be empty"});
             return true;
         } else if (!regexUrl.test(userItem.avatar)) {
-            setErrorList({...errorList, avatar: "The avatar's url d is not well formed."});
+            setErrorList({...errorList, avatar: "The avatar's url is not well formed."});
             return true;
         } else {
             setErrorList({...errorList, avatar: undefined});
@@ -80,17 +96,55 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         }
     }
 
+    function validatePassword() {
+        return validatePasswordValue("password", "password")
+    }
+
+    function validatePassConfirm() {
+        return validatePasswordValue("passConfirm", "confirmed password")
+    }
+
+    function validatePasswordValue(passField, fieldName) {
+        const errorListNew = {...errorList}
+        if (!userItem[passField] || userItem[passField].length === 0) {
+            errorListNew[passField] = `The ${fieldName} can not be empty`
+            setErrorList(errorListNew);
+            return true;
+        } else if (userItem[passField].length < 8 ) {
+            errorListNew[passField] = `The ${fieldName} should be 8 letters minimum.`;
+            setErrorList(errorListNew);
+            return true;
+        } else if (userItem[passField].length > 16 ) {
+            errorListNew[passField] = `The ${fieldName} should be 16 letters maximum.`;
+            setErrorList(errorListNew);
+            return true;
+        }
+        else if (!regexPassword.test(userItem[passField])) {
+            errorListNew[passField] = `The confirm ${fieldName} contains numbers, lower and upper letters and special characters.`;
+            setErrorList(errorListNew);
+            return true;
+        } else if (userItem.password !== userItem.passConfirm) {
+            setErrorList({...errorList, passConfirm: "The password and confirmed password do not match."});
+            return true;
+        } else {
+            errorListNew[passField] = undefined;
+            setErrorList(errorListNew);
+            return false;
+        }
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
-        if (validateUserName() ||
-            validateFirstName() ||
-            validateLastName() ||
-            validateEmail() ||
+        if (validateUserName() &&
+            validateFirstName() &&
+            validateLastName() &&
+            validateEmail() &&
             validateUrl()
         ) {
             return;
         }
-        buttonAction(userItem);
+        buttonAction({...userItem});
+        setUserItem(userInitialStatus);
     }
 
     return (
@@ -187,6 +241,33 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    name={'active'}
                             />
                         </div>
+
+                        <div className='inputLabelField'>
+                            <label className="answerTitle">Password: </label>
+                            <input placeholder='Password'
+                                   className='inputField'
+                                   onChange={(e) => handleChange(e)}
+                                   onBlur={() => validatePassword()}
+                                   value={userItem.password}
+                                   name={'password'}
+                                   type="password"
+                            />
+                            <span className="errorMessage">{errorList.password}</span>
+                        </div>
+
+                        <div className='inputLabelField'>
+                            <label className="answerTitle">Confirm password: </label>
+                            <input placeholder='Confirm password'
+                                   className='inputField'
+                                   onChange={(e) => handleChange(e)}
+                                   onBlur={() => validatePassConfirm()}
+                                   value={userItem.passConfirm}
+                                   name={'passConfirm'}
+                                   type="password"
+                            />
+                            <span className="errorMessage">{errorList.passConfirm}</span>
+                        </div>
+
                     </div>
                 </div>
 
