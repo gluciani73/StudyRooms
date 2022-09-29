@@ -9,7 +9,9 @@ const EditPassword = ()=>{
     const userId = userInfo.id
     const dispatch =useDispatch();
     const errorLog = useSelector((state) => state.userReducer.error)
-    console.log("error en edicion",errorLog);
+
+
+    console.log("error en contraseña",errorLog);
     function validate(data){
         var errors = {};
         if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.password)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
@@ -45,7 +47,12 @@ const EditPassword = ()=>{
                 newPassword:"",
                 ConfirmPassword:""
             })
+           if(!errorLog.length){
             alert("Contaseña modificada correctamente")
+           }else{
+            
+            alert("Contaseña incorrecta")
+           }
           
 
         }
