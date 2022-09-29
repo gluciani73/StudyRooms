@@ -1,4 +1,6 @@
 const axios = require('axios')
+const jwt = require('jsonwebtoken')
+const { AUTH_SECRET } = require('./src/CONSTANTS.js')
 
 const testData = require('./testData.json')
 const { Category } = require('./src/db.js')
@@ -51,6 +53,16 @@ async function createTestData() {
     isAdmin: true
   })
 
+  // creo token para las requests de test
+  const testToken = jwt.sign({
+    userName: "testUser1",
+    firstName: "test1",
+    lastName: "user1",
+    email: "test1@test.com",
+    password: "123",
+    active: true
+  }, AUTH_SECRET, {expiresIn:'1d'})
+
   // MOCKUP CATEGORIES
   const categ = [
     'Matematicas',
@@ -75,7 +87,7 @@ async function createTestData() {
 
     await axios.post(mockURL + '/questions', {
       userId, title: "Question " + title + " " + i, description, categories
-    })
+    }, {headers:{"Authorization":`Bearer ${testToken}`}})
   }
 
   // MOCKUP ANSWERS
@@ -85,13 +97,13 @@ async function createTestData() {
 
     await axios.post(mockURL + '/answers', {
       questionId, userId, answer
-    })
+    },{headers:{"Authorization":`Bearer ${testToken}`}})
 
     const answerId = i + 1;
     for(let j=0; j < voteCount; j++) {
       await axios.post(mockURL + `/answers/vote/${answerId}`, {
         userId, answerId
-      })
+      },{headers:{"Authorization":`Bearer ${testToken}`}})
     }
 
   }
@@ -103,7 +115,7 @@ async function createTestData() {
 
     await axios.post(mockURL + '/comments', {
       questionId, userId, comment
-    })
+    },{headers:{"Authorization":`Bearer ${testToken}`}})
   }
 
   //MOCKUP RATING
@@ -113,7 +125,7 @@ async function createTestData() {
 
     await axios.put(mockURL + `/answers/rating/${answerId}`, {
       questionId, answerId, userId, rating
-    })
+    },{headers:{"Authorization":`Bearer ${testToken}`}})
   }
 }
 

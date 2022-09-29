@@ -1,13 +1,14 @@
 const {Router} = require('express')
-const passport = require('passport')
 const router = Router()
 
 const {signIn, signUp, getAllUsers, getUserById, changePassword, activateAccount, recoveryPOST, recoveryGET, updateUser} = require('../controllers/usersController')
 const { userCreateValidator, userLoginValidator } = require('../middlewares/userValidators.js')
 const googleAuthRoutes = require('./googleAuth.js')
-const private = passport.authenticate('jwt', {session:false})
-// /users/...
 
+const passport = require('passport')
+const private = passport.authenticate('jwt', {session:false})
+
+// /users/...
 router.post('/signup', userCreateValidator, signUp)
 router.post('/signin', userLoginValidator ,signIn)
 router.put('/changePassword/:userId', private, changePassword)
