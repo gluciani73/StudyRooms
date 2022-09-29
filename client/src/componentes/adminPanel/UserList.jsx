@@ -6,6 +6,8 @@ import {getUserList} from "../../Controllers/Actions/userAction";
 import './UserList.css';
 import UserEdit from "./UserEdit";
 import UserCreate from "./UserCreate"
+import sweetalert from "sweetalert";
+import {editUserAction} from "../../Controllers/Actions/userAction";
 
 export default function UserList () {
 
@@ -32,6 +34,20 @@ export default function UserList () {
         setShowEditForm(!showEditForm);
     }
 
+    function handleDeActivateUserItem(userItem) {
+        sweetalert({
+            title:"Action confirmation",
+            text: "Do your really want to de-activate the user?",
+            icon: "warning",
+            buttons: ["Cancel", "DeActivate"],
+            dangerMode: true,
+        }).then(value => {
+            if(value) {
+                dispatch(editUserAction({...userItem, active: false}, userItem.id));
+            }
+        });
+    }
+
     function renderUserItem(userItem) {
         return (
             <div className='singleAnswer' key={userItem.id}>
@@ -54,9 +70,19 @@ export default function UserList () {
 
                 <button className="buttonAction"
                         onClick={() => handleShowEditForm(userItem.id)}
+                        disabled={showEditForm}
                 >
                     Edit
                 </button>
+
+                {userItem.active && (
+                    <button className="buttonCancel"
+                            onClick={() => handleDeActivateUserItem(userItem)}
+                            disabled={showEditForm}
+                    >
+                        DeActivate
+                    </button>
+                )}
 
                 {showEditForm && userEditId === userItem.id && (
                     <>
