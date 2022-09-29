@@ -108,10 +108,10 @@ const AskQuestion = () => {
      },[dispatch])
 
     return (
-        <div>
+        <div className="bg-black">
             <Navbar/>
                 <div className="container border border-secondary">
-                    <p className=" fs-2 text-center pt-2"> Make a Question for our community </p>
+                    <p className=" fs-2 text-center pt-2 text-secundary"> Make a Question for our community </p>
                     
                     <form onSubmit={(e)=>handleSubmit(e)}>
                         <div className="mb-3">

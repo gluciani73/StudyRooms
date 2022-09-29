@@ -28,7 +28,7 @@ function App() {
   })
   
   return (
-   <Router>  
+   <Router className="bg-black">  
    <Routes>
     <Route path='/Home' element={<Home/>}/>
     <Route path='/NavBar' element={<NavBar/>}/>

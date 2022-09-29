@@ -22,7 +22,7 @@ router.get('/:questionId', getQuestion);
 router.get('/', getQuestions);
 router.get('/user/:userId', getQuestionsByUser);
 router.put('/:questionId', updateQuestion)
-router.put('/:questionId', deleteQuestion)
+router.delete('/:questionId', deleteQuestion)
 router.post('/review', viewQuestion)
 router.post('/like/:questionId',likeQuestion)
 router.delete('/like/:questionId',unlikeQuestion)
