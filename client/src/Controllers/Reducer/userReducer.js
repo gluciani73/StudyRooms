@@ -26,6 +26,11 @@ export default function userReducer(state= initialState,{type,payload}){
                 ...state,
                 userList: getOrderedList([...state.userList, payload])
             }
+        case GET_ERROR:
+            return{
+                ...initialState,
+                error:payload
+            }
 
     default:
        return {...state};
