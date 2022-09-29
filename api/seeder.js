@@ -65,15 +65,15 @@ async function createTestData() {
 
   // MOCKUP CATEGORIES
   const categ = [
-    'Matematicas',
-    'Historia',
-    'Geografia',
-    'Quimica',
-    'Biologia',
-    'Economia',
-    'Programacion',
-    'Filosofia',
-    'Lenguas'
+    'Maths',
+    'History',
+    'Geography',
+    'Chemistry',
+    'Biology',
+    'Economy',
+    'Programming',
+    'Philosophy',
+    'Languages'
   ]
 
   categ.forEach(c => {
