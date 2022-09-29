@@ -77,3 +77,4 @@ export function logDelete(id, input){
       }catch (error){
               console.log(error)
           }
+        }}

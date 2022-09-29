@@ -44,14 +44,14 @@ function handleRateChange(userId, questionId, rating) {
       return(
         <div key={index}>
           <NavBar/>
-          <h1>user:{e.userId}</h1>
-          <h1>title:{e.title}</h1>
-          <p>description:{e.description}</p>
+          <div className="container bg-black">
+          <h2 className="text-info">user:{e.userId}</h2>
+          <h2 className="text-white">title:{e.title}</h2>
+          <h4 className="text-white">description:{e.description}</h4>
           <div >
             <LikeB userId={e.userId} questionId={e.id}/> 
             <p>{e.votesxquestions.length}</p>
           </div>
-          
           <Link to='/Home'>home</Link>
           <LogDel/>
           <ReactStars
@@ -61,6 +61,7 @@ function handleRateChange(userId, questionId, rating) {
             size={30}
             half={false}
             />  
+            </div>
           <AnswerList questionId={id}/>        
           <CommentList questionId={id}/>
         </div>

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actions/questionsActions"
 import {useDispatch, useSelector} from "react-redux";
 import Navbar from '../NavBar/NavBar'
-
+import { useNavigate } from "react-router-dom";
 
 function validate(input){
     let errors={};
@@ -20,7 +20,7 @@ function validate(input){
 
 
 const AskQuestion = () => {
-    
+    const navigate = useNavigate()
     const userInfo = useSelector((state)=> state.loginReducer.userInfo);
     const dispatch= useDispatch()
     const [input,setInput]=useState({
@@ -57,6 +57,7 @@ const AskQuestion = () => {
             description:"",
             categories:[]
         })
+        navigate('/home')
         }
 
      function handleChange(e){
@@ -92,6 +93,15 @@ const AskQuestion = () => {
             categories:[...new Set([...input.categories, e.target.value])],
         })
     }
+
+
+    function handleDelete(e){
+        setInput({
+            ...input, // se trae el estado anterior
+            categories: input.categories.filter(occ => occ !== e)
+        })
+    }
+
 
      useEffect(()=>{
         dispatch(getQuestions())
@@ -141,6 +151,16 @@ const AskQuestion = () => {
                         <button type="submit" className="btn btn-primary p">Submit</button>
                     </div>
                     
+<div className="container"></div>
+                    <div className="d-inline-flex">
+                        {input.categories.map((e,index)=>
+                        <div key={index} className="mx-5">
+                            <button className="my-5" onClick={()=>handleDelete(e)}>{e}</button>
+                            {console.log(e)}
+                        </div>
+                        )}
+                    </div>
+
                     </form>
                 </div>
         </div>

@@ -10,7 +10,9 @@ const { createQuestion,
     unlikeQuestion,
     viewQuestion,
     getQuestionsByUser,
-    getDeletedQuestions } = require('../controllers/questionsController.js')
+    getDeletedQuestions,
+    logDelete,
+    rateQuestion } = require('../controllers/questionsController.js')
 
 // /questions/...
 router.post('/', createQuestion);
