@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, getRatingSum } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -200,7 +200,7 @@ const likeQuestion = async (req, res) => {
     }
 
     catch (error) {
-        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
+        return res.status(500).json({ error: `Error en el controlador de question al hacer like: ${error}`, data: null })
 
     }
 }
@@ -218,7 +218,7 @@ const unlikeQuestion = async (req, res) => {
         return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
     } catch (error) {
 
-        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null })
+        return res.status(500).json({ error: `Error en el controlador de question al eliminar el voto: ${error}`, data: null })
     }
 }
 
@@ -243,15 +243,15 @@ const getQuestionsByUser = async (req, res) => {
 const logDelete = async (req, res) => {
     try {
         const questionId = req.params.questionId;
-        const active = req.body.active;
+        const isDeleted = req.body.active;
 
-        const updateQuestion = await Question.update({ active }, {
+        const updateQuestion = await Question.update({ isDeleted }, {
             where: {
                 id: questionId
             }
 
         });
-        console.log(active)
+        console.log(isDeleted)
         if (updateQuestion[0] !== 0) {
             const response = await Question.findByPk(questionId, {
                 include: [
@@ -273,28 +273,55 @@ const logDelete = async (req, res) => {
     }
 }
 
-const rateQuestion = async (req,res)=>{
-    const {userId, questionId, rating} =req.body
-    try{
-        const rate = {userId, questionId,rating}
-        const newVote = await Ratingxquestion.create(rate)
-        const ratingCountUpdated = await Ratingxquestion.count({
-            where:{
+const rateQuestion = async (req, res) => {
+    const {userId, questionId, rating} = req.body;
+    try {
+
+        if (!userId || !questionId || !rating) {
+            return res.status(401).json({
+                error: "The required fields userId, questionId, and rating are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
+        let rateItem = await Ratingxquestion.findOne({
+            where: {
+                userId, questionId
+            }
+        });
+
+        if(!rateItem) {
+            const rateNew = {userId, questionId, rating}
+            await Ratingxquestion.create(rateNew)
+        }
+        else {
+            rateItem.rating = rating;
+            rateItem.save();
+        }
+
+        const rateCountUpdated = await Ratingxquestion.count({
+            where: {
                 questionId
             }
-        })
-        const sum = await Ratingxquestion.sum('rating',{
-            where:{
-                questionId
-            }
-        })
-        const ratingAverageUpdated= await sum/ ratingCountUpdated
-        const questionItem = await Question.findByPk(questionId)
-        questionItem.ratingCount = ratingCountUpdated;
-        questionItem.ratingAverage= ratingAverageUpdated;
+        });
+
+        const rateSumUpdated = await getRatingSum(questionId);
+        const questionItem = await Question.findByPk(questionId);
+
+        questionItem.ratingCount = rateCountUpdated;
+        questionItem.ratingAverage = rateSumUpdated.getDataValue('sum') / rateCountUpdated;
         await questionItem.save();
 
-        return res.status(200).json({msg: 'voto creado exitosamente', error: null, rate})
+        let ratingList = await queryRatingList(userId)
+
+        return res.status(200).json({
+            questionItem: {
+                userId,
+                ratingCount: questionItem.ratingCount,
+                ratingAverage: questionItem.ratingAverage
+            },
+            ratingList
+        });
     }
 
     catch(error){
@@ -303,11 +330,45 @@ const rateQuestion = async (req,res)=>{
     }
 }
 
+const getRatingList = async (req, res) => {
+    const {userId} = req.params;
+    try {
 
-<<<<<<< HEAD
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion }
-=======
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, getQuestionsByUser }
->>>>>>> ae6dd797fbac33e31c28a1d81f8b2b7e51ef19fd
+        if (!userId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them.",
+                data: null
+            })
+        }
 
+        let ratingList = await queryRatingList( userId)
+        return res.status(200).json(ratingList);
+    }
+
+    catch(error){
+        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+
+    }
+}
+
+function queryRatingList( userId) {
+    return Question.findAll(
+        {
+ 
+            include: [
+                {
+                    model: Ratingxquestion,
+                    where: {
+                        userId
+                    }
+                },
+            ]
+        }
+    );
+}
+
+
+
+
+        
 module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion,getQuestionsByUser }

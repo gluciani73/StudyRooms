@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import {Link, useParams} from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
 import AnswerList from '../answers/AnswerList'
@@ -10,34 +10,32 @@ import LikeB from '../likebutton/Likeb'
 import LogDel from '../likebutton/LogDel'
 import ReactStars from 'react-stars'
 import { rateQuestions } from "../../Controllers/Actions/likesActions";
+import sweetalert from 'sweetalert';
+
+
 
 const QuestionDetail = () => {
-  let {id} = useParams();
-  const dispatch = useDispatch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(()=>{dispatch(getDetail(id))},[dispatch])
-  const userInfo = useSelector((state)=> state.loginReducer.userInfo);
-  const myQuestion = useSelector((state)=>state.questionReducer.detail.data)
-
-const [input,setInput]= useState({
-  userId: userInfo.id,
-  questionId: myQuestion[0].id,
-  rating:0
-})
+let {id} = useParams();
+const dispatch = useDispatch();  
+useEffect(()=>{dispatch(getDetail(id))},[dispatch])
+const uId = useSelector((state)=> state.loginReducer.userInfo.id);
+const myQuestion = useSelector((state)=>state.questionReducer.detail.data);
 
 
 
-function handleSubmit(e){
-  e.preventDefault();
-  dispatch(rateQuestions(id,input))
-  setInput({
-    userId: userInfo.id,
-    questionId: myQuestion[0].id,
-    rating:newRating
-  })
 
- 
+function handleRateChange(userId, questionId, rating) {
+  if(uId !== myQuestion[0].userId) {
+      dispatch(rateQuestions({userId, questionId, rating}));
+  }
+  else {
+      sweetalert({
+          title:"Action not allowed",
+          text: `You can not rate your own answer.`
+      });
+  }
 }
+
 
   
   return(
@@ -53,17 +51,16 @@ function handleSubmit(e){
             <LikeB userId={e.userId} questionId={e.id}/> 
             <p>{e.votesxquestions.length}</p>
           </div>
-
+          
           <Link to='/Home'>home</Link>
           <LogDel/>
           <ReactStars
-            className="stars"
-            onChange={newRating} 
-            value={Number(e.ratingAverage)}
+            value={myQuestion[0].ratingAverage}
+            onChange={(newRate) => handleRateChange(uId, id, newRate)}
             edit={true}
-            size={20}/>
-            
-
+            size={30}
+            half={false}
+            />  
           <AnswerList questionId={id}/>        
           <CommentList questionId={id}/>
         </div>
@@ -72,6 +69,6 @@ function handleSubmit(e){
     })
     
   ) 
-}
- 
+  
+  }
 export default QuestionDetail;

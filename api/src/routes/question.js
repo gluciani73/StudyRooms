@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { createQuestion, getQuestions, getQuestion, updateQuestion, deleteQuestion, likeQuestion, unlikeQuestion, viewQuestion, logDelete, rateQuestion,getQuestionsByUser } = require('../controllers/questionsController.js')
+const { createQuestion, getQuestions, getQuestion, updateQuestion, deleteQuestion, likeQuestion, unlikeQuestion, viewQuestion, logDelete, rateQuestion,getQuestionsByUser, editQuestionR } = require('../controllers/questionsController.js')
 
 
 
@@ -10,10 +10,10 @@ router.get('/:questionId', getQuestion);
 router.get('/', getQuestions);
 router.get('/user/:userId', getQuestionsByUser);
 router.put('/:questionId', updateQuestion)
-router.delete('/:questionId', deleteQuestion)
+router.put('/:questionId', deleteQuestion)
 router.post('/review', viewQuestion)
 router.post('/like/:questionId',likeQuestion)
 router.delete('/like/:questionId',unlikeQuestion)
 router.put('/active/:questionId', logDelete)
-router.post('/rate/:questionId',rateQuestion)
+router.put('/rate/:questionId',rateQuestion)
 module.exports = router;

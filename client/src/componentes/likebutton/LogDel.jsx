@@ -16,22 +16,12 @@ const LogDel = () => {
     function handleClick(e){
         
         let id = check[0].id        
-        let test = check[0].active
-           
         e.preventDefault();
-        if(test=true){
             dispatch(logDelete(id, input))
             setInput({
                 active:false
             })
- 
-        }else{
-            dispatch(logDelete(id, input))
-            setInput({
-                active:true
-            })
-
-        }}
+        }
 
    
         return (<div>
