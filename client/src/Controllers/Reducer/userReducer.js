@@ -1,4 +1,4 @@
-import { GET_USER_LIST, UPDATE_USERS } from "../../constants";
+import { GET_USER_LIST, UPDATE_USERS, CREATE_USER } from "../../constants";
 
 const initialState ={
     userList:[],
@@ -18,11 +18,22 @@ export default function userReducer(state= initialState,{type,payload}){
             )
             return {
                 ...state,
-                userList: userListUpdated.sort((a, b) =>
-                    (a.id > b.id) ? 1 : -1)
+                userList: getOrderedList(userListUpdated)
             };
+
+        case CREATE_USER:
+            return {
+                ...state,
+                userList: getOrderedList([...state.userList, payload])
+            }
 
     default:
        return {...state};
     }
+}
+
+function getOrderedList(originalList) {
+    return originalList.sort((a, b) =>
+        (a.id > b.id) ? 1 : -1
+    );
 }
