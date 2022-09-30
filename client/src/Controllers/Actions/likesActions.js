@@ -1,9 +1,10 @@
 import axios from "axios";
-import { ADD_LIKES, DELETE_LIKES, URL_BACK } from "../../constants";
+import { ADD_LIKES, DELETE_LIKES, URL_BACK, ADD_RATING } from "../../constants";
+const token = localStorage.getItem("token")
 
 export function postLikesQuestions(data) {
     return async function (dispatch) {
-        var info = await axios.post(`${URL_BACK}questions/like/${data.questionId}`,data);
+        var info = await axios.post(`${URL_BACK}questions/like/${data.questionId}`, {headers:{"Authorization":`Bearer ${token}`}} ,data);
         
         return dispatch({
             type: ADD_LIKES,
@@ -15,7 +16,7 @@ export function postLikesQuestions(data) {
 
 export const deleteLikesQuestions = (data) => {
     return async function (dispatch) {
-        var info = await axios.delete(`${URL_BACK}questions/like/${data.questionId}?userId=${data.userId}`);
+        var info = await axios.delete(`${URL_BACK}questions/like/${data.questionId}?userId=${data.userId}`, {headers:{"Authorization":`Bearer ${token}`}});
         return  dispatch({
                 type: DELETE_LIKES,
                 payload: info.data
@@ -23,3 +24,18 @@ export const deleteLikesQuestions = (data) => {
     }
 };
     
+export function rateQuestions(data) {
+    return function (dispatch) {
+console.log(data)
+        axios.put(`${URL_BACK}/questions/rate/${data.questionId}`, data)
+            .catch(error => console.log("Action creator updateAnswerRating: ", error))
+            .then((response) => {
+                dispatch({
+                    type: ADD_RATING,
+                    payload: response.data
+                });
+            });
+    }
+}
+
+

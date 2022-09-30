@@ -12,7 +12,7 @@ import '../../CssAdicional/QuestionsCss.css'
 
 const Home = () => {
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getQuestions())

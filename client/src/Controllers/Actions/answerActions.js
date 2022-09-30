@@ -8,10 +8,11 @@ export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
 export const UPDATE_ANSWER_RATE = "UPDATE_ANSWER_RATE";
 export const SORT_ANSWER_LIST = "SORT_ANSWER_LIST";
 export const GET_RATING_LIST = "GET_RATING_LIST";
+const token = localStorage.getItem("token")
 
 export const getAnswerList = (questionId) => {
     return function (dispatch) {
-        axios.get(`/answers/${questionId}`)
+        axios.get(`/answers/${questionId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getAnswerList:", error))
             .then(response => {
                 dispatch({
@@ -25,7 +26,7 @@ export const getAnswerList = (questionId) => {
 export const createAnswerItem = (answerItem) => {
     return function (dispatch) {
 
-        axios.post(`/answers`, answerItem)
+        axios.post(`/answers`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
 
             .catch(error => console.log("Action creator createAnswerItem: ", error))
             .then(response => {
@@ -40,7 +41,7 @@ export const createAnswerItem = (answerItem) => {
 export const updateAnswerItem = (answerItem) => {
     return function (dispatch) {
 
-        axios.put(`/answers/${answerItem.id}`, answerItem)
+        axios.put(`/answers/${answerItem.id}`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
 
             .catch(error => console.log("Action creator updateAnswerItem: ", error))
             .then(response => {
@@ -55,7 +56,7 @@ export const updateAnswerItem = (answerItem) => {
 export const deleteAnswerItem = (answerItem) => {
     return function (dispatch) {
 
-        axios.delete(`/answers/${answerItem.id}`)
+        axios.delete(`/answers/${answerItem.id}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator deleteAnswerItem: ", error))
             .then(() => {
                 dispatch({
@@ -69,7 +70,7 @@ export const deleteAnswerItem = (answerItem) => {
 export const updateAnswerVote = (voteInfo) => {
     return function (dispatch) {
 
-        axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo)
+        axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerVote: ", error))
             .then(() => {
                 dispatch({
@@ -90,7 +91,7 @@ export const sortAnswerList = (sortOption) => {
 export const updateAnswerRating = (ratingInfo) => {
     return function (dispatch) {
 
-        axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo)
+        axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerRating: ", error))
             .then((response) => {
                 dispatch({
@@ -104,7 +105,7 @@ export const updateAnswerRating = (ratingInfo) => {
 export const getRatingList = (userId, questionId) => {
     return function (dispatch) {
 
-        axios.get(`/answers/${questionId}/rating/${userId}`)
+        axios.get(`/answers/${questionId}/rating/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getRatingList: ", error))
             .then((response) => {
                 dispatch({

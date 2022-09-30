@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo2.png'
-import config from '../../recursos/config.png'
-import notification from '../../recursos/notification.png'
 import home from '../../recursos/home.png'
 import DropDown from './DropDown'
 import SearchBar from "./SearchBar"
@@ -18,6 +16,7 @@ const NavBar = () => {
                     <div className='col d-flex justify-content-center'>
                         <img src={logo} height="50px" alt="logo" />
                     </div>
+
 
                 </div>
             </div>

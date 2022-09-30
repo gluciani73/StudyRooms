@@ -10,7 +10,9 @@ const { createQuestion,
     unlikeQuestion,
     viewQuestion,
     getQuestionsByUser,
-    getDeletedQuestions } = require('../controllers/questionsController.js')
+    getDeletedQuestions,
+    logDelete,
+    rateQuestion } = require('../controllers/questionsController.js')
 
 // /questions/...
 router.post('/', createQuestion);
@@ -22,7 +24,8 @@ router.get('/user/:userId', getQuestionsByUser);
 router.put('/:questionId', updateQuestion)
 router.delete('/:questionId', deleteQuestion)
 router.post('/review', viewQuestion)
-router.post('/like/:questionId', likeQuestion)
-router.delete('/like/:questionId', unlikeQuestion)
-
+router.post('/like/:questionId',likeQuestion)
+router.delete('/like/:questionId',unlikeQuestion)
+router.put('/active/:questionId', logDelete)
+router.put('/rate/:questionId',rateQuestion)
 module.exports = router;

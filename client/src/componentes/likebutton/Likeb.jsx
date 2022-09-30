@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {postLikesQuestions, deleteLikesQuestions} from "../../Controllers/Actions/likesActions"
 import { useDispatch, useSelector } from 'react-redux';
 import like from '../../recursos/thumbs.png'
@@ -28,22 +27,22 @@ const LikeB = () => {
         
         
         e.preventDefault();
-        console.log(test)
+        
         if(!test.length){
         dispatch(postLikesQuestions(input))
-        alert("Liked")
         }else{
         dispatch(deleteLikesQuestions(input))
-        alert("unLiked")
         }
         dispatch(getDetail(id))
     }
         
-        return (<div>
+        return (<div className="bg-dark" >
 
             <button onClick={e =>handleSubmit(e)}>
-                <div>
-                <img src={like} alt="" height="20px"/>
+                <div className="bg-primary d-inline-flex">
+                <img src={like} alt="" height="20px" className="px-2"/> <p>likes:</p>
+                <p>{check[0].votesxquestions.length}</p>
+
                 </div>
             </button>
         </div>  );

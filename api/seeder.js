@@ -1,4 +1,6 @@
 const axios = require('axios')
+const jwt = require('jsonwebtoken')
+const { AUTH_SECRET } = require('./src/CONSTANTS.js')
 
 const testData = require('./testData.json')
 const { Category } = require('./src/db.js')
@@ -51,17 +53,27 @@ async function createTestData() {
     isAdmin: true
   })
 
+  // creo token para las requests de test
+  const testToken = jwt.sign({
+    userName: "testUser1",
+    firstName: "test1",
+    lastName: "user1",
+    email: "test1@test.com",
+    password: "123",
+    active: true
+  }, AUTH_SECRET, { expiresIn: '1d' })
+
   // MOCKUP CATEGORIES
   const categ = [
-    'Matematicas',
-    'Historia',
-    'Geografia',
-    'Quimica',
-    'Biologia',
-    'Economia',
-    'Programacion',
-    'Filosofia',
-    'Lenguas'
+    'Maths',
+    'History',
+    'Geography',
+    'Chemistry',
+    'Biology',
+    'Economy',
+    'Programming',
+    'Philosophy',
+    'Languages'
   ]
 
   categ.forEach(c => {
@@ -75,23 +87,24 @@ async function createTestData() {
 
     await axios.post(mockURL + '/questions', {
       userId, title: "Question " + title + " " + i, description, categories
-    })
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 
   // MOCKUP ANSWERS
   for (let i = 0; i < testData.answers.length; i++) {
 
-    const { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
+    let { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
 
     await axios.post(mockURL + '/answers', {
       questionId, userId, answer
-    })
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
 
     const answerId = i + 1;
-    for(let j=0; j < voteCount; j++) {
+    for (let j = 0; j < voteCount; j++) {
       await axios.post(mockURL + `/answers/vote/${answerId}`, {
         userId, answerId
-      })
+      }, { headers: { "Authorization": `Bearer ${testToken}` } })
+      userId++;
     }
 
   }
@@ -103,7 +116,7 @@ async function createTestData() {
 
     await axios.post(mockURL + '/comments', {
       questionId, userId, comment
-    })
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 
   //MOCKUP RATING
@@ -113,7 +126,7 @@ async function createTestData() {
 
     await axios.put(mockURL + `/answers/rating/${answerId}`, {
       questionId, answerId, userId, rating
-    })
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 }
 

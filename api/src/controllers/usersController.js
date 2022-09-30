@@ -10,18 +10,15 @@ const signUp = async (req, res) => {
 
     try {
         const { userName, password, firstName, lastName, email} = req.body
-        if (!userName || !password || !firstName || !lastName || !email) {
-            return res.status(401).json({ data: null, error: "faltan datos" })
-        }
         
         const avatar = req.body.avatar || 'https://res.cloudinary.com/dcmn0kkly/image/upload/v1663359592/guest-user_clv1cg.jpg'
-        const userFound = await User.findOne({ where: { userName: userName } })
-
+        
         /* ESTO ES PARA PODER CREAR LOS USUARIOS DE TEST*/
         const active = req.body.active || false
         const isAdmin = req.body.isAdmin || false
         /*------------------------------------------------*/
-
+        
+        const userFound = await User.findOne({ where: { userName: userName } })
         if (userFound) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
 
         const userFoundByMail = await User.findOne({ where: { email: email } })
@@ -37,7 +34,6 @@ const signUp = async (req, res) => {
             email,
             hashedPassword,
             avatar,
-            isAdmin: false,
             isPremium: false,
             active,  // cambiar esto a "active: false" para deploy
             isAdmin  // cambiar esto a "isAdmin: false" para deploy
@@ -70,13 +66,13 @@ const signUp = async (req, res) => {
 }
 
 const signIn = async (req, res) => {
-    const { userName, password } = req.body
-    if (!userName || !password) {
-        return res.status(404).json({ data: null, error: "faltan datos" })
-    }
     try {
-        const userFound = await User.findOne({ where: { userName: userName } })
-        if (userFound) {
+        const { userName, password } = req.body
+        const userFoundByName = await User.findOne({ where: { userName: userName } })
+        const userFoundByEmail = await User.findOne({ where: { email: userName } })
+        if (userFoundByName || userFoundByEmail) {
+
+            const userFound = userFoundByName || userFoundByEmail
             if(userFound.active === false) return res.status(403).json({data:null, error: "user needs to activate account, check email"})
             if (bcrypt.compareSync(password, userFound.hashedPassword)) {
                 const dataToSend = {
@@ -119,7 +115,7 @@ const activateAccount = async (req,res) => {
 const getAllUsers = async (req,res) => {
 
     try {
-        const results = await User.findAll()
+        const results = await User.findAll({ attributes: {exclude: ['hashedPassword']}})
         if(results){
             return res.status(200).json(results)
         }
@@ -243,18 +239,23 @@ const recoveryGET = async (req,res) => {
     }
 }
 
-
 const updateUser = async (req, res) => {
     try{
+
+        // con esto saco la info del user que hizo la request con la variable "userFromRequest"
+        const {dataValues: userFromRequest} = await req.user
+
         const { firstName, lastName, avatar } = req.body
         const { userId } = req.params
-        
+
         if ( !firstName && !lastName && !avatar) {
             return res.status(400).json({data:null, error: "faltan datos"})
         }
 
         const userExists = await User.findByPk(userId)
         if(!userExists) return res.status(404).json({data:null, error: "no se encontró usuario con ese id"})
+
+        if(userExists.id !== userFromRequest.id && userFromRequest.isAdmin !== true) return res.status(403).json({error: "no podes modificar otros usuarios", data: null})
         
         let newAvatar = avatar
         if(!avatar || !avatar.length){

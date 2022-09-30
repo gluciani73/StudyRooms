@@ -7,6 +7,7 @@ import stars from '../../recursos/star.png'
 
 export default function Question({title, description, ratingAverage, userId, likes}) {
     return(
+
         <div className='container containerQuestions'>
             <h3> {title} </h3>
             <h4> {description} </h4>
