@@ -1,9 +1,10 @@
 import axios from "axios";
 import { ADD_LIKES, DELETE_LIKES, URL_BACK, ADD_RATING } from "../../constants";
-const token = localStorage.getItem("token")
+
 
 export function postLikesQuestions(data) {
     return async function (dispatch) {
+        const token = localStorage.getItem("token")
         var info = await axios.post(`${URL_BACK}questions/like/${data.questionId}`, {headers:{"Authorization":`Bearer ${token}`}} ,data);
         
         return dispatch({
@@ -16,6 +17,7 @@ export function postLikesQuestions(data) {
 
 export const deleteLikesQuestions = (data) => {
     return async function (dispatch) {
+        const token = localStorage.getItem("token")
         var info = await axios.delete(`${URL_BACK}questions/like/${data.questionId}?userId=${data.userId}`, {headers:{"Authorization":`Bearer ${token}`}});
         return  dispatch({
                 type: DELETE_LIKES,
