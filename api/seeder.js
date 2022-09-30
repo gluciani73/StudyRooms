@@ -61,7 +61,7 @@ async function createTestData() {
     email: "test1@test.com",
     password: "123",
     active: true
-  }, AUTH_SECRET, {expiresIn:'1d'})
+  }, AUTH_SECRET, { expiresIn: '1d' })
 
   // MOCKUP CATEGORIES
   const categ = [
@@ -87,23 +87,24 @@ async function createTestData() {
 
     await axios.post(mockURL + '/questions', {
       userId, title: "Question " + title + " " + i, description, categories
-    }, {headers:{"Authorization":`Bearer ${testToken}`}})
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 
   // MOCKUP ANSWERS
   for (let i = 0; i < testData.answers.length; i++) {
 
-    const { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
+    let { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
 
     await axios.post(mockURL + '/answers', {
       questionId, userId, answer
-    },{headers:{"Authorization":`Bearer ${testToken}`}})
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
 
     const answerId = i + 1;
-    for(let j=0; j < voteCount; j++) {
+    for (let j = 0; j < voteCount; j++) {
       await axios.post(mockURL + `/answers/vote/${answerId}`, {
         userId, answerId
-      },{headers:{"Authorization":`Bearer ${testToken}`}})
+      }, { headers: { "Authorization": `Bearer ${testToken}` } })
+      userId++;
     }
 
   }
@@ -115,7 +116,7 @@ async function createTestData() {
 
     await axios.post(mockURL + '/comments', {
       questionId, userId, comment
-    },{headers:{"Authorization":`Bearer ${testToken}`}})
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 
   //MOCKUP RATING
@@ -125,7 +126,7 @@ async function createTestData() {
 
     await axios.put(mockURL + `/answers/rating/${answerId}`, {
       questionId, answerId, userId, rating
-    },{headers:{"Authorization":`Bearer ${testToken}`}})
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
 }
 
