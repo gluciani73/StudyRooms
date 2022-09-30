@@ -115,19 +115,9 @@ const activateAccount = async (req,res) => {
 const getAllUsers = async (req,res) => {
 
     try {
-        const results = await User.findAll()
+        const results = await User.findAll({ attributes: {exclude: ['hashedPassword']}})
         if(results){
-            const dataToSend = {
-                id: results.id,
-                userName: results.userName,
-                firstName: results.firstName,
-                lastName: results.lastName,
-                email: results.email,
-                avatar: results.avatar,
-                active: results.active,
-                isAdmin: results.isAdmin
-            }
-            return res.status(200).json(dataToSend)
+            return res.status(200).json(results)
         }
         else{
             return res.status(404).json({data: [], error:"no se encontraron usuarios"})
