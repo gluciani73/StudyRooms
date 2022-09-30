@@ -128,7 +128,7 @@ const AskQuestion = () => {
                     </div>
                     <div className="mb-3">
                         <label  className="form-label fs-3 text-primary">Description</label>
-                        <input type="text" 
+                        <textarea type="text" 
                         className="form-control"
                         name="description" 
                         value={input.description} 

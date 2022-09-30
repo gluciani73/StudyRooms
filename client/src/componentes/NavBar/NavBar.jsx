@@ -15,9 +15,11 @@ const NavBar = () => {
    <div >
    <nav className="navbar navbar-expand-lg navbar-light bg-white">
            <div className='d-inline-flex p-2 align-items-center auto-mx'>
-               
+
+            <Link to={'../home'}>
                <img className="me-5" src={logo} height="100px" alt="logo" />
-               
+               </Link>   
+
            </div>
            <div className='col-md-auto'>
             
