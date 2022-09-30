@@ -11,10 +11,14 @@
 @import "../node_modules/bootstrap/scss/functions";
 
 // Default variable overrides
-$body-bg: #000;
-$body-color: #2E343A;
 $teal: #0CE8AB;
 $pink: #DB0F80;
+
+$bg: #000;
+$body-color: #2E343A;
+$primary : $teal;
+$secundary: $pink;
+$cardblack:#2E343A;
 
 
 // Required

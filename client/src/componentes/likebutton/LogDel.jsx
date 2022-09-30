@@ -1,14 +1,14 @@
 import {logDelete} from "../../Controllers/Actions/questionsActions"
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 
 
 const LogDel = () => {
     const dispatch = useDispatch();
     const check = useSelector((state)=>state.questionReducer.detail.data)
-    
+    const navigate = useNavigate();
     const [input,setInput]= useState ({
         active : true
     })
@@ -21,6 +21,7 @@ const LogDel = () => {
             setInput({
                 active:false
             })
+            navigate('../home')
         }
 
    
