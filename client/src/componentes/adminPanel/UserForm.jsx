@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import '../answers/AnswerForm.css';
 import './UserForm.css';
 
-export default function UserForm({buttonText, buttonAction, buttonCancel}) {
+export default function UserForm({userInitial, buttonText, buttonAction, buttonCancel}) {
 
     const userInitialStatus = {
         userName: '',
@@ -16,7 +16,7 @@ export default function UserForm({buttonText, buttonAction, buttonCancel}) {
         password: '',
         passConfirm: '',
     };
-    const [userItem, setUserItem] = useState(userInitialStatus);
+    const [userItem, setUserItem] = useState(userInitial ? {...userInitial} : userInitialStatus);
     const [errorList, setErrorList] = useState({});
 
     const regexName = /^[\dA-Za-z\s-]*$/;
