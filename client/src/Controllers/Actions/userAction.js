@@ -25,7 +25,6 @@ export const editUserAction = (user, userId)=>{
     return async function (dispatch){
         try {
             const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
-            console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo.data
@@ -40,7 +39,6 @@ export const changePassword = (user, userId)=>{
     return async function (dispatch){
         try {
             const sendInfo = (await axios.put(`/users/changePassword/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
-            console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo
