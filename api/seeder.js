@@ -81,17 +81,18 @@ async function createTestData() {
   // MOCKUP ANSWERS
   for (let i = 0; i < testData.answers.length; i++) {
 
-    const { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
+    let { questionId, userId, answer, ratingAverage, ratingCount, voteCount } = testData.answers[i]
 
     await axios.post(mockURL + '/answers', {
       questionId, userId, answer
     })
 
     const answerId = i + 1;
-    for(let j=0; j < voteCount; j++) {
+    for (let j = 0; j < voteCount; j++) {
       await axios.post(mockURL + `/answers/vote/${answerId}`, {
         userId, answerId
       })
+      userId++;
     }
 
   }
