@@ -9,14 +9,17 @@ const EditPassword = ()=>{
     const userId = userInfo.id
     const dispatch =useDispatch();
     const errorLog = useSelector((state) => state.userReducer.error)
-    console.log("error en edicion",errorLog);
+    const changePassword = useSelector((state) => state.userReducer.changePassword)
+
+
+    console.log("error en contraseña",errorLog);
     function validate(data){
         var errors = {};
-        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.password)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
-        if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
+        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.newPassowrd)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
+        if(data.newPassowrd !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
         return errors;
     }
-
+    
     const [formError, setFormError] = useState({})
     const [newPassowrd, setNewPassowrd] = useState({
         password:"",
@@ -38,15 +41,12 @@ const EditPassword = ()=>{
 
     function handleSubmit(e){
         e.preventDefault();
-        
-          dispatch(changePassword(newPassowrd, userId))
+       dispatch(changePassword(newPassowrd, userId))
             setNewPassowrd({
                 password:"",
                 newPassword:"",
                 ConfirmPassword:""
             })
-            alert("Contaseña modificada correctamente")
-          
 
         }
 
@@ -57,23 +57,25 @@ const EditPassword = ()=>{
 
 
                     <div>
+                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}
+                        {changePassword && <p className="alert alert-success">{changePassword}</p>}
                         <label htmlFor="password">Password</label>                     
                         <input className='d-block  m-1 border-0 form-control' type="password"  value={newPassowrd.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
-                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}
+                       
                     </div>
 
 
                     <div>
                         <label htmlFor="newPassword"> New Password</label>                
                         <input className='d-block  m-1 border-0 form-control' value={newPassowrd.newPassword} type="text"  placeholder='New Password' id='newPassword' name='newPassword' onChange={(e)=>handleChange(e)} required/>
-                        {formError.newPassword && <span><strong>{formError.newPassword}</strong></span>}
+                        {formError.newPassword && <p className="alert alert-danger">{formError.newPassword}</p>}
                     </div>
 
                     
                     <div>
                         <label htmlFor="ConfirmPassword">Confirm Password</label>                
                         <input className='d-block  m-1 border-0 form-control' value={newPassowrd.ConfirmnewPassword} type="text"  placeholder='Confirm Password' id='ConfirmPassword' name='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
-                        {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
+                        {formError.ConfirmPassword && <p className="alert alert-danger">{formError.ConfirmPassword}</p>}
                     </div>
 
                     <button type='submit' value='update'>Save</button>

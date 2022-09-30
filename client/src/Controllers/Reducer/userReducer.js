@@ -2,6 +2,8 @@ import { GET_USER_LIST, UPDATE_USERS, CREATE_USER, GET_ERROR } from "../../const
 
 const initialState ={
     userList:[],
+    error:"",
+    changePassword:""
 }
 
 export default function userReducer(state= initialState,{type,payload}){
@@ -18,7 +20,9 @@ export default function userReducer(state= initialState,{type,payload}){
             )
             return {
                 ...state,
-                userList: getOrderedList(userListUpdated)
+                userList: getOrderedList(userListUpdated),
+                error:"",
+                changePassword:"Contraseña cambiada"
             };
 
         case CREATE_USER:
@@ -27,10 +31,12 @@ export default function userReducer(state= initialState,{type,payload}){
                 userList: getOrderedList([...state.userList, payload])
             }
         case GET_ERROR:
-            return{
-                ...initialState,
-                error:payload
-            }
+           
+                return{
+                    ...initialState,
+                    error:payload,
+                    changePassword:""
+                }     
 
     default:
        return {...state};

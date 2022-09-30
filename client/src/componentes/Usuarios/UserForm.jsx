@@ -121,48 +121,42 @@ export default function CreateUser(){
                 <h1>Register</h1>
 
                     <div>
-                    <label htmlFor="NickName">Nickname</label>
-                        <input className='d-block  m-1 border-1 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='Nickname' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
-
-                    {formError.userName && <span><strong>{formError.userName}</strong></span>}
+                        {formError.userName && <p className="alert alert-danger">{formError.userName}</p>}
+                        <label htmlFor="NickName">Nickname</label>
+                        <input className='d-block  m-1 border-1 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='Nickname' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>                  
                    </div>
 
                     <div>
-
+                        {formError.firstName && <p className="alert alert-danger">{formError.firstName}</p>}
                         <label htmlFor="firstName">Name</label>
                         <input className='d-block  m-1 border-1 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>
-                        {formError.firstName && <span><strong>{formError.firstName}</strong></span>}
                     </div>
 
 
 
                     <div>
+                        {formError.lastName && <p className="alert alert-danger">{formError.lastName}</p>}
                         <label htmlFor="lastName">Last Name</label>                
                         <input className='d-block  m-1 border-1 form-control' type="text" value={newUser.lastName} placeholder='Last Name' id='lastName' name='lastName'onChange={(e)=>handleChange(e)} required/>
-                        {formError.lastName && <span><strong>{formError.lastName}</strong></span>}
-
                     </div>
 
                     <div>
-
+                        {formError.email && <p className="alert alert-danger">{formError.email}</p>}
                         <label htmlFor="email">Email</label>                        
                         <input className='d-block  m-1 border-1 form-control' type="email" value={newUser.email} placeholder='email@example.com'name='email' id='email' autoComplete='off' onChange={(e)=>handleChange(e)} required/>
-                        {formError.email && <span><strong>{formError.email}</strong></span>}
                     </div>
 
 
                     <div>
+                        {formError.password && <p className="alert alert-danger">{formError.password}</p>}
                         <label htmlFor="password">Password</label>                     
-                        <input className='d-block  m-1 border-1 form-control' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
-                        {formError.password && <span><strong>{formError.password}</strong></span>}
+                        <input className='d-block  m-1 border-1 form-control' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>                    
                     </div>
 
                     <div>
+                        {formError.ConfirmPassword && <p className="alert alert-danger">{formError.ConfirmPassword}</p>}
                         <label htmlFor="ConfirmPassword">Confirm Password</label>
                         <input className='d-block  m-1 border-1 form-control' type="password"  value={newUser.ConfirmPassword} name='ConfirmPassword' id='ConfirmPasswordoto' placeholder='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
-
-                        {formError.ConfirmPassword && <span><strong>{formError.ConfirmPassword}</strong></span>}
-                        
                     </div>
 
 
@@ -171,7 +165,7 @@ export default function CreateUser(){
                     <div>
 
                         <label htmlFor="Photo">Photo</label>
-                        <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} />
+                        <input type="file"  accept="image/png, image/jpeg"   name='avatar' id='avatar'  onChange={(e)=>uploadImage(e)} required />
                     </div>   
                    
 
