@@ -117,7 +117,17 @@ const getAllUsers = async (req,res) => {
     try {
         const results = await User.findAll()
         if(results){
-            return res.status(200).json(results)
+            const dataToSend = {
+                id: results.id,
+                userName: results.userName,
+                firstName: results.firstName,
+                lastName: results.lastName,
+                email: results.email,
+                avatar: results.avatar,
+                active: results.active,
+                isAdmin: results.isAdmin
+            }
+            return res.status(200).json(dataToSend)
         }
         else{
             return res.status(404).json({data: [], error:"no se encontraron usuarios"})
