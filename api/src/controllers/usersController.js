@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../db.js')
 const sendMail = require('./mailer.js')
 
-const {AUTH_SECRET, ACTIVATION_SECRET, RECOVERY_SECRET} = require('../CONSTANTS.js')
+const {AUTH_SECRET, ACTIVATION_SECRET, RECOVERY_SECRET, FRONT_URL} = require('../CONSTANTS.js')
 const mockURL = process.env.DB_LOCALHOST3001 || "https://studyrooms-deploy.herokuapp.com"
 
 const signUp = async (req, res) => {
@@ -104,11 +104,11 @@ const activateAccount = async (req,res) => {
     const data = jwt.verify(token, ACTIVATION_SECRET)
     const user = await User.findOne({where:{email:data.email}})
     if(user){
-        User.update({active: true},{where:{email:data.email}})
-        return res.status(200).json({data: "account activated", error: null})
+        await User.update({active: true},{where:{email:data.email}})
+        res.redirect(FRONT_URL)
     }
     else{
-        return res.status(404).json({data: null, error: "account not found"})
+        return res.sendStatus(404)
     }
 }
 
