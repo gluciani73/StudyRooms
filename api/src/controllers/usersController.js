@@ -115,7 +115,7 @@ const activateAccount = async (req,res) => {
 const getAllUsers = async (req,res) => {
 
     try {
-        const results = await User.findAll({attributes: {exclude: ['hashedPassword']}})
+        const results = await User.findAll({ attributes: {exclude: ['hashedPassword']}})
         if(results){
             return res.status(200).json(results)
         }
