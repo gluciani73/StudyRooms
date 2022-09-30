@@ -11,20 +11,20 @@ export default function Question({title, description, ratingAverage, userId, lik
     
     return(
 
-    <div>
+    <div className="d-inline-flex container border">
         <div className="row">
-        <p>title:</p>   
-        <p className="row">{title}</p>
+           
+        <h2 className="row ms-1"> {title}</h2>
     
-        <div className="col">
-            <p>rating:</p>
-            <p>{ratingAverage}</p>
-            <img src={stars} alt="" height="20px" width="20px"/>
+        <div className="col d-inline-flex">
+            
+            <p>rating: {ratingAverage}</p>
+            <img className="ms-2" src={stars} alt="" height="20px" width="20px"/>
         </div>
-        <div className="col">
-             <p>votes:</p>
-             <p>{likes}</p>
-             <img src={upVote} alt="" height="20px" width="20px" />
+        <div className="col d-inline-flex">
+             
+             <p>likes: {likes}</p>
+             <img className="ms-2" src={upVote} alt="" height="20px" width="20px" />
         </div>
         
 
@@ -36,8 +36,8 @@ export default function Question({title, description, ratingAverage, userId, lik
         </div>
 
         <div className="row">
-            <p>User:</p>
-            <p>{userId}</p>
+            
+            <p>Author:{userId}</p>
         </div>
 
     </div>
