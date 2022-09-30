@@ -1,10 +1,11 @@
-import { CREATE_USER, GET_USER_LIST, UPDATE_USERS } from "../../constants";
+import { CREATE_USER, GET_ERROR, GET_USER_LIST, UPDATE_USERS } from "../../constants";
 import axios from 'axios'
-const token = localStorage.getItem("token")
+
 
 export const createUserAction = (user) => {
     return async function (dispatch) {
         try {
+            const token = localStorage.getItem("token")
             const data = (await axios.post(`/users/signup`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
             return dispatch({
                 type: CREATE_USER,
@@ -24,8 +25,8 @@ export const createUserAction = (user) => {
 export const editUserAction = (user, userId)=>{
     return async function (dispatch){
         try {
+            const token = localStorage.getItem("token")
             const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
-            console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo.data
@@ -39,14 +40,17 @@ export const editUserAction = (user, userId)=>{
 export const changePassword = (user, userId)=>{
     return async function (dispatch){
         try {
+            const token = localStorage.getItem("token")
             const sendInfo = (await axios.put(`/users/changePassword/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
-            console.log(sendInfo)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo
             })
         } catch (error) {
-            console.log(error)
+            return dispatch({
+                type:GET_ERROR,
+                payload:error.response.data.error
+            })
         }
     }
 }
@@ -63,7 +67,7 @@ export const changePassword = (user, userId)=>{
 
 export const getUserList = () => {
     return function (dispatch) {
-
+        const token = localStorage.getItem("token")
         axios.get(`/users`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getUserList:", error))
             .then(response => {

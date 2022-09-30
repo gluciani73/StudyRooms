@@ -10,10 +10,11 @@ import {
 } from "../../constants";
 // addQuestions getQuestions
 
-const token = localStorage.getItem("token")
+
 
 export function getQuestions() {
     return async function (dispatch) {
+        const token = localStorage.getItem("token")
         const info = await axios.get(`${URL_BACK}questions`, {headers:{"Authorization":`Bearer ${token}`}}, {});
         return dispatch({
             type: GET_QUESTIONLIST,
@@ -23,6 +24,7 @@ export function getQuestions() {
 }
 export function getCategories(){
     return async function (dispatch){
+        const token = localStorage.getItem("token")
         const categories = await axios.get(`${URL_BACK}categories`, {headers:{"Authorization":`Bearer ${token}`}}, {})
         return dispatch({
             type:GET_CATEGORIES,
@@ -32,6 +34,7 @@ export function getCategories(){
 }
 export function addQuestions(data) {
     return async function (dispatch) {
+        const token = localStorage.getItem("token")
         var info = await axios.post(`${URL_BACK}questions`,{headers:{"Authorization":`Bearer ${token}`}} , data);
         return dispatch({
             type: ADD_QUESTION,
@@ -43,6 +46,7 @@ export function addQuestions(data) {
 export function getDetail(id) {
     return async function (dispach) {
         try {
+            const token = localStorage.getItem("token")
             var json = await axios.get(`${URL_BACK}questions/${id}`, {headers:{"Authorization":`Bearer ${token}`}});
             return dispach({
                 type: GET_DETAILS,
@@ -57,6 +61,7 @@ export function getDetail(id) {
 export function searchQuestion(text) {
   return async function (dispatch) {
     try {
+        
       var json = await axios.get(`${URL_BACK}search/question?string=${text}`);
       console.log(json.data)
       return dispatch({
