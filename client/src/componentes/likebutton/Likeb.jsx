@@ -30,19 +30,19 @@ const LikeB = () => {
         
         if(!test.length){
         dispatch(postLikesQuestions(input))
-        alert("Liked")
         }else{
         dispatch(deleteLikesQuestions(input))
-        alert("unLiked")
         }
         dispatch(getDetail(id))
     }
         
-        return (<div>
+        return (<div className="bg-dark" >
 
             <button onClick={e =>handleSubmit(e)}>
-                <div>
-                <img src={like} alt="" height="20px"/>
+                <div className="bg-primary d-inline-flex">
+                <img src={like} alt="" height="20px" className="px-2"/> <p>likes:</p>
+                <p>{check[0].votesxquestions.length}</p>
+
                 </div>
             </button>
         </div>  );

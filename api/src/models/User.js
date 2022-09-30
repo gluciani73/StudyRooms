@@ -30,7 +30,10 @@ module.exports = (sequelize) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isEmail: true
+            }
         },
         hashedPassword: {
             type: DataTypes.STRING,
@@ -47,9 +50,9 @@ module.exports = (sequelize) => {
         active: {
             type: DataTypes.BOOLEAN
         },
-        deleted:{
+        deleted: {
             type: DataTypes.BOOLEAN,
-            allowNull:false,
+            allowNull: false,
             defaultValue: false
         }
     },

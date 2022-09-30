@@ -5,18 +5,19 @@ const {signIn, signUp, getAllUsers, getUserById, changePassword, activateAccount
 const { userCreateValidator, userLoginValidator } = require('../middlewares/userValidators.js')
 const googleAuthRoutes = require('./googleAuth.js')
 
-// /users/...
+const passport = require('passport')
+const private = passport.authenticate('jwt', {session:false})
 
+// /users/...
 router.post('/signup', userCreateValidator, signUp)
 router.post('/signin', userLoginValidator ,signIn)
-router.put('/changePassword/:userId', changePassword)
-
+router.put('/changePassword/:userId', private, changePassword)
 router.post('/recovery', recoveryPOST)
 router.get('/recovery/:token', recoveryGET)
-router.get('/', getAllUsers)
-router.get('/:userId', getUserById)
+router.get('/', private, getAllUsers)
+router.get('/:userId', private, getUserById)
 router.get("/activateAccount/:token", activateAccount)
-router.put('/update/:userId', updateUser)
+router.put('/update/:userId', private, updateUser)
 
 router.use('/google', googleAuthRoutes)
 

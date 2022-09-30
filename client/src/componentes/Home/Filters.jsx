@@ -34,7 +34,7 @@ const Filters = () => {
   }
 
   return (
-    <div>
+    <div className="bg-dark text-white">
       <h1>Filters</h1>
       <p>Category</p>
       <select className="form-select" onChange={(e) => handleFilterCategory(e)}>

@@ -35,8 +35,7 @@ const userCreateValidator = [
 const userLoginValidator = [
     check('userName')
     .exists()
-    .not().isEmpty()
-    .isLength({min:1, max:10}),
+    .not().isEmpty(),
 
     check('password')
     .exists()

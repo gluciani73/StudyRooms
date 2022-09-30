@@ -12,14 +12,16 @@ module.exports = (sequelize) => {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: 'user_answer'
         },
         answerId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: 'user_answer'
         },
         rating: {
             type: DataTypes.BOOLEAN,
-            
+
         }
     },
         {

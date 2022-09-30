@@ -57,8 +57,8 @@ const getAnswer = async (req, res) => {
                         {
                             model: User,
                             attributes: ['id', 'avatar', 'userName', 'email']
-                        }, 
-                        
+                        },
+
                         // include: model votesXAnswer
                     ]
                 }
@@ -126,10 +126,8 @@ const deleteAnswer = async (req, res) => {
     }
 }
 
-//votesXAnswer
-
 const likeAnswer = async (req, res) => {
-    const {userId, answerId} = req.body;
+    const { userId, answerId } = req.body;
     try {
 
         if (!userId || !answerId) {
@@ -139,7 +137,7 @@ const likeAnswer = async (req, res) => {
             })
         }
 
-        const like = {userId, answerId, rating : true}
+        const like = { userId, answerId, rating: true }
         const newVote = await Votesxanswer.create(like)
         const voteCountUpdated = await Votesxanswer.count({
             where: {
@@ -151,18 +149,14 @@ const likeAnswer = async (req, res) => {
         answerItem.voteCount = voteCountUpdated;
         await answerItem.save();
 
-        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
+        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, newVote })
     }
 
-    catch(error){
-        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
 
     }
 }
-
-
-
-//deleteVotesXAnswer
 
 const deleteVotesXAnswer = async (req, res) => {
     try {
@@ -175,12 +169,12 @@ const deleteVotesXAnswer = async (req, res) => {
             return res.status(200).json({ error: null, data: 'Se borro el voto id: ' + answerId })
         }
     } catch (error) {
-        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null})
+        return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null })
     }
 }
 
 const updateRating = async (req, res) => {
-    const {userId, questionId, answerId, rating} = req.body;
+    const { userId, questionId, answerId, rating } = req.body;
     try {
 
         if (!userId || !questionId || !answerId || !rating) {
@@ -196,8 +190,8 @@ const updateRating = async (req, res) => {
             }
         });
 
-        if(!rateItem) {
-            const rateNew = {userId, answerId, rating}
+        if (!rateItem) {
+            const rateNew = { userId, answerId, rating }
             await Ratingxanswer.create(rateNew)
         }
         else {
@@ -231,14 +225,14 @@ const updateRating = async (req, res) => {
         });
     }
 
-    catch(error){
-        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
 
     }
 }
 
 const getRatingList = async (req, res) => {
-    const {questionId, userId} = req.params;
+    const { questionId, userId } = req.params;
     try {
 
         if (!userId || !questionId) {
@@ -252,8 +246,8 @@ const getRatingList = async (req, res) => {
         return res.status(200).json(ratingList);
     }
 
-    catch(error){
-        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `API answerController error: ${error}`, data: null })
 
     }
 }
