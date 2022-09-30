@@ -108,14 +108,14 @@ const AskQuestion = () => {
      },[dispatch])
 
     return (
-        <div className="bg-black">
+        <div >
             <Navbar/>
-                <div className="container border border-secondary">
-                    <p className=" fs-2 text-center pt-2 text-secundary"> Make a Question for our community </p>
+                <div className="container border bg-black">
+                    <h2 className=" fs-2 text-center pt-2 text-primary"> Make a Question for our community </h2>
                     
                     <form onSubmit={(e)=>handleSubmit(e)}>
                         <div className="mb-3">
-                        <label  className="form-label fs-2">Title</label>
+                        <label  className="form-label fs-2 text-primary">Title</label>
                         <input type="text" 
                         className="form-control" 
                         required value={input.name}
@@ -127,7 +127,7 @@ const AskQuestion = () => {
                         <div className="form-text">this title helps users understand the general idea of your question</div>
                     </div>
                     <div className="mb-3">
-                        <label  className="form-label fs-3">Description</label>
+                        <label  className="form-label fs-3 text-primary">Description</label>
                         <input type="text" 
                         className="form-control"
                         name="description" 
@@ -148,13 +148,13 @@ const AskQuestion = () => {
                     </div>
 
                     <div className="d-grip gap-2">
-                        <button type="submit" className="btn btn-primary p">Submit</button>
+                        <button type="submit" className="btn bg-pink">Submit</button>
                     </div>
                     
 <div className="container"></div>
                     <div className="d-inline-flex">
                         {input.categories.map((e,index)=>
-                        <div key={index} className="mx-5">
+                        <div key={index} className="mx-5 wrap">
                             <button className="my-5" onClick={()=>handleDelete(e)}>{e}</button>
                             {console.log(e)}
                         </div>

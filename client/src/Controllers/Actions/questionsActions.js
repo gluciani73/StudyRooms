@@ -71,7 +71,7 @@ export function searchQuestion(text) {
 export function logDelete(id, input){
   return async function (dispatch){
       try {
-          var json = await axios.put(`/questions/active/${id}`,input)
+          var json = await axios.delete(`/questions/${id}`,input)
           return dispatch({
               type: LOGICALDELETEQ,
               payload: json.data
