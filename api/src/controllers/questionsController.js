@@ -107,7 +107,6 @@ const getQuestions = async (req, res) => {
     }
 }
 
-
 const getDeletedQuestions = async (req, res) => {
     try {
         let result = await Question.findAll({
@@ -177,7 +176,6 @@ const updateQuestion = async (req, res) => {
     }
 }
 
-
 const deleteQuestion = async (req, res) => {
     try {
         const questionId = req.params.questionId;
@@ -203,9 +201,6 @@ const deleteQuestion = async (req, res) => {
     }
 }
 
-
-//reviewQuestion
-
 const viewQuestion = async (req, res) => {
     const { userId, questionId } = req.body;
     try {
@@ -224,19 +219,26 @@ const viewQuestion = async (req, res) => {
 const likeQuestion = async (req, res) => {
     const { userId, questionId } = req.body;
     try {
-        
-        const like = {userId, questionId}
+
+        if (!userId || !questionId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them. ",
+                data: null
+            })
+        }
+
+        const like = { userId, questionId }
         const newVote = await Votesxquestion.create(like)
         const voteCountUpdated = await Votesxquestion.count({
-            where:{
+            where: {
                 questionId
             }
-        })  
+        })
         const questionItem = await Question.findByPk(questionId);
         questionItem.voteCount = voteCountUpdated;
         await questionItem.save();
 
-        return res.status(200).json({msg: 'voto creado exitosamente', error: null, newVote})
+        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, newVote })
     }
 
     catch (error) {
@@ -301,7 +303,7 @@ const logDelete = async (req, res) => {
                 ]
             });
             return res.status(200).json({ error: null, data: response })
-            
+
         }
         else {
             res.status(500).json({ error: 'No se puedo editar la pregunta', data: null })
@@ -312,7 +314,7 @@ const logDelete = async (req, res) => {
 }
 
 const rateQuestion = async (req, res) => {
-    const {userId, questionId, rating} = req.body;
+    const { userId, questionId, rating } = req.body;
     try {
 
         if (!userId || !questionId || !rating) {
@@ -328,8 +330,8 @@ const rateQuestion = async (req, res) => {
             }
         });
 
-        if(!rateItem) {
-            const rateNew = {userId, questionId, rating}
+        if (!rateItem) {
+            const rateNew = { userId, questionId, rating }
             await Ratingxquestion.create(rateNew)
         }
         else {
@@ -362,14 +364,14 @@ const rateQuestion = async (req, res) => {
         });
     }
 
-    catch(error){
-        return res.status(500).json({error:`Error en el controlador de answer al hacer votos: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `Error en el controlador de answer al hacer votos: ${error}`, data: null })
 
     }
 }
 
 const getRatingList = async (req, res) => {
-    const {userId} = req.params;
+    const { userId } = req.params;
     try {
 
         if (!userId) {
@@ -379,20 +381,20 @@ const getRatingList = async (req, res) => {
             })
         }
 
-        let ratingList = await queryRatingList( userId)
+        let ratingList = await queryRatingList(userId)
         return res.status(200).json(ratingList);
     }
 
-    catch(error){
-        return res.status(500).json({error:`API answerController error: ${error}`, data: null})
+    catch (error) {
+        return res.status(500).json({ error: `API answerController error: ${error}`, data: null })
 
     }
 }
 
-function queryRatingList( userId) {
+function queryRatingList(userId) {
     return Question.findAll(
         {
- 
+
             include: [
                 {
                     model: Ratingxquestion,
@@ -408,12 +410,12 @@ function queryRatingList( userId) {
 
 
 
-        
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion,getQuestionsByUser,getAllQuestions,viewQuestion, getDeletedQuestions }
+
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions }
 
 
-    
-    
+
+
 
 
 
