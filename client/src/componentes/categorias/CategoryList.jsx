@@ -87,7 +87,7 @@ export default function CategoryList () {
         if (!userInfo.isAdmin) {
             return (
                 <div className='answerListContainer'>
-                    <h3>The user list can only be seen by admin users...</h3>
+                    <h3>The category list can only be seen by admin users...</h3>
                 </div>
             );
         }
