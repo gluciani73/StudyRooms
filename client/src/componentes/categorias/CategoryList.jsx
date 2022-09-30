@@ -10,6 +10,7 @@ import NavBar from "../NavBar/NavBar";
 
 export default function CategoryList () {
 
+    const userInfo = useSelector(state => state.loginReducer.userInfo);
     const categoryList = useSelector(state => state.categoryStore.categoryList);
     const [showEditForm, setShowEditForm] = useState(false);
     const [categoryEditId, setCategoryEditId] = useState(null);
@@ -83,6 +84,13 @@ export default function CategoryList () {
     }
 
     function renderCategoryList() {
+        if (!userInfo.isAdmin) {
+            return (
+                <div className='answerListContainer'>
+                    <h3>The user list can only be seen by admin users...</h3>
+                </div>
+            );
+        }
         if (!categoryList || categoryList.length === 0) {
             return (
                 <div className='answerListContainer'>
