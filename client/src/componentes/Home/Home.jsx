@@ -22,16 +22,25 @@ const Home = () => {
 
   return (
     <div>
-      <div className="row m-0 p-0">
+      <div className="row m-0 p-0 sticky-top">
         <div className="col p-0 m-0">
           <NavBar />
         </div>
       </div>
       <div className="row m-0 p-0">
         <div className="col-2 p-0 m-0">
-          <Filters />
+          <div className="row m-0 p-0 sticky">
+            <Filters />
+          </div>
+          <div className="row bg-dark m-0 p-0">
+            <Link to="/home" className="text-decoration-none m-0 p-0">
+            <div className="col d-flex w-100 mt-5 justify-content-center ">
+              <p className=" text-light text-center" > Contact Us </p>
+            </div>
+            </Link>
+          </div>
         </div>
-        <div className="col p-0 m-0 ">
+        <div className="col p-1 m-0 ">
           {allQuestions?.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
@@ -43,6 +52,13 @@ const Home = () => {
           })}
         </div>
       </div>
+          <footer>
+            <div className="row m-0 p-0 bg-dark">
+              <div className="col m-0 p-0 d-flex justify-content-center">
+                <p></p>
+              </div>
+            </div>
+          </footer>
     </div>
   );
 }
