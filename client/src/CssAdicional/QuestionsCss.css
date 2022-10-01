@@ -35,3 +35,9 @@
 .dvGroupsBTN{
     display: flex;
 }
+.logoMain::after {
+    display: none !important;
+}
+.icons{
+    font-size: 35px;
+}

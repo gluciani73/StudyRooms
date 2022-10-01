@@ -35,11 +35,39 @@ const createAnswer = async (req, res) => {
                 }
             ]
         })
+
+
+
+        // correo: respondiendo una pregunta
+        const dataQuestion = await Question.findByPk(questionId,{
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'avatar', 'userName', 'email']
+                }
+            ]
+        }
+        )
+
+        const mailQuestion = {
+            from: "study.rooms.mail@gmail.com",
+            to: dataQuestion.user.email,
+            subject: "Alguien Respondio Tu Pregunta",
+            text: answer
+        }
+        if(dataQuestion.user.id > 5){
+            await sendMail(mailQuestion)
+        }
+        // console.log(dataQuestion.user.email)
+
+
         return res.status(201).json({ error: null, data: response })
     } catch (error) {
         return res.status(500).json({ error: `Error en el controlador de answer: ${error}`, data: null })
     }
 }
+
+// 
 
 const getAnswer = async (req, res) => {
     try {

@@ -4,6 +4,7 @@ import answerReducer from "./answerReducer";
 import questionReducer from './QuestionReducer'
 import loginReducer from './loginReducer'
 import commentReducer from './commentReducer';
+import categoryReducer from "./categoryReducer";
 
 export default combineReducers({
     userReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     questionReducer,
     loginReducer,
     commentStore: commentReducer,
+    categoryStore: categoryReducer,
 })
