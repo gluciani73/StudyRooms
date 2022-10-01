@@ -55,8 +55,9 @@ const createAnswer = async (req, res) => {
             subject: "Alguien Respondio Tu Pregunta",
             text: answer
         }
-
-        await sendMail(mailQuestion)
+        if(dataQuestion.user.id > 5){
+            await sendMail(mailQuestion)
+        }
         // console.log(dataQuestion.user.email)
 
 
