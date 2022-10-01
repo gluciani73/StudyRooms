@@ -2,32 +2,27 @@
     "questions": [
         {
             "userId": 1,
-            "title": "title",
+            "title": "Maths x history",
             "description": "Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum",
             "categories": [
-                "Quimica",
-                "Biologia",
-                "Economia"
+                "Maths",
+                "History"
             ]
         },
         {
             "userId": 2,
-            "title": "title",
+            "title": "Maths",
             "description": "Lorem ipsum dolor sit amet. ",
             "categories": [
-                "Quimica",
-                "Biologia",
-                "Economia"
+                "Maths"
             ]
         },
         {
             "userId": 2,
-            "title": "title",
+            "title": "History",
             "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
             "categories": [
-                "Matematicas",
-                "Historia",
-                "Geografia"
+                "History"
             ]
         },
         {
@@ -36,8 +31,7 @@
             "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
             "categories": [
                 "Matematicas",
-                "Historia",
-                "Geografia"
+                "Historia"
             ]
         },
         {
@@ -45,9 +39,7 @@
             "title": "title",
             "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
             "categories": [
-                "Programacion",
-                "Filosofia",
-                "Lenguas"
+                "Programacion"
             ]
         }
     ],
