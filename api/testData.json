@@ -30,8 +30,7 @@
             "title": "title",
             "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
             "categories": [
-                "Matematicas",
-                "Historia"
+                "History"
             ]
         },
         {
@@ -39,7 +38,7 @@
             "title": "title",
             "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
             "categories": [
-                "Programacion"
+                "Programming"
             ]
         }
     ],
