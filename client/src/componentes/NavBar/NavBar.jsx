@@ -12,18 +12,15 @@ const NavBar = () => {
     const userInfo = useSelector(state => state.loginReducer.userInfo);
 
     return (
-        <nav className='customNavbar d-flex bg-dark '>
-            <div className='col d-flex justify-content-center'>
-                <div className='row w-100 p-0 m-0 justify-content-center'>
-
+        <nav className='customNavbar d-flex bg-dark justify-content-center m-0 p-0'>
+            <div className='col-3 p-0 m-0'>
+                <div className='row  p-0 m-0 justify-content-center'>
                     <div className='col d-flex justify-content-center'>
                         <img src={logo} height="50px" alt="logo" />
                     </div>
-
-
                 </div>
             </div>
-            <div className='col'>
+            <div className='col p-0 m-0'>
                 <div role="group" aria-label="Basic example" className=' d-flex'>
                     <Link to="/Home"><button type="button" className="btn btn-light m-1" >Home</button></Link>
                     <Link to="/AskQuestion"><button type="button"  className="btn btn-light m-1 " >Ask Question</button></Link>
@@ -36,13 +33,13 @@ const NavBar = () => {
                     )}
                 </div>
             </div>
-            <div className='col'>
+            <div className='col  p-0 m-0'>
                 <form className='d-flex'>
                     <input type="search" placeholder="Search" className='form-control w-50' aria-label="Search" />
                     <button type="submit" className=' btn btn-light m-1 '>Search</button>
                 </form>
             </div>
-            <div>
+            <div className='col-1 p-0 m-0 justify-content-end d-flex'>
                 <DropDown />
             </div>
         </nav>
