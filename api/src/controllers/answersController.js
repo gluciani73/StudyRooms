@@ -1,5 +1,6 @@
 const { Answer, Question, User, Votesxanswer, Ratingxanswer, getRatingSum } = require('../db');
 const { Op } = require("sequelize");
+const sendMail = require('./mailer.js')
 
 const createAnswer = async (req, res) => {
     try {
