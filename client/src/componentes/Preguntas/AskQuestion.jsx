@@ -108,26 +108,27 @@ const AskQuestion = (likes) => {
      },[dispatch])
 
     return (
-        <div >
+        <div className="bg-dark text-white" >
             <Navbar/>
-                <div className="container border bg-black">
-                    <h2 className=" fs-2 text-center pt-2 text-primary"> Make a Question for our community </h2>
+                <div className="container border text-white">
+                    <h2 className=" fs-2 text-center pt-2"> Make a Question for our community </h2>
                     
-                    <form onSubmit={(e)=>handleSubmit(e)}>
-                        <div className="mb-3">
-                        <label  className="form-label fs-2 text-primary">Title</label>
+                    <form  className="container-fluid mb-5" onSubmit={(e)=>handleSubmit(e)}>
+                        <div className="mb-4 container">
+                        <label  className="form-label fs-2">Title</label>
                         <input type="text" 
-                        className="form-control" 
+                        id='form title'
+                        className="sm-10 form-control" 
                         required value={input.name}
                         name="title" 
                         onChange={(e)=>handleChange(e)}
                         />
                         {errors.title && (<p className="error">{errors.name}
                         </p>)}
-                        <div className="form-text">this title helps users understand the general idea of your question</div>
+                        <div className="form-text">External display for your question, make it short but intresting!</div>
                     </div>
-                    <div className="mb-3">
-                        <label  className="form-label fs-3 text-primary">Description</label>
+                    <div className="mb-5 container">
+                        <label  className="form-label fs-3">Description</label>
                         <textarea type="text" 
                         className="form-control"
                         name="description" 
@@ -135,18 +136,20 @@ const AskQuestion = (likes) => {
                         onChange={(e)=>handleChange(e)}
                        />
                         {errors.description && (<p className="error">{errors.description}</p>)}
-                        <div  className="form-text">Check yout grammar and be as specific as you can!</div>
+                        <div  className="form-text">Be as clear and specific as you can!</div>
                     </div>
+
+                    <h4 className='m-3'>select subject categories for your questions</h4>
                     <div>
-                        <select onChange={(e)=>handleSelect(e)}>
+                        <select className='m-3' onChange={(e)=>handleSelect(e)}>
                             {sortCategories?.map((e)=>{
                                 return(
                                     <option key={e} value={e}>{e}</option>
                                 )
                             })}
                         </select>
-                    </div>
-
+                    </div >
+                            <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
                     <div className="d-grip gap-2">
                         <button type="submit" className="btn bg-pink">Submit</button>
                     </div>
