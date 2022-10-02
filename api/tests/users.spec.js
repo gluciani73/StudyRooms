@@ -33,6 +33,12 @@ describe('Users...', ()=> {
         
     })
 
+    test('POST /users/signup should return 401 if user already exists', () => {
+        return request(server).post('/users/signup').send(myTestUser)
+        .then( res => expect(res.statusCode).toBe(401))
+        
+    })
+
     test('POST /users/signin should return 200, and a token!', () => {
         return request(server).post('/users/signin').send({userName:myTestUser.userName,password:myTestUser.password})
         .then( async res => {
@@ -58,6 +64,7 @@ describe('Users...', ()=> {
         return request(server).get('/users').set('Authorization', `Bearer ${testToken}`).send()
         .then( res => {
             expect(res.statusCode).toBe(200)
+            expect(Array.isArray(res.body)).toBe(true)
         })
         
     })
@@ -78,10 +85,16 @@ describe('Users...', ()=> {
         
     })
     
-    test('PUT /users/changePassword/:userId should return 200 if authenticated', () => {
+    test('PUT /users/changePassword/:userId should return 200 and change password', () => {
         return request(server).put(`/users/changePassword/${createdUser.id}`).set('Authorization', `Bearer ${testToken}`).send({password:"123",newPassword:"456"})
         .then( res => {
-            expect(res.statusCode).toBe(200)
+
+            return request(server).post('/users/signin').send({userName: createdUser.userName, password: "456"})
+            .then( async res => {
+                expect(res.statusCode).toBe(200)
+                testToken = res.body.token
+                createdUser = await User.findOne({where:{email: myTestUser.email}})
+            })
         })
         
     })
