@@ -7,7 +7,7 @@ import NavBar from "../NavBar/NavBar";
 import Question from "../Preguntas/Question";
 import { getQuestions } from "../../Controllers/Actions/questionsActions";
 import '../../CssAdicional/QuestionsCss.css'
-
+import Footer from '../Footer/Footer'
 
 
 const Home = () => {
@@ -23,9 +23,7 @@ const Home = () => {
   return (
     <div>
       <div className="row m-0 p-0 sticky-top">
-        <div className="col p-0 m-0">
-          <NavBar />
-        </div>
+        <NavBar />
       </div>
       <div className="row m-0 p-0">
         <div className="col-2 p-0 m-0">
@@ -52,13 +50,7 @@ const Home = () => {
           })}
         </div>
       </div>
-          <footer>
-            <div className="row m-0 p-0 bg-dark">
-              <div className="col m-0 p-0 d-flex justify-content-center">
-                <p></p>
-              </div>
-            </div>
-          </footer>
+        <Footer/>
     </div>
   );
 }
