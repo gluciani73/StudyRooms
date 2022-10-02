@@ -35,7 +35,7 @@ export function getCategories(){
 export function addQuestions(data) {
     return async function (dispatch) {
         const token = localStorage.getItem("token")
-        var info = await axios.post(`${URL_BACK}questions`,{headers:{"Authorization":`Bearer ${token}`}} , data);
+        var info = await axios.post(`${URL_BACK}questions`,data, {headers:{"Authorization":`Bearer ${token}`}});
         return dispatch({
             type: ADD_QUESTION,
             payload: info.data
@@ -76,7 +76,8 @@ export function searchQuestion(text) {
 export function logDelete(id, input){
   return async function (dispatch){
       try {
-          var json = await axios.delete(`/questions/${id}`,input)
+        const token = localStorage.getItem("token")
+          var json = await axios.delete(`/questions/${id}`,input, {headers:{"Authorization":`Bearer ${token}`}})
           return dispatch({
               type: LOGICALDELETEQ,
               payload: json.data
