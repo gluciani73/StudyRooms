@@ -1,8 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ReactStars from 'react-stars'; //source: https://www.npmjs.com/package/react-stars
-import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList} from "../../Controllers/Actions/answerActions";
-import {SORT_BY_DATE_ASC, SORT_BY_DATE_DSC, SORT_BY_VOTES_ASC, SORT_BY_VOTES_DSC, SORT_BY_RATE_ASC, SORT_BY_RATE_DSC} from "../../Controllers/Reducer/answerReducer";
+import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList, getVotingList} from "../../Controllers/Actions/answerActions";
+import {
+    SORT_BY_CREATION_ASC,
+    SORT_BY_CREATION_DSC,
+    SORT_BY_DATE_ASC,
+    SORT_BY_DATE_DSC,
+    SORT_BY_VOTES_ASC,
+    SORT_BY_VOTES_DSC,
+    SORT_BY_RATE_ASC,
+    SORT_BY_RATE_DSC,
+} from "../../Controllers/Reducer/answerReducer";
 import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
@@ -17,6 +26,7 @@ export default function AnswerList ({questionId}) {
     const dispatch = useDispatch();
     const answerList = useSelector(state => state.answerStore.answerList);
     const ratingList = useSelector(state => state.answerStore.ratingList);
+    const votingList = useSelector(state => state.answerStore.votingList);
     const [showEditForm, setShowEditForm] = useState(false);
     const [answerEditId, setAnswerEditId] = useState(null);
     const sortOption = useSelector(state => state.answerStore.sortOption);
@@ -32,6 +42,12 @@ export default function AnswerList ({questionId}) {
             dispatch(getRatingList(userId, questionId));
         }
     }, [dispatch, userId, answerList, ratingList])
+
+    useEffect(() => {
+        if (userId && questionId && !votingList) {
+            dispatch(getVotingList(userId, questionId));
+        }
+    }, [dispatch, userId, answerList, votingList])
 
     function handleShowEditForm(answerId) {
         setAnswerEditId(answerId);
@@ -126,7 +142,7 @@ export default function AnswerList ({questionId}) {
                                     className="stars"
                                     value={Number(answerItem.ratingAverage)}
                                     edit={false}
-                                    size={20}
+                                    size={28}
                                 />
                                 <span>({answerItem.ratingCount} rates) </span>
                             </div>
@@ -197,6 +213,8 @@ export default function AnswerList ({questionId}) {
                                 onChange={(e) => {handleOrderChange(e)}}
                                 value={sortOption}
                         >
+                            <option value={SORT_BY_CREATION_ASC}>Creation ascending</option>
+                            <option value={SORT_BY_CREATION_DSC}>Creation descending</option>
                             <option value={SORT_BY_DATE_ASC}>Date ascending</option>
                             <option value={SORT_BY_DATE_DSC}>Date descending</option>
                             <option value={SORT_BY_VOTES_ASC}>Votes ascending</option>
