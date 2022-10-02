@@ -19,7 +19,7 @@ function validate(input){
 }
 
 
-const AskQuestion = () => {
+const AskQuestion = (likes) => {
     const navigate = useNavigate()
     const userInfo = useSelector((state)=> state.loginReducer.userInfo);
     const dispatch= useDispatch()
