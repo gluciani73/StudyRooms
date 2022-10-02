@@ -45,6 +45,7 @@ export const editUserAction = (user, userId)=>{
 }
 
 export const changePassword = (user, userId)=>{
+    console.log(userId);
     return async function (dispatch){
         try {
             const token = localStorage.getItem("token")
@@ -54,6 +55,7 @@ export const changePassword = (user, userId)=>{
                 payload:sendInfo
             })
         } catch (error) {
+            console.log(error)
             return dispatch({
                 type:GET_ERROR,
                 payload:error.response.data.error
