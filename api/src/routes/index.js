@@ -10,15 +10,15 @@ const commentRoutes = require('./comment.js')
 const categoryRoutes = require('./categories.js')
 
 const passport = require('passport')
-const private = passport.authenticate('jwt', {session:false})
+const privateRouteRouteRoute = passport.authenticate('jwt', {session:false})
 
 router.use("/users", usersRoutes)
-router.use("/questions", private, questionsRoutes)
-router.use("/answers", private, answersRoutes)
-router.use("/payments", private, paymentRoutes)
-router.use("/search", private, searchRoutes)
-router.use("/comments", private, commentRoutes)
-router.use("/categories", private, categoryRoutes)
+router.use("/questions", privateRouteRouteRoute, questionsRoutes)
+router.use("/answers", privateRouteRouteRoute, answersRoutes)
+router.use("/payments", privateRouteRouteRoute, paymentRoutes)
+router.use("/search", privateRouteRouteRoute, searchRoutes)
+router.use("/comments", privateRouteRouteRoute, commentRoutes)
+router.use("/categories", privateRouteRouteRoute, categoryRoutes)
 
 router.get("/", (req, res) => res.send("Respuesta del path / "))
 
