@@ -12,7 +12,7 @@ const checkout = async (req, res) => {
 
     try {
         const payment = await stripe.paymentIntents.create({
-            amount,
+            amount: amount * 100,
             currency: "USD",
             description: "Donacion",
             payment_method: paymentId,
@@ -26,10 +26,10 @@ const checkout = async (req, res) => {
         const userExist = await User.findByPk(userReqInfo.id);
         if (!userExist) return res.status(404).json({ data: null, error: "no se encontro usuario con ese id" })
 
-        let newAmount = amount;
+        let newAmount = parseInt(amount);
         amount ?
-            newAmount = userExist.amountDonated + amount
-            : newAmount = userExist.amountDonated
+            newAmount = parseInt(userExist.amountDonated) + parseInt(amount)
+            : newAmount = parseInt(userExist.amountDonated)
 
         await User.update({
             amountDonated: newAmount,
