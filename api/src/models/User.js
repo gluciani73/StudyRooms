@@ -56,7 +56,7 @@ module.exports = (sequelize) => {
             defaultValue: false
         },
         amountDonated: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             defaultValue: 0
         }
     },
