@@ -11,8 +11,8 @@ const EditarPerfil = ()=>{
     const dispatch =useDispatch();
     function validate(data){
         var errors = {};
-        if(!(/^[a-zA-Z]{3,15}$/.test(data.firstName)) || data.firstName.length < 3 ) errors.firstName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
-        if(!(/^[a-zA-Z]{3,15}$/.test(data.lastName)) || data.lastName.length < 3 ) errors.lastName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
+        if(!(/^[a-zA-Z]{3,15}[^'\s]$/.test(data.firstName)) || data.firstName.length < 3 ) errors.firstName = "Ingrese un nombre que contenga entre 3 y 15 caracteres sin numeros ni espacios"
+        if((/^[a-zA-Z]{3,15}[^'\s]$/.test(data.firstName)) || data.firstName.length >= 3 ) errors.firstName = ""
         return errors;
     }
 
@@ -56,7 +56,7 @@ const EditarPerfil = ()=>{
     }
 
     function handleSubmit(e){
-        e.preventDefault();
+        if(userInfo.firstName !== newUser.firstName && userInfo.lastName !== newUser.lastName ){
             dispatch(editUserAction(newUser, userId))
             setNewUser({
                 firstName:"",
@@ -64,8 +64,10 @@ const EditarPerfil = ()=>{
                 avatar:""
             })
             alert("Usuario modificado correctamente")
-
+        }else{
+            alert("Error")
         }
+}
 console.log(newUser)
     return (
         <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
@@ -76,28 +78,28 @@ console.log(newUser)
                     <div>
 
                         <label htmlFor="firstName">First Name</label>
-                        <input required className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder='User Name' autoComplete='off'   onChange={(e)=>handleChange(e)}/>
-                        {formError.firstName && <span><strong>{formError.firstName}</strong></span>}
+                        {formError.firstName && <p className="alert alert-danger">{formError.firstName}</p>}
+                        <input pattern="[a-zA-Z]{3,15}[^'\s]" title='No puede contener numeros ni espacios' className='d-block  m-1 border-0 form-control' type="text" value={newUser.firstName} id='firstName' name='firstName' placeholder={userInfo.firstName} autoComplete='off'   onChange={(e)=>handleChange(e)}/>
+                        
                     </div>
 
 
 
                     <div>
-                        <label htmlFor="lastName"> Last Name</label>                
-                        <input required className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text"  placeholder='Last Name' id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>
-                        {formError.lastName && <span><strong>{formError.lastName}</strong></span>}
-
+                        <label htmlFor="lastNaame"> Last Name</label>  
+                        <input pattern="[a-zA-Z]{3,15}[^'\s]" title='No puede contener numeros ni espacios' className='d-block  m-1 border-0 form-control' value={newUser.lastName} type="text" autoComplete='off'  placeholder={userInfo.lastName} id='lastName' name='lastName' onChange={(e)=>handleChange(e)}/>      
                     </div>
 
                     
                     <div>
                         <label htmlFor="foto">Avatar</label>
-                        <input required className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
+                        <input  className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
                     </div>
 
-                    <button type='submit' value='update'>Confirm</button>    <button type='submit' value='update'>Cancel</button>
-
+                    <button type='submit' className=' btn-success' value='update'>Save</button> 
                </form>
+
+               
         </div>
     )
 }
