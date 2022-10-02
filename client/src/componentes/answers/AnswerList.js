@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ReactStars from 'react-stars'; //source: https://www.npmjs.com/package/react-stars
-import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList, getVotingList, deleteAnswerVote} from "../../Controllers/Actions/answerActions";
+import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList} from "../../Controllers/Actions/answerActions";
 import {
     SORT_BY_CREATION_ASC,
     SORT_BY_CREATION_DSC,

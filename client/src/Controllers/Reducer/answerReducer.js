@@ -11,6 +11,8 @@ import {
     GET_VOTING_LIST,
 } from "../Actions/answerActions";
 
+export const SORT_BY_CREATION_ASC = "SORT_BY_CREATION_ASC";
+export const SORT_BY_CREATION_DSC = "SORT_BY_CREATION_DSC";
 export const SORT_BY_DATE_ASC = "SORT_BY_DATE_ASC";
 export const SORT_BY_DATE_DSC = "SORT_BY_DATE_DSC";
 export const SORT_BY_VOTES_ASC = "SORT_BY_VOTES_ASC";
@@ -20,7 +22,7 @@ export const SORT_BY_RATE_DSC = "SORT_BY_RATE_DSC";
 
 const initialState={
     answerList: null,
-    sortOption: SORT_BY_DATE_ASC,
+    sortOption: SORT_BY_CREATION_ASC,
     ratingList: null,
     votingList: null,
 }
@@ -132,6 +134,14 @@ const answerReducer = (state = initialState, {type, payload}) => {
 function getOrderedList(answerListOriginal, sortOption) {
 
     switch (sortOption) {
+
+        case SORT_BY_CREATION_ASC:
+            return answerListOriginal.sort((a, b) =>
+                (a.id > b.id) ? 1 : -1);
+
+        case SORT_BY_CREATION_DSC:
+            return answerListOriginal.sort((a, b) =>
+                (a.id > b.id) ? -1 : 1);
 
         case SORT_BY_DATE_ASC:
             return answerListOriginal.sort((a, b) =>
