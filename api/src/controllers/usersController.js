@@ -58,7 +58,7 @@ const signUp = async (req, res) => {
             await sendMail(mailOptions)
         }
 
-        return res.status(200).json({ data: dataToSend, error: null})
+        return res.status(201).json({ data: dataToSend, error: null})
         
     } catch (error) {
         res.status(500).json({ msg: "error in sign up controller" })
@@ -167,9 +167,6 @@ const changePassword = async (req,res) => {
             if (bcrypt.compareSync(password, userFound.hashedPassword)) {
                 const newHashedPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(10))
                 User.update({hashedPassword: newHashedPassword}, {where:{id: parseInt(userId)}})
-            
-                const check = await User.findByPk(parseInt(userId))
-
 
                 return res.status(200).json({ data: "cambio de password", error: null })
             } else {

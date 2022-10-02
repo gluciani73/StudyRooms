@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --forceExit"
   },
   "keywords": [],
   "author": "Grupo 6",
@@ -37,5 +37,9 @@
     "pg": "^8.5.1",
     "sequelize": "^6.21.6",
     "stripe": "^10.8.0"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "supertest": "^6.2.4"
   }
 }
