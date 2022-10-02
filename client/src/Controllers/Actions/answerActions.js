@@ -8,7 +8,7 @@ export const UPDATE_ANSWER_VOTE = "UPDATE_ANSWER_VOTE";
 export const UPDATE_ANSWER_RATE = "UPDATE_ANSWER_RATE";
 export const SORT_ANSWER_LIST = "SORT_ANSWER_LIST";
 export const GET_RATING_LIST = "GET_RATING_LIST";
-
+export const GET_VOTING_LIST = "GET_VOTING_LIST";
 
 export const getAnswerList = (questionId) => {
     return function (dispatch) {
@@ -111,6 +111,20 @@ export const getRatingList = (userId, questionId) => {
             .then((response) => {
                 dispatch({
                     type: GET_RATING_LIST,
+                    payload: response.data
+                });
+            });
+    }
+}
+
+export const getVotingList = (userId, questionId) => {
+    return function (dispatch) {
+        const token = localStorage.getItem("token")
+        axios.get(`/answers/${questionId}/voting/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
+            .catch(error => console.log("Action creator getVotingList: ", error))
+            .then((response) => {
+                dispatch({
+                    type: GET_VOTING_LIST,
                     payload: response.data
                 });
             });

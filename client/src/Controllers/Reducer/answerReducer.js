@@ -7,6 +7,7 @@ import {
     SORT_ANSWER_LIST,
     UPDATE_ANSWER_RATE,
     GET_RATING_LIST,
+    GET_VOTING_LIST,
 } from "../Actions/answerActions";
 
 export const SORT_BY_DATE_ASC = "SORT_BY_DATE_ASC";
@@ -20,6 +21,7 @@ const initialState={
     answerList: null,
     sortOption: SORT_BY_DATE_ASC,
     ratingList: null,
+    votingList: null,
 }
 
 const answerReducer = (state = initialState, {type, payload}) => {
@@ -89,6 +91,12 @@ const answerReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 ratingList: payload
+            }
+
+        case GET_VOTING_LIST:
+            return {
+                ...state,
+                votingList: payload
             }
 
         case SORT_ANSWER_LIST:
