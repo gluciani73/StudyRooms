@@ -72,8 +72,9 @@ function handleRateChange(userId, questionId, rating) {
           
             </div>
             </div>
+            <CommentList questionId={id}/>
           <AnswerList questionId={id}/>        
-          <CommentList questionId={id}/>
+          
         
         </div>
         
