@@ -17,6 +17,7 @@ import sweetalert from 'sweetalert';
 const QuestionDetail = () => {
 let {id} = useParams();
 const dispatch = useDispatch();  
+// eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(()=>{dispatch(getDetail(id))},[dispatch])
 const uId = useSelector((state)=> state.loginReducer.userInfo.id);
 const myQuestion = useSelector((state)=>state.questionReducer.detail.data);

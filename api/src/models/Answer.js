@@ -32,6 +32,10 @@ module.exports = (sequelize) => {
         voteCount: {
             type: DataTypes.INTEGER,
             defaultValue: 0
+        },
+        isDeleted:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     },
         {
