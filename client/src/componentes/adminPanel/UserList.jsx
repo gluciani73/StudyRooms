@@ -7,7 +7,14 @@ import './UserList.css';
 import UserEdit from "./UserEdit";
 import UserCreate from "./UserCreate"
 import sweetalert from "sweetalert";
-import {editUserAction} from "../../Controllers/Actions/userAction";
+import {editUserAction, sortUserListByType, sortUserListByField} from "../../Controllers/Actions/userAction";
+import {ASC, DSC} from "../../constants";
+import {
+    SORT_BY_EMAIL,
+    SORT_BY_FIRST_NAME,
+    SORT_BY_ID, SORT_BY_LAST_NAME,
+    SORT_BY_USER_NAME,
+} from "../../Controllers/Reducer/userReducer";
 
 export default function UserList () {
 
@@ -16,6 +23,8 @@ export default function UserList () {
 
     const [showEditForm, setShowEditForm] = useState(false);
     const [userEditId, setUserEditId] = useState(null);
+    const sortOptionType = useSelector(state => state.userReducer.sortOptionType);
+    const sortOptionField = useSelector(state => state.userReducer.sortOptionField);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -59,6 +68,14 @@ export default function UserList () {
                 dispatch(editUserAction({...userItem, active: true}, userItem.id));
             }
         });
+    }
+
+    function handleOrderTypeChange(event) {
+        dispatch(sortUserListByType(event.target.value));
+    }
+
+    function handleOrderFieldChange(event) {
+        dispatch(sortUserListByField(event.target.value));
     }
 
     function renderUserItem(userItem) {
@@ -119,6 +136,84 @@ export default function UserList () {
         );
     }
 
+    function renderSortItem() {
+        return (
+            <>
+                <div className='filterSelect'>
+                    <label htmlFor="sort-list"><b>Order by: </b></label>
+
+                    <label>
+                        <input id={SORT_BY_ID}
+                               className='radioInput'
+                               name="orderField"
+                               type="radio"
+                               value={SORT_BY_ID}
+                               checked={sortOptionField === SORT_BY_ID}
+                               onChange={(e) => handleOrderFieldChange(e)}
+                        />
+                        Creation
+                    </label>
+
+                    <label>
+                        <input id={SORT_BY_USER_NAME}
+                               className='radioInput'
+                               name="orderField"
+                               type="radio"
+                               value={SORT_BY_USER_NAME}
+                               checked={sortOptionField === SORT_BY_USER_NAME}
+                               onChange={(e) => handleOrderFieldChange(e)}
+                        />
+                        UserName
+                    </label>
+
+                    <label>
+                        <input id={SORT_BY_FIRST_NAME}
+                               className='radioInput'
+                               name="orderField"
+                               type="radio"
+                               value={SORT_BY_FIRST_NAME}
+                               checked={sortOptionField === SORT_BY_FIRST_NAME}
+                               onChange={(e) => handleOrderFieldChange(e)}
+                        />
+                        Firstname
+                    </label>
+
+                    <label>
+                        <input id={SORT_BY_LAST_NAME}
+                               className='radioInput'
+                               name="orderField"
+                               type="radio"
+                               value={SORT_BY_LAST_NAME}
+                               checked={sortOptionField === SORT_BY_LAST_NAME}
+                               onChange={(e) => handleOrderFieldChange(e)}
+                        />
+                        Lastname
+                    </label>
+
+                    <label>
+                        <input id={SORT_BY_EMAIL}
+                               className='radioInput'
+                               name="orderField"
+                               type="radio"
+                               value={SORT_BY_EMAIL}
+                               checked={sortOptionField === SORT_BY_EMAIL}
+                               onChange={(e) => handleOrderFieldChange(e)}
+                        />
+                        Email
+                    </label>
+
+                    <select id="sort-list"
+                            onChange={(e) => {handleOrderTypeChange(e)}}
+                            value={sortOptionType}
+                    >
+                        <option value={ASC}>Ascending</option>
+                        <option value={DSC}>Descending</option>
+                    </select>
+                </div>
+            </>
+        );
+    }
+
     function renderUserList() {
         if (!userInfo.isAdmin) {
             return (
@@ -129,8 +224,12 @@ export default function UserList () {
         }
         return (
             <div className="answerListContainer">
-                <h2>Admin User List</h2>
+                <div className="singleAnswerTitle">
+                    <h2>Admin User List</h2>
+                    {renderSortItem()}
+                </div>
                 {userList.map(item => renderUserItem(item))}
+                <UserCreate />
             </div>
         );
     }
@@ -139,7 +238,6 @@ export default function UserList () {
         <>
             <NavBar/>
             {renderUserList()}
-            <UserCreate />
         </>
     );
 }

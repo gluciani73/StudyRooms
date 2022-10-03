@@ -37,38 +37,40 @@ function handleRateChange(userId, questionId, rating) {
 }
 
 
+//className="bg-dark text-white"*
   
   return(
     myQuestion?.map((e,index)=>{
       
       return(
-        <div key={index}>
+        <div  key={index}>
           <NavBar/>
-          <div className="container bg-dark">
-          <h5 className="text-white">user {e.userId} asks:</h5>
-          <h2 className="text-info">{e.title}?</h2>
-          <h4 className="text-white">description:</h4>
-          <h5 className="text-white">{e.description}</h5>
+          <div className="container bg-dark text-white">
+          <h5 >user {e.userId} asks:</h5>
+          <h2 >{e.title}?</h2>
+          <h4 >description:</h4>
+          <h5 >{e.description}</h5>
           
           
           
-          <div className="row">
-            <LikeB className="col" userId={e.userId} questionId={e.id}/> 
-            <p>{e.votesxquestions.length}</p>
-          
+          <div className="d-flex align-items-center">
+            <LikeB className="align-items-center" userId={e.userId} questionId={e.id}/> 
+            
+            <LogDel/>
 
-          <Link className="col" to='/Home'>
-            home</Link>
+          <Link className="p-2 ms-auto" to='/Home'>
+            <button>home</button>
+            </Link>
           
           <ReactStars
-          className="col"
+          className="p-2"
             value={myQuestion[0].ratingAverage}
             onChange={(newRate) => handleRateChange(uId, id, newRate)}
             edit={true}
             size={30}
             half={false}
             />  
-          <LogDel className="col"/>
+          
             </div>
             </div>
           <AnswerList questionId={id}/>        

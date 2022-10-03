@@ -128,6 +128,16 @@ async function createTestData() {
       questionId, answerId, userId, rating
     }, { headers: { "Authorization": `Bearer ${testToken}` } })
   }
+
+  //MOCKUP VOTING
+  for (let i = 0; i < testData.voting.length; i++) {
+
+    const { answerId, userId } = testData.voting[i]
+
+    await axios.post(mockURL + `/answers/vote/${answerId}`, {
+      answerId, userId
+    }, { headers: { "Authorization": `Bearer ${testToken}` } })
+  }
 }
 
 module.exports = { createTestData }

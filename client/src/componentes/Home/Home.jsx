@@ -45,9 +45,10 @@ const Home = () => {
             return (
               <div key={id} className = " colQuestions">
                 <Link to={`/QuestionDetail/${e.id}`}>
-                  <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length} userId={e.user.userName} > </Question>
+                  <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length} userId={e.user.userName} categories={e.categories}> </Question>
                 </Link>
               </div>
+      
             )
           })}
         </div>
