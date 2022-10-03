@@ -68,6 +68,7 @@ const answerReducer = (state = initialState, {type, payload}) => {
             )
             return {
                 ...state,
+                votingList: payload.votingList,
                 answerList: getOrderedList([...answerListFiltered, newAnswerItem], state.sortOption)
             };
 

@@ -74,10 +74,13 @@ export const updateAnswerVote = (voteInfo) => {
         const token = localStorage.getItem("token")
         axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerVote: ", error))
-            .then(() => {
+            .then(response => {
                 dispatch({
                     type: UPDATE_ANSWER_VOTE,
-                    payload: voteInfo
+                    payload: {
+                        ...voteInfo,
+                        votingList: response.data.votingList
+                    }
                 });
             });
     }
