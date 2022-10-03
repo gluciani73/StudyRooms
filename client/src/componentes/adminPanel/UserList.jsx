@@ -2,33 +2,48 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import {useSelector} from "react-redux";
-import {getUserList} from "../../Controllers/Actions/userAction";
 import './UserList.css';
 import UserEdit from "./UserEdit";
 import UserCreate from "./UserCreate"
 import sweetalert from "sweetalert";
-import {editUserAction, sortUserListByType, sortUserListByField} from "../../Controllers/Actions/userAction";
+import {
+    getUserList,
+    editUserAction,
+    sortUserListByType,
+    sortUserListByField,
+    filterUserListByAdmin,
+    filterUserListByPremium,
+    filterUserListByActive,
+} from "../../Controllers/Actions/userAction";
 import {ASC, DSC} from "../../constants";
 import {
     SORT_BY_EMAIL,
     SORT_BY_FIRST_NAME,
     SORT_BY_ID, SORT_BY_LAST_NAME,
     SORT_BY_USER_NAME,
+    FILTER_BY_ADMIN,
+    FILTER_BY_PREMIUM,
+    FILTER_BY_ACTIVE,
 } from "../../Controllers/Reducer/userReducer";
 
-export default function UserList () {
+export default function UserList() {
 
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userList = useSelector(state => state.userReducer.userList);
 
     const [showEditForm, setShowEditForm] = useState(false);
     const [userEditId, setUserEditId] = useState(null);
+
     const sortOptionType = useSelector(state => state.userReducer.sortOptionType);
     const sortOptionField = useSelector(state => state.userReducer.sortOptionField);
 
+    const filterByAdmin = useSelector(state => state.userReducer.filterByAdmin);
+    const filterByPremium = useSelector(state => state.userReducer.filterByPremium);
+    const filterByActive = useSelector(state => state.userReducer.filterByActive);
+
     const dispatch = useDispatch();
     useEffect(() => {
-        if(!userList || userList.length === 0) {
+        if (!userList || userList.length === 0) {
             dispatch(getUserList());
         }
     }, [dispatch, userList]);
@@ -45,13 +60,13 @@ export default function UserList () {
 
     function handleDeActivateUserItem(userItem) {
         sweetalert({
-            title:"Action confirmation",
+            title: "Action confirmation",
             text: "Do your really want to de-activate the user?",
             icon: "warning",
             buttons: ["Cancel", "DeActivate"],
             dangerMode: true,
         }).then(value => {
-            if(value) {
+            if (value) {
                 dispatch(editUserAction({...userItem, active: false}, userItem.id));
             }
         });
@@ -59,12 +74,12 @@ export default function UserList () {
 
     function handleActivateUserItem(userItem) {
         sweetalert({
-            title:"Action confirmation",
+            title: "Action confirmation",
             text: "Do your really want to activate the user?",
             icon: "warning",
             buttons: ["Cancel", "Activate"],
         }).then(value => {
-            if(value) {
+            if (value) {
                 dispatch(editUserAction({...userItem, active: true}, userItem.id));
             }
         });
@@ -76,6 +91,18 @@ export default function UserList () {
 
     function handleOrderFieldChange(event) {
         dispatch(sortUserListByField(event.target.value));
+    }
+
+    function handleFilterAdminChange(event) {
+        dispatch(filterUserListByAdmin(event.target.value));
+    }
+
+    function handleFilterPremiumChange(event) {
+        dispatch(filterUserListByPremium(event.target.value));
+    }
+
+    function handleFilterActiveChange(event) {
+        dispatch(filterUserListByActive(event.target.value));
     }
 
     function renderUserItem(userItem) {
@@ -134,6 +161,51 @@ export default function UserList () {
                 )}
             </div>
         );
+    }
+
+    function renderFilterList() {
+        return (
+            <div className='filterSelect'>
+                <label htmlFor="sort-list"><b>Filter by: </b></label>
+
+                <label>
+                    <input id={FILTER_BY_ADMIN}
+                           className='radioInput'
+                           name="filterField"
+                           type="checkbox"
+                           value={FILTER_BY_ADMIN}
+                           checked={filterByAdmin}
+                           onChange={() => handleFilterAdminChange()}
+                    />
+                    isAdmin
+                </label>
+
+                <label>
+                    <input id={FILTER_BY_PREMIUM}
+                           className='radioInput'
+                           name="filterField"
+                           type="checkbox"
+                           value={FILTER_BY_PREMIUM}
+                           checked={filterByPremium}
+                           onChange={() => handleFilterPremiumChange()}
+                    />
+                    isPremium
+                </label>
+
+                <label>
+                    <input id={FILTER_BY_ACTIVE}
+                           className='radioInput'
+                           name="filterField"
+                           type="checkbox"
+                           value={FILTER_BY_ACTIVE}
+                           checked={filterByActive}
+                           onChange={() => handleFilterActiveChange()}
+                    />
+                    isActive
+                </label>
+
+            </div>
+        )
     }
 
     function renderSortItem() {
@@ -226,10 +298,13 @@ export default function UserList () {
             <div className="answerListContainer">
                 <div className="singleAnswerTitle">
                     <h2>Admin User List</h2>
-                    {renderSortItem()}
+                    <div>
+                        {renderSortItem()}
+                        {renderFilterList()}
+                    </div>
                 </div>
                 {userList.map(item => renderUserItem(item))}
-                <UserCreate />
+                <UserCreate/>
             </div>
         );
     }
