@@ -4,6 +4,7 @@ import {
     UPDATE_ANSWER_ITEM,
     DELETE_ANSWER_ITEM,
     UPDATE_ANSWER_VOTE,
+    DELETE_ANSWER_VOTE,
     SORT_ANSWER_LIST,
     UPDATE_ANSWER_RATE,
     GET_RATING_LIST,
@@ -68,6 +69,22 @@ const answerReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 answerList: getOrderedList([...answerListFiltered, newAnswerItem], state.sortOption)
+            };
+
+        case DELETE_ANSWER_VOTE:
+            let answerItem2 = state.answerList.find(item =>
+                item.id === payload.answerId);
+            const newAnswerItem2 = {
+                ...answerItem2,
+                voteCount: answerItem2.voteCount - 1
+            }
+            const answerListUpdated = state.answerList.map(item =>
+                item.id !== payload.answerId ? item : newAnswerItem2
+            )
+            return {
+                ...state,
+                votingList: payload.votingList,
+                answerList: getOrderedList(answerListUpdated, state.sortOption)
             };
 
         case UPDATE_ANSWER_RATE:
