@@ -10,7 +10,7 @@ conn.sync({ alter: true })
 
     server.listen(process.env.PORT, async () => {
 
-      createMockData && await createTestData();
+      // createMockData && await createTestData();
 
       console.log('--------------------------------');
       // console.log('creada el mockup de datos');
