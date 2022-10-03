@@ -19,10 +19,10 @@ const signUp = async (req, res) => {
         /*------------------------------------------------*/
 
         const userFound = await User.findOne({ where: { userName: userName } })
-        if (userFound) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
+        if (userFound) return res.status(401).json({ data: null, error: "ya existe una cuenta con ese username" })
 
         const userFoundByMail = await User.findOne({ where: { email: email } })
-        if (userFoundByMail) return res.status(401).json({ data: null, error: "ya existe la cuenta" })
+        if (userFoundByMail) return res.status(401).json({ data: null, error: "ya existe una cuenta con ese email" })
 
         const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10))
 
