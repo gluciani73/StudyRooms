@@ -69,6 +69,12 @@ export default function userReducer(state= initialState,{type,payload}){
                     changePassword:""
                 }
 
+        case "ERROR":
+            return{
+                ...initialState,
+                error:payload
+            }
+
     default:
        return {...state};
     }
