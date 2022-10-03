@@ -186,7 +186,13 @@ const likeAnswer = async (req, res) => {
         answerItem.voteCount = voteCountUpdated;
         await answerItem.save();
 
-        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, voteItem })
+        let votingList = await queryVotingList(answerItem.questionId, userId)
+        return res.status(200).json({
+            msg: 'voto creado exitosamente',
+            error: null,
+            voteItem,
+            votingList
+        })
     }
 
     catch (error) {
