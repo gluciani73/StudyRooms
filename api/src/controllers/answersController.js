@@ -77,7 +77,8 @@ const getAnswer = async (req, res) => {
             let result = await Answer.findAll(
                 {
                     where: {
-                        questionId
+                        questionId,
+                        isDeleted: false
                     },
                     include: [
                         {
@@ -142,14 +143,24 @@ const updateAnswer = async (req, res, next) => {
 
 const deleteAnswer = async (req, res) => {
     try {
-        const answerId = req.params.answerId;
+        /* const answerId = req.params.answerId;
         if (answerId) {
             let result = await Answer.destroy({ where: { id: answerId } });
             if (result[0]) {
                 return res.status(500).send({ error: "No se encuentra la respuesta", data: null })
             }
             return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
+        } */
+        const answerExists = await Answer.findByPk(parseInt(req.params.answerId))
+        if(answerExists){
+            await Answer.update({isDeleted: true},{where:{id: parseInt(req.params.answerId)}})
+            return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + req.params.answerId })
         }
+        else{
+            return res.status(404).send({ error: "No se encuentra la respuesta", data: null })
+        }
+
+
     } catch (error) {
         return res.status(500).json({ error: `Error en el controlador de answer al eliminar la respuesta: ${error}`, data: null })
     }
