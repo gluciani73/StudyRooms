@@ -115,10 +115,10 @@ const AskQuestion = (likes) => {
                     
                     <form  className="container-fluid mb-5" onSubmit={(e)=>handleSubmit(e)}>
                         <div className="mb-4 container">
-                        <label  className="form-label fs-2">Title</label>
+                        <label  className="form-label fs-2 ">Title</label>
                         <input type="text" 
                         id='form title'
-                        className="sm-10 form-control" 
+                        className="form-control m-0 p-0" 
                         required value={input.name}
                         name="title" 
                         onChange={(e)=>handleChange(e)}
@@ -151,7 +151,7 @@ const AskQuestion = (likes) => {
                     </div >
                             <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
                     <div className="d-grip gap-2">
-                        <button type="submit" className="btn bg-pink">Submit</button>
+                        <button type="submit" >Submit</button>
                     </div>
                     
 <div className="container"></div>

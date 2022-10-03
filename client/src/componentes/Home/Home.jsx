@@ -23,7 +23,7 @@ const Home = () => {
 
   return (
     !token ?  <Navigate to="/" replace={true} /> :
-    <div>
+    <div className="bg-dark">
       <div className="row m-0 p-0 sticky-top">
         <NavBar />
       </div>

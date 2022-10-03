@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo2.png'
-import home from '../../recursos/home.png'
 import DropDown from './DropDown'
 import SearchBar from "./SearchBar"
 import { useSelector } from 'react-redux'
