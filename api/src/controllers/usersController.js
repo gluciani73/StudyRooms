@@ -184,10 +184,10 @@ const changePassword = async (req,res) => {
 const recoveryPOST = async (req,res) => {
     try {
         const {email} = req.body
-        if(!email) return res.status(400).json({data:null,error:"falta enviar el email"})
+        if(!email) return res.status(400).json({data:null,error:"Falta enviar el email"})
 
         const userExists = await User.findOne({where:{email}})
-        if(!userExists) return res.status(404).json({data:null, error:"user with that email does not exists in DB"})    
+        if(!userExists) return res.status(404).json({data:null, error:"Email Incorrecto"})    
 
         const tokenForLink = jwt.sign({email, id:userExists.id}, RECOVERY_SECRET,{expiresIn:"1d"})
         const recoveryLink = mockURL+'/users/recovery/' + tokenForLink

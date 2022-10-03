@@ -2,12 +2,21 @@ const initialState={
     error:"",
     regisOnOff: true,
     userInfo: {},
-    token:""
+    token:"",
+    recovery:"",
+    recover:"",
 }
 
 export default function Reducer(state = initialState, action) {
 
+    
     switch (action.type) {
+        case "RECOVERY_CHANGE":
+            return{
+                recovery: action.payload.recovery,
+                acountOrPass: action.payload.accPass
+            }
+
         case "USER_REFRESH":
             return{
                 ...initialState,
@@ -31,6 +40,17 @@ export default function Reducer(state = initialState, action) {
             return {
                 ...initialState,
                 regisOnOff: tf
+            }
+        case "RECOVER_LOGIN":
+            console.log(action.payload.errorRecover);
+            if(action.payload.errorRecover) {
+                return{
+                ...initialState,
+                error: action.payload.data
+            }}
+            return{
+                ...initialState,
+                recover: action.payload.data
             }
         default: return state
     }

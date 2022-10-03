@@ -8,10 +8,11 @@ import Question from "../Preguntas/Question";
 import { getQuestions } from "../../Controllers/Actions/questionsActions";
 import '../../CssAdicional/QuestionsCss.css'
 import Footer from '../Footer/Footer'
+import { Navigate } from "react-router-dom";
 
 
 const Home = () => {
-
+  const token = useSelector((state) => state.loginReducer.token)
     const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const Home = () => {
   const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
 
   return (
+    !token ?  <Navigate to="/" replace={true} /> :
     <div>
       <div className="row m-0 p-0 sticky-top">
         <NavBar />
