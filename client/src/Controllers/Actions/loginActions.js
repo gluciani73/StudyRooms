@@ -1,6 +1,39 @@
 import axios from "axios"
 import { decodeToken } from 'react-jwt'
 
+export function backLogin(email) {
+    return async function (dispatch) {
+        try {
+            const res = (await axios.post("/users/recovery", email)).data
+            return dispatch({
+                type: "RECOVER_LOGIN",
+                payload: {
+                    data: res.data,
+                    errorRecover: false
+                }
+            })
+
+        } catch (error) {
+            return dispatch({
+                type: "RECOVER_LOGIN",
+                payload: {
+                    data: error.response.data.error,
+                    errorRecover: true
+                }
+            })
+        }
+    }
+}
+export function recoveryChange(recovery, accPass) {
+    return {
+        type: "RECOVERY_CHANGE",
+        payload: {
+            recovery: recovery,
+            accPass: accPass
+        }
+    }
+}
+
 export function signIn(user) {
     return async function (dispatch) {
         try {
@@ -20,21 +53,21 @@ export function signIn(user) {
         }
     }
 }
-export function refreshUserInfo(dataUser,token){
+export function refreshUserInfo(dataUser, token) {
     return {
-        type:"USER_REFRESH",
+        type: "USER_REFRESH",
         payload: {
             data: dataUser,
             token: token
         }
     }
 }
-export function signInGoogle(token){
+export function signInGoogle(token) {
     const userInfo = decodeToken(token)
 
     return {
-        type:"SIGN_IN",
-        payload:{
+        type: "SIGN_IN",
+        payload: {
             token: token,
             data: userInfo
         }
