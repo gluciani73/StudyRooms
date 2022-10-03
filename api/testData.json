@@ -229,5 +229,52 @@
             "userId": 2,
             "rating": 4
         }
+    ],
+    "voting": [
+        {
+            "answerId": 1,
+            "userId": 2
+        },
+        {
+            "answerId": 1,
+            "userId": 3
+        },
+        {
+            "answerId": 1,
+            "userId": 4
+        },
+        {
+            "answerId": 2,
+            "userId": 1
+        },
+        {
+            "answerId": 2,
+            "userId": 3
+        },
+        {
+            "answerId": 3,
+            "userId": 4
+        },
+        {
+            "answerId": 4,
+            "userId": 2
+        },
+        {
+            "answerId": 4,
+            "userId": 3
+        },
+        {
+            "answerId": 4,
+            "userId": 4
+        },
+
+        {
+            "answerId": 8,
+            "userId": 4
+        },
+        {
+            "answerId": 8,
+            "userId": 2
+        }
     ]
 }

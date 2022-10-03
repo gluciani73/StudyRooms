@@ -8,6 +8,7 @@ const { createAnswer,
         deleteAnswer,
         updateRating,
         getRatingList,
+        getVotingList,
 } = require('../controllers/answersController.js')
 
 
@@ -20,5 +21,6 @@ router.post('/vote/:answerId', likeAnswer)
 router.delete('/:answerId/vote/:userId', deleteVotesXAnswer)
 router.put('/rating/:answerId', updateRating)
 router.get('/:questionId/rating/:userId', getRatingList)
+router.get('/:questionId/voting/:userId', getVotingList)
 
 module.exports = router;
