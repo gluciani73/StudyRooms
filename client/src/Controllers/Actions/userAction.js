@@ -5,6 +5,9 @@ import {
     UPDATE_USERS,
     SORT_USER_LIST_BY_TYPE,
     SORT_USER_LIST_BY_FIELD,
+    FILTER_USER_LIST_BY_ADMIN,
+    FILTER_USER_LIST_BY_PREMIUM,
+    FILTER_USER_LIST_BY_ACTIVE,
 } from "../../constants";
 import axios from 'axios'
 
@@ -99,5 +102,26 @@ export const sortUserListByField = (sortOption) => {
     return {
         type: SORT_USER_LIST_BY_FIELD,
         payload: sortOption
+    }
+}
+
+export const filterUserListByAdmin = () => {
+    return {
+        type: FILTER_USER_LIST_BY_ADMIN,
+        payload: true
+    }
+}
+
+export const filterUserListByPremium = () => {
+    return {
+        type: FILTER_USER_LIST_BY_PREMIUM,
+        payload: true
+    }
+}
+
+export const filterUserListByActive = () => {
+    return {
+        type: FILTER_USER_LIST_BY_ACTIVE,
+        payload: true
     }
 }
