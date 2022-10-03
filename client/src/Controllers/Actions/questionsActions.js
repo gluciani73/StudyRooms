@@ -73,11 +73,11 @@ export function searchQuestion(text) {
     }
   };
 }
-export function logDelete(id, input){
+export function logDelete(id){
   return async function (dispatch){
       try {
         const token = localStorage.getItem("token")
-          var json = await axios.delete(`/questions/${id}`,input, {headers:{"Authorization":`Bearer ${token}`}})
+          var json = await axios.delete(`/questions/${id}`,{headers:{"Authorization":`Bearer ${token}`}})
           return dispatch({
               type: LOGICALDELETEQ,
               payload: json.data
