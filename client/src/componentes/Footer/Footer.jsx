@@ -21,9 +21,9 @@ const Footer = ()=>{
                         <ul className="col-12 col-md-3 list-unstyled"> 
                             <li className=" font-weight-bold mb-2  d-flex justify-content-center" >Siguenos</li>
                             <li className="d-flex justify-content-between">
-                            <i className="bi bi-facebook icons "></i>
-                            <i className="bi bi-instagram icons"></i>
-                            <i className="bi bi-twitter icons"></i>
+                            <Link to='https://www.facebook.com/profile.php?id=100086408741924'><i className="bi bi-facebook icons "></i></Link>
+                            <Link to='https://www.instagram.com/education_com/'><i className="bi bi-instagram icons"></i></Link>
+                            <Link to='https://twitter.com/KnowledgeBoxCen'></Link><i className="bi bi-twitter icons"></i>
                             </li>
                         </ul>
                     </nav>

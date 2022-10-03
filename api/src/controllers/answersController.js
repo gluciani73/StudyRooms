@@ -1,5 +1,6 @@
 const { Answer, Question, User, Votesxanswer, Ratingxanswer, getRatingSum } = require('../db');
 const { Op } = require("sequelize");
+const sendMail = require('./mailer.js')
 
 const createAnswer = async (req, res) => {
     try {
@@ -55,8 +56,9 @@ const createAnswer = async (req, res) => {
             subject: "Alguien Respondio Tu Pregunta",
             text: answer
         }
-
-        await sendMail(mailQuestion)
+        if(dataQuestion.user.id > 5){
+            await sendMail(mailQuestion)
+        }
         // console.log(dataQuestion.user.email)
 
 
@@ -164,8 +166,17 @@ const likeAnswer = async (req, res) => {
             })
         }
 
-        const like = { userId, answerId, rating: true }
-        const newVote = await Votesxanswer.create(like)
+        let voteItem = await Votesxanswer.findOne({
+            where: {
+                userId, answerId
+            }
+        });
+
+        if (!voteItem) {
+            const voteNew = { userId, answerId, rating: true  }
+            voteItem = await Votesxanswer.create(voteNew)
+        }
+
         const voteCountUpdated = await Votesxanswer.count({
             where: {
                 answerId
@@ -176,7 +187,13 @@ const likeAnswer = async (req, res) => {
         answerItem.voteCount = voteCountUpdated;
         await answerItem.save();
 
-        return res.status(200).json({ msg: 'voto creado exitosamente', error: null, newVote })
+        let votingList = await queryVotingList(answerItem.questionId, userId)
+        return res.status(200).json({
+            msg: 'voto creado exitosamente',
+            error: null,
+            voteItem,
+            votingList
+        })
     }
 
     catch (error) {
@@ -187,14 +204,27 @@ const likeAnswer = async (req, res) => {
 
 const deleteVotesXAnswer = async (req, res) => {
     try {
-        const answerId = req.params.answerId;
-        if (1) {
-            let result = await Votesxanswer.destroy({ where: { id: 1 } });
-            if (result[0]) {
-                return res.status(500).send({ error: "No se encuentra el voto", data: null })
-            }
-            return res.status(200).json({ error: null, data: 'Se borro el voto id: ' + answerId })
+        const {answerId, userId} = req.params;
+
+        if (!answerId || !userId) {
+            return res.status(401).json({
+                error: "The required fields userId and answerId are not present in the request, please add them. ",
+                data: null
+            })
         }
+
+        let result = await Votesxanswer.destroy({ where: { userId, answerId } });
+        if (result === 0) {
+            return res.status(500).send({ error: "No se encuentra el voto", data: null })
+        }
+        const answerItem = await Answer.findByPk(answerId)
+        let votingList = await queryVotingList(answerItem.questionId, userId)
+        return res.status(200).json({
+            error: null,
+            message: `The vote with answerId:${answerId} and userId:${userId} was deleted`,
+            votingList
+        });
+
     } catch (error) {
         return res.status(500).json({ error: `Error en el controlador de answer al eliminar el voto: ${error}`, data: null })
     }
@@ -297,4 +327,42 @@ function queryRatingList(questionId, userId) {
     );
 }
 
-module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating, getRatingList }
+const getVotingList = async (req, res) => {
+    const { questionId, userId } = req.params;
+    try {
+
+        if (!userId || !questionId) {
+            return res.status(401).json({
+                error: "The required fields userId and questionId are not present in the request, please add them.",
+                data: null
+            })
+        }
+
+        let votingList = await queryVotingList(questionId, userId)
+        return res.status(200).json(votingList);
+    }
+
+    catch (error) {
+        return res.status(500).json({ error: `API answerController error: ${error}`, data: null })
+    }
+}
+
+function queryVotingList(questionId, userId) {
+    return Answer.findAll(
+        {
+            where: {
+                questionId
+            },
+            include: [
+                {
+                    model: Votesxanswer,
+                    where: {
+                        userId
+                    }
+                },
+            ]
+        }
+    );
+}
+
+module.exports = { createAnswer, updateAnswer, getAnswer, likeAnswer, deleteAnswer, deleteVotesXAnswer, updateRating, getRatingList, getVotingList }

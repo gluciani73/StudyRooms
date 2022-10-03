@@ -6,18 +6,18 @@ const { userCreateValidator, userLoginValidator } = require('../middlewares/user
 const googleAuthRoutes = require('./googleAuth.js')
 
 const passport = require('passport')
-const private = passport.authenticate('jwt', {session:false})
+const privateRoute = passport.authenticate('jwt', {session:false})
 
 // /users/...
 router.post('/signup', userCreateValidator, signUp)
 router.post('/signin', userLoginValidator ,signIn)
-router.put('/changePassword/:userId', private, changePassword)
+router.put('/changePassword/:userId', privateRoute, changePassword)
 router.post('/recovery', recoveryPOST)
 router.get('/recovery/:token', recoveryGET)
-router.get('/', private, getAllUsers)
-router.get('/:userId', private, getUserById)
+router.get('/', privateRoute, getAllUsers)
+router.get('/:userId', privateRoute, getUserById)
 router.get("/activateAccount/:token", activateAccount)
-router.put('/update/:userId', private, updateUser)
+router.put('/update/:userId', privateRoute, updateUser)
 
 router.use('/google', googleAuthRoutes)
 

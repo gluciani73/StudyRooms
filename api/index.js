@@ -2,7 +2,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { createTestData } = require('./seeder.js');
 
-const createMockData = true; // <--- cambiar a false para no sobreescribir la DB
+const createMockData = false; // <--- cambiar a false para no sobreescribir la DB
 
 conn.sync({ force: createMockData })
   .then(() => {

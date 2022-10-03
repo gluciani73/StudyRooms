@@ -29,12 +29,15 @@ const CheckoutForm = () => {
         })
         if (!error) {
             const { id } = paymentMethod
+            const token = localStorage.getItem("token")
             console.log(cantidad)
             try {
                 const { data } = await axios.post("/payments/checkout", {
                     id,
-                    amount: cantidad * 100
-                })
+                    // amount: cantidad * 100
+                    amount: cantidad
+                },
+                    { headers: { "Authorization": `Bearer ${token}` } })
                 console.log(data)
                 const errorData = Object.entries(data)
                 const errorAlert = errorData[0].toString().slice(8)

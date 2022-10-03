@@ -1,4 +1,11 @@
-import { CREATE_USER, GET_ERROR, GET_USER_LIST, UPDATE_USERS } from "../../constants";
+import {
+    CREATE_USER,
+    GET_ERROR,
+    GET_USER_LIST,
+    UPDATE_USERS,
+    SORT_USER_LIST_BY_TYPE,
+    SORT_USER_LIST_BY_FIELD,
+} from "../../constants";
 import axios from 'axios'
 
 
@@ -38,6 +45,7 @@ export const editUserAction = (user, userId)=>{
 }
 
 export const changePassword = (user, userId)=>{
+    console.log(userId);
     return async function (dispatch){
         try {
             const token = localStorage.getItem("token")
@@ -47,6 +55,7 @@ export const changePassword = (user, userId)=>{
                 payload:sendInfo
             })
         } catch (error) {
+            console.log(error)
             return dispatch({
                 type:GET_ERROR,
                 payload:error.response.data.error
@@ -76,5 +85,19 @@ export const getUserList = () => {
                     payload: response.data
                 });
             });
+    }
+}
+
+export const sortUserListByType = (sortOption) => {
+    return {
+        type: SORT_USER_LIST_BY_TYPE,
+        payload: sortOption
+    }
+}
+
+export const sortUserListByField = (sortOption) => {
+    return {
+        type: SORT_USER_LIST_BY_FIELD,
+        payload: sortOption
     }
 }

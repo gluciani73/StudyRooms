@@ -13,3 +13,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.filterSelect label{
+    margin-right: 1em;
+}
+
+.radioInput {
+    margin-right: .2em;
+}

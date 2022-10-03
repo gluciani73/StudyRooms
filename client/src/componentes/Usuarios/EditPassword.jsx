@@ -4,83 +4,93 @@ import {useDispatch} from "react-redux"
 import { useSelector } from "react-redux";
 
 
+
 const EditPassword = ()=>{
+
     const userInfo = useSelector((state)=> state.loginReducer.userInfo);
     const userId = userInfo.id
     const dispatch =useDispatch();
     const errorLog = useSelector((state) => state.userReducer.error)
-    const changePassword = useSelector((state) => state.userReducer.changePassword)
+    const changePassword1 = useSelector((state) => state.userReducer.changePassword)
 
 
-    console.log("error en contraseña",errorLog);
+   
     function validate(data){
         var errors = {};
-        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.newPassowrd)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
-        if(data.newPassowrd !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
+        if (!/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/.test(data.newPassword) ){errors.newPassword ="La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico."}
+        if(data.newPassword !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
+        if (data.newPassword === data.password)errors.newPassword ="La contraseña no puede ser igual a la anterior"
+       
         return errors;
     }
     
-    const [formError, setFormError] = useState({})
-    const [newPassowrd, setNewPassowrd] = useState({
+    const [formError, setFormError] = useState("")
+    const [newPassword, setNewPassword] = useState({
         password:"",
         newPassword:"",
-        ConfirmPassword:""
-    
+        ConfirmPassword:"",
     });
 
     function handleChange(e){
-        setNewPassowrd({
-            ...newPassowrd,
+        setNewPassword({
+            ...newPassword,
             [e.target.name]: e.target.value
         });
         setFormError(validate({
-            ...newPassowrd,
+            ...newPassword,
             [e.target.name]: e.target.value
         }))
     }
+    
 
     function handleSubmit(e){
-        e.preventDefault();
-       dispatch(changePassword(newPassowrd, userId))
-            setNewPassowrd({
-                password:"",
-                newPassword:"",
-                ConfirmPassword:""
-            })
-
+        e.preventDefault()
+       
+        if(formError.newPassword === undefined && newPassword.newPassword !== newPassword.password && newPassword.newPassword === newPassword.ConfirmPassword){
+            dispatch(changePassword(newPassword, userId))
+        }else{
+            alert("error");
+            
         }
-
+        setNewPassword({
+            password:"",
+            newPassword:"",
+            ConfirmPassword:"",
+        })
+      
+    }
+console.log(formError.newPassword)
     return (
         <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
             <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">
                 <h1>Editar Contraseña</h1>
 
 
-                    <div>
-                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}
-                        {changePassword && <p className="alert alert-success">{changePassword}</p>}
-                        <label htmlFor="password">Password</label>                     
-                        <input className='d-block  m-1 border-0 form-control' type="password"  value={newPassowrd.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
+                    <div>                 
+                        {changePassword1 && <p className="alert alert-success">{changePassword1}</p>}
+                        <label htmlFor="password">Password</label>          
+                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}           
+                        <input className='d-block  m-1 border-0 form-control' type="password" autoComplete='off'  value={newPassword.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
                        
                     </div>
 
 
-                    <div>
-                        <label htmlFor="newPassword"> New Password</label>                
-                        <input className='d-block  m-1 border-0 form-control' value={newPassowrd.newPassword} type="text"  placeholder='New Password' id='newPassword' name='newPassword' onChange={(e)=>handleChange(e)} required/>
-                        {formError.newPassword && <p className="alert alert-danger">{formError.newPassword}</p>}
+                    <div>                     
+                        <label htmlFor="newPassword"> New Password</label>    
+                        {formError.newPassword && <p className="alert alert-danger">{formError.newPassword}</p>}            
+                        <input className='d-block  m-1 border-0 form-control' value={newPassword.newPassword} type="password" autoComplete='off'  placeholder='New Password' id='newPassword' name='newPassword' onChange={(e)=>handleChange(e)} required/>
                     </div>
 
                     
-                    <div>
-                        <label htmlFor="ConfirmPassword">Confirm Password</label>                
-                        <input className='d-block  m-1 border-0 form-control' value={newPassowrd.ConfirmnewPassword} type="text"  placeholder='Confirm Password' id='ConfirmPassword' name='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
-                        {formError.ConfirmPassword && <p className="alert alert-danger">{formError.ConfirmPassword}</p>}
+                    <div>                     
+                        <label htmlFor="ConfirmPassword">Confirm Password</label>  
+                        {formError.ConfirmPassword && <p className="alert alert-danger">{formError.ConfirmPassword}</p>}              
+                        <input className='d-block  m-1 border-0 form-control' value={newPassword.ConfirmPassword} type="password" autoComplete='off' placeholder='Confirm Password' id='ConfirmPassword' name='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
                     </div>
 
-                    <button type='submit' value='update'>Save</button>
+                    <button type='submit'>Save</button>
 
-               </form>
+            </form>
         </div>
     )
 }
