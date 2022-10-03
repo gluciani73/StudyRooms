@@ -4,11 +4,15 @@ import {
     UPDATE_ANSWER_ITEM,
     DELETE_ANSWER_ITEM,
     UPDATE_ANSWER_VOTE,
+    DELETE_ANSWER_VOTE,
     SORT_ANSWER_LIST,
     UPDATE_ANSWER_RATE,
     GET_RATING_LIST,
+    GET_VOTING_LIST,
 } from "../Actions/answerActions";
 
+export const SORT_BY_CREATION_ASC = "SORT_BY_CREATION_ASC";
+export const SORT_BY_CREATION_DSC = "SORT_BY_CREATION_DSC";
 export const SORT_BY_DATE_ASC = "SORT_BY_DATE_ASC";
 export const SORT_BY_DATE_DSC = "SORT_BY_DATE_DSC";
 export const SORT_BY_VOTES_ASC = "SORT_BY_VOTES_ASC";
@@ -18,8 +22,9 @@ export const SORT_BY_RATE_DSC = "SORT_BY_RATE_DSC";
 
 const initialState={
     answerList: null,
-    sortOption: SORT_BY_DATE_ASC,
+    sortOption: SORT_BY_CREATION_ASC,
     ratingList: null,
+    votingList: null,
 }
 
 const answerReducer = (state = initialState, {type, payload}) => {
@@ -65,7 +70,24 @@ const answerReducer = (state = initialState, {type, payload}) => {
             )
             return {
                 ...state,
+                votingList: payload.votingList,
                 answerList: getOrderedList([...answerListFiltered, newAnswerItem], state.sortOption)
+            };
+
+        case DELETE_ANSWER_VOTE:
+            let answerItem2 = state.answerList.find(item =>
+                item.id === payload.answerId);
+            const newAnswerItem2 = {
+                ...answerItem2,
+                voteCount: answerItem2.voteCount - 1
+            }
+            const answerListUpdated = state.answerList.map(item =>
+                item.id !== payload.answerId ? item : newAnswerItem2
+            )
+            return {
+                ...state,
+                votingList: payload.votingList,
+                answerList: getOrderedList(answerListUpdated, state.sortOption)
             };
 
         case UPDATE_ANSWER_RATE:
@@ -91,6 +113,12 @@ const answerReducer = (state = initialState, {type, payload}) => {
                 ratingList: payload
             }
 
+        case GET_VOTING_LIST:
+            return {
+                ...state,
+                votingList: payload
+            }
+
         case SORT_ANSWER_LIST:
             return {
                 ...state,
@@ -106,6 +134,14 @@ const answerReducer = (state = initialState, {type, payload}) => {
 function getOrderedList(answerListOriginal, sortOption) {
 
     switch (sortOption) {
+
+        case SORT_BY_CREATION_ASC:
+            return answerListOriginal.sort((a, b) =>
+                (a.id > b.id) ? 1 : -1);
+
+        case SORT_BY_CREATION_DSC:
+            return answerListOriginal.sort((a, b) =>
+                (a.id > b.id) ? -1 : 1);
 
         case SORT_BY_DATE_ASC:
             return answerListOriginal.sort((a, b) =>

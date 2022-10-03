@@ -32,7 +32,17 @@
 }
 
 .singleAnswerInfo {
-    width: 20em;
+    width: 24em;
+}
+
+.voteText {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.voteText img {
+    margin-right: .2em;
 }
 
 .voteLike {
@@ -40,6 +50,10 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+}
+
+.voteLike img {
+    margin-left: .4em;
 }
 
 .personalRating {
