@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar"
 import { useSelector } from 'react-redux'
 
 
+
 const NavBar = () => {
 
     const userInfo = useSelector(state => state.loginReducer.userInfo);
@@ -15,7 +16,9 @@ const NavBar = () => {
             <div className='col-3 p-0 m-0'>
                 <div className='row  p-0 m-0 justify-content-center'>
                     <div className='col d-flex justify-content-center'>
+                        <Link to='./home'>
                         <img src={logo} height="50px" alt="logo" />
+                        </Link>
                     </div>
                 </div>
             </div>

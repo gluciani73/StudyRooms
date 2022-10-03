@@ -44,9 +44,9 @@ function handleRateChange(userId, questionId, rating) {
     myQuestion?.map((e,index)=>{
       
       return(
-        <div  key={index}>
+        <div className="bg-dark text-white"  key={index}>
           <NavBar/>
-          <div className="container bg-dark text-white">
+          <div className="container border bg-dark text-white">
           <h5 >user {e.userId} asks:</h5>
           <h2 >{e.title}?</h2>
           <h4 >description:</h4>
@@ -55,16 +55,14 @@ function handleRateChange(userId, questionId, rating) {
           
           
           <div className="d-flex align-items-center">
-            <LikeB className="align-items-center" userId={e.userId} questionId={e.id}/> 
+            <span><LikeB userId={e.userId} questionId={e.id}/> </span>
             
             <LogDel/>
 
-          <Link className="p-2 ms-auto" to='/Home'>
-            <button>home</button>
-            </Link>
+        
           
           <ReactStars
-          className="p-2"
+          className="p-2 ms-auto"
             value={myQuestion[0].ratingAverage}
             onChange={(newRate) => handleRateChange(uId, id, newRate)}
             edit={true}

@@ -35,7 +35,7 @@ const Home = () => {
           <div className="row bg-dark m-0 p-0">
             <Link to="/home" className="text-decoration-none m-0 p-0">
             <div className="col d-flex w-100 mt-5 justify-content-center ">
-              <p className=" text-light text-center" > Contact Us </p>
+              
             </div>
             </Link>
           </div>

@@ -3,6 +3,7 @@ import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actio
 import {useDispatch, useSelector} from "react-redux";
 import Navbar from '../NavBar/NavBar'
 import { useNavigate } from "react-router-dom";
+import Footer from '../Footer/Footer'
 
 function validate(input){
     let errors={};
@@ -151,14 +152,14 @@ const AskQuestion = (likes) => {
                     </div >
                             <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
                     <div className="d-grip gap-2">
-                        <button type="submit" >Submit</button>
+                        <button type="submit" className="btn bg-white"  >Submit</button>
                     </div>
                     
 <div className="container"></div>
                     <div className="d-inline-flex">
                         {input.categories.map((e,index)=>
-                        <div key={index} className="mx-5 wrap">
-                            <button className="my-5" onClick={()=>handleDelete(e)}>{e}</button>
+                        <div key={index} className="m-auto btn">
+                            <button className="my-5 btn bg-white" onClick={()=>handleDelete(e)}>{e}</button>
                             {console.log(e)}
                         </div>
                         )}
@@ -166,8 +167,10 @@ const AskQuestion = (likes) => {
 
                     </form>
                 </div>
+                <Footer/>
         </div>
       );
+      
 }
  
 export default AskQuestion;
