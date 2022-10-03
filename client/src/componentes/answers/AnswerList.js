@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ReactStars from 'react-stars'; //source: https://www.npmjs.com/package/react-stars
-import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList, getVotingList} from "../../Controllers/Actions/answerActions";
+import {getAnswerList, deleteAnswerItem, updateAnswerVote, sortAnswerList, updateAnswerRating, getRatingList, getVotingList, deleteAnswerVote} from "../../Controllers/Actions/answerActions";
 import {
     SORT_BY_CREATION_ASC,
     SORT_BY_CREATION_DSC,
@@ -16,6 +16,7 @@ import AnswerCreate from "./AnswerCreate";
 import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
 import upVote from '../../recursos/thumbs.png'
+import downVote from '../../recursos/thumb-down.png'
 import sweetalert from 'sweetalert';
 
 export default function AnswerList ({questionId}) {
@@ -101,6 +102,21 @@ export default function AnswerList ({questionId}) {
         }
     }
 
+    function handleVoteDownClick(answerId, answerUserId) {
+        if(userId !== answerUserId) {
+            dispatch(deleteAnswerVote({
+                userId,
+                answerId
+            }));
+        }
+        else {
+            sweetalert({
+                title:"Action not allowed",
+                text: `You can not vote for your own answer.`
+            });
+        }
+    }
+
     function handleOrderChange(event) {
         dispatch(sortAnswerList(event.target.value));
     }
@@ -117,7 +133,7 @@ export default function AnswerList ({questionId}) {
         }
     }
 
-    function renderAnswerItem(answerItem) {
+    function getRatingValue(answerItem) {
         let ratingValue = 0;
         if (ratingList && ratingList.length !== 0) {
             const ratingItem = ratingList.find(item =>
@@ -130,6 +146,29 @@ export default function AnswerList ({questionId}) {
                 ratingValue = Number(ratingItem.ratingxanswers[0].rating);
             }
         }
+        return ratingValue;
+    }
+
+    function getVotingValue(answerItem) {
+        let votingValue = false;
+        if (votingList && votingList.length !== 0) {
+            const votingItem = votingList.find(item =>
+                item.id === answerItem.id &&
+                item.votesxanswers &&
+                item.votesxanswers.length !== 0 &&
+                item.votesxanswers[0].userId === userId
+            );
+            if (votingItem) {
+                votingValue = votingItem.votesxanswers[0].rating;
+            }
+        }
+        return votingValue;
+    }
+
+    function renderAnswerItem(answerItem) {
+        let ratingValue = getRatingValue(answerItem);
+        let votingValue = getVotingValue(answerItem);
+
         return (
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
@@ -147,7 +186,7 @@ export default function AnswerList ({questionId}) {
                                 <span>({answerItem.ratingCount} rates) </span>
                             </div>
 
-                            <span className="voteLike" onClick={() => handleVoteUpClick(answerItem.id, answerItem.userId)}>
+                            <span className="voteText" >
                                 <img src={upVote} alt="" height="20px" width="20px" /> {answerItem.voteCount} likes
                             </span>
                         </div>
@@ -171,7 +210,9 @@ export default function AnswerList ({questionId}) {
                         </button>
                     </>
                 )}
+
                 {userId !== answerItem.userId && (
+                <>
                     <div className="personalRating">
                         <span><b>Your rating: </b></span>
                         <ReactStars
@@ -182,7 +223,25 @@ export default function AnswerList ({questionId}) {
                         />
                         {ratingValue.toFixed(1)} stars
                     </div>
+
+                    {votingValue ? (
+                        <>
+                            <span className="voteLike" onClick={() => handleVoteDownClick(answerItem.id, answerItem.userId)}>
+                                <span><b>Remove your vote:</b></span>
+                                <img src={downVote} alt="" height="20px" width="20px" />
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span className="voteLike" onClick={() => handleVoteUpClick(answerItem.id, answerItem.userId)}>
+                                <span><b>Add your vote:</b></span>
+                                <img src={upVote} alt="" height="20px" width="20px" />
+                            </span>
+                        </>
+                    )}
+                </>
                 )}
+
                 {showEditForm && answerEditId === answerItem.id && (
                     <AnswerEdit userId={answerItem.userId}
                                 questionId={questionId}
