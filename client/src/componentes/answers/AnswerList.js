@@ -51,13 +51,13 @@ export default function AnswerList ({questionId}) {
         if (userId && questionId && !ratingList) {
             dispatch(getRatingList(userId, questionId));
         }
-    }, [dispatch, userId, answerList, ratingList])
+    }, [dispatch, userId, questionId, answerList, ratingList])
 
     useEffect(() => {
         if (userId && questionId && !votingList) {
             dispatch(getVotingList(userId, questionId));
         }
-    }, [dispatch, userId, answerList, votingList])
+    }, [dispatch, userId, questionId, answerList, votingList])
 
     function handleShowEditForm(answerId) {
         setAnswerEditId(answerId);
