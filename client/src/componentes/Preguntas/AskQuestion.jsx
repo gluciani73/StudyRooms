@@ -3,6 +3,7 @@ import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actio
 import {useDispatch, useSelector} from "react-redux";
 import Navbar from '../NavBar/NavBar'
 import { useNavigate } from "react-router-dom";
+import Footer from '../Footer/Footer'
 
 function validate(input){
     let errors={};
@@ -115,10 +116,10 @@ const AskQuestion = (likes) => {
                     
                     <form  className="container-fluid mb-5" onSubmit={(e)=>handleSubmit(e)}>
                         <div className="mb-4 container">
-                        <label  className="form-label fs-2">Title</label>
+                        <label  className="form-label fs-2 ">Title</label>
                         <input type="text" 
                         id='form title'
-                        className="sm-10 form-control" 
+                        className="form-control m-0 p-0" 
                         required value={input.name}
                         name="title" 
                         onChange={(e)=>handleChange(e)}
@@ -151,14 +152,14 @@ const AskQuestion = (likes) => {
                     </div >
                             <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
                     <div className="d-grip gap-2">
-                        <button type="submit" className="btn bg-pink">Submit</button>
+                        <button type="submit" className="btn bg-white"  >Submit</button>
                     </div>
                     
 <div className="container"></div>
                     <div className="d-inline-flex">
                         {input.categories.map((e,index)=>
-                        <div key={index} className="mx-5 wrap">
-                            <button className="my-5" onClick={()=>handleDelete(e)}>{e}</button>
+                        <div key={index} className="m-auto btn">
+                            <button className="my-5 btn bg-white" onClick={()=>handleDelete(e)}>{e}</button>
                             {console.log(e)}
                         </div>
                         )}
@@ -166,8 +167,10 @@ const AskQuestion = (likes) => {
 
                     </form>
                 </div>
+                <Footer/>
         </div>
       );
+      
 }
  
 export default AskQuestion;

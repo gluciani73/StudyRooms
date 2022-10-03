@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo2.png'
-import home from '../../recursos/home.png'
 import DropDown from './DropDown'
 import SearchBar from "./SearchBar"
 import { useSelector } from 'react-redux'
+
 
 
 const NavBar = () => {
@@ -16,7 +16,9 @@ const NavBar = () => {
             <div className='col-3 p-0 m-0'>
                 <div className='row  p-0 m-0 justify-content-center'>
                     <div className='col d-flex justify-content-center'>
+                        <Link to='./home'>
                         <img src={logo} height="50px" alt="logo" />
+                        </Link>
                     </div>
                 </div>
             </div>
