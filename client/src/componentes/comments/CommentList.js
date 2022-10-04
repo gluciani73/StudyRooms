@@ -5,13 +5,15 @@ import './CommentList.css';
 import CommentEdit from "../comments/CommentEdit";
 import CommentCreate from "../comments/CommentCreate";
 
-export default function CommentList ({questionId}) {
+export default function CommentList ({questionId, comments}) {
 
     
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userId = userInfo.id;
     const dispatch = useDispatch();
-    const commentList = useSelector(state => state.commentStore.commentList);
+    //const commentList = useSelector(state => state.commentStore.commentList);
+    const commentList = comments
+
     const [showEditForm, setShowEditForm] = useState(false);
     const [commentEditId, setCommentEditId] = useState(null);
 

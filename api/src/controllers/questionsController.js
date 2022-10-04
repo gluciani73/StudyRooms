@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, Comment} = require('../db.js');
 const { Op, Sequelize } = require('sequelize');
 
 const getRatingSumQuestions = (questionId) => Ratingxquestion.findOne({
@@ -57,6 +57,13 @@ const getQuestion = async (req, res) => {
                         },
                         {
                             model: Answer,
+                            include:[{
+                                model: User,
+                                attributes: { exclude: ['hashedPassword'] }
+                            }]
+                        },
+                        {
+                            model: Comment,
                             include:[{
                                 model: User,
                                 attributes: { exclude: ['hashedPassword'] }
