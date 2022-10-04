@@ -49,7 +49,7 @@ export const editUserAction = (user, userId)=>{
 }
 
 export const changePassword = (user, userId)=>{
-    console.log(userId);
+
     return async function (dispatch){
         try {
             const token = localStorage.getItem("token")

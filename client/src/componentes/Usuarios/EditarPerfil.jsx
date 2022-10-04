@@ -68,7 +68,7 @@ const EditarPerfil = ()=>{
             alert("Error")
         }
 }
-console.log(newUser)
+
     return (
         <div className='col p-0 m-0 d-flex justify-content-center align-items-center'>
             <form onSubmit={(e)=> handleSubmit(e)} className="justify-content-center align-items-center text-center">

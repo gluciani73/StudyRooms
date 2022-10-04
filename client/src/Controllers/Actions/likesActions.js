@@ -28,7 +28,7 @@ export const deleteLikesQuestions = (data) => {
     
 export function rateQuestions(data) {
     return async function (dispatch) {
-        console.log(data)
+
         const token = localStorage.getItem("token")
         await axios.put(`${URL_BACK}/questions/rate/${data.questionId}`, data, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerRating: ", error))

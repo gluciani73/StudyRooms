@@ -57,7 +57,7 @@ const questionReducer = (state = initialState, action) => {
       };
     case FILTER_CATEGORY2:
       const questionss2 = state.allQuestions.data;
-      console.log(questionss2);
+
       const filter2 =
         action.payload === "All"
           ? state.allQuestions.data
