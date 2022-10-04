@@ -23,7 +23,7 @@ const questionReducer = (state = initialState, action) => {
       return {
         ...state,
         questions: action.payload,
-        allQuestions: action.payload,
+        allQuestions: action.payload
       };
     case ADD_QUESTION:
       return {
@@ -100,7 +100,7 @@ const questionReducer = (state = initialState, action) => {
         ...state,
         allQuestions:{
             error: null,
-            data: action.payload
+            data: action.payload.data
         }
       };
 
