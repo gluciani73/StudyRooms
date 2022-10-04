@@ -3,7 +3,10 @@ import './CommentForm.css';
 
 export default function CommentForm ({commentInitial, buttonText, buttonAction, buttonCancel}) {
 
-    const [commentItem, setCommentItem] = useState(commentInitial ? commentInitial : {});
+    const commentInitialStatus = {
+      comment: '',
+    };
+    const [commentItem, setCommentItem] = useState(commentInitial ? {...commentInitial} : commentInitialStatus);
     const [errorComment, setErrorComment] = useState('');
 
     function handleChange(event) {
@@ -26,7 +29,8 @@ export default function CommentForm ({commentInitial, buttonText, buttonAction, 
         if (error) {
             return;
         }
-        buttonAction(commentItem);
+        buttonAction({...commentItem});
+        setCommentItem(commentInitialStatus);
     }
 
     return (
