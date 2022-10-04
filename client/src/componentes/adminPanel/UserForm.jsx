@@ -28,6 +28,10 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         setUserItem({...userItem, [event.target.name]: event.target.value})
     }
 
+    function handleCheckboxChange(event) {
+        setUserItem({...userItem, [event.target.name]: !userItem[event.target.name]})
+    }
+
     function validateUserName() {
         if (!userItem.userName || userItem.userName.length === 0) {
             setErrorList({...errorList, userName: 'The user name can not be empty'});
@@ -218,8 +222,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Admin: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.isAdmin}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.isAdmin}
                                    name={'isAdmin'}
                             />
                         </div>
@@ -227,8 +231,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Premium: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.isPremium}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.isPremium}
                                    name={'isPremium'}
                             />
                         </div>
@@ -236,8 +240,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Active: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.active}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.active}
                                    name={'active'}
                             />
                         </div>
