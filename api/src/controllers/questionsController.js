@@ -96,7 +96,7 @@ const getQuestions = async (req, res) => {
                 isDeleted: false
             },
             include: [
-                { model: Answer, where:{isDeleted: false} },
+                { model: Answer},
                 { model: Category },
                 { model: Votesxquestion },
                 {
