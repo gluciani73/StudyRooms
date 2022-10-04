@@ -26,7 +26,7 @@ export default function CreateUser(){
    });
 
 
-   const [checked, setChecked] = useState({});
+   const [checked, setChecked] = useState(false);
 
     const uploadImage = async (e) =>{
         try {
@@ -81,15 +81,18 @@ export default function CreateUser(){
         dispatch(registerOnOff())
       }
     function handleSubmit(e){
-        e.preventDefault();
+
 
         if(!checked) {
             alert("Por favor indica que aceptas los Términos y Condiciones");
             return false
         }
-       
-
-            e.preventDefault();
+        if(newUser.userName.length < 3 ) {
+            alert("El nombre de usuario debe contener al menos 3 caracteres y como maximo 10")
+        }else if (newUser.password.length < 8 || newUser.password.length > 16 ){
+            alert("La contraseña debe contener al menos 8 caracteres y como maximo debe tener 16 caracteres")
+        
+        }else{
             dispatch(createUserAction(newUser))
             setNewUser({
                 userName:"",
@@ -100,7 +103,18 @@ export default function CreateUser(){
                 ConfirmPassword:"",
                 avatar:""
             })
-            alert("Usuario creado correctamente")
+            if (errorLog === "ya existe una cuenta con ese username"){
+                alert("Error")
+                
+            }else{
+                alert("Usuario creado correctamente")
+            }
+           
+        }
+        
+
+           
+           
 
         }
  console.log(errorLog)
