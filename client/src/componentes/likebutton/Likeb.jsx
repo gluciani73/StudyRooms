@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import like from '../../recursos/thumbs.png'
 import { getDetail } from "../../Controllers/Actions/questionsActions";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 
 
@@ -11,6 +12,7 @@ const LikeB = () => {
 
     const dispatch = useDispatch();
     const check2 = useSelector((state)=>state.loginReducer.userInfo.id);
+    const [ableToLike,setAbleToLike] = useState(true)
 
     const input = {
         questionId:id,
@@ -22,17 +24,24 @@ const LikeB = () => {
 
 
     function handleSubmit(e){
+        e.preventDefault();
+        dispatch(getDetail(id))
+
+        if(!ableToLike) return
+        
         const test =check[0].votesxquestions.filter((e)=>e.userId === check2)
         
-        
-        
-        e.preventDefault();
-        
         if(!test.length){
-        dispatch(postLikesQuestions(input))
+            dispatch(postLikesQuestions(input))
         }else{
-        dispatch(deleteLikesQuestions(input))
+            dispatch(deleteLikesQuestions(input))
         }
+
+        setAbleToLike(false)
+            setTimeout(()=>{
+                setAbleToLike(true)
+            },500)
+
         dispatch(getDetail(id))
     }
         
