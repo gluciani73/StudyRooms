@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import {Link, useParams} from "react-router-dom"
+import { useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
