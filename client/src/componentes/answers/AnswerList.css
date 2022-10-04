@@ -1,5 +1,7 @@
 .answerListContainer {
-    margin: 1em;
+    margin-top: 1em;
+    margin-left: 6em;
+    margin-right: 6em;
 }
 
 .singleAnswer {
