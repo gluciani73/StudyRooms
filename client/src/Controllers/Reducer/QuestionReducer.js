@@ -14,6 +14,7 @@ const initialState = {
   questions: [],
   detail: [],
   categories: [],
+  filterquestion:[]
 };
 
 const questionReducer = (state = initialState, action) => {
@@ -54,13 +55,16 @@ const questionReducer = (state = initialState, action) => {
           data: filter,
           error: null,
         },
+        filterquestion:{
+          data: filter,
+          error: null,
+        }
       };
     case FILTER_CATEGORY2:
       const questionss2 = state.allQuestions.data;
-
-      const filter2 =
-        action.payload === "All"
-          ? state.allQuestions.data
+       const filter2 = 
+       action.payload === "All"
+          ? state.filterquestion.data
           : questionss2.filter((e) =>
               e.categories.map((e) => e.category).includes(action.payload)
             );

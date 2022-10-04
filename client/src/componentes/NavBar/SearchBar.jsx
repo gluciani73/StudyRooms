@@ -9,16 +9,16 @@ const SearchBar = () =>{
     function handleInputChange(e){
         e.preventDefault()
         setText(e.target.value)
-
     }
     function handleSubmit(e){
         e.preventDefault()
         dispatch(searchQuestion(text))
     }
+    
     return(
         <form className="d-flex px-5 ">
-                     <input className="form-control me-2 px-5" type="search" placeholder="Search" aria-label="Search" onChange={(e)=> handleInputChange(e)}/>
-                     <button className="btn btn-primary" type="submit" onClick={(e)=> handleSubmit(e)}>Search</button>
+                     <input className="form-control me-2 px-5" type="text" placeholder="Search" aria-label="Search" onChange={(e)=> handleInputChange(e)}/>
+                     <button type="submit" onClick={(e)=> handleSubmit(e)} className="btn btn-primary">Search</button>
                   </form>
     )
 }
