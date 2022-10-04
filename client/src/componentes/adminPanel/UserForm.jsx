@@ -28,6 +28,10 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         setUserItem({...userItem, [event.target.name]: event.target.value})
     }
 
+    function handleCheckboxChange(event) {
+        setUserItem({...userItem, [event.target.name]: !userItem[event.target.name]})
+    }
+
     function validateUserName() {
         if (!userItem.userName || userItem.userName.length === 0) {
             setErrorList({...errorList, userName: 'The user name can not be empty'});
@@ -48,6 +52,12 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         if (!userItem.firstName || userItem.firstName.length === 0) {
             setErrorList({...errorList, firstName: 'The first name can not be empty'});
             return true;
+        } else if (userItem.firstName.length < 3) {
+            setErrorList({...errorList, firstName: 'The first name can not less than 3'});
+            return true;
+        } else if (userItem.firstName.length > 15) {
+            setErrorList({...errorList, firstName: 'The first name can not greater than 15'});
+            return true;
         } else if (!regexName.test(userItem.firstName)) {
             setErrorList({...errorList, firstName: 'The first name should contain only letters and numbers.'});
             return true;
@@ -60,6 +70,12 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
     function validateLastName() {
         if (!userItem.lastName || userItem.lastName.length === 0) {
             setErrorList({...errorList, lastName: 'The last name can not be empty'});
+            return true;
+        } else if (userItem.lastName.length < 3) {
+            setErrorList({...errorList, lastName: 'The last name can not less than 3'});
+            return true;
+        } else if (userItem.lastName.length > 15) {
+            setErrorList({...errorList, lastName: 'The last name can not greater than 15'});
             return true;
         } else if (!regexName.test(userItem.lastName)) {
             setErrorList({...errorList, lastName: 'The last name should contain only letters and numbers.'});
@@ -218,8 +234,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Admin: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.isAdmin}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.isAdmin}
                                    name={'isAdmin'}
                             />
                         </div>
@@ -227,8 +243,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Premium: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.isPremium}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.isPremium}
                                    name={'isPremium'}
                             />
                         </div>
@@ -236,8 +252,8 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                         <div className='inputSelectField'>
                             <label className="userLabelSelect">Is Active: </label>
                             <input type="checkbox"
-                                   onChange={(e) => handleChange(e)}
-                                   value={userItem.active}
+                                   onChange={(e) => handleCheckboxChange(e)}
+                                   checked={userItem.active}
                                    name={'active'}
                             />
                         </div>

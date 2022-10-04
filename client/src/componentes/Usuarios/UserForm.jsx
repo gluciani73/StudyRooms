@@ -105,7 +105,7 @@ export default function CreateUser(){
         }
  console.log(errorLog)
         return (
-            <div className='d-flex flex-column align-items-center h-auto  position-absolute bg-light'>
+            <div className='d-flex flex-column align-items-center h-auto bg-light'>
                 
                 <form onSubmit={(e)=> handleSubmit(e)} className="d-flex flex-column  align-items-center text-center">
                 <h1>Register</h1>
@@ -213,7 +213,13 @@ export default function CreateUser(){
                          id='avatar'  
                          onChange={(e)=>uploadImage(e)} 
                          required />
-                    </div>   
+                        {newUser.avatar.length ? 
+                        (<img src={newUser.avatar} width="50" height="50" alt="uploaded img" />)
+                            :
+                            "cargando"
+                        }      
+                    </div>  
+
                    
 
                     <div >

@@ -273,9 +273,14 @@ const unlikeQuestion = async (req, res) => {
         const { userId } = req.query;
 
         const vote = await Votesxquestion.findOne({ where: { questionId: questionId, userId: userId } })
+        if(vote){
+            await vote.destroy();
+            return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
+        }
+        else{
+            return res.status(404).json({ error: 'no se encontó el voto', data: null })
+        }
 
-        vote.destroy();
-        return res.status(200).json({ error: null, data: 'Se borro el voto id: ' })
     } catch (error) {
 
         return res.status(500).json({ error: `Error en el controlador de question al eliminar el voto: ${error}`, data: null })

@@ -1,5 +1,4 @@
 import NavBarNoLogIn from "../NavBar/NavBar-nologin"
-import Landing from '../../recursos/landing.gif'
 import Login from "../Usuarios/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
