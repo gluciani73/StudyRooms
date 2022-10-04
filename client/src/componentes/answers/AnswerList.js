@@ -28,13 +28,14 @@ import upVote from '../../recursos/thumbs.png'
 import downVote from '../../recursos/thumb-down.png'
 import sweetalert from 'sweetalert';
 
-export default function AnswerList ({questionId}) {
+export default function AnswerList ({questionId, answers}) {
 
     
     const userInfo = useSelector(state => state.loginReducer.userInfo);
     const userId = userInfo.id;
     const dispatch = useDispatch();
-    const answerList = useSelector(state => state.answerStore.answerList);
+    //const answerList = useSelector(state => state.answerStore.answerList);
+    const answerList = answers
     const ratingList = useSelector(state => state.answerStore.ratingList);
     const votingList = useSelector(state => state.answerStore.votingList);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -266,13 +267,13 @@ export default function AnswerList ({questionId}) {
     function renderAnswerList() {
         if (!answerList || answerList.length === 0) {
             return (
-                <div className='answerListContainer'>
+                <div className='answerListContainer container'>
                     <h3>Be the first one to add an answer to this question...</h3>
                 </div>
             );
         }
         return (
-            <div className='answerListContainer'>
+            <div className='answerListContainer container'>
                 <div className="singleAnswerTitle">
                     <h2>Answer List</h2>
                     <div className='filterSelect'>

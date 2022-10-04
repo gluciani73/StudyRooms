@@ -6,6 +6,8 @@ import {
   SortRating,
 } from "../../Controllers/Actions/filterHomeActions";
 import { getCategories } from "../../Controllers/Actions/questionsActions";
+import { useState } from "react";
+
 const Filters = () => {
   const dispatch = useDispatch();
 
@@ -27,8 +29,13 @@ const Filters = () => {
     return 0;
   });
 
+  const [check, setCheck] = useState({check:false});
+
+
   function handleFilterCategory(e) {
     dispatch(FilterCategory(e.target.value)); //falta asignar action
+    setCheck({check:true})
+if (e.target.value==="All"){setCheck({check:false})}
   }
   function handleFilterCategory2(e) {
     dispatch(FilterCategory2(e.target.value)); //falta asignar action
@@ -41,7 +48,7 @@ const Filters = () => {
     <div className="bg-dark text-white">
       <h1>Filters</h1>
       <p>Category</p>
-      <select className="form-select" onChange={(e) => handleFilterCategory(e)}>
+      <select className="form-select 1"  onChange={(e) => handleFilterCategory(e)}>
         <option value="All">All</option>
         {sortCategories?.map((e) => {
           return (
@@ -50,19 +57,27 @@ const Filters = () => {
             </option>
           );
         })}
+        
       </select>
-      <p>Second Category</p>
-      <select className="form-select" onChange={(e) => handleFilterCategory2(e)}>
-        <option value="All">All</option>
-        {sortCategories?.map((e) => {
-          return (
-            <option key={e} value={e}>
-              {e}
-            </option>
-          );
-        })}
-      </select>
-      <p>Likes:</p>
+        
+        {check.check === true? 
+          <div>
+          <p>Second Category</p>
+          <select className="form-select 2" onChange={(e) => handleFilterCategory2(e)}>
+            <option value="All">All</option>
+            {sortCategories?.map((e) => {
+              return (
+                <option key={e} value={e}>
+                  {e}
+                </option>
+              );
+            })}
+          </select>
+          </div>
+         : false       
+    }
+
+      <p>Likes</p>
       <select className="form-select" onChange={(e) => handleSortRating(e)}>
         <option value="asc">Minor to Major</option>
         <option value="des">Major to Minor</option>

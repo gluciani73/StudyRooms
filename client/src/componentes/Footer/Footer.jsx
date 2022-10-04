@@ -14,7 +14,7 @@ const Footer = ()=>{
                             <img src={logo} alt="logo" className="mx-2" width="250" />
                         </div>
                         <ul className="col-12  col-md-3 list-unstyled align-items-center">
-                            <li className="font-weight-bold mb-2 d-flex justify-content-center" >Sutudy Rooms</li>
+                            <li className="font-weight-bold mb-2 d-flex justify-content-center" >Study Rooms</li>
                             <li className="text-center ">En este sitio web podremos crear, responder y puntuar preguntas sobre  temas de interes general</li>
                         </ul>
                        
