@@ -213,7 +213,13 @@ export default function CreateUser(){
                          id='avatar'  
                          onChange={(e)=>uploadImage(e)} 
                          required />
-                    </div>   
+                        {newUser.avatar.length ? 
+                        (<img src={newUser.avatar} width="50" height="50" alt="uploaded img" />)
+                            :
+                            "cargando"
+                        }      
+                    </div>  
+
                    
 
                     <div >
