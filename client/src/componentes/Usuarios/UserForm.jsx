@@ -105,7 +105,7 @@ export default function CreateUser(){
         }
  console.log(errorLog)
         return (
-            <div className='d-flex flex-column align-items-center h-auto  position-absolute bg-light'>
+            <div className='d-flex flex-column align-items-center h-auto bg-light'>
                 
                 <form onSubmit={(e)=> handleSubmit(e)} className="d-flex flex-column  align-items-center text-center">
                 <h1>Register</h1>
