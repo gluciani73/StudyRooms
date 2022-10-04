@@ -3,7 +3,10 @@ import './AnswerForm.css';
 
 export default function AnswerForm ({answerInitial, buttonText, buttonAction, buttonCancel}) {
 
-    const [answerItem, setAnswerItem] = useState(answerInitial ? answerInitial : {});
+    const answerInitialStatus ={
+        answer: '',
+    }
+    const [answerItem, setAnswerItem] = useState(answerInitial ? {...answerInitial} : answerInitialStatus);
     const [errorAnswer, setErrorAnswer] = useState('');
 
     function handleChange(event) {
@@ -26,7 +29,8 @@ export default function AnswerForm ({answerInitial, buttonText, buttonAction, bu
         if (error) {
             return;
         }
-        buttonAction(answerItem);
+        buttonAction({...answerItem});
+        setAnswerItem(answerInitialStatus);
     }
 
     return (
