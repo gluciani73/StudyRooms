@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, getRatingSum } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, getRatingSum, getRatingSumQuestions } = require('../db.js');
 const { Op } = require('sequelize');
 
 const createQuestion = async (req, res, next) => {
@@ -357,7 +357,7 @@ const rateQuestion = async (req, res) => {
             }
         });
 
-        const rateSumUpdated = await getRatingSum(questionId);
+        const rateSumUpdated = await getRatingSumQuestions(questionId);
         const questionItem = await Question.findByPk(questionId);
 
         questionItem.ratingCount = rateCountUpdated;
