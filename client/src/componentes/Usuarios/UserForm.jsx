@@ -13,11 +13,11 @@ export default function CreateUser(){
     const errorLog = useSelector((state) => state.userReducer.error)
     function validate(data){
         var errors = {};
-        if(!(/^([a-zA-Z0-9_-]){3,16}$/.test(data.userName)) || data.userName.length < 3 ) errors.userName = "Puede contener - _ numeros y letras sin espacios"
+        if(!(/^([a-zA-Z0-9_-]){3,10}$/.test(data.userName))) errors.userName = "Puede contener - _ numeros y letras sin espacios"
         if(!(/^[a-zA-Z]{3,15}$/.test(data.firstName)) || data.firstName.length < 3 ) errors.firstName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         if(!(/^[a-zA-Z]{3,15}$/.test(data.lastName)) || data.lastName.length < 3 ) errors.lastName = "Ingrese un nombre que contenga entre 3 y 15 caracteres"
         if(!(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(data.email)))errors.email = "Ingrese un correo valido"
-        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{8,}[^'\s]+$)/.test(data.password)) errors.password ="La contaseña debe contener al menos una mayuscula un numero y un simbolo y no puede contener espacios"
+        if (!/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%"-._;,+*?&]{7,16}[^'\s]+$)/.test(data.password)) errors.password ="La contaseña debe contener al menos una mayuscula un numero un simbolo @<>! y no puede contener espacios"
         if(data.password !== data.ConfirmPassword)errors.ConfirmPassword = "Las contraseñas no coinciden"
 
         return errors
@@ -122,12 +122,12 @@ export default function CreateUser(){
                 
                 <form onSubmit={(e)=> handleSubmit(e)} className="d-flex flex-column  align-items-center text-center">
                 <h1>Register</h1>
-
+                {errorLog && <p className="alert alert-danger">{errorLog}</p>}
                     <div>
                         {formError.userName && <p className="alert alert-danger">{formError.userName}</p>}
                         <label htmlFor="NickName">Nickname</label>
-                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}
-                        <input pattern='([a-zA-Z0-9_-]){3,16}$' title='El nombre de usuario debe contener entre 3 y 16 caracteres. No puede contener simbolos'  className='d-block  m-1 border-1 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='Nickname' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>                  
+                        
+                        <input pattern='([a-zA-Z0-9_-]\S){3,10}$' title='El nombre de usuario debe contener entre 3 y 16 caracteres. No puede contener simbolos'  className='d-block  m-1 border-1 form-control'  type="text" value={newUser.userName} id='userName' name='userName' placeholder='Nickname' autoComplete='off'  onChange={(e)=>handleChange(e)} required/>                  
                         
                    </div>
 
@@ -147,17 +147,15 @@ export default function CreateUser(){
 
                     <div>
                         {formError.email && <p className="alert alert-danger">{formError.email}</p>}
-                        <label htmlFor="email">Email</label> 
-                        {errorLog && <p className="alert alert-danger">{errorLog}</p>}                       
+                        <label htmlFor="email">Email</label>                            
                         <input pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" title="Ingrese un mail valido" className='d-block  m-1 border-1 form-control' type="email" value={newUser.email} placeholder='email@example.com'name='email' id='email' autoComplete='off' onChange={(e)=>handleChange(e)} required/>
-                    {errorLog && <p className="alert alert-danger">{errorLog}</p>}
                     </div>
 
 
                     <div>
                         {formError.password && <p className="alert alert-danger">{formError.password}</p>}
                         <label htmlFor="password">Password</label>                     
-                        <input pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" title="La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico." className='d-block  m-1 border-1 form-control' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>                    
+                        <input pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{7,16}$" title="La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico." className='d-block  m-1 border-1 form-control' type="password"  value={newUser.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>                    
                     </div>
 
                     <div>
