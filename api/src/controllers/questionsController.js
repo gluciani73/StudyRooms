@@ -56,7 +56,11 @@ const getQuestion = async (req, res) => {
                             model: Votesxquestion
                         },
                         {
-                            model: Answer
+                            model: Answer,
+                            include:[{
+                                model: User,
+                                attributes: { exclude: ['hashedPassword'] }
+                            }]
                         },
                         {
                             model: Category
