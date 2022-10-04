@@ -30,7 +30,7 @@ const CheckoutForm = () => {
         if (!error) {
             const { id } = paymentMethod
             const token = localStorage.getItem("token")
-            console.log(cantidad)
+
             try {
                 const { data } = await axios.post("/payments/checkout", {
                     id,
@@ -38,7 +38,7 @@ const CheckoutForm = () => {
                     amount: cantidad
                 },
                     { headers: { "Authorization": `Bearer ${token}` } })
-                console.log(data)
+
                 const errorData = Object.entries(data)
                 const errorAlert = errorData[0].toString().slice(8)
                 alert(errorAlert)
@@ -70,7 +70,7 @@ const Donations = () => {
             <NavBar />
             <div className="Donaciones">
                 <div className="BackgroundText">
-                    <h1>Gracias por tu donacion, <small class="text-muted">Tu donacion sera utilizada para mejorar la calidad y servicios de la pagina web</small></h1>
+                    <h1>Gracias por tu donacion, <small className="text-muted">Tu donacion sera utilizada para mejorar la calidad y servicios de la pagina web</small></h1>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm />
                     </Elements>
