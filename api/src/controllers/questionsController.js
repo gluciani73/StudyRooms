@@ -45,10 +45,7 @@ const getQuestion = async (req, res) => {
                             model: Votesxquestion
                         },
                         {
-                            model: Answer,
-                            where:{
-                                isDeleted: false
-                            }
+                            model: Answer
                         },
                         {
                             model: Category
