@@ -42,7 +42,7 @@ export default function Reducer(state = initialState, action) {
                 regisOnOff: tf
             }
         case "RECOVER_LOGIN":
-            console.log(action.payload.errorRecover);
+
             if(action.payload.errorRecover) {
                 return{
                 ...initialState,

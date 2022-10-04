@@ -37,6 +37,7 @@ export const editUserAction = (user, userId)=>{
         try {
             const token = localStorage.getItem("token")
             const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
+            localStorage.setItem("token", sendInfo.token)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo.data
@@ -48,7 +49,7 @@ export const editUserAction = (user, userId)=>{
 }
 
 export const changePassword = (user, userId)=>{
-    console.log(userId);
+
     return async function (dispatch){
         try {
             const token = localStorage.getItem("token")

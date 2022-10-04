@@ -16,7 +16,7 @@ const NavBar = () => {
             <div className='col-3 p-0 m-0'>
                 <div className='row  p-0 m-0 justify-content-center'>
                     <div className='col d-flex justify-content-center'>
-                        <Link to='./home'>
+                        <Link to='/home'>
                         <img src={logo} height="50px" alt="logo" />
                         </Link>
                     </div>
