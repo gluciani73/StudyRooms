@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import EditProfile from "./EditarPerfil";
 import EditPassword from "./EditPassword";
@@ -28,10 +29,10 @@ export default function ProfileUser(){
       };
 
     return(
-        <div >
+        <div className="bg-dark text-white">
         <NavBar/>
-            <div>
-                <h2>My Profile</h2>
+            <div className="container border text-center my-1">
+                <h2 className="my-3">My Profile</h2>
                 <figure><img src={userInfo?.avatar} alt="avatar" style={mystyle} /></figure>
                 <div>
                     <h3>NickName: {userInfo?.userName}</h3>
@@ -39,9 +40,9 @@ export default function ProfileUser(){
                     <h3>Last Name: {userInfo?.lastName}</h3>
                     <h3>Email: {userInfo?.email}</h3>
                 </div>
-                {showEditPassword ? undefined : <button type="button" onClick={handleEdit}>{showEdit? "Cancelar" : "Editar Perfil"}</button>}
+                {showEditPassword ? undefined : <button type="button" className="btn bg-white m-3" onClick={handleEdit}>{showEdit? "Cancelar" : "Editar Perfil"}</button>}
                 {/* <button onClick={handleEditPassword}>Cambiar Contraseña</button> */}
-                {showEdit ? undefined : <button onClick={handleEditPassword}>{showEditPassword ? "Cancelar" : "Cambiar contraseña"}</button> }
+                {showEdit ? undefined : <button className="btn bg-white" onClick={handleEditPassword}>{showEditPassword ? "Cancelar" : "Cambiar contraseña"}</button> }
                 {showEdit ?
                  <EditProfile/>
                  
@@ -50,7 +51,7 @@ export default function ProfileUser(){
                  {showEditPassword? <EditPassword /> : undefined}
             </div>
         
-        
+        <Footer/>
         </div>
     )
 }

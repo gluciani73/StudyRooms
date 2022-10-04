@@ -59,7 +59,6 @@ if (e.target.value==="All"){setCheck({check:false})}
         })}
         
       </select>
-
         
         {check.check === true? 
           <div>
