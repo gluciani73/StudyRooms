@@ -17,7 +17,8 @@ async function createTestData() {
     lastName: "user1",
     email: "test1@test.com",
     password: "123",
-    active: true
+    active: true,
+    isVerified: true
   })
   await axios.post(mockURL + '/users/signup', {
     userName: "testUser2",
@@ -25,7 +26,8 @@ async function createTestData() {
     lastName: "user2",
     email: "test2@test.com",
     password: "1234",
-    active: true
+    active: true,
+    isVerified: true
   })
   await axios.post(mockURL + '/users/signup', {
     userName: "testUser3",
@@ -33,7 +35,8 @@ async function createTestData() {
     lastName: "user3",
     email: "test3@test.com",
     password: "12345",
-    active: false
+    active: false,
+    isVerified: true
   })
   await axios.post(mockURL + '/users/signup', {
     userName: "testUser4",
@@ -41,7 +44,8 @@ async function createTestData() {
     lastName: "user4",
     email: "test4@test.com",
     password: "123456",
-    active: true
+    active: true,
+    isVerified: true
   })
   await axios.post(mockURL + '/users/signup', {
     userName: "admin",
@@ -50,7 +54,8 @@ async function createTestData() {
     email: "admin@test.com",
     password: "admin",
     active: true,
-    isAdmin: true
+    isAdmin: true,
+    isVerified: true
   })
 
   // creo token para las requests de test

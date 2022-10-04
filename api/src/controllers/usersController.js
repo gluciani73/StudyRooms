@@ -14,6 +14,7 @@ const signUp = async (req, res) => {
         const avatar = req.body.avatar || 'https://res.cloudinary.com/dcmn0kkly/image/upload/v1663359592/guest-user_clv1cg.jpg'
 
         /* ESTO ES PARA PODER CREAR LOS USUARIOS DE TEST*/
+        const isVerified = req.body.isVerified || false
         const active = req.body.active || false
         const isAdmin = req.body.isAdmin || false
         /*------------------------------------------------*/
@@ -36,7 +37,8 @@ const signUp = async (req, res) => {
             avatar,
             isPremium: false,
             active,  // cambiar esto a "active: false" para deploy
-            isAdmin  // cambiar esto a "isAdmin: false" para deploy
+            isAdmin,  // cambiar esto a "isAdmin: false" para deploy
+            isVerified
         })
         const dataToSend = {
             id: createdUser.id, userName, firstName, lastName, email, avatar
@@ -77,7 +79,8 @@ const signIn = async (req, res) => {
         if (userFoundByName || userFoundByEmail) {
 
             const userFound = userFoundByName || userFoundByEmail
-            if (userFound.active === false) return res.status(403).json({ data: null, error: "user needs to activate account, check email" })
+            if (userFound.isVerified === false) return res.status(403).json({ data: null, error: "user needs to activate account, check email" })
+            if (userFound.active === false) return res.status(403).json({ data: null, error: "account is deactivated" })
             if (bcrypt.compareSync(password, userFound.hashedPassword)) {
                 const dataToSend = {
                     id: userFound.id,
@@ -108,7 +111,7 @@ const activateAccount = async (req, res) => {
     const data = jwt.verify(token, ACTIVATION_SECRET)
     const user = await User.findOne({ where: { email: data.email } })
     if (user) {
-        await User.update({ active: true }, { where: { email: data.email } })
+        await User.update({ isVerified: true, active: true }, { where: { email: data.email } })
         res.redirect(FRONT_URL)
     }
     else {
