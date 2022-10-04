@@ -36,13 +36,13 @@ const LikeB = () => {
         dispatch(getDetail(id))
     }
         
-        return (<div className="bg-dark" >
+        return (<div className="btn bg-dark">
 
             <button onClick={e =>handleSubmit(e)}>
-                <div className="bg-primary d-inline-flex">
-                <img src={like} alt="" height="20px" className="px-2"/> <p>likes:</p>
-                <p>{check[0].votesxquestions.length}</p>
-
+                <div className="bg-primary btn d-inline-flex align-items-center">
+                <img src={like} alt="" height="20px"/>
+                <span>likes:</span>
+                <span>{check[0].votesxquestions.length}</span>
                 </div>
             </button>
         </div>  );

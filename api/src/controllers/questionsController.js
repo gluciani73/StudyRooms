@@ -45,7 +45,10 @@ const getQuestion = async (req, res) => {
                             model: Votesxquestion
                         },
                         {
-                            model: Answer
+                            model: Answer,
+                            where:{
+                                isDeleted: false
+                            }
                         },
                         {
                             model: Category
@@ -72,7 +75,7 @@ const getAllQuestions = async (req, res) => {
     try {
         let result = await Question.findAll({
             include: [
-                { model: Answer },
+                { model: Answer},
                 { model: Category },
                 { model: Votesxquestion },
                 {
@@ -93,7 +96,7 @@ const getQuestions = async (req, res) => {
                 isDeleted: false
             },
             include: [
-                { model: Answer },
+                { model: Answer, where:{isDeleted: false} },
                 { model: Category },
                 { model: Votesxquestion },
                 {
@@ -179,6 +182,15 @@ const updateQuestion = async (req, res) => {
 const deleteQuestion = async (req, res) => {
     try {
         const questionId = req.params.questionId;
+        const questionToCheck = await Question.findByPk(questionId, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id']
+                }]
+            });
+        if(req.user.isAdmin !== true && req.user.id !== questionToCheck.user.id) return res.status(401).send("Unauthorized")
+
         if (questionId) {
             // let result = await Question.destroy({ where: { id: questionId } });
             const result = await Question.update({ isDeleted: true }, { where: { id: questionId } });
