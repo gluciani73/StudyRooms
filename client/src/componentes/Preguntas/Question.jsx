@@ -1,7 +1,6 @@
 
 
 export default function Question({title, description, ratingAverage, userId, likes, categories}) {
-    console.log (categories)
 
     return(
 
@@ -11,12 +10,12 @@ export default function Question({title, description, ratingAverage, userId, lik
             <p>By: { userId }</p>
             
             <div className='d-flex'>
-                <p className='d-flex justify-content-start me-auto'>  {categories.map(e=>{
+                <div className='d-flex justify-content-start me-auto'>  {categories.map(e=>{
                 return(
                 <div key={e.id}>
                 <button className='mx-3 px-1'> {e.category}</button>
                 </div>)}
-                )}</p>  
+                )}</div>  
                
                 <p>Rating: { ratingAverage }</p>
                 <p>Likes: { likes } </p>
