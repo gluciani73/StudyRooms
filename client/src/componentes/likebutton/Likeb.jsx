@@ -4,7 +4,6 @@ import like from '../../recursos/thumbs.png'
 import { getDetail } from "../../Controllers/Actions/questionsActions";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 
 
 
@@ -27,7 +26,7 @@ const LikeB = () => {
     function handleSubmit(e){
         e.preventDefault();
         dispatch(getDetail(id))
-        
+
         if(!ableToLike) return
         
         const test =check[0].votesxquestions.filter((e)=>e.userId === check2)
