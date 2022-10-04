@@ -52,6 +52,12 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         if (!userItem.firstName || userItem.firstName.length === 0) {
             setErrorList({...errorList, firstName: 'The first name can not be empty'});
             return true;
+        } else if (userItem.firstName.length < 3) {
+            setErrorList({...errorList, firstName: 'The first name can not less than 3'});
+            return true;
+        } else if (userItem.firstName.length > 15) {
+            setErrorList({...errorList, firstName: 'The first name can not greater than 15'});
+            return true;
         } else if (!regexName.test(userItem.firstName)) {
             setErrorList({...errorList, firstName: 'The first name should contain only letters and numbers.'});
             return true;
@@ -64,6 +70,12 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
     function validateLastName() {
         if (!userItem.lastName || userItem.lastName.length === 0) {
             setErrorList({...errorList, lastName: 'The last name can not be empty'});
+            return true;
+        } else if (userItem.lastName.length < 3) {
+            setErrorList({...errorList, lastName: 'The last name can not less than 3'});
+            return true;
+        } else if (userItem.lastName.length > 15) {
+            setErrorList({...errorList, lastName: 'The last name can not greater than 15'});
             return true;
         } else if (!regexName.test(userItem.lastName)) {
             setErrorList({...errorList, lastName: 'The last name should contain only letters and numbers.'});
