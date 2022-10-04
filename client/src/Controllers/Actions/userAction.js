@@ -37,6 +37,7 @@ export const editUserAction = (user, userId)=>{
         try {
             const token = localStorage.getItem("token")
             const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
+            localStorage.setItem("token", sendInfo.token)
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo.data
