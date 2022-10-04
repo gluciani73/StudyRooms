@@ -27,7 +27,7 @@ const Home = () => {
       <div className="row m-0 p-0 sticky-top">
         <NavBar />
       </div>
-      <div className="row m-0 p-0">
+      <div className="row m-0 p-0 h-75">
         <div className="col-2 p-0 m-0">
           <div className="row m-0 p-0 sticky">
             <Filters />
@@ -45,7 +45,7 @@ const Home = () => {
             return (
               <div key={id} className = " colQuestions">
                 <Link to={`/QuestionDetail/${e.id}`}>
-                  <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} likes={e.votesxquestions.length} userId={e.user.userName} categories={e.categories}> </Question>
+                  <Question key={e.id} title={e.title} description={e.description} ratingAverage={e.ratingAverage} ratingCount={e.ratingCount} likes={e.votesxquestions.length} userId={e.user.userName} categories={e.categories}> </Question>
                 </Link>
               </div>
       

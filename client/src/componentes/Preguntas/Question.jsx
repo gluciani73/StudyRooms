@@ -1,6 +1,6 @@
 
 
-export default function Question({title, description, ratingAverage, userId, likes, categories}) {
+export default function Question({title, description, ratingAverage, userId, likes, categories, ratingCount}) {
 
     return(
 
@@ -18,6 +18,7 @@ export default function Question({title, description, ratingAverage, userId, lik
                 )}</div>  
                
                 <p>Rating: { ratingAverage }</p>
+                <p>Rating count: {Number(ratingCount)} </p>
                 <p>Likes: { likes } </p>
             </div>
 
