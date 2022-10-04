@@ -1,5 +1,16 @@
-const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, getRatingSum, getRatingSumQuestions } = require('../db.js');
-const { Op } = require('sequelize');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion } = require('../db.js');
+const { Op, Sequelize } = require('sequelize');
+
+const getRatingSumQuestions = (questionId) => Ratingxquestion.findOne({
+    where: {
+        questionId
+    },
+    attributes: [
+        'questionId',
+        [Sequelize.fn('sum', Sequelize.col('rating')), 'sum'],
+    ],
+    group: ['questionId']
+});
 
 const createQuestion = async (req, res, next) => {
     try {
@@ -415,9 +426,6 @@ function queryRatingList(userId) {
         }
     );
 }
-
-
-
 
 
 module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions }

@@ -1,6 +1,17 @@
-const { Answer, Question, User, Votesxanswer, Ratingxanswer, getRatingSum } = require('../db');
-const { Op } = require("sequelize");
+const { Answer, Question, User, Votesxanswer, Ratingxanswer} = require('../db');
+const { Op, Sequelize } = require("sequelize");
 const sendMail = require('./mailer.js')
+
+const getRatingSum = async (answerId) => await Ratingxanswer.findOne({
+    where: {
+        answerId
+    },
+    attributes: [
+        'answerId',
+        [Sequelize.fn('sum', Sequelize.col('rating')), 'sum'],
+    ],
+    group: ['answerId']
+});
 
 const createAnswer = async (req, res) => {
     try {
