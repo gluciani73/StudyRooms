@@ -111,7 +111,7 @@ const AskQuestion = (likes) => {
     return (
         <div className="bg-dark text-white" >
             <Navbar/>
-                <div className="container border text-white">
+                <div className="container h-100 bg-dark border text-white">
                     <h2 className=" fs-2 text-center pt-2"> Make a Question for our community </h2>
                     
                     <form  className="container-fluid mb-5" onSubmit={(e)=>handleSubmit(e)}>
@@ -151,9 +151,7 @@ const AskQuestion = (likes) => {
                         </select>
                     </div >
                             <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
-                    <div className="d-grip gap-2">
-                        <button type="submit" className="btn bg-white"  >Submit</button>
-                    </div>
+                    
                     
 <div className="container"></div>
                     <div className="d-inline-flex">
@@ -166,7 +164,16 @@ const AskQuestion = (likes) => {
                     </div>
 
                     </form>
+              
+                    <div className="d-grip gap-2 align-item-center">
+                        <button type="submit" className="btn bg-white mb-5"  >Submit</button>
+                    </div>
+
+                    <span className="h-100"> </span>
                 </div>
+
+              
+
                 <Footer/>
         </div>
       );

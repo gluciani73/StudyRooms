@@ -390,7 +390,7 @@ const rateQuestion = async (req, res) => {
     }
 }
 
-const getRatingList = async (req, res) => {
+const getRatingListQ = async (req, res) => {
     const { userId } = req.params;
     try {
 
@@ -428,7 +428,7 @@ function queryRatingList(userId) {
 }
 
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions }
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions, getRatingListQ }
 
 
 
