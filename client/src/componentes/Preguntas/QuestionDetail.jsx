@@ -69,9 +69,11 @@ function handleRateChange(userId, questionId, rating) {
             size={30}
             half={false}
             />  
-          
+            <p>Rating: {e.ratingAverage}</p>
+            <p>Ratings: {e.ratingCount} </p>
             </div>
             </div>
+
             <CommentList questionId={id}/>
           <AnswerList questionId={id}/>        
           

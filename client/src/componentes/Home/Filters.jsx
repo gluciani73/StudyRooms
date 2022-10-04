@@ -62,7 +62,7 @@ const Filters = () => {
           );
         })}
       </select>
-      <p>Rating</p>
+      <p>Likes:</p>
       <select className="form-select" onChange={(e) => handleSortRating(e)}>
         <option value="asc">Minor to Major</option>
         <option value="des">Major to Minor</option>
