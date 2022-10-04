@@ -2,43 +2,44 @@
     "questions": [
         {
             "userId": 1,
-            "title": "Maths x history",
-            "description": "Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum",
+            "title": "¿Cuántos litros de sangre tiene una persona adulta?",
+            "description": "Tiene entre 2 y 4 litros, Tiene entre 4 y 6 litros; Tiene 10 litros; Tiene 7 litros; Tiene 0,5litros",
             "categories": [
-                "Maths",
-                "History"
+                "Biology"
             ]
         },
         {
             "userId": 2,
-            "title": "Maths",
-            "description": "Lorem ipsum dolor sit amet. ",
+            "title": "¿Quién es el autor de la frase 'Pienso, luego existo'?",
+            "description": "Platón,  Galileo Galilei, Descartes, Sócrates, Francis Bacon",
             "categories": [
-                "Maths"
+                "Languages"
             ]
         },
         {
             "userId": 2,
-            "title": "History",
-            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "title": "¿Cuál es el país más grande y el más pequeño del mundo?",
+            "description": "'Rusia y Vaticano, China y Nauru, Canadá y Mónaco, Estados Unidos y Malta, India y San Marino",
             "categories": [
-                "History"
+                "Geography"
             ]
         },
         {
             "userId": 3,
-            "title": "title",
-            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "title": "¿Cuál es el grupo de palabras escritas correctamente?",
+            "description": "'Metamorfosis, extranjero, diversidac, equilivrio; Metaformosis, estranjero, diversidad, ekilibrio; Metamorfosis, extrangero, dibersidad, equilibrio;  Metamorfosis, extranjero, diversidad, equilibrio; Metamórfosis, eztranjero, divérsidad, ecuilibrio'",
             "categories": [
-                "History"
+                "Languages",
+                "Philosophy"
             ]
         },
         {
             "userId": 3,
-            "title": "title",
-            "description": "'Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum'",
+            "title": "¿Cuál es el libro más vendido en el mundo después de la Biblia?",
+            "description": "El Señor de los Anillos, Don Quijote de la Mancha, El Principito, Cien años de Soledad, La Odisea",
             "categories": [
-                "Programming"
+                "History",
+                "Languages"
             ]
         }
     ],
@@ -46,7 +47,7 @@
         {
             "userId": 1,
             "questionId": 1,
-            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin purus at neque gravida scelerisque in quis diam. Sed rutrum in quam eu faucibus. Curabitur elementum convallis dictum. Nulla facilisi. Phasellus efficitur pulvinar ex eu venenatis. Maecenas nibh sem, ultricies in fermentum non, pellentesque in neque. Aliquam non felis ligula. Nam eget libero ipsum. Proin eu imperdiet massa, sed accumsan mi. Curabitur eu erat nec erat feugiat sollicitudin. Aliquam non felis ligula. Nam eget libero ipsum. Proin eu imperdiet massa, sed accumsan mi. Curabitur eu erat nec erat feugiat sollicitudin. Nam suscipit placerat nulla sit amet suscipit. Nunc feugiat nibh tortor, quis eleifend diam consectetur in. Phasellus commodo arcu non turpis scelerisque, ac blandit metus molestie.",
+            "answer": "Opción b: Tiene entre 4 y 6 litros. La cantidad de sangre varía de persona a persona. El volumen de sangre representa del 7 al 8% del peso corporal. De esta forma, en una persona adulta que pesa entre 50 y 80 kilogramos, puede haber entre 4 y 6 litros de sangre.",
             "ratingAverage": 4.1,
             "ratingCount": 11,
             "voteCount": 1
@@ -78,7 +79,7 @@
         {
             "userId": 2,
             "questionId": 2,
-            "answer": "Pellentesque vitae tellus quis felis venenatis ultricies. Curabitur mattis purus vel lorem aliquet aliquam. Cras hendrerit dolor commodo risus varius auctor sit amet eu leo. Nullam eget arcu quis lectus ornare facilisis. Donec nunc felis, faucibus a ex auctor, dictum faucibus ante. Etiam et mi at est posuere luctus at at arcu.",
+            "answer": "Opción c: Descartes'Je pense, donc je suis' es la frase original, escrita en francés, del filósofo René Descartes (1596-1650). Esta frase resume el pensamiento y el método de Descartes, para quien todo se inicia con la duda.",
             "ratingAverage": 2.5,
             "ratingCount": 5,
             "voteCount": 16
@@ -94,7 +95,7 @@
         {
             "userId": 3,
             "questionId": 3,
-            "answer": "Vestibulum gravida enim sem, ac maximus risus interdum at. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam accumsan, ex ullamcorper venenatis placerat, felis nisl lobortis lacus, sed placerat nisl elit sit amet odio. Pellentesque vitae tellus quis felis venenatis ultricies.",
+            "answer": "Opción a: Rusia y Vaticano. Rusia es el país mas grande del mundo con un área de 17 millones de km2, mientras el Vaticano tiene apenas 0, 44 km2.",
             "ratingAverage": 3.3,
             "ratingCount": 7,
             "voteCount": 15
@@ -118,7 +119,7 @@
         {
             "userId": 1,
             "questionId": 4,
-            "answer": "Lorem ipsum dolor sit amet. Ab beatae blanditiis ex earum omnis et itaque praesentium 33 officiis quia vel aliquid dolorum.",
+            "answer": "Opción d) Metamorfosis, extranjero, diversidad, equilibrio",
             "ratingAverage": 4.1,
             "ratingCount": 8,
             "voteCount": 15
@@ -216,7 +217,6 @@
             "userId": 4,
             "rating": 4
         },
-
         {
             "questionId": 3,
             "answerId": 8,
@@ -267,7 +267,6 @@
             "answerId": 4,
             "userId": 4
         },
-
         {
             "answerId": 8,
             "userId": 4
