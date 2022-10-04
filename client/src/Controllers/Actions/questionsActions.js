@@ -63,7 +63,7 @@ export function searchQuestion(text) {
     try {
         
       var json = await axios.get(`${URL_BACK}search/question?string=${text}`);
-      console.log(json.data)
+
       return dispatch({
         type: SEARCH_QUESTION,
         payload: json.data.data,

@@ -9,7 +9,7 @@ const SearchBar = () =>{
     function handleInputChange(e){
         e.preventDefault()
         setText(e.target.value)
-        console.log(text)
+
     }
     function handleSubmit(e){
         e.preventDefault()

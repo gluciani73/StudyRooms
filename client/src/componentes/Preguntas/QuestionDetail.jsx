@@ -63,7 +63,7 @@ function handleRateChange(userId, questionId, rating) {
           
           <ReactStars
           className="p-2 ms-auto"
-            value={myQuestion[0].ratingAverage}
+            value={Number(myQuestion[0].ratingAverage)}
             onChange={(newRate) => handleRateChange(uId, id, newRate)}
             edit={true}
             size={30}
