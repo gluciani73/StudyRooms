@@ -53,7 +53,7 @@ const Home = () => {
       
             )
           }) : <h1>Esto no existe</h1>
-        }
+         } 
         </div>
       </div>
         <Footer/>
