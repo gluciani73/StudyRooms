@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import {Link, useParams} from "react-router-dom"
+import { useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDetail } from "../../Controllers/Actions/questionsActions";
@@ -74,7 +74,7 @@ function handleRateChange(userId, questionId, rating) {
             </div>
             </div>
 
-            <CommentList questionId={id}/>
+            <CommentList questionId={id} comments={myQuestion[0].comments}/>
           <AnswerList questionId={id} answers={myQuestion[0].answers}/>        
           
         
