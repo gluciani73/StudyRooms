@@ -21,11 +21,10 @@ const SearchBar = () => {
         className="form-control me-2 px-5"
         type="text"
         placeholder="Search"
-        aria-label="Search"
         onChange={(e) => handleInputChange(e)}
       />
       <button
-        type="submit"
+        type="button"
         onClick={(e) => handleSubmit(e)}
         className="btn btn-primary"
       >

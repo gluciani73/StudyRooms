@@ -1,4 +1,4 @@
-const { Question, Answer, Category } = require('../db.js');
+const { Question, Answer, Category, Votesxquestion, User } = require('../db.js');
 const { Op } = require('sequelize')
 
 const searchQuestion = async (req, res) => {
@@ -24,7 +24,9 @@ const searchQuestion = async (req, res) => {
                 },
                 include: [
                     { model: Category },
-                    { model: Answer }
+                    { model: Answer },
+                    {model: Votesxquestion},
+                    {model: User, attributes: { exclude: ['hashedPassword'] }}
                 ]
             }
             );
