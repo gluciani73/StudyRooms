@@ -51,7 +51,7 @@ const createAnswer = async (req, res) => {
 
 
         // correo: respondiendo una pregunta
-        const dataQuestion = await Question.findByPk(questionId,{
+        const dataQuestion = await Question.findByPk(questionId, {
             include: [
                 {
                     model: User,
@@ -67,7 +67,7 @@ const createAnswer = async (req, res) => {
             subject: "Alguien Respondio Tu Pregunta",
             text: answer
         }
-        if(dataQuestion.user.id > 5){
+        if (dataQuestion.user.id > 5) {
             await sendMail(mailQuestion)
         }
         // console.log(dataQuestion.user.email)
@@ -105,7 +105,7 @@ const getAnswer = async (req, res) => {
                 }
             );
             if (!result[0]) {
-                return res.status(500).send({ error: "No se encuentran respuestas para esta pregunta", data: null })
+                return res.status(200).json({ error: "No se encuentran respuestas para esta pregunta", data: [] })
             }
             return res.status(200).json({ error: null, data: result })
         }
@@ -163,11 +163,11 @@ const deleteAnswer = async (req, res) => {
             return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + answerId })
         } */
         const answerExists = await Answer.findByPk(parseInt(req.params.answerId))
-        if(answerExists){
-            await Answer.update({isDeleted: true},{where:{id: parseInt(req.params.answerId)}})
+        if (answerExists) {
+            await Answer.update({ isDeleted: true }, { where: { id: parseInt(req.params.answerId) } })
             return res.status(200).json({ error: null, data: 'Se borro la respuesta id: ' + req.params.answerId })
         }
-        else{
+        else {
             return res.status(404).send({ error: "No se encuentra la respuesta", data: null })
         }
 
@@ -195,7 +195,7 @@ const likeAnswer = async (req, res) => {
         });
 
         if (!voteItem) {
-            const voteNew = { userId, answerId, rating: true  }
+            const voteNew = { userId, answerId, rating: true }
             voteItem = await Votesxanswer.create(voteNew)
         }
 
@@ -226,7 +226,7 @@ const likeAnswer = async (req, res) => {
 
 const deleteVotesXAnswer = async (req, res) => {
     try {
-        const {answerId, userId} = req.params;
+        const { answerId, userId } = req.params;
 
         if (!answerId || !userId) {
             return res.status(401).json({
