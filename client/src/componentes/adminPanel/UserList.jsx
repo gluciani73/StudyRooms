@@ -175,7 +175,7 @@ export default function UserList() {
                            type="checkbox"
                            value={FILTER_BY_ADMIN}
                            checked={filterByAdmin}
-                           onChange={() => handleFilterAdminChange()}
+                           onChange={(e) => handleFilterAdminChange(e)}
                     />
                     isAdmin
                 </label>
@@ -187,7 +187,7 @@ export default function UserList() {
                            type="checkbox"
                            value={FILTER_BY_PREMIUM}
                            checked={filterByPremium}
-                           onChange={() => handleFilterPremiumChange()}
+                           onChange={(e) => handleFilterPremiumChange(e)}
                     />
                     isPremium
                 </label>
@@ -199,7 +199,7 @@ export default function UserList() {
                            type="checkbox"
                            value={FILTER_BY_ACTIVE}
                            checked={filterByActive}
-                           onChange={() => handleFilterActiveChange()}
+                           onChange={(e) => handleFilterActiveChange(e)}
                     />
                     isActive
                 </label>
