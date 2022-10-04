@@ -20,6 +20,7 @@ const Home = () => {
   }, [dispatch]);
 
   const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
+  console.log("estas son las preguntas", allQuestions)
 
   return (
     !token ?  <Navigate to="/" replace={true} /> :
@@ -41,7 +42,8 @@ const Home = () => {
           </div>
         </div>
         <div className="col p-1 m-0 ">
-          {allQuestions?.map((e, id) => {
+          {allQuestions?
+          allQuestions.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
                 <Link to={`/QuestionDetail/${e.id}`}>
@@ -50,7 +52,8 @@ const Home = () => {
               </div>
       
             )
-          })}
+          }) : <p>Esto no existe</p>
+        }
         </div>
       </div>
         <Footer/>
