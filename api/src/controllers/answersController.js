@@ -97,7 +97,7 @@ const getAnswer = async (req, res) => {
                         },
                         {
                             model: User,
-                            attributes: ['id', 'avatar', 'userName', 'email']
+                            attributes: ['id', 'avatar', 'userName', 'email', 'isPremium']
                         },
 
                         // include: model votesXAnswer

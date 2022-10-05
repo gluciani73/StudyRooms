@@ -26,6 +26,7 @@ import './AnswerList.css';
 import AnswerEdit from "./AnswerEdit";
 import upVote from '../../recursos/thumbs.png'
 import downVote from '../../recursos/thumb-down.png'
+import donation from '../../recursos/donation.svg'
 import sweetalert from 'sweetalert';
 
 export default function AnswerList ({questionId}) {
@@ -181,7 +182,13 @@ export default function AnswerList ({questionId}) {
         return (
             <div className='singleAnswer' key={answerItem.id}>
                 <div className='singleAnswerTitle'>
-                    <h3>Answer from {answerItem.user.userName}</h3>
+                    <div className="ratingContainer">
+                        <h3>Answer from {answerItem.user.userName}</h3>
+                        {answerItem.user.isPremium && (
+                            <img className='donation' src={donation} alt={"donation"} height="50px"/>
+                        )}
+                    </div>
+
                     <div className='singleAnswerInfo'>
                         <div className='ratingLikeContainer'>
                             <div className="ratingContainer">
