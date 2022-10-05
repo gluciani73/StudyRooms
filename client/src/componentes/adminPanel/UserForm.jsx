@@ -17,7 +17,13 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
         passConfirm: '',
     };
     const [userItem, setUserItem] = useState(userInitial ? {...userInitial} : userInitialStatus);
-    const [errorList, setErrorList] = useState({});
+    const [errorUserName, setErrorUserName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState('');
+    const [errorLastName, setErrorLastName] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorUrl, setErrorUrl] = useState('');
+    const [errorPassword, setErrorPassword] = useState('');
+    const [errorPassConfirm, setErrorPassConfirm] = useState('');
 
     const regexName = /^[\dA-Za-z\s-]*$/;
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //source: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
@@ -34,130 +40,132 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
 
     function validateUserName() {
         if (!userItem.userName || userItem.userName.length === 0) {
-            setErrorList({...errorList, userName: 'The user name can not be empty'});
+            setErrorUserName('The user name can not be empty');
             return true;
         } else if (userItem.userName.length > 10) {
-            setErrorList({...errorList, userName: 'The user name can not greater than 10'});
+            setErrorUserName('The user name can not greater than 10');
             return true;
         } else if (!regexName.test(userItem.userName)) {
-            setErrorList({...errorList, userName: 'The user name should contain only letters and numbers.'});
+            setErrorUserName('The user name should contain only letters and numbers.');
             return true;
         } else {
-            setErrorList({...errorList, userName: undefined});
+            setErrorUserName('');
             return false;
         }
     }
 
     function validateFirstName() {
         if (!userItem.firstName || userItem.firstName.length === 0) {
-            setErrorList({...errorList, firstName: 'The first name can not be empty'});
+            setErrorFirstName('The first name can not be empty');
             return true;
         } else if (userItem.firstName.length < 3) {
-            setErrorList({...errorList, firstName: 'The first name can not less than 3'});
+            setErrorFirstName('The first name can not less than 3');
             return true;
         } else if (userItem.firstName.length > 15) {
-            setErrorList({...errorList, firstName: 'The first name can not greater than 15'});
+            setErrorFirstName('The first name can not greater than 15');
             return true;
         } else if (!regexName.test(userItem.firstName)) {
-            setErrorList({...errorList, firstName: 'The first name should contain only letters and numbers.'});
+            setErrorFirstName('The first name should contain only letters and numbers.');
             return true;
         } else {
-            setErrorList({...errorList, firstName: undefined});
+            setErrorFirstName('');
             return false;
         }
     }
 
     function validateLastName() {
         if (!userItem.lastName || userItem.lastName.length === 0) {
-            setErrorList({...errorList, lastName: 'The last name can not be empty'});
+            setErrorLastName('The last name can not be empty');
             return true;
         } else if (userItem.lastName.length < 3) {
-            setErrorList({...errorList, lastName: 'The last name can not less than 3'});
+            setErrorLastName('The last name can not less than 3');
             return true;
         } else if (userItem.lastName.length > 15) {
-            setErrorList({...errorList, lastName: 'The last name can not greater than 15'});
+            setErrorLastName('The last name can not greater than 15');
             return true;
         } else if (!regexName.test(userItem.lastName)) {
-            setErrorList({...errorList, lastName: 'The last name should contain only letters and numbers.'});
+            setErrorLastName('The last name should contain only letters and numbers.');
             return true;
         } else {
-            setErrorList({...errorList, lastName: undefined});
+            setErrorLastName('');
             return false;
         }
     }
 
     function validateEmail() {
         if (!userItem.email || userItem.email.length === 0) {
-            setErrorList({...errorList, email: 'The email can not be empty'});
+            setErrorEmail('The email can not be empty');
             return true;
         } else if (!regexEmail.test(userItem.email)) {
-            setErrorList({...errorList, email: 'The email is not well formed.'});
+            setErrorEmail('The email is not well formed.');
             return true;
         } else {
-            setErrorList({...errorList, email: undefined});
+            setErrorEmail('');
             return false;
         }
     }
 
     function validateUrl() {
         if (!userItem.avatar || userItem.avatar.length === 0) {
-            setErrorList({...errorList, avatar: "The avatar's url can not be empty"});
+            setErrorUrl("The avatar's url can not be empty");
             return true;
         } else if (!regexUrl.test(userItem.avatar)) {
-            setErrorList({...errorList, avatar: "The avatar's url is not well formed."});
+            setErrorUrl("The avatar's url is not well formed.");
             return true;
         } else {
-            setErrorList({...errorList, avatar: undefined});
+            setErrorUrl('');
             return false;
         }
     }
 
     function validatePassword() {
-        return validatePasswordValue("password", "password")
+        return validatePasswordValue("password", "password", setErrorPassword)
     }
 
     function validatePassConfirm() {
-        return validatePasswordValue("passConfirm", "confirmed password")
+        return validatePasswordValue("passConfirm", "confirmed password", setErrorPassConfirm)
     }
 
-    function validatePasswordValue(passField, fieldName) {
-        const errorListNew = {...errorList}
+    function validatePasswordValue(passField, fieldName, setErrorMessage) {
         if (!userItem[passField] || userItem[passField].length === 0) {
-            errorListNew[passField] = `The ${fieldName} can not be empty`
-            setErrorList(errorListNew);
+            setErrorMessage(`The ${fieldName} can not be empty`);
             return true;
         } else if (userItem[passField].length < 8 ) {
-            errorListNew[passField] = `The ${fieldName} should be 8 letters minimum.`;
-            setErrorList(errorListNew);
+            setErrorMessage(`The ${fieldName} should be 8 letters minimum.`);
             return true;
         } else if (userItem[passField].length > 16 ) {
-            errorListNew[passField] = `The ${fieldName} should be 16 letters maximum.`;
-            setErrorList(errorListNew);
+            setErrorMessage(`The ${fieldName} should be 16 letters maximum.`);
             return true;
         }
         else if (!regexPassword.test(userItem[passField])) {
-            errorListNew[passField] = `The confirm ${fieldName} contains numbers, lower and upper letters and special characters.`;
-            setErrorList(errorListNew);
+            setErrorMessage(`The confirm ${fieldName} contains numbers, lower and upper letters and special characters.`);
             return true;
         } else if (userItem.password !== userItem.passConfirm) {
-            setErrorList({...errorList, passConfirm: "The password and confirmed password do not match."});
+            setErrorPassConfirm("The password and confirmed password do not match.");
             return true;
         } else {
-            errorListNew[passField] = undefined;
-            setErrorList(errorListNew);
+            setErrorMessage('');
             return false;
         }
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (validateUserName() &&
-            validateFirstName() &&
-            validateLastName() &&
-            validateEmail() &&
-            validateUrl() &&
-            validatePassword() &&
-            validatePassConfirm()
+        const isErrorUserName = validateUserName();
+        const isErrorFirstName = validateFirstName();
+        const isErrorLastName = validateLastName();
+        const isErrorEmail = validateEmail();
+        const isErrorUrl = validateUrl();
+        const isErrorPassword = validatePassword();
+        const isErrorPassConfirm = validatePassConfirm();
+
+        if (isErrorUserName ||
+            isErrorFirstName ||
+            isErrorLastName ||
+            isErrorEmail ||
+            isErrorUrl ||
+            isErrorPassword ||
+            isErrorPassConfirm
         ) {
             return;
         }
@@ -180,7 +188,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    value={userItem.userName}
                                    name={'userName'}
                             />
-                            <span className="errorMessage">{errorList.userName}</span>
+                            <span className="errorMessage">{errorUserName}</span>
                         </div>
 
                         <div className='inputLabelField'>
@@ -192,7 +200,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    value={userItem.firstName}
                                    name={'firstName'}
                             />
-                            <span className="errorMessage">{errorList.firstName}</span>
+                            <span className="errorMessage">{errorFirstName}</span>
                         </div>
 
                         <div className='inputLabelField'>
@@ -204,7 +212,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    value={userItem.lastName}
                                    name={'lastName'}
                             />
-                            <span className="errorMessage">{errorList.lastName}</span>
+                            <span className="errorMessage">{errorLastName}</span>
                         </div>
 
                         <div className='inputLabelField'>
@@ -216,7 +224,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    value={userItem.avatar}
                                    name={'avatar'}
                             />
-                            <span className="errorMessage">{errorList.avatar}</span>
+                            <span className="errorMessage">{errorUrl}</span>
                         </div>
                     </div>
 
@@ -230,7 +238,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    value={userItem.email}
                                    name={'email'}
                             />
-                            <span className="errorMessage">{errorList.email}</span>
+                            <span className="errorMessage">{errorEmail}</span>
                         </div>
 
                         <div className='inputSelectField'>
@@ -270,7 +278,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    name={'password'}
                                    type="password"
                             />
-                            <span className="errorMessage">{errorList.password}</span>
+                            <span className="errorMessage">{errorPassword}</span>
                         </div>
 
                         <div className='inputLabelField'>
@@ -283,7 +291,7 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
                                    name={'passConfirm'}
                                    type="password"
                             />
-                            <span className="errorMessage">{errorList.passConfirm}</span>
+                            <span className="errorMessage">{errorPassConfirm}</span>
                         </div>
 
                     </div>
