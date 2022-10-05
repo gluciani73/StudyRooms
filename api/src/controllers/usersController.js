@@ -224,10 +224,16 @@ const recoveryGET = async (req, res) => {
         const data = jwt.verify(token, RECOVERY_SECRET)
         const { email } = data
 
+        const characters = 'abcdefghijklmnopqrstuvwxyz';
         let newPassword = ""
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
+            newPassword += characters[Math.floor(Math.random() * characters.length)]
+        }
+        for (let i = 0; i < 5; i++) {
             newPassword += Math.floor(Math.random() * 10)
         }
+        newPassword += "!"
+        newPassword = newPassword[0].toUpperCase() + newPassword.substring(1)
 
         const hashedNewPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(10))
         await User.update({ hashedPassword: hashedNewPassword }, { where: { email } })
