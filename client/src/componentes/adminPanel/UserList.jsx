@@ -67,7 +67,7 @@ export default function UserList() {
             dangerMode: true,
         }).then(value => {
             if (value) {
-                dispatch(editUserAction({...userItem, active: false}, userItem.id));
+                dispatch(editUserAction({...userItem, active: false}, userItem.id, true));
             }
         });
     }
@@ -80,7 +80,7 @@ export default function UserList() {
             buttons: ["Cancel", "Activate"],
         }).then(value => {
             if (value) {
-                dispatch(editUserAction({...userItem, active: true}, userItem.id));
+                dispatch(editUserAction({...userItem, active: true}, userItem.id, true));
             }
         });
     }

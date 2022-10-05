@@ -9,7 +9,7 @@ export default function UserEdit({userItem, handleAction, handleCancel}) {
 
     function handleEditButton(userItem) {
         const userUpdated = {...userItem}
-        dispatch(editUserAction(userUpdated, userItem.id));
+        dispatch(editUserAction(userUpdated, userItem.id, true));
         handleAction();
     }
 
