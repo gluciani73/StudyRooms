@@ -1,7 +1,9 @@
 // pasarela de pago
 //router.use(express.json())
 const { User } = require('../db.js')
+const jwt = require('jsonwebtoken')
 
+const {AUTH_SECRET} = require('../CONSTANTS.js')
 //esto es de la pasarela de pago
 
 const checkout = async (req, res) => {
@@ -39,9 +41,24 @@ const checkout = async (req, res) => {
                 where: { id: userReqInfo.id }
             })
 
+            const user = await User.findByPk(userReqInfo.id);
+            const dataToSend = {
+                id: user.id,
+                userName: user.userName,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                avatar: user.avatar,
+                active: user.active,
+                isAdmin: user.isAdmin,
+                isPremium: user.isPremium
+            }
+
+            const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
+
         //---------------------------------------------
         /////////////////////////////////////////////////////////
-        return res.send({ message: "Pago realizado" })
+        return res.json({ message: "Pago realizado", error:null, token })
     } catch (error) {
         console.log(error)
         return res.json({ message: error.raw.message })
