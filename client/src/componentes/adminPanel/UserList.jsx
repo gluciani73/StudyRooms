@@ -6,6 +6,7 @@ import './UserList.css';
 import UserEdit from "./UserEdit";
 import UserCreate from "./UserCreate"
 import sweetalert from "sweetalert";
+import donation from '../../recursos/donation.svg'
 import {
     getUserList,
     editUserAction,
@@ -110,7 +111,12 @@ export default function UserList() {
             <div className='singleAnswer bg-dark text-white' key={userItem.id}>
                 <div className="singleUserTitle">
                     <h3>{userItem.userName}</h3>
-                    <img className='avatar' src={userItem.avatar} alt={userItem.userName}/>
+                    <div>
+                        {userItem.isPremium && (
+                            <img className='donation' src={donation} alt={"donation"}/>
+                        )}
+                        <img className='avatar' src={userItem.avatar} alt={userItem.userName}/>
+                    </div>
                 </div>
                 <div className='userPropertiesColumns'>
                     <div>
@@ -121,6 +127,7 @@ export default function UserList() {
                     <div>
                         <p><b>Is Admin: </b> {userItem.isAdmin ? "yes" : "no"}</p>
                         <p><b>Is Premium: </b> {userItem.isPremium ? "yes" : "no"}</p>
+                        <p><b>Amount Donated: </b> ${Number(userItem.amountDonated).toFixed(2)}</p>
                         <p><b>Is Active: </b> {userItem.active ? "yes" : "no"}</p>
                     </div>
                 </div>
