@@ -43,7 +43,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col p-1 m-0 ">
-          {allQuestions[0]?
+          {allQuestions && allQuestions.length?
           allQuestions.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
