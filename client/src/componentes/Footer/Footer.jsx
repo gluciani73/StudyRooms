@@ -7,7 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 
 const Footer = () => {
     return (
-        <footer className="bg-dark d-flex text-white justify-content-between">
+        <footer className="bg-dark d-flex text-white justify-content-between fixed-bottom">
             <div className="col-2 justify-content-center d-flex text-center">
                 <img src={logo} alt="logo" height="50px" />
             </div>
