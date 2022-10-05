@@ -43,7 +43,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col p-1 m-0 ">
-          {allQuestions[0]?
+          {allQuestions && allQuestions.length?
           allQuestions.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
@@ -54,7 +54,7 @@ const Home = () => {
       
             )
           }) : <div>
-                  <h1 Style="color:White"> Esto no existe </h1>
+                  <h1 Style="color:White"> your search criteria did not match any filters </h1>
                </div>
          } 
         </div>

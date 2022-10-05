@@ -12,7 +12,7 @@ const SearchBar = () => {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(searchQuestion(text));
+    text.length > 0 ? dispatch(searchQuestion(text)) : alert("Ingrese datos a buscar");
   }
 
   return (
