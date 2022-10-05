@@ -190,7 +190,7 @@ export default function AnswerList ({questionId}) {
                                     className="stars"
                                     value={Number(answerItem.ratingAverage)}
                                     edit={false}
-                                    size={28}
+                                    size={24}
                                 />
                                 <span>({answerItem.ratingCount} rates) </span>
                             </div>

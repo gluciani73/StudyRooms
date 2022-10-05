@@ -2,6 +2,10 @@
     width: 4em;
 }
 
+.donation {
+    width: 4em;
+    margin-right: 1em;
+}
 .userPropertiesColumns {
     display: flex;
     justify-content: space-between;
