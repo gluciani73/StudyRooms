@@ -32,12 +32,28 @@ export const createUserAction = (user) => {
 }
 
 
-export const editUserAction = (user, userId)=>{
+export const editUserAction = (user, userId, isAdmin)=>{
     return async function (dispatch){
         try {
             const token = localStorage.getItem("token")
             const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
-            localStorage.setItem("token", sendInfo.token)
+            isAdmin === false && localStorage.setItem("token", sendInfo.token) 
+            return dispatch({
+                type:UPDATE_USERS,
+                payload:sendInfo.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+export const editUserActionAdmin = (user, userId)=>{
+    return async function (dispatch){
+        try {
+            const token = localStorage.getItem("token")
+            const sendInfo = (await axios.put(`/users/update/${userId}`, user, {headers:{"Authorization":`Bearer ${token}`}})).data;
             return dispatch({
                 type:UPDATE_USERS,
                 payload:sendInfo.data

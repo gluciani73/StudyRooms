@@ -57,7 +57,7 @@ const EditarPerfil = ()=>{
 
     function handleSubmit(e){
         if(userInfo.firstName !== newUser.firstName && userInfo.lastName !== newUser.lastName ){
-            dispatch(editUserAction(newUser, userId))
+            dispatch(editUserAction(newUser, userId, false))
             setNewUser({
                 firstName:"",
                 lastName:"",
