@@ -45,9 +45,9 @@ const LikeB = () => {
         dispatch(getDetail(id))
     }
         
-        return (<div className="btn bg-dark">
+        return (<div className="btn bg-dark ">
 
-            <button onClick={e =>handleSubmit(e)}>
+            <button className="bg-dark border-0" onClick={e =>handleSubmit(e) }>
                 <div className="bg-primary btn d-inline-flex align-items-center">
                 <img src={like} alt="" height="20px"/>
                 <span>likes:</span>
