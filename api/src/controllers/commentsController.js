@@ -11,7 +11,7 @@ const getCommentListByQuestionId = async (req, res) => {
                 include: [
                     {
                         model: User,
-                        attributes: ['id', 'avatar', 'userName', 'email']
+                        attributes: ['id', 'avatar', 'userName', 'email', 'isPremium']
                     }
                 ]
             }
