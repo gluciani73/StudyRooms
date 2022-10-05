@@ -20,6 +20,7 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
 import UserList from "./componentes/adminPanel/UserList";
 import CategoryList from "./componentes/categorias/CategoryList";
+import RecoverConfirmation from './componentes/LandingPage/RecoverConfirmation'
 
 function App() {
   const dispatch = useDispatch()
@@ -48,6 +49,7 @@ function App() {
     <Route path="*" element={<Error404 />} />
     <Route path='QuestionDetail/:id' element={<QuestionDetail/>}/>
     <Route path='/auth/:token' element={<GoogleAuth/>}/>
+    <Route path='/recovery' element={<RecoverConfirmation/>}/>
    </Routes>
    </Router>
   );

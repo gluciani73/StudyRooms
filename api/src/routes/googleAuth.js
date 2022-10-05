@@ -15,7 +15,7 @@ router.get('/login/callback',
     }),
     (req,res)=> {
         const token = jwt.sign(req.user, AUTH_SECRET,{expiresIn:'1d'})
-        res.redirect("https://study-rooms-gilt.vercel.app/auth/"+token)
+        res.redirect(FRONT_URL+"/auth/"+token)
     })
 
 module.exports = router;

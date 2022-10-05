@@ -240,7 +240,8 @@ const recoveryGET = async (req, res) => {
         }
         await sendMail(mailOptions)
 
-        return res.status(200).json({ error: null, data: "account password reseted" })
+        //return res.status(200).json({ error: null, data: "account password reseted" })
+        return res.redirect(FRONT_URL+"/recovery")
     } catch (error) {
         return res.status(500).json({ data: null, error: "error in userController" })
     }
