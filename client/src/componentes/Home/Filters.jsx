@@ -80,6 +80,7 @@ if (e.target.value==="All"){setCheck({check:false})}
       <p>Likes:</p>
 
       <select className="form-select" onChange={(e) => handleSortRating(e)}>
+        <option value="none" >NONE</option>
         <option value="asc">Minor to Major</option>
         <option value="des">Major to Minor</option>
       </select>

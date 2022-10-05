@@ -43,7 +43,7 @@ export default function AnswerList ({questionId}) {
     const sortOption = useSelector(state => state.answerStore.sortOption);
 
     useEffect(() => {
-        if (questionId && !answerList) {
+        if (questionId) {
             dispatch(getAnswerList(questionId));
         }
     }, [dispatch, questionId, answerList]);
