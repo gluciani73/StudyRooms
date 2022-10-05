@@ -12,15 +12,19 @@ import { Navigate } from "react-router-dom";
 
 
 const Home = () => {
+
   const token = useSelector((state) => state.loginReducer.token)
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  
+  const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
+  console.log("estas son las preguntas", allQuestions)
+
 
   useEffect(() => {
     dispatch(getQuestions())
   }, [dispatch]);
 
-  const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
-  console.log("estas son las preguntas", allQuestions)
+ 
 
   return (
     !token ?  <Navigate to="/" replace={true} /> :
@@ -42,7 +46,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col p-1 m-0 ">
-          {allQuestions?
+          {allQuestions[0]?
           allQuestions.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
@@ -52,7 +56,9 @@ const Home = () => {
               </div>
       
             )
-          }) : <h1>Esto no existe</h1>
+          }) : <div>
+                  <h1 Style="color:White"> Esto no existe </h1>
+               </div>
          } 
         </div>
       </div>
