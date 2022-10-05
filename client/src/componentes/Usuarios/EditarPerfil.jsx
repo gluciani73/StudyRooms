@@ -94,6 +94,11 @@ const EditarPerfil = ()=>{
                     <div>
                         <label htmlFor="foto">Avatar</label>
                         <input  className='d-block  m-1 border-0 form-control' type="file" accept='image/png, image/jpeg'  name='avatar' id='foto' placeholder='foto'  onChange={(e)=>uploadImage(e)}/>
+                        {newUser.avatar.length ? 
+                        (<img src={newUser.avatar} width="50" height="50" alt="uploaded img" />)
+                            : null
+                          
+                        }      
                     </div>
 
                     <button type='submit' className=' btn-success' value='update'>Save</button> 
