@@ -92,6 +92,8 @@ export default function CreateUser(){
         }else if (newUser.password.length < 8 || newUser.password.length > 16 ){
             alert("La contraseña debe contener al menos 8 caracteres y como maximo debe tener 16 caracteres")
         
+        }else if(newUser.avatar.length < 1 ){
+            alert("Avatar not found")
         }else{
             dispatch(createUserAction(newUser))
             setNewUser({
@@ -230,8 +232,8 @@ export default function CreateUser(){
                          required />
                         {newUser.avatar.length ? 
                         (<img src={newUser.avatar} width="50" height="50" alt="uploaded img" />)
-                            :
-                            "cargando"
+                            : null
+                          
                         }      
                     </div>  
 
