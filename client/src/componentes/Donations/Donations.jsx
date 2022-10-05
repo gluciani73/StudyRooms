@@ -5,7 +5,6 @@ import axios from "axios"
 import NavBar from "../NavBar/NavBar"
 import { useNavigate } from "react-router-dom"
 import Footer from "../Footer/Footer";
-
 const stripePromise = loadStripe("pk_test_51LhhasEmp5dtE89LxdcOsJb9GWkTB6Zjcq9fl5Igf3CcmhwJs01BuokKEfJnF9LTbhSRjSyBoweMaUvMtBW3ZlWO00R9ldzf45")
 
 
