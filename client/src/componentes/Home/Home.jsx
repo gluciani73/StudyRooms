@@ -12,15 +12,17 @@ import { Navigate } from "react-router-dom";
 
 
 const Home = () => {
+
   const token = useSelector((state) => state.loginReducer.token)
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  
+  const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
 
   useEffect(() => {
     dispatch(getQuestions())
   }, [dispatch]);
 
-  const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
-console.log(allQuestions)
+
   return (
     !token ?  <Navigate to="/" replace={true} /> :
     <div className="bg-dark">
@@ -41,7 +43,8 @@ console.log(allQuestions)
           </div>
         </div>
         <div className="col p-1 m-0 ">
-          {allQuestions?.map((e, id) => {
+          {allQuestions[0]?
+          allQuestions.map((e, id) => {
             return (
               <div key={id} className = " colQuestions">
                 <Link to={`/QuestionDetail/${e.id}`}>
@@ -50,7 +53,10 @@ console.log(allQuestions)
               </div>
       
             )
-          })}
+          }) : <div>
+                  <h1 Style="color:White"> Esto no existe </h1>
+               </div>
+         } 
         </div>
       </div>
         <Footer/>
