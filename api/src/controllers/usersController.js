@@ -276,21 +276,15 @@ const updateUser = async (req, res) => {
             newLastName = userExists.lastName
         }
 
-        await User.update({ ...req.body, firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
-
-        const newData = await User.findByPk(userId)
-        const dataToSend = {
-            id: newData.id,
-            userName: newData.userName,
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            email: newData.email,
-            avatar: newData.avatar,
-            active: newData.active,
-            isAdmin: newData.isAdmin,
-            isPremium: newData.isPremium
+        if(req.user.isAdmin === true){
+            await User.update({ ...req.body, firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
+        }else{
+            await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
         }
-        const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
+
+        const newData = await User.findByPk(userId, { attributes: { exclude: ['hashedPassword'] } })
+
+        const token = jwt.sign(newData, AUTH_SECRET, { expiresIn: 86400 })
 
         return res.status(200).json({ data: dataToSend, error: null, token })
 
