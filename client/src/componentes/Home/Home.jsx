@@ -20,7 +20,7 @@ const Home = () => {
   }, [dispatch]);
 
   const allQuestions = useSelector((state) => state.questionReducer.allQuestions.data)
-
+console.log(allQuestions)
   return (
     !token ?  <Navigate to="/" replace={true} /> :
     <div className="bg-dark">

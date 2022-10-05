@@ -36,10 +36,7 @@ const NavBar = () => {
                 </div>
             </div>
             <div className='col  p-0 m-0'>
-                <form className='d-flex'>
-                    <input type="search" placeholder="Search" className='form-control w-50' aria-label="Search" />
-                    <button type="submit" className=' btn btn-light m-1 '>Search</button>
-                </form>
+                <SearchBar/>
             </div>
             <div className='col-1 p-0 m-0 justify-content-end d-flex'>
                 <DropDown />

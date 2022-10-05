@@ -29,7 +29,7 @@ export const AccountRecover = () => {
     }
     return (
         token ? <Navigate to="/home" replace={true} /> :
-            <div className="text-center justify-content-center text-dark bg-white p-5">
+            <div className="text-center justify-content-center text-dark bg-white p-5 rounded">
                 <h3>Recuperar cuenta</h3>
                 <form className="text-center justify-content-center" onSubmit={(e) => handleBackLogin(e)}>
                     <label className="d-block">Ingrese Email</label>

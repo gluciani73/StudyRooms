@@ -41,7 +41,7 @@ export const LandingPage = () => {
   }
   return (
     token ? <Navigate to="/home" replace={true} /> :
-    <div className="text-center justify-content-center text-dark bg-white">
+    <div className="text-center justify-content-center text-dark bg-white p-5 rounded">
       <h2>LogIn</h2>
           <form onSubmit={(e) => handleSubmit(e)} className="text-center ">
           {errorRecover && <p className="alert alert-success">{errorRecover}</p>}

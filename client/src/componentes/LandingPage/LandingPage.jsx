@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { registerOnOff, refreshUserInfo } from '../../Controllers/Actions/loginActions'
 import Register from '../Usuarios/UserForm'
 import jwt_decode from 'jwt-decode'
-import styles from "./navLanding.module.css"
+import './navLanding.css'
 import Footer from "../Footer/Footer";
 import Account from '../Usuarios/AccountRecover'
 
@@ -13,8 +13,8 @@ const LandingPage = () => {
   const dispatch = useDispatch()
   const register = useSelector((state) => state.loginReducer.regisOnOff)
   const tokenData = localStorage.getItem("token") && jwt_decode(localStorage.getItem("token"))
-  const recovery = useSelector( (state) => state.loginReducer.recovery )
-  const acountOrPass = useSelector ( (state) => state.loginReducer.acountOrPass)
+  const recovery = useSelector((state) => state.loginReducer.recovery)
+  const acountOrPass = useSelector((state) => state.loginReducer.acountOrPass)
 
   useEffect(() => {
     dispatch(registerOnOff());
@@ -23,23 +23,31 @@ const LandingPage = () => {
   }, [dispatch])
 
   return (
-    <div className={styles.container} >
+    <div className="containerDv grid">
+      <div className="g-row p-0 m-0 bg-dark rowLoginNav">
+        <div className="g-col p-0 m-0">
+          <NavBarNoLogIn />
+        </div>
+      </div>
 
-      <NavBarNoLogIn />
-
-      <div className={styles.body} >
-
-        {!recovery ?
-          <div className="  w-auto h-50 d-flex m-5 ">
-            {register ? <Login /> : <Register />}
-          </div> :
-          <div className="  w-auto h-50 d-flex m-5 ">
-            <Account/>
-          </div>
-        }
+      <div className="bodyLanding g-row justify-content-center  m-0 p-0 ">
+        <div className="g-col-4 d-flex justify-content-center m-0 p-0">
+          {!recovery ?
+            <div className="  w-auto h-50 d-flex m-5 ">
+              {register ? <Login /> : <Register />}
+            </div> :
+            <div className="  w-auto h-50 d-flex m-5 ">
+              <Account />
+            </div>
+          }
+        </div>
 
       </div>
-      <Footer />
+      <div className="g-row footerLanding bg-dark m-0 p-0">
+        <div className="g-col m-0 p-0">
+          <Footer />
+        </div>
+      </div>
 
     </div>
 
