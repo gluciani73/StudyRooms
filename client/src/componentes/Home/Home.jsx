@@ -54,7 +54,7 @@ const Home = () => {
       
             )
           }) : <div>
-                  <h1 Style="color:White"> Esto no existe </h1>
+                  <h1 Style="color:White"> your search criteria did not match any filters </h1>
                </div>
          } 
         </div>
