@@ -4,6 +4,7 @@ import {getCommentList, deleteCommentItem} from "../../Controllers/Actions/comme
 import './CommentList.css';
 import CommentEdit from "../comments/CommentEdit";
 import CommentCreate from "../comments/CommentCreate";
+import donation from '../../recursos/donation.svg'
 
 export default function CommentList ({questionId}) {
 
@@ -44,8 +45,16 @@ export default function CommentList ({questionId}) {
         return (
             <div className='singleAnswer' key={commentItem.id}>
                 <div className='singleAnswerTitle'>
-                    <h3>Comment from {commentItem.user.userName}</h3>
-                    <p><b>Last update:</b> {commentItem.updatedAt}</p>
+                    <div className="ratingContainer">
+                        <h3>Comment from {commentItem.user.userName}</h3>
+                        {commentItem.user.isPremium && (
+                            <img className='donation' src={donation} alt={"donation"} height="50px"/>
+                        )}
+                    </div>
+
+                    <div className="singleAnswerInfo">
+                        <p><b>Last update:</b> {commentItem.updatedAt}</p>
+                    </div>
                 </div>
                 <p>{commentItem.comment}</p>
                 {userId === commentItem.userId && !(showEditForm && commentEditId === commentItem.id) && (
