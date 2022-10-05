@@ -12,6 +12,7 @@ export default function CommentList ({questionId}) {
     const userId = userInfo.id;
     const dispatch = useDispatch();
     const commentList = useSelector(state => state.commentStore.commentList);
+
     const [showEditForm, setShowEditForm] = useState(false);
     const [commentEditId, setCommentEditId] = useState(null);
 
@@ -79,13 +80,13 @@ export default function CommentList ({questionId}) {
     function renderCommentList() {
         if (commentList.length === 0) {
             return (
-                <div className='questionListContainer'>
+                <div className='questionListContainer container'>
                     <h3>The store is empty...</h3>
                 </div>
             );
         }
         return (
-            <div className='commentListContainer'>
+            <div className='commentListContainer container'>
                 <h2>Comment list</h2>
                 {commentList.map(item => renderCommentItem(item))}
             </div>

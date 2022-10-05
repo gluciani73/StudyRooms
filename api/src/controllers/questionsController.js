@@ -1,4 +1,4 @@
-const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion } = require('../db.js');
+const { Question, Category, User, Answer, Review, Votesxquestion, Ratingxquestion, Comment} = require('../db.js');
 const { Op, Sequelize } = require('sequelize');
 
 const getRatingSumQuestions = (questionId) => Ratingxquestion.findOne({
@@ -56,7 +56,18 @@ const getQuestion = async (req, res) => {
                             model: Votesxquestion
                         },
                         {
-                            model: Answer
+                            model: Answer,
+                            include:[{
+                                model: User,
+                                attributes: { exclude: ['hashedPassword'] }
+                            }]
+                        },
+                        {
+                            model: Comment,
+                            include:[{
+                                model: User,
+                                attributes: { exclude: ['hashedPassword'] }
+                            }]
                         },
                         {
                             model: Category
@@ -395,7 +406,7 @@ const rateQuestion = async (req, res) => {
     }
 }
 
-const getRatingList = async (req, res) => {
+const getRatingListQ = async (req, res) => {
     const { userId } = req.params;
     try {
 
@@ -433,7 +444,7 @@ function queryRatingList(userId) {
 }
 
 
-module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions }
+module.exports = { createQuestion, updateQuestion, getQuestions, getQuestion, deleteQuestion, viewQuestion, likeQuestion, unlikeQuestion, logDelete, rateQuestion, getQuestionsByUser, getAllQuestions, viewQuestion, getDeletedQuestions, getRatingListQ }
 
 
 

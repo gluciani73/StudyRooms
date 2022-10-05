@@ -107,7 +107,7 @@ export default function UserList() {
 
     function renderUserItem(userItem) {
         return (
-            <div className='singleAnswer' key={userItem.id}>
+            <div className='singleAnswer bg-dark text-white' key={userItem.id}>
                 <div className="singleUserTitle">
                     <h3>{userItem.userName}</h3>
                     <img className='avatar' src={userItem.avatar} alt={userItem.userName}/>

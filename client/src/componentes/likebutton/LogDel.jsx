@@ -24,14 +24,23 @@ const LogDel = () => {
                 text: `You can't delete other user's quetions.`
             });
         }else{
-            dispatch(logDelete(id))
-            setInput({
-                active:false
-            })
-            navigate('../home')
+            sweetalert({
+                title:"Action confirmation",
+                text: "Do your really want to delete your answer?",
+                icon: "warning",
+                buttons: ["Cancel", "Delete"],
+                dangerMode: true,
+            }).then(value => {
+                if(value) {
+                    dispatch(logDelete(id))
+                    setInput({
+                        active:false
+                    })
+                    navigate('../home')
+                }})
+           
         }
-        }
-
+    }
    
         return (<div>
 

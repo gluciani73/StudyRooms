@@ -266,13 +266,13 @@ export default function AnswerList ({questionId}) {
     function renderAnswerList() {
         if (!answerList || answerList.length === 0) {
             return (
-                <div className='answerListContainer'>
+                <div className='answerListContainer container'>
                     <h3>Be the first one to add an answer to this question...</h3>
                 </div>
             );
         }
         return (
-            <div className='answerListContainer'>
+            <div className='answerListContainer container'>
                 <div className="singleAnswerTitle">
                     <h2>Answer List</h2>
                     <div className='filterSelect'>

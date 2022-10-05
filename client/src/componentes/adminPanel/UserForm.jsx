@@ -155,7 +155,9 @@ export default function UserForm({userInitial, buttonText, buttonAction, buttonC
             validateFirstName() &&
             validateLastName() &&
             validateEmail() &&
-            validateUrl()
+            validateUrl() &&
+            validatePassword() &&
+            validatePassConfirm()
         ) {
             return;
         }
