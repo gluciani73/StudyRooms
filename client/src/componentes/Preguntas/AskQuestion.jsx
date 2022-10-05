@@ -150,10 +150,21 @@ const AskQuestion = (likes) => {
                             })}
                         </select>
                     </div >
+                    
+                    <div className="d-grip gap-2 align-item-center">
+                        <button type="submit" className="btn bg-white mb-5"  >Submit</button>
+                    </div>
+                    
+                    
                             <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
                     
+
                     
-<div className="container"></div>
+
+
+                    </form>
+              
+                    <div className="container"></div>
                     <div className="d-inline-flex">
                         {input.categories.map((e,index)=>
                         <div key={index} className="m-auto btn">
@@ -161,13 +172,7 @@ const AskQuestion = (likes) => {
                             {console.log(e)}
                         </div>
                         )}
-                    </div>
-
-                    </form>
-              
-                    <div className="d-grip gap-2 align-item-center">
-                        <button type="submit" className="btn bg-white mb-5"  >Submit</button>
-                    </div>
+                    </div>         
 
                     <span className="h-100"> </span>
                 </div>
