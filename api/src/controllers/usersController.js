@@ -90,7 +90,8 @@ const signIn = async (req, res) => {
                     email: userFound.email,
                     avatar: userFound.avatar,
                     active: userFound.active,
-                    isAdmin: userFound.isAdmin
+                    isAdmin: userFound.isAdmin,
+                    isPremium: userFound.isPremium
                 }
                 const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
                 return res.status(200).json({ data: dataToSend, error: null, token })
@@ -282,9 +283,14 @@ const updateUser = async (req, res) => {
             newLastName = userExists.lastName
         }
 
-        await User.update({ ...req.body, firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
+        if(userFromRequest.isAdmin === true){
+            await User.update({ ...req.body, firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
+        }else{
+            await User.update({ firstName: newFirstName, lastName: newLastName, avatar: newAvatar }, { where: { id: userId } })
+        }
 
         const newData = await User.findByPk(userId)
+
         const dataToSend = {
             id: newData.id,
             userName: newData.userName,
@@ -296,6 +302,7 @@ const updateUser = async (req, res) => {
             isAdmin: newData.isAdmin,
             isPremium: newData.isPremium
         }
+
         const token = jwt.sign(dataToSend, AUTH_SECRET, { expiresIn: 86400 })
 
         return res.status(200).json({ data: dataToSend, error: null, token })
