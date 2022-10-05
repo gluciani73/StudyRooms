@@ -70,7 +70,7 @@ const EditPassword = ()=>{
                         {changePassword1 && <p className="alert alert-success">{changePassword1}</p>}
                         <label htmlFor="password">Password</label>          
                         {errorLog && <p className="alert alert-danger">{errorLog}</p>}           
-                        <input className='d-block  m-1 border-0 form-control' type="password" autoComplete='off'  value={newPassword.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block mt-3  m-1 border-0 form-control' type="password" autoComplete='off'  value={newPassword.password} name='password' id='password' placeholder='Password'  onChange={(e)=>handleChange(e)} required/>
                        
                     </div>
 
@@ -78,14 +78,14 @@ const EditPassword = ()=>{
                     <div>                     
                         <label htmlFor="newPassword"> New Password</label>    
                         {formError.newPassword && <p className="alert alert-danger">{formError.newPassword}</p>}            
-                        <input className='d-block  m-1 border-0 form-control' value={newPassword.newPassword} type="password" autoComplete='off'  placeholder='New Password' id='newPassword' name='newPassword' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block mt-3 m-1 border-0 form-control' value={newPassword.newPassword} type="password" autoComplete='off'  placeholder='New Password' id='newPassword' name='newPassword' onChange={(e)=>handleChange(e)} required/>
                     </div>
 
                     
                     <div>                     
                         <label htmlFor="ConfirmPassword">Confirm Password</label>  
                         {formError.ConfirmPassword && <p className="alert alert-danger">{formError.ConfirmPassword}</p>}              
-                        <input className='d-block  m-1 border-0 form-control' value={newPassword.ConfirmPassword} type="password" autoComplete='off' placeholder='Confirm Password' id='ConfirmPassword' name='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
+                        <input className='d-block mt-3  m-1 border-0 form-control' value={newPassword.ConfirmPassword} type="password" autoComplete='off' placeholder='Confirm Password' id='ConfirmPassword' name='ConfirmPassword' onChange={(e)=>handleChange(e)} required/>
                     </div>
 
                     <button type='submit'>Save</button>
