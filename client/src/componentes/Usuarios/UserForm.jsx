@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import sweetalert from 'sweetalert'
 import axios from 'axios'
 
+
 export default function CreateUser(){
     const dispatch =useDispatch();
     const errorLog = useSelector((state) => state.userReducer.error)
@@ -27,6 +28,7 @@ export default function CreateUser(){
 
 
    const [checked, setChecked] = useState(false);
+
 
     const uploadImage = async (e) =>{
         try {
@@ -52,7 +54,7 @@ export default function CreateUser(){
         setChecked(!checked)
     }
 
-   
+  
 
     function handleChange(e){
         setNewUser({
@@ -191,23 +193,27 @@ export default function CreateUser(){
 
                     <div>
                        
-                        <label htmlFor="password">Password</label>                     
+                        <label htmlFor="password">Password</label> 
+                           
+                     
                         <input pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{7,16}$" 
                         title="La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico." 
-                        className='d-block  m-1 border-1 form-control' 
+                        className='d-block mt-3 m-1 border-1 form-control' 
                         type="password"  
                         value={newUser.password} 
                         name='password' 
                         id='password' 
                         placeholder='Password'  
                         onChange={(e)=>handleChange(e)} 
-                        required/>                    
+                        required/>  
+                   
+                               
                     </div>
 
                     <div>
                        
                         <label htmlFor="ConfirmPassword">Confirm Password</label>
-                        <input className='d-block  m-1 border-1 form-control' 
+                        <input className='d-block mt-3  m-1 border-1 form-control' 
                         type="password"  
                         value={newUser.ConfirmPassword} 
                         name='ConfirmPassword' 
