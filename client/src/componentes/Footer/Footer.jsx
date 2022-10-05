@@ -6,7 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 
 const Footer = ()=>{
     return(
-        <div className="fixed-bottom">
+        <div className="">
             <footer className="text-white py-4  bg-dark">
                 <div className="container">
                     <nav className="nav d-flex justify-content-between">
