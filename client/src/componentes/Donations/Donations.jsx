@@ -4,7 +4,7 @@ import { Elements, CardElement, useStripe, useElements } from "@stripe/react-str
 import axios from "axios"
 import NavBar from "../NavBar/NavBar"
 import { useNavigate } from "react-router-dom"
-import "./Donations.css"
+import Footer from "../Footer/Footer";
 
 const stripePromise = loadStripe("pk_test_51LhhasEmp5dtE89LxdcOsJb9GWkTB6Zjcq9fl5Igf3CcmhwJs01BuokKEfJnF9LTbhSRjSyBoweMaUvMtBW3ZlWO00R9ldzf45")
 
@@ -55,9 +55,9 @@ const CheckoutForm = () => {
             <form onSubmit={handleSubmit}>
                 <CardElement />
                 <div className="inputs">
-                    <input className="form-control" type="number" value={cantidad} onChange={e => handleChange(e)} placeholder="Cantidad a donar! (dolares)"></input>
+                    <input className="form-control" type="number" value={cantidad} onChange={e => handleChange(e)} placeholder="Donation Amount (dollars)"></input>
                     <button className="btn btn-primary rounded-pill">
-                        Donar!
+                        Donate!
                     </button>
                 </div>
             </form>
@@ -68,14 +68,22 @@ const Donations = () => {
     return (
         <div>
             <NavBar />
-            <div className="Donaciones">
-                <div className="BackgroundText">
-                    <h1>Gracias por tu donacion, <small className="text-muted">Tu donacion sera utilizada para mejorar la calidad y servicios de la pagina web</small></h1>
-                    <Elements stripe={stripePromise}>
+            <div className="Donaciones text-center bg-black">
+                
+                <div className="container bg-dark text-center">
+                    <h1 className="text-danger my-2">WARNING!</h1>
+                    <h4 className="text-white my-2"> making a donation may cause the following side effects:</h4>
+                    <p className="text-warning">increased sexyness</p>
+                    <p className="text-warning">feeding hungry developers in 3rd world countries</p>
+                    <p className="text-warning">increased quality in this website</p>
+                    <p className="text-warning">better functions</p>
+                    <p className="text-warning">your father may come back home and tell you that he's proud</p>
+                    <Elements  stripe={stripePromise}>
                         <CheckoutForm />
                     </Elements>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }
