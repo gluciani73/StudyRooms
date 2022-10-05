@@ -18,10 +18,8 @@ export default function CommentList ({questionId}) {
     const [commentEditId, setCommentEditId] = useState(null);
 
     useEffect(() => {
-        if (commentList.length === 0) {
-            dispatch(getCommentList(questionId));
-        }
-    }, [dispatch, questionId, commentList.length]);
+        dispatch(getCommentList(questionId));
+    }, [dispatch, questionId]);
 
     function handleShowEditForm(commentId) {
         setCommentEditId(commentId);
