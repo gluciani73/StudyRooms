@@ -1,20 +1,20 @@
-import React,{useState,useEffect} from "react";
-import {addQuestions, getQuestions, getCategories} from "../../Controllers/Actions/questionsActions"
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { addQuestions, getQuestions, getCategories } from "../../Controllers/Actions/questionsActions"
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from '../NavBar/NavBar'
 import { useNavigate } from "react-router-dom";
 import Footer from '../Footer/Footer'
 
-function validate(input){
-    let errors={};
-    if(!input.title){
+function validate(input) {
+    let errors = {};
+    if (!input.title) {
         errors.title = "write a title to your question, to help find it"
     }
-    if(!input.description){
+    if (!input.description) {
         errors.description = "write a detailed description of your question"
     }
-    if(!input.category){
-        errors.categories="select at least 1 category"
+    if (!input.category) {
+        errors.categories = "select at least 1 category"
     }
     return errors;
 }
@@ -22,57 +22,57 @@ function validate(input){
 
 const AskQuestion = (likes) => {
     const navigate = useNavigate()
-    const userInfo = useSelector((state)=> state.loginReducer.userInfo);
-    const dispatch= useDispatch()
-    const [input,setInput]=useState({
-        userId:userInfo.id,
-        title:"",
-        description:"",
-        categories:[],
+    const userInfo = useSelector((state) => state.loginReducer.userInfo);
+    const dispatch = useDispatch()
+    const [input, setInput] = useState({
+        userId: userInfo.id,
+        title: "",
+        description: "",
+        categories: [],
     });
-    const [errors,setErrors] = useState({})
+    const [errors, setErrors] = useState({})
 
-    const allCategories = useSelector((state)=> state.questionReducer.categories.data)
-    useEffect(()=>{
+    const allCategories = useSelector((state) => state.questionReducer.categories.data)
+    useEffect(() => {
         dispatch(getCategories())
-    },[dispatch])
-    
+    }, [dispatch])
+
     const data = allCategories?.map(e => e.category)
-    const sortCategories = data?.sort(function(a,b){
-        if(a < b){
+    const sortCategories = data?.sort(function (a, b) {
+        if (a < b) {
             return -1
         }
-        if(b < a){
+        if (b < a) {
             return 1
         }
         return 0
     })
 
-     function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault();
         dispatch(addQuestions(input))
         alert("Create Question")
         setInput({
-            userId:userInfo.id,
-            title:"",
-            description:"",
-            categories:[]
+            userId: userInfo.id,
+            title: "",
+            description: "",
+            categories: []
         })
-        navigate('/home')
-        }
+        navigate('/Home')
+    }
 
-     function handleChange(e){
+    function handleChange(e) {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         })
-     
+
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
         }
         ));
-        
+
     }
 
     // function handleCheck(e){
@@ -88,15 +88,15 @@ const AskQuestion = (likes) => {
     //         ));
     //     }
     // }
-    function handleSelect(e){
+    function handleSelect(e) {
         setInput({
             ...input,
-            categories:[...new Set([...input.categories, e.target.value])],
+            categories: [...new Set([...input.categories, e.target.value])],
         })
     }
 
 
-    function handleDelete(e){
+    function handleDelete(e) {
         setInput({
             ...input, // se trae el estado anterior
             categories: input.categories.filter(occ => occ !== e)
@@ -104,85 +104,85 @@ const AskQuestion = (likes) => {
     }
 
 
-     useEffect(()=>{
+    useEffect(() => {
         dispatch(getQuestions())
-     },[dispatch])
+    }, [dispatch])
 
     return (
         <div className="bg-dark text-white" >
-            <Navbar/>
-                <div className="container h-100 bg-dark border text-white">
-                    <h2 className=" fs-2 text-center pt-2"> Make a Question for our community </h2>
-                    
-                    <form  className="container-fluid mb-5" onSubmit={(e)=>handleSubmit(e)}>
-                        <div className="mb-4 container">
-                        <label  className="form-label fs-2 ">Title</label>
-                        <input type="text" 
-                        id='form title'
-                        className="form-control m-0 p-0" 
-                        required value={input.name}
-                        name="title" 
-                        onChange={(e)=>handleChange(e)}
+            <Navbar />
+            <div className="container h-100 bg-dark border text-white">
+                <h2 className=" fs-2 text-center pt-2"> Make a Question for our community </h2>
+
+                <form className="container-fluid mb-5" onSubmit={(e) => handleSubmit(e)}>
+                    <div className="mb-4 container">
+                        <label className="form-label fs-2 ">Title</label>
+                        <input type="text"
+                            id='form title'
+                            className="form-control m-0 p-0"
+                            required value={input.name}
+                            name="title"
+                            onChange={(e) => handleChange(e)}
                         />
                         {errors.title && (<p className="error">{errors.name}
                         </p>)}
                         <div className="form-text">External display for your question, make it short but intresting!</div>
                     </div>
                     <div className="mb-5 container">
-                        <label  className="form-label fs-3">Description</label>
-                        <textarea type="text" 
-                        className="form-control"
-                        name="description" 
-                        value={input.description} 
-                        onChange={(e)=>handleChange(e)}
-                       />
+                        <label className="form-label fs-3">Description</label>
+                        <textarea type="text"
+                            className="form-control"
+                            name="description"
+                            value={input.description}
+                            onChange={(e) => handleChange(e)}
+                        />
                         {errors.description && (<p className="error">{errors.description}</p>)}
-                        <div  className="form-text">Be as clear and specific as you can!</div>
+                        <div className="form-text">Be as clear and specific as you can!</div>
                     </div>
 
                     <h4 className='m-3'>select subject categories for your questions</h4>
                     <div>
-                        <select className='m-3' onChange={(e)=>handleSelect(e)}>
-                            {sortCategories?.map((e)=>{
-                                return(
+                        <select className='m-3' onChange={(e) => handleSelect(e)}>
+                            {sortCategories?.map((e) => {
+                                return (
                                     <option key={e} value={e}>{e}</option>
                                 )
                             })}
                         </select>
                     </div >
-                    
+
                     <div className="d-grip gap-2 align-item-center">
                         <button type="submit" className="btn bg-white mb-5"  >Submit</button>
                     </div>
-                    
-                    
-                            <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
-                    
-
-                    
 
 
-                    </form>
-              
-                    <div className="container"></div>
-                    <div className="d-inline-flex">
-                        {input.categories.map((e,index)=>
+                    <h6 className='m-3'>click on the subjet classifications to delete from the question</h6>
+
+
+
+
+
+                </form>
+
+                <div className="container"></div>
+                <div className="d-inline-flex">
+                    {input.categories.map((e, index) =>
                         <div key={index} className="m-auto btn">
-                            <button className="my-5 btn bg-white" onClick={()=>handleDelete(e)}>{e}</button>
+                            <button className="my-5 btn bg-white" onClick={() => handleDelete(e)}>{e}</button>
                             {console.log(e)}
                         </div>
-                        )}
-                    </div>         
-
-                    <span className="h-100"> </span>
+                    )}
                 </div>
 
-              
+                <span className="h-100"> </span>
+            </div>
 
-                <Footer/>
+
+
+            <Footer />
         </div>
-      );
-      
+    );
+
 }
- 
+
 export default AskQuestion;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { backLogin, recoveryChange, registerOnOff} from '../../Controllers/Actions/loginActions'
+import { backLogin, recoveryChange, registerOnOff } from '../../Controllers/Actions/loginActions'
 import { Navigate } from "react-router-dom";
 
 import "../../CssAdicional/Home.css"
@@ -16,7 +16,7 @@ export const AccountRecover = () => {
     const [emailRecover, setEmailRecover] = useState({
         email: ""
     })
-    function handleBack(){
+    function handleBack() {
         dispatch(recoveryChange(false, false))
         dispatch(registerOnOff())
 
@@ -25,10 +25,10 @@ export const AccountRecover = () => {
     function handleBackLogin(e) {
         e.preventDefault()
         dispatch(backLogin(emailRecover))
-        
+
     }
     return (
-        token ? <Navigate to="/home" replace={true} /> :
+        token ? <Navigate to="/Home" replace={true} /> :
             <div className="text-center justify-content-center text-dark bg-white p-5 rounded">
                 <h3>Recuperar cuenta</h3>
                 <form className="text-center justify-content-center" onSubmit={(e) => handleBackLogin(e)}>
