@@ -38,10 +38,10 @@ const searchQuestion = async (req, res) => {
             }
             return res.status(200).json({ error: null, data: resultQuestion })
         }
-        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+        return res.status(200).json({ error: null, data: [] })
     } catch (error) {
         // console.log('El error es: ', error)
-        return res.status(500).json({ error: "falla el searchQuestion ", data: null })
+        return res.status(500).json({ error: "falla el searchQuestion ", data: [] })
     }
 }
 
@@ -68,9 +68,9 @@ const searchAnswer = async (req, res) => {
             }
             return res.status(200).json({ error: null, data: resultAnswer })
         }
-        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+        return res.status(200).json({ error: null, data: [] })
     } catch (error) {
-        return res.status(500).json({ error: "falla el searchQuestion ", data: null })
+        return res.status(500).json({ error: "falla el searchQuestion ", data: [] })
     }
 }
 
@@ -113,14 +113,14 @@ const searchQA = async (req, res) => {
             if (!resultQuestion.length && !resultAnswer.length) {
                 return res
                     .status(404)
-                    .json({ error: "No se encuentran resultdos para la busqueda", data: [] })
+                    .json({ error: "No se encuentran resultdos para la busqueda", data: {preguntas:[],respuestas:[]} })
             }
             let result = { questions: resultQuestion, answers: resultAnswer }
             return res.status(200).json({ error: null, data: result })
         }
-        return res.status(200).json({ error: null, data: "No ha ingresado texto de busqueda" })
+        return res.status(200).json({ error: null, data: {preguntas:[],respuestas:[]} })
     } catch (error) {
-        return res.status(500).json({ error: "error en searchQA ", data: null })
+        return res.status(500).json({ error: "error en searchQA ", data: {preguntas:[],respuestas:[]} })
     }
 }
 

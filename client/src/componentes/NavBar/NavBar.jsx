@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import 'bootstrap'
 import logo from '../../recursos/logo2.png'
 import DropDown from './DropDown'
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 const NavBar = () => {
 
     const userInfo = useSelector(state => state.loginReducer.userInfo);
+    const dir = useLocation()
 
     return (
         <nav className='customNavbar d-flex bg-dark justify-content-center m-0 p-0'>
@@ -36,7 +37,7 @@ const NavBar = () => {
                 </div>
             </div>
             <div className='col  p-0 m-0'>
-                <SearchBar/>
+            {dir.pathname === "/Home" && <SearchBar/>}
             </div>
             <div className='col-1 p-0 m-0 justify-content-end d-flex'>
                 <DropDown />
