@@ -38,7 +38,9 @@ const CheckoutForm = () => {
                 },
                     { headers: { "Authorization": `Bearer ${token}` } })
 
-                localStorage.setItem('token', data.token)
+                if(data.token !== undefined && data.token.length > 0){
+                    localStorage.setItem('token', data.token)
+                }
 
                 const errorData = Object.entries(data)
                 const errorAlert = errorData[0].toString().slice(8)
