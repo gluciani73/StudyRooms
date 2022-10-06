@@ -38,13 +38,13 @@ const CheckoutForm = () => {
                 },
                     { headers: { "Authorization": `Bearer ${token}` } })
 
-                    localStorage.setItem('token', data.token)
+                localStorage.setItem('token', data.token)
 
                 const errorData = Object.entries(data)
                 const errorAlert = errorData[0].toString().slice(8)
                 alert(errorAlert)
                 element.getElement(CardElement).clear()
-                history("/home")
+                history("/Home")
             } catch (error) {
                 console.log(error)
             }
@@ -70,7 +70,7 @@ const Donations = () => {
         <div>
             <NavBar />
             <div className="Donaciones text-center bg-black">
-                
+
                 <div className="container bg-dark text-center">
                     <h1 className="text-danger my-2">WARNING!</h1>
                     <h4 className="text-white my-2"> making a donation may cause the following side effects:</h4>
@@ -79,12 +79,12 @@ const Donations = () => {
                     <p className="text-warning">increased quality in this website</p>
                     <p className="text-warning">better functions</p>
                     <p className="text-warning">your father may come back home and tell you that he's proud</p>
-                    <Elements  stripe={stripePromise}>
+                    <Elements stripe={stripePromise}>
                         <CheckoutForm />
                     </Elements>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

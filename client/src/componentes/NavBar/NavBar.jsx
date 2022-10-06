@@ -17,8 +17,8 @@ const NavBar = () => {
             <div className='col-3 p-0 m-0'>
                 <div className='row  p-0 m-0 justify-content-center'>
                     <div className='col d-flex justify-content-center'>
-                        <Link to='/home'>
-                        <img src={logo} height="50px" alt="logo" />
+                        <Link to='/Home'>
+                            <img src={logo} height="50px" alt="logo" />
                         </Link>
                     </div>
                 </div>
@@ -26,8 +26,8 @@ const NavBar = () => {
             <div className='col p-0 m-0'>
                 <div role="group" aria-label="Basic example" className=' d-flex'>
                     <Link to="/Home"><button type="button" className="btn btn-light m-1" >Home</button></Link>
-                    <Link to="/AskQuestion"><button type="button"  className="btn btn-light m-1 " >Ask Question</button></Link>
-                    <Link to="/Donations"><button type="button"  className="btn btn-light m-1" > Donate</button></Link>
+                    <Link to="/AskQuestion"><button type="button" className="btn btn-light m-1 " >Ask Question</button></Link>
+                    <Link to="/Donations"><button type="button" className="btn btn-light m-1" > Donate</button></Link>
                     {userInfo && userInfo.isAdmin && (
                         <>
                             <Link to="/admin-panel"><button type="button" className="btn btn-danger m-1">Users</button></Link>
@@ -37,7 +37,7 @@ const NavBar = () => {
                 </div>
             </div>
             <div className='col  p-0 m-0'>
-            {dir.pathname === "/Home" && <SearchBar/>}
+                {dir.pathname === "/Home" && <SearchBar />}
             </div>
             <div className='col-1 p-0 m-0 justify-content-end d-flex'>
                 <DropDown />
