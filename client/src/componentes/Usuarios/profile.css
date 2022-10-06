@@ -1,6 +1,7 @@
 .h3Style{
-    font-size: 80px;
-    background: linear-gradient(295deg, rgb(252, 115, 233) 0%, rgb(139, 102, 241) 100%);
+    font-size: 90px;
+    background: linear-gradient(295deg, rgb(255, 0, 0) 0%, rgb(227, 202, 39) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: rgba(255,162,0,1) 0px 0px 54px;
 }
