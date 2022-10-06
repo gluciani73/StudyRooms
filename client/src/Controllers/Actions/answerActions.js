@@ -12,9 +12,9 @@ export const GET_RATING_LIST = "GET_RATING_LIST";
 export const GET_VOTING_LIST = "GET_VOTING_LIST";
 
 export const getAnswerList = (questionId) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.get(`/answers/${questionId}`, {headers:{"Authorization":`Bearer ${token}`}})
+        await  axios.get(`/answers/${questionId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getAnswerList:", error))
             .then(response => {
                 dispatch({
@@ -26,9 +26,9 @@ export const getAnswerList = (questionId) => {
 }
 
 export const createAnswerItem = (answerItem) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.post(`/answers`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.post(`/answers`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
 
             .catch(error => console.log("Action creator createAnswerItem: ", error))
             .then(response => {
@@ -41,9 +41,9 @@ export const createAnswerItem = (answerItem) => {
 }
 
 export const updateAnswerItem = (answerItem) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.put(`/answers/${answerItem.id}`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.put(`/answers/${answerItem.id}`, answerItem, {headers:{"Authorization":`Bearer ${token}`}})
 
             .catch(error => console.log("Action creator updateAnswerItem: ", error))
             .then(response => {
@@ -56,9 +56,9 @@ export const updateAnswerItem = (answerItem) => {
 }
 
 export const deleteAnswerItem = (answerItem) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.delete(`/answers/${answerItem.id}`, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.delete(`/answers/${answerItem.id}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator deleteAnswerItem: ", error))
             .then(() => {
                 dispatch({
@@ -70,9 +70,9 @@ export const deleteAnswerItem = (answerItem) => {
 }
 
 export const updateAnswerVote = (voteInfo) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.post(`/answers/vote/${voteInfo.answerId}`, voteInfo, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerVote: ", error))
             .then(response => {
                 dispatch({
@@ -87,9 +87,9 @@ export const updateAnswerVote = (voteInfo) => {
 }
 
 export const deleteAnswerVote = (voteInfo) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.delete(`/answers/${voteInfo.answerId}/vote/${voteInfo.userId}`, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.delete(`/answers/${voteInfo.answerId}/vote/${voteInfo.userId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerVote: ", error))
             .then(response => {
                 dispatch({
@@ -111,9 +111,9 @@ export const sortAnswerList = (sortOption) => {
 }
 
 export const updateAnswerRating = (ratingInfo) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.put(`/answers/rating/${ratingInfo.answerId}`, ratingInfo, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator updateAnswerRating: ", error))
             .then((response) => {
                 dispatch({
@@ -125,9 +125,9 @@ export const updateAnswerRating = (ratingInfo) => {
 }
 
 export const getRatingList = (userId, questionId) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.get(`/answers/${questionId}/rating/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.get(`/answers/${questionId}/rating/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getRatingList: ", error))
             .then((response) => {
                 dispatch({
@@ -139,9 +139,9 @@ export const getRatingList = (userId, questionId) => {
 }
 
 export const getVotingList = (userId, questionId) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         const token = localStorage.getItem("token")
-        axios.get(`/answers/${questionId}/voting/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
+        await axios.get(`/answers/${questionId}/voting/${userId}`, {headers:{"Authorization":`Bearer ${token}`}})
             .catch(error => console.log("Action creator getVotingList: ", error))
             .then((response) => {
                 dispatch({

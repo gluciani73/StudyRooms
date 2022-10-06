@@ -46,7 +46,7 @@ export default function AnswerList ({questionId}) {
         if (questionId) {
             dispatch(getAnswerList(questionId));
         }
-    }, [dispatch, questionId, answerList]);
+    }, [dispatch, questionId]);
 
     useEffect(() => {
         if (userId && questionId && !ratingList) {
