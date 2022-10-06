@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import EditProfile from "./EditarPerfil";
 import EditPassword from "./EditPassword";
+import "./profile.css"
 
 
 
@@ -27,22 +28,16 @@ export default function ProfileUser(){
         width:"100px"
         
       };
-      const mystylePremium = {
-        borderRadius: "1000px",
-        backgroundColor: "DodgerBlue",
-        padding: "5px",
-        width:"100px"
-        
-      };
+    
 
     return(
         <div className="bg-dark text-white">
         <NavBar/>
             <div className="container border text-center my-1">
                 <h2 className="my-3">My Profile</h2>
-                <figure><img src={userInfo?.avatar} alt="avatar" style={mystyle} />{userInfo.isPremium === true ? "es premium" : null}</figure>
+                <figure><img src={userInfo?.avatar} alt="avatar" style={mystyle} /></figure>
                 <div>
-                {userInfo.isPremium === true ? <h3 style={mystylePremium}> {userInfo?.userName}</h3> :  <h3>NickName: {userInfo?.userName}</h3>}
+                {userInfo.isPremium === true ? <h3 className="h3Style"> {userInfo?.userName}</h3> :  <h3>NickName: {userInfo?.userName}</h3>}
                     <h3>Name: {userInfo?.firstName}</h3>
                     <h3>Last Name: {userInfo?.lastName}</h3>
                     <h3>Email: {userInfo?.email}</h3>
