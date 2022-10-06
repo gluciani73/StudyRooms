@@ -46,7 +46,8 @@ const EditPassword = ()=>{
     function handleSubmit(e){
         e.preventDefault()
        
-        if(formError.newPassword === undefined && newPassword.newPassword !== newPassword.password && newPassword.newPassword === newPassword.ConfirmPassword){
+        if(formError.newPassword === undefined && newPassword.newPassword !== newPassword.password && newPassword.newPassword === newPassword.ConfirmPassword && changePassword1.length < 1){
+            
             dispatch(changePassword(newPassword, userId))
         }else{
             alert("error");
