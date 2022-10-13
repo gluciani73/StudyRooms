@@ -77,9 +77,10 @@ se realizan 3 procesos para la validación de cierre
 
 Hoshin de paginas:
 lleva el cruce de objetivos tech por componente web
-
+![alt text](https://github.com/gluciani73/StudyRooms/blob/develop/client/public/hoshin.png)
 gemba:
 se camina la pagina completa para detectar errores y problemas mientras se practica la presentación final
 
 Levante y cierre de problematicas:
 se realiza una lista de problematicas detectadas y se resuelven por el grupo
+![alt text](https://github.com/gluciani73/StudyRooms/blob/develop/client/public/validacioncierre.png)
