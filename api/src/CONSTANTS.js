@@ -1,6 +1,6 @@
 const CLIENT_ID = "924880684322-sm1pdikriuvgdqf3b57vsi8omr88kp3b.apps.googleusercontent.com"
 const CLIENT_SECRET = "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"
-const REFRESH_TOKEN = "1//04NxJ29i7OIsfCgYIARAAGAQSNwF-L9IrYtYIsYeLbRcqTByHsmDSBHnyApOmVheubQY3NzaHTjGC6VOV5MI6QyVQFem9ta-rooQ"
+const REFRESH_TOKEN = "1//04KJdrdc2BxeqCgYIARAAGAQSNwF-L9IrPksf49ZWK7dxfKkrkLxIJV7QvQdslDLkW4iJ7oGzwJ4hkNo2sjk-SssFm_m0z5LjR4Q"
 const AUTH_SECRET = process.env.AUTH_SECRET || "Secret!"
 const ACTIVATION_SECRET = process.env.ACTIVATION_SECRET || "ActivationSecret!"
 const RECOVERY_SECRET = process.env.RECOVERY_SECRET || "RecoverySecret!"
