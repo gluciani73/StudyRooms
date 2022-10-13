@@ -29,13 +29,13 @@ se cuenta con 4 semanas, del 6 de septiembre al 6 de octubre de 2022
 
 Equipo:
 
-Laura Juliana Ortega / Colombia
-David Bernardo Gonzalez / México
-Rodrigo Ezequiel Yafar / Argentina
-Yossef Jesús Hernández / México
-Rodrigo Rimbau / Argentina
-Guillermo Luciani. / Argentina
-Francisco Frasconá / Argentina
+Laura Juliana Ortega / Colombia, 
+David Bernardo Gonzalez / México, 
+Rodrigo Ezequiel Yafar / Argentina, 
+Yossef Jesús Hernández / México, 
+Rodrigo Rimbau / Argentina, 
+Guillermo Luciani. / Argentina, 
+Francisco Frasconá / Argentina, 
 Veronica Valdivia / Estados Unidos
 
 Metodología:
